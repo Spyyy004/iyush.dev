@@ -81,6 +81,102 @@
   --card-glow: 0.75;
 }
 
+/* ============================================================
+   DICE THEMES — the 🎲 button cycles through these.
+   Each is a complete variable set so every component stays intentional.
+   Status colors stay semantically distinct (live / deploy / acquired / archived).
+   ============================================================ */
+
+/* One Piece — deep Grand Line ocean, straw-hat gold + red */
+[data-theme="onepiece"] {
+  --bg: #0A1A2B; --bg-grid: rgba(242,183,5,0.03);
+  --surface: #10233A; --surface-2: #16304D;
+  --border: #1E3A57; --border-bright: #2E4E70;
+  --text: #F4EAD2; --muted: #7C93AB; --muted-bright: #Aec3d8;
+  --live: #35C46A; --deploy: #F2B705; --acquired: #E8322F; --archived: #5C7690;
+  --bar-bg: rgba(10,26,43,0.78);
+  --terminal-grad-a: #10233A; --terminal-grad-b: #0A1A2B;
+  --terminal-shadow: 0 24px 60px -30px rgba(0,0,0,0.8);
+  --chrome-dot: #274763;
+  --pulse-ring: rgba(53,196,106,0.5); --pulse-ring-a: rgba(242,183,5,0.5);
+  --sel-bg: rgba(242,183,5,0.28); --sel-fg: #0A1A2B;
+  --chip-bg: #16304D; --code-bg: #081521;
+  --cmdbar-bg: rgba(10,26,43,0.85); --cmdbar-shadow: 0 16px 40px -18px rgba(0,0,0,0.85);
+  --sdot-glow: 8px; --card-glow: 0.9;
+}
+
+/* Matrix — phosphor green on black, CRT energy */
+[data-theme="matrix"] {
+  --bg: #000A02; --bg-grid: rgba(0,255,70,0.035);
+  --surface: #02140A; --surface-2: #041F0E;
+  --border: #0A3A18; --border-bright: #125A26;
+  --text: #B9FFC6; --muted: #2E8A3F; --muted-bright: #57C06A;
+  --live: #39FF14; --deploy: #B6FF3A; --acquired: #63FFB0; --archived: #2E8A3F;
+  --bar-bg: rgba(0,10,2,0.8);
+  --terminal-grad-a: #02140A; --terminal-grad-b: #000A02;
+  --terminal-shadow: 0 24px 60px -30px rgba(0,0,0,0.9);
+  --chrome-dot: #0F4A20;
+  --pulse-ring: rgba(57,255,20,0.5); --pulse-ring-a: rgba(182,255,58,0.5);
+  --sel-bg: rgba(57,255,20,0.3); --sel-fg: #000A02;
+  --chip-bg: #041F0E; --code-bg: #010A04;
+  --cmdbar-bg: rgba(0,12,3,0.86); --cmdbar-shadow: 0 16px 40px -18px rgba(0,20,6,0.9);
+  --sdot-glow: 10px; --card-glow: 1;
+}
+
+/* Synthwave — indigo night, neon magenta/cyan/orange */
+[data-theme="synthwave"] {
+  --bg: #190E2B; --bg-grid: rgba(255,79,216,0.035);
+  --surface: #221436; --surface-2: #2B1943;
+  --border: #3A2357; --border-bright: #52347A;
+  --text: #F5E9FF; --muted: #8A73A8; --muted-bright: #B79BD6;
+  --live: #36F1CD; --deploy: #FF9E64; --acquired: #FF4FD8; --archived: #6C5A8C;
+  --bar-bg: rgba(25,14,43,0.78);
+  --terminal-grad-a: #221436; --terminal-grad-b: #190E2B;
+  --terminal-shadow: 0 24px 60px -30px rgba(0,0,0,0.85);
+  --chrome-dot: #3A2357;
+  --pulse-ring: rgba(54,241,205,0.5); --pulse-ring-a: rgba(255,158,100,0.5);
+  --sel-bg: rgba(255,79,216,0.3); --sel-fg: #190E2B;
+  --chip-bg: #2B1943; --code-bg: #140A22;
+  --cmdbar-bg: rgba(25,14,43,0.85); --cmdbar-shadow: 0 16px 40px -18px rgba(0,0,0,0.85);
+  --sdot-glow: 10px; --card-glow: 1;
+}
+
+/* Dracula — the classic */
+[data-theme="dracula"] {
+  --bg: #21222C; --bg-grid: rgba(255,255,255,0.02);
+  --surface: #282A36; --surface-2: #343746;
+  --border: #44475A; --border-bright: #565973;
+  --text: #F8F8F2; --muted: #6272A4; --muted-bright: #9AA5D0;
+  --live: #50FA7B; --deploy: #F1FA8C; --acquired: #BD93F9; --archived: #6272A4;
+  --bar-bg: rgba(33,34,44,0.78);
+  --terminal-grad-a: #282A36; --terminal-grad-b: #21222C;
+  --terminal-shadow: 0 24px 60px -30px rgba(0,0,0,0.75);
+  --chrome-dot: #44475A;
+  --pulse-ring: rgba(80,250,123,0.45); --pulse-ring-a: rgba(241,250,140,0.45);
+  --sel-bg: rgba(189,147,249,0.3); --sel-fg: #21222C;
+  --chip-bg: #343746; --code-bg: #1E1F28;
+  --cmdbar-bg: rgba(33,34,44,0.86); --cmdbar-shadow: 0 16px 40px -18px rgba(0,0,0,0.8);
+  --sdot-glow: 8px; --card-glow: 0.9;
+}
+
+/* Solarized Light — warm classic, easy on the eyes */
+[data-theme="solarized"] {
+  --bg: #FDF6E3; --bg-grid: rgba(88,110,117,0.05);
+  --surface: #F6EFD8; --surface-2: #FFFDF3;
+  --border: #E7DEC5; --border-bright: #D3C9AB;
+  --text: #073642; --muted: #93A1A1; --muted-bright: #586E75;
+  --live: #859900; --deploy: #B58900; --acquired: #6C71C4; --archived: #93A1A1;
+  --bar-bg: rgba(253,246,227,0.82);
+  --terminal-grad-a: #FFFDF3; --terminal-grad-b: #F6EFD8;
+  --terminal-shadow: 0 22px 48px -30px rgba(88,110,117,0.35);
+  --chrome-dot: #DDD3B8;
+  --pulse-ring: rgba(133,153,0,0.32); --pulse-ring-a: rgba(181,137,0,0.3);
+  --sel-bg: rgba(133,153,0,0.2); --sel-fg: #002B36;
+  --chip-bg: #F0E8CE; --code-bg: #F3EBD3;
+  --cmdbar-bg: rgba(253,246,227,0.9); --cmdbar-shadow: 0 16px 40px -20px rgba(88,110,117,0.28);
+  --sdot-glow: 0px; --card-glow: 0.75;
+}
+
 /* ---------- Reset / base ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -507,7 +603,16 @@ pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-h
   border-radius: 10px; padding: 12px 14px;
   box-shadow: var(--cmdbar-shadow); font-size: 12.5px; line-height: 1.6;
   color: var(--muted-bright);
+  max-height: min(62vh, 440px); overflow: auto;
 }
+/* monospace block output (neofetch / top) */
+.pop-pre { font-family: var(--mono); font-size: 12px; line-height: 1.6; white-space: pre; overflow-x: auto; color: var(--text); margin: 0; }
+.pop-pre .k { color: var(--muted); }              /* key/label */
+.pop-pre .live { color: var(--live); }
+.pop-pre .deploy { color: var(--deploy); }
+.pop-pre .acquired { color: var(--acquired); }
+.pop-pre .archived { color: var(--archived); }
+.pop-pre .accent { color: var(--live); }
 .pop-h { color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5px; margin-bottom: 9px; }
 .pop-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .pop-list li { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
@@ -522,6 +627,48 @@ pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-h
 .pop-line b { color: var(--text); }
 .pop-err { color: var(--deploy); }
 .pop-err b { color: var(--text); }
+
+/* ---------- Dice button ---------- */
+.theme-toggle.dice { padding: 5px 8px; }
+.theme-toggle.dice .tt-icon { font-size: 14px; line-height: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  #diceRoll:active .tt-icon { transform: rotate(-20deg) scale(1.1); transition: transform .12s ease; }
+}
+
+/* ---------- Theme roll toast ---------- */
+.theme-toast {
+  position: fixed; top: 60px; left: 50%; transform: translateX(-50%) translateY(-8px);
+  z-index: 70; font-family: var(--mono); font-size: 12.5px; color: var(--text);
+  background: var(--cmdbar-bg); border: 1px solid var(--border-bright);
+  border-radius: 999px; padding: 8px 16px;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--cmdbar-shadow);
+  opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+}
+.theme-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Live npm metric on the Owthorize card ---------- */
+.live-metric {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 12px; color: var(--muted-bright);
+  margin-top: 2px;
+}
+.live-metric .ld {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--live);
+  box-shadow: 0 0 var(--sdot-glow) 0 var(--live); flex: none;
+  animation: pulse 2.6s infinite;
+}
+.live-metric b { color: var(--text); font-weight: 500; }
+
+/* ---------- GitHub activity signal in the footer ---------- */
+.gh-signal { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); }
+.gh-signal .gh-label { font-size: 11px; letter-spacing: 0.04em; }
+.gh-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; }
+.gh-bars i {
+  display: block; width: 3px; min-height: 2px; border-radius: 1px;
+  background: var(--live); opacity: 0.85;
+}
+.gh-last { font-size: 11px; color: var(--muted-bright); }
 
 /* ---------- Reveal states (JS adds .in) ---------- */
 .reveal { opacity: 0; transform: translateY(16px); }

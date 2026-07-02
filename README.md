@@ -42,19 +42,39 @@ Fixed at the bottom of every page. Press **`/`** anywhere to focus it, **Esc** t
 | `cd home` / `cd ~` / `~` | go Home |
 | `ls` | list routes in the popover |
 | `help` | show all commands |
-| `theme` / `theme light` / `theme dark` | toggle or set the theme |
+| `neofetch` / `about` | print a system-info identity card |
+| `top` / `ps` | list projects as processes (real status + live metrics) |
+| `stack` / `lsmod` | list the tech stack (no fake percentages) |
+| `theme` / `theme light` / `theme dark` / `theme <name>` | toggle or set a theme |
+| `roll` / `dice` | jump to a random theme 🎲 |
+| `whoami` / `date` / `uptime` | quick facts |
 | `open github` / `open linkedin` / `open email` | open external links |
+| `sudo hire-me` | 😉 |
 | `clear` | clear the input |
 
-Case- and whitespace-insensitive. Unknown input replies `command not found: X — try 'help'`.
+Case- and whitespace-insensitive. **↑ / ↓** walk command history. Unknown input replies
+`command not found: X — try 'help'`.
 
-## Theme
+## Themes + the dice
 
-- Defaults to your OS setting (`prefers-color-scheme`) on first visit.
-- The toggle (top-right of the status bar) or the `theme` command overrides it.
-- The choice is saved to `localStorage`. If storage is blocked/unavailable, it silently falls
-  back to in-memory for the session — it never throws.
-- Colors transition smoothly on toggle, unless `prefers-reduced-motion` is set.
+- **Base themes:** `dark` (default) and `light`. The **toggle** in the status bar flips between
+  these two; first visit follows your OS `prefers-color-scheme`.
+- **Dice themes:** the **🎲 button** (or `roll`) jumps to a random theme from a wider pool —
+  `onepiece`, `matrix`, `synthwave`, `dracula`, `solarized`. Set one directly with `theme matrix`, etc.
+- Add a theme by copying a `[data-theme="…"]` block in `styles.css` (define the full variable set)
+  and adding one line to the `THEMES` map in `site.js`.
+- The choice is saved to `localStorage`; if storage is blocked it falls back to in-memory for the
+  session and never throws. Colors transition smoothly unless `prefers-reduced-motion` is set.
+
+## Live telemetry
+
+Two real, client-side signals (no backend, no keys) that degrade silently if the APIs are unreachable:
+
+- **npm installs/week** for `owthorize` on the Owthorize card — `api.npmjs.org`.
+- **GitHub push activity** (14-day sparkline + "last push") in the footer — `api.github.com`
+  public events for `Spyyy004`.
+
+Both are also surfaced inside `neofetch` and `top`.
 
 ## How to add a blog post
 

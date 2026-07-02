@@ -14,7 +14,7 @@
   try {
     var t = null;
     try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
-    if (t !== "light" && t !== "dark") {
+    if (t === null || t === "") {
       t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
     }
     document.documentElement.setAttribute("data-theme", t);
