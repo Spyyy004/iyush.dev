@@ -324,8 +324,14 @@ a { color: inherit; text-decoration: none; }
   transition: color .18s ease;
 }
 .service__link .arrow { color: var(--live); transition: transform .18s ease; }
-.service__link:hover { color: var(--text); }
-.service__link:hover .arrow { transform: translateX(4px); }
+/* the whole card is the link — animate the cue on card hover */
+a.service { cursor: pointer; }
+.service:hover .service__link { color: var(--text); }
+.service:hover .service__link .arrow { transform: translateX(3px); }
+/* non-clickable card (e.g. acquired/sold) — quiet footnote, no hover cue */
+.service__note {
+  margin-top: auto; font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
 
 /* status colors */
 .s-live     { --sc: var(--live); }
