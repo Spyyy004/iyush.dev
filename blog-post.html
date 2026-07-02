@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Building AuthWatch: reading the GoHighLevel API — Ayush Pawar</title>
+<meta name="description" content="What the GoHighLevel v2 API does and doesn't expose about sub-account email domains — and how I designed AuthWatch around it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- Set theme before first paint to avoid a flash. Degrades gracefully if storage throws. -->
+<script>
+(function () {
+  try {
+    var t = null;
+    try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
+    if (t !== "light" && t !== "dark") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Status bar -->
+  <header class="statusbar">
+    <div class="statusbar__inner">
+      <div class="sb-left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sb-id">ayush@dev</span>
+        <span class="sb-sep">·</span>
+        <span class="sb-status" id="sbStatus">status: online</span>
+      </div>
+      <div class="sb-right">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="tt-icon" aria-hidden="true">☾</span><span class="tt-label">dark</span>
+        </button>
+        <nav class="sb-nav" aria-label="Primary">
+          <a href="projects.html">projects</a>
+          <a href="blog.html" aria-current="page">blog</a>
+          <a class="ext" href="https://github.com/Spyyy004" target="_blank" rel="noopener">github ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!--
+    ARTICLE TEMPLATE — duplicate this file for each real post.
+    Update: <title>, <meta description>, the .article__meta line, <h1>, and the body.
+    Then add a matching entry to the POSTS array in blog.html.
+    Measure is capped at ~68ch for readability; headings/code/blockquotes are pre-styled.
+  -->
+  <main class="wrap">
+    <article class="article reveal">
+      <a class="article__back" href="blog.html"><span class="arrow">←</span> back to blog</a>
+
+      <p class="article__meta">
+        <time datetime="2026-06-18">Jun 18, 2026</time>
+        <span class="sep">·</span> 7 min read
+        <span class="sep">·</span> engineering
+      </p>
+
+      <h1>Building AuthWatch: reading the GoHighLevel API</h1>
+
+      <p>Every GoHighLevel agency runs email for dozens of sub-accounts, and every one of those sub-accounts can quietly break its own SPF, DKIM, or DMARC records. When that happens, deliverability craters and nobody notices until a client complains. <strong>AuthWatch</strong> exists to notice first.</p>
+
+      <p>The plan was simple: read each sub-account's sending domain from the GHL API, resolve its DNS, and diff the records against what they <em>should</em> be. The API had other ideas.</p>
+
+      <h2>What the API exposes</h2>
+
+      <p>The GHL v2 API is generous with contacts, conversations, and calendars. It is far quieter about infrastructure. Listing locations (sub-accounts) is straightforward:</p>
+
+      <pre><code><span class="tok-c">// list every sub-account under the agency token</span>
+<span class="tok-k">const</span> res = <span class="tok-k">await</span> fetch(<span class="tok-s">"https://services.leadconnectorhq.com/locations/"</span>, {
+  headers: {
+    Authorization: <span class="tok-s">`Bearer ${agencyToken}`</span>,
+    Version: <span class="tok-s">"2021-07-28"</span>,
+  },
+});
+<span class="tok-k">const</span> { locations } = <span class="tok-k">await</span> res.json();</code></pre>
+
+      <p>But the field I actually wanted — the sub-account's LC Email <em>sending domain</em> — isn't there. You can read a location's business profile, its settings, even its custom values, and the sending domain simply is not part of the payload.</p>
+
+      <blockquote>The API tells you who the client is. It does not tell you how their mail leaves the building.</blockquote>
+
+      <h2>Designing around the gap</h2>
+
+      <p>Rather than block on an endpoint that doesn't exist, AuthWatch treats the domain as an input, not a lookup. During onboarding, the agency confirms each sending domain once. From there the monitoring loop is pure DNS and needs nothing further from GHL:</p>
+
+      <pre><code><span class="tok-k">async function</span> <span class="tok-f">checkDomain</span>(domain) {
+  <span class="tok-k">const</span> [spf, dkim, dmarc] = <span class="tok-k">await</span> Promise.all([
+    resolveTxt(domain),
+    resolveTxt(<span class="tok-s">`ghl._domainkey.${domain}`</span>),
+    resolveTxt(<span class="tok-s">`_dmarc.${domain}`</span>),
+  ]);
+  <span class="tok-k">return</span> diffAgainstExpected({ spf, dkim, dmarc });
+}</code></pre>
+
+      <p>A few things fell out of this that I liked:</p>
+
+      <ul>
+        <li>The check is <strong>provider-agnostic</strong> — it works whether the domain sends through GHL, Mailgun, or something else entirely.</li>
+        <li>It's cheap. DNS resolution is fast and rate-limit-free compared to hammering a partner API.</li>
+        <li>When a record breaks, I already know the <em>expected</em> value, so the alert can say <code>add v=spf1 include:...</code> instead of just "something's wrong."</li>
+      </ul>
+
+      <h3>The exact-fix alert</h3>
+
+      <p>The difference between a useful monitor and an annoying one is whether it tells you what to <em>do</em>. AuthWatch never says "DMARC failing." It says: here is the record we found, here is the record we expected, here is the one line to paste into your DNS.</p>
+
+      <hr />
+
+      <p>The lesson generalizes past GHL: when an API won't give you a field, ask whether you actually need it from the API — or whether the user can hand it to you once and let you own the rest of the loop. Designing around the gap shipped faster than waiting for the gap to close.</p>
+
+      <a class="article__back" href="blog.html"><span class="arrow">←</span> back to blog</a>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="https://github.com/Spyyy004" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ayush-pawar004" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:i.yush.004@gmail.com">email</a>
+      </div>
+      <span class="build"><span class="dot" aria-hidden="true" style="width:7px;height:7px"></span> all systems operational</span>
+    </div>
+  </footer>
+
+  <!-- Floating command bar (shared markup across all pages) -->
+  <div class="cmdbar" id="cmdbar" role="search">
+    <span class="cmdbar__prompt" aria-hidden="true">&gt;</span>
+    <span class="cmdbar__caret" aria-hidden="true"></span>
+    <input id="cmdInput" class="cmdbar__input" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false"
+      aria-label="Command input — type a command like help, cd blog, or theme"
+      placeholder="type a command… try 'help'" />
+    <kbd class="cmdbar__key" aria-hidden="true">/</kbd>
+    <div class="cmdbar__pop" id="cmdPop" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

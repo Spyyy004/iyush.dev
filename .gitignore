@@ -1,0 +1,5 @@
+# Local preview / editor config — not needed in production
+.claude/
+.DS_Store
+.vercel
+node_modules/

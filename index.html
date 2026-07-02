@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ayush Pawar — Full-stack engineer</title>
+<meta name="description" content="Ayush Pawar — full-stack engineer who ships fast. Builds products, ships them, sometimes sells them." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- Set theme before first paint to avoid a flash. Degrades gracefully if storage throws. -->
+<script>
+(function () {
+  try {
+    var t = null;
+    try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
+    if (t !== "light" && t !== "dark") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Status bar -->
+  <header class="statusbar">
+    <div class="statusbar__inner">
+      <div class="sb-left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sb-id">ayush@dev</span>
+        <span class="sb-sep">·</span>
+        <span class="sb-status" id="sbStatus">status: online</span>
+      </div>
+      <div class="sb-right">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="tt-icon" aria-hidden="true">☾</span><span class="tt-label">dark</span>
+        </button>
+        <nav class="sb-nav" aria-label="Primary">
+          <a href="projects.html">projects</a>
+          <a href="blog.html">blog</a>
+          <a class="ext" href="https://github.com/Spyyy004" target="_blank" rel="noopener">github ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero wrap" id="hero">
+      <div class="terminal">
+        <div class="terminal__chrome" aria-hidden="true">
+          <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+          <span class="path">~/ayush — zsh</span>
+        </div>
+        <div class="terminal__body">
+          <p class="prompt"><span class="caret">&gt;</span> whoami</p>
+          <h1 class="name">Ayush Pawar<span class="cursorblock" aria-hidden="true"></span></h1>
+          <p class="role" data-type="Full-stack engineer who ships fast — builds products, ships them, sometimes sells them.">
+            Full-stack engineer who ships fast — builds products, ships them, sometimes sells them.
+          </p>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric__num" data-count="3" data-suffix="+"><span class="v">3</span><span class="unit">yrs</span></div>
+              <div class="metric__label">shipping since 2022</div>
+            </div>
+            <div class="metric">
+              <div class="metric__num" data-count="6"><span class="v">6</span></div>
+              <div class="metric__label">products shipped</div>
+            </div>
+            <div class="metric">
+              <div class="metric__num" data-count="1"><span class="v">1</span></div>
+              <div class="metric__label">acquired</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section wrap" id="services">
+      <p class="eyebrow"><span class="cmt">//</span> active services</p>
+
+      <div class="grid" id="grid">
+        <article class="service s-live" style="--i:0">
+          <div class="service__head">
+            <span class="service__status"><span class="sdot"></span>live</span>
+            <span class="service__tag">npm package</span>
+          </div>
+          <h3 class="service__name">Owthorize</h3>
+          <p class="service__desc">Guardrails for AI agents — blocks unsafe tool calls before they run. Catches SQL DDL, SSRF, shell injection and path traversal, with drop-in adapters for OpenAI, Anthropic, LangChain and Vercel AI.</p>
+        </article>
+
+        <article class="service s-acquired" style="--i:1">
+          <div class="service__head">
+            <span class="service__status"><span class="sdot"></span>acquired</span>
+            <span class="service__tag">$3k exit</span>
+          </div>
+          <h3 class="service__name">SnoopSignal</h3>
+          <p class="service__desc">Reddit-based customer pain-discovery tool for solopreneurs. Built, shipped, and sold.</p>
+        </article>
+
+        <article class="service s-archived" style="--i:2">
+          <div class="service__head">
+            <span class="service__status"><span class="sdot"></span>shipped</span>
+            <span class="service__tag">700+ users</span>
+          </div>
+          <h3 class="service__name">SQLPremierLeague</h3>
+          <p class="service__desc">A SQL learning platform built on real-world IPL cricket data. Strong engagement among early-career engineers.</p>
+        </article>
+      </div>
+
+      <div class="commands">
+        <a class="cmd" href="projects.html"><span class="sym">$</span> cd ~/projects <span class="arrow">→</span></a>
+        <a class="cmd" href="blog.html"><span class="sym">$</span> cat ~/blog/* <span class="arrow">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="https://github.com/Spyyy004" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ayush-pawar004" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:i.yush.004@gmail.com">email</a>
+      </div>
+      <span class="build"><span class="dot" aria-hidden="true" style="width:7px;height:7px"></span> all systems operational</span>
+    </div>
+  </footer>
+
+  <!-- Floating command bar (shared markup across all pages) -->
+  <div class="cmdbar" id="cmdbar" role="search">
+    <span class="cmdbar__prompt" aria-hidden="true">&gt;</span>
+    <span class="cmdbar__caret" aria-hidden="true"></span>
+    <input id="cmdInput" class="cmdbar__input" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false"
+      aria-label="Command input — type a command like help, cd projects, or theme"
+      placeholder="type a command… try 'help'" />
+    <kbd class="cmdbar__key" aria-hidden="true">/</kbd>
+    <div class="cmdbar__pop" id="cmdPop" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

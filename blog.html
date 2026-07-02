@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog — Ayush Pawar</title>
+<meta name="description" content="Notes on building, shipping, and occasionally selling products — by Ayush Pawar." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- Set theme before first paint to avoid a flash. Degrades gracefully if storage throws. -->
+<script>
+(function () {
+  try {
+    var t = null;
+    try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
+    if (t !== "light" && t !== "dark") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Status bar -->
+  <header class="statusbar">
+    <div class="statusbar__inner">
+      <div class="sb-left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sb-id">ayush@dev</span>
+        <span class="sb-sep">·</span>
+        <span class="sb-status" id="sbStatus">status: online</span>
+      </div>
+      <div class="sb-right">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="tt-icon" aria-hidden="true">☾</span><span class="tt-label">dark</span>
+        </button>
+        <nav class="sb-nav" aria-label="Primary">
+          <a href="projects.html">projects</a>
+          <a href="blog.html" aria-current="page">blog</a>
+          <a class="ext" href="https://github.com/Spyyy004" target="_blank" rel="noopener">github ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Lighter header -->
+    <section class="pagehead wrap reveal">
+      <p class="eyebrow"><span class="cmt">//</span> commit log</p>
+      <h1 class="pagehead__title">Blog</h1>
+      <p class="pagehead__lead">Notes on building products, reading messy APIs, and shipping on weekends. Newest first.</p>
+    </section>
+
+    <section class="section wrap" style="padding-top: clamp(16px,3vh,28px)">
+      <div class="loglist reveal" id="blogList">
+        <!-- Posts render here from the POSTS array below. -->
+        <noscript>
+          <p style="font-family:var(--mono);color:var(--muted);padding:24px 14px">
+            Enable JavaScript to view the post list, or browse posts directly (e.g. blog-post.html).
+          </p>
+        </noscript>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="https://github.com/Spyyy004" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ayush-pawar004" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:i.yush.004@gmail.com">email</a>
+      </div>
+      <span class="build"><span class="dot" aria-hidden="true" style="width:7px;height:7px"></span> all systems operational</span>
+    </div>
+  </footer>
+
+  <!-- Floating command bar (shared markup across all pages) -->
+  <div class="cmdbar" id="cmdbar" role="search">
+    <span class="cmdbar__prompt" aria-hidden="true">&gt;</span>
+    <span class="cmdbar__caret" aria-hidden="true"></span>
+    <input id="cmdInput" class="cmdbar__input" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false"
+      aria-label="Command input — type a command like help, cd projects, or theme"
+      placeholder="type a command… try 'help'" />
+    <kbd class="cmdbar__key" aria-hidden="true">/</kbd>
+    <div class="cmdbar__pop" id="cmdPop" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <!--
+    ============================================================
+    BLOG POSTS — this is the only thing you edit to add a post.
+    ============================================================
+    Each post is an object: { title, date, excerpt, slug, readTime, sample? }
+      title    — shown in Space Grotesk
+      date     — ISO "YYYY-MM-DD" (sorted newest-first, formatted for display)
+      excerpt  — one line
+      slug     — the post's HTML file, e.g. "posts/my-post.html" or "blog-post.html"
+      readTime — e.g. "6 min"
+      sample   — OPTIONAL. true shows a "sample" tag. DELETE this line for real posts.
+
+    To add a real post:
+      1) Duplicate blog-post.html → give it a new filename (e.g. posts/my-post.html).
+      2) Write the article; update its <title>, heading, and meta line.
+      3) Add an entry to the POSTS array below (drop `sample: true`).
+    That's it — the list re-renders, sorted by date.
+  -->
+  <script>
+    // Add posts here — each is { title, date (ISO), excerpt, slug, readTime }.
+    // Example (copy, fill in, and remove the leading //):
+    // {
+    //   title: "My first post",
+    //   date: "2026-07-01",
+    //   excerpt: "One line that sells the read.",
+    //   slug: "posts/my-first-post.html",
+    //   readTime: "5 min"
+    // }
+    window.POSTS = [];
+  </script>
+
+  <script src="site.js" defer></script>
+  <!-- Renders window.POSTS into #blogList. Kept inline because posts are content, not shared logic. -->
+  <script defer>
+    (function () {
+      function render() {
+        var list = document.getElementById("blogList");
+        if (!list || !window.POSTS) return;
+
+        var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        function fmt(iso) {
+          var p = String(iso).split("-");
+          if (p.length !== 3) return iso;
+          var m = months[parseInt(p[1], 10) - 1] || p[1];
+          return m + " " + parseInt(p[2], 10) + ", " + p[0];
+        }
+        function esc(s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c];
+          });
+        }
+
+        var posts = window.POSTS.slice().sort(function (a, b) {
+          return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+        });
+
+        var html = posts.map(function (p) {
+          var tag = p.sample ? ' <span class="sample-tag">sample</span>' : "";
+          return '<a class="logitem" href="' + esc(p.slug) + '">' +
+                   '<time class="logitem__date" datetime="' + esc(p.date) + '">' + esc(fmt(p.date)) + "</time>" +
+                   '<div class="logitem__main">' +
+                     '<div class="logitem__title">' + esc(p.title) + tag + "</div>" +
+                     '<div class="logitem__excerpt">' + esc(p.excerpt) + "</div>" +
+                   "</div>" +
+                   '<span class="logitem__read">' + esc(p.readTime || "") + "</span>" +
+                 "</a>";
+        }).join("");
+
+        // Preserve the <noscript> fallback for no-JS users; replace only when JS runs.
+        var empty = '<div class="logempty">' +
+          '<p class="logempty__cmd"><span class="logempty__prompt">$</span> ls ~/blog<span class="logempty__caret"></span></p>' +
+          '<p class="logempty__msg">no posts yet — writing in progress. check back soon.</p>' +
+        "</div>";
+        list.innerHTML = html || empty;
+      }
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", render);
+      else render();
+    })();
+  </script>
+</body>
+</html>
