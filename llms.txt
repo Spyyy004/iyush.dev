@@ -1,0 +1,32 @@
+# Ayush Pawar
+
+> AI Product Engineer who ships fast — builds products, ships them, and sometimes sells them. Based in India; works across frontend, backend, ML, and go-to-market.
+
+Ayush Pawar (handle: iyush, cswithiyush) is an AI Product Engineer. He builds 0→1 products end to end, has shipped ~6 products, and had one acquired. This file summarizes his work for language models and answer engines; every claim links to a primary source.
+
+## Projects
+
+- [Owthorize](https://www.npmjs.com/package/owthorize): Open-source npm package (MIT). Guardrails for AI agents — blocks unsafe tool calls before they execute, catching SQL DDL, SSRF, shell-metacharacter injection, and path traversal, plus custom rules. Ships drop-in adapters for OpenAI, Anthropic, LangChain, and Vercel AI. Status: live on npm.
+- [SnoopSignal](https://iyush.dev/projects): Reddit-based customer pain-discovery tool for solopreneurs — scraped and clustered real complaints so founders could find problems worth solving. Status: acquired ($3k exit).
+- [SQLPremierLeague](https://github.com/Spyyy004/SQLPremierLeague-Frontend): A SQL learning platform built on real-world IPL cricket data; users write queries against actual match stats. Status: shipped, 700+ users.
+
+## Pages
+
+- [Home](https://iyush.dev/): Overview, current status, and active projects.
+- [Projects](https://iyush.dev/projects): Full project list with status, stack, and links.
+- [Blog](https://iyush.dev/blog): Notes on building and shipping products.
+
+## Links
+
+- [GitHub](https://github.com/Spyyy004): Source and open-source work.
+- [npm](https://www.npmjs.com/~iyush004): Published packages, including Owthorize.
+- [LinkedIn](https://www.linkedin.com/in/ayush-pawar004): Professional profile.
+- [Email](mailto:cswithiyush@gmail.com): Direct contact.
+
+## Expertise
+
+Artificial intelligence and AI agents, LLM tooling and AI application security, full-stack engineering (Node.js, React, TypeScript), SQL/Postgres, machine learning, and product engineering (0→1, go-to-market).
+
+## Contact
+
+For hiring, collaboration, or questions, email cswithiyush@gmail.com.

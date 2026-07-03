@@ -152,6 +152,32 @@ Internal links use relative `.html` filenames (`projects.html`, `blog.html`) so 
 both locally and when deployed. If you enable clean URLs (e.g. `cleanUrls` on Vercel), `/projects`
 and `/blog` will also resolve — the in-page nav and command bar will keep working either way.
 
+## SEO & AEO (answer-engine optimization)
+
+Built to rank in search **and** get cited by AI answer engines.
+
+- **`robots.txt`** — allows all crawlers and explicitly welcomes AI bots (GPTBot, ClaudeBot,
+  PerplexityBot, Google-Extended, etc.); points to the sitemap.
+- **`sitemap.xml`** — lists `/`, `/projects`, `/blog`. **Add a `<url>` here whenever you add a page.**
+- **`llms.txt`** — a clean, structured Markdown summary of who you are and what you've built, at
+  `/llms.txt` (the [llmstxt.org](https://llmstxt.org) convention). Keep it factual and update it
+  when projects change — this is what LLMs read to answer "who is Ayush Pawar?".
+- **Structured data (JSON-LD)** — `Person` + `WebSite` + `ProfilePage` on the home page, an
+  `ItemList` of projects (incl. `SoftwareApplication` for Owthorize) on `/projects`, and `Blog`
+  on `/blog`. All share one `Person` entity (`#person`) so engines link the pages to one identity.
+- **Open Graph + Twitter cards** on every page → rich link previews. Shared image: **`og.png`** (1200×630).
+- **Canonical URLs** on every page; the stale sample post (`blog-post.html`) is `noindex` and kept
+  out of the sitemap so it doesn't dilute quality.
+
+Maintenance:
+- **New page?** Add it to `sitemap.xml`, give it canonical + OG tags, and (if it's a project/post)
+  add matching JSON-LD.
+- **Regenerate `og.png`** (if you restyle it): recreate the 1200×630 HTML card and screenshot it
+  headless, e.g. `chrome --headless --window-size=1200,630 --screenshot=og.png file://card.html`.
+- **After deploy:** submit `https://iyush.dev/sitemap.xml` in [Google Search Console](https://search.google.com/search-console)
+  and [Bing Webmaster Tools](https://www.bing.com/webmasters); validate rich results at
+  [search.google.com/test/rich-results](https://search.google.com/test/rich-results).
+
 ## Accessibility & motion
 
 - Visible keyboard focus on every interactive element; the command input and theme toggle have `aria-label`s.
