@@ -23,7 +23,7 @@
   // 👉 Paste your GA4 Measurement ID below (format: "G-XXXXXXXXXX") to switch analytics ON.
   //    Empty string = disabled (safe no-op). Auto-skipped on localhost so your own
   //    dev traffic never pollutes the numbers. This is the ONLY place you set it.
-  var GA_ID = "";
+  var GA_ID = "G-GKC1N1X7KY";
   function initAnalytics() {
     if (!GA_ID || GA_ID.indexOf("G-") !== 0) return;
     var h = location.hostname;
