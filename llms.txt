@@ -15,7 +15,7 @@ Ayush Pawar (handle: iyush, cswithiyush) is an AI Product Engineer. He builds 0â
 - [Home](https://iyush.dev/): Overview, current status, and active projects.
 - [Projects](https://iyush.dev/projects): Full project list with status, stack, and links.
 - [Blog](https://iyush.dev/blog): Notes on building and shipping products.
-- [Arcade](https://iyush.dev/games): Small frontend-only games, including Typespeed (a shell-command typing speed test).
+- [Arcade](https://iyush.dev/games): Small frontend-only games â€” Guess the Stack (a daily "name the company from its tech stack" puzzle) and Typespeed (a shell-command typing speed test).
 
 ## Links
 

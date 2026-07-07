@@ -26,10 +26,16 @@ Both themes are defined as full CSS-variable sets (`:root` = dark, `[data-theme=
 
 ## Arcade (`/games`)
 
-`games.html` is a terminal "cabinet" that hosts small, frontend-only games. It ships with
-**Typespeed** — a shell-command typing speed test (WPM + live accuracy, best score saved via the
-crash-proof storage wrapper, keyboard + touch, GA `game_start`/`game_over` events). Reachable from
-the nav, and from the command bar (`cd games`, `games`, or `play`).
+`games.html` hosts small, frontend-only games in terminal "cabinets." Reachable from the nav and
+the command bar (`cd games`, `games`, or `play`). It ships with two:
+
+- **Guess the Stack** — a daily Wordle/Framed-style puzzle: name a mystery company from its tech
+  stack, revealed one clue at a time (≤5 guesses). Same puzzle for everyone each day (seeded by
+  date, no backend), streak tracking, and a spoiler-free copy-to-clipboard result grid to share.
+  Add a company to the `COMPANIES` array in `games.js` — `{ n: "Name", a: ["alias"], c: [["lang","…"], …5 clues, hardest→easiest] }`.
+- **Typespeed** — a shell-command typing speed test (WPM + live accuracy, best score, keyboard + touch).
+
+Both persist via the crash-proof storage wrapper and fire GA events (`gts_*`, `game_start`/`game_over`).
 
 **To add a game:** in `games.html`, add another terminal section with a uniquely-`id`'d root
 element; in `games.js`, add an IIFE guarded on that id (`var root = document.getElementById('x'); if (!root) return;`)

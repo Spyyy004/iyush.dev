@@ -717,6 +717,66 @@ pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-h
 .typer__more a { color: var(--muted-bright); }
 .typer__more a:hover { color: var(--live); }
 
+/* game section label */
+.game-label { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; margin: 0 0 14px; }
+.game-label .cmt { color: var(--live); }
+.game-gap { height: clamp(40px, 7vh, 72px); }
+
+/* ---------- Arcade: Guess the Stack ---------- */
+.gts { max-width: 800px; margin: 0 auto; position: relative; }
+.gts__head { display: flex; align-items: baseline; gap: 12px; font-family: var(--mono); margin-bottom: 22px; flex-wrap: wrap; }
+.gts__no { color: var(--live); font-weight: 500; font-size: 14px; }
+.gts__sub { color: var(--muted); font-size: 12.5px; }
+.gts__clues { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px; font-family: var(--mono); }
+.gts__clue { display: flex; gap: 16px; align-items: baseline; animation: gtsIn .4s ease; }
+@keyframes gtsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.gts__clue .k { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; min-width: 54px; flex: none; }
+.gts__clue .v { color: var(--muted-bright); font-size: 15px; }
+.gts__clue.latest .v { color: var(--live); }
+.gts__inputwrap {
+  display: flex; align-items: center; gap: 10px; position: relative;
+  border: 1px solid var(--border-bright); border-radius: 10px; padding: 12px 14px;
+  background: var(--surface); transition: border-color .18s ease;
+}
+.gts__inputwrap:focus-within { border-color: var(--live); }
+.gts__prompt { color: var(--live); font-family: var(--mono); flex: none; }
+.gts__input { flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--text); font-family: var(--mono); font-size: 14px; }
+.gts__input::placeholder { color: var(--muted); }
+.gts__sug {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 6; list-style: none;
+  background: var(--surface); border: 1px solid var(--border-bright); border-radius: 10px;
+  box-shadow: var(--cmdbar-shadow); overflow: hidden;
+}
+.gts__sug li { padding: 10px 14px; font-family: var(--mono); font-size: 13.5px; color: var(--muted-bright); cursor: pointer; }
+.gts__sug li.active, .gts__sug li:hover { background: var(--surface-2); color: var(--text); }
+.gts__actions { display: flex; gap: 10px; margin-top: 14px; }
+.gts__btn {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px;
+  color: var(--muted-bright); background: transparent; cursor: pointer;
+  font-family: var(--mono); font-size: 13px; transition: border-color .18s ease, color .18s ease, background-color .18s ease;
+}
+.gts__btn:hover { border-color: var(--border-bright); color: var(--text); background: var(--surface); }
+.gts__btn.primary { color: var(--bg); background: var(--live); border-color: var(--live); font-weight: 500; }
+.gts__btn.primary:hover { filter: brightness(1.08); background: var(--live); color: var(--bg); }
+.gts__btn:disabled { opacity: .4; cursor: default; }
+.gts__dots { display: flex; gap: 8px; margin-top: 18px; }
+.gts__dots i { width: 15px; height: 15px; border-radius: 4px; background: var(--border); display: block; transition: background-color .2s ease; }
+.gts__dots i.solve { background: var(--live); }
+.gts__dots i.miss  { background: var(--deploy); }
+.gts__dots i.skip  { background: var(--archived); }
+.gts__result { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 22px; font-family: var(--mono); }
+.gts__verdict { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--text); letter-spacing: -0.02em; margin-bottom: 8px; }
+.gts__verdict.win { color: var(--live); }
+.gts__answer { font-size: 13px; color: var(--muted-bright); margin-bottom: 4px; }
+.gts__answer b { color: var(--text); }
+.gts__grid { font-size: 20px; letter-spacing: 3px; margin: 16px 0; }
+.gts__statline { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
+.gts__statline b { color: var(--text); }
+.gts__share { display: inline-flex; align-items: center; gap: 9px; border: 1px solid var(--live); color: var(--bg); background: var(--live); border-radius: 8px; padding: 10px 18px; cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: 500; }
+.gts__share:hover { filter: brightness(1.08); }
+.gts__next { color: var(--muted); font-size: 12px; margin-top: 16px; }
+.gts__next b { color: var(--muted-bright); font-variant-numeric: tabular-nums; }
+
 /* ---------- Reveal states (JS adds .in) ---------- */
 .reveal { opacity: 0; transform: translateY(16px); }
 .reveal.in { animation: rise .55s cubic-bezier(.2,.7,.2,1) forwards; }

@@ -97,7 +97,7 @@
     <section class="pagehead wrap reveal">
       <p class="eyebrow"><span class="cmt">//</span> ~/games</p>
       <h1 class="pagehead__title">Arcade</h1>
-      <p class="pagehead__lead">Small, frontend-only games to kill five minutes. First up: <strong>Typespeed</strong> — how fast can you type a real shell command? More games coming.</p>
+      <p class="pagehead__lead">Small, frontend-only games. A fresh <strong>Guess the Stack</strong> puzzle every day, plus <strong>Typespeed</strong> whenever you want. No sign-up, no nonsense.</p>
     </section>
 
     <!--
@@ -105,6 +105,39 @@
       element with a unique id, and add a matching IIFE in games.js guarded on that id.
     -->
     <section class="section wrap" style="padding-top: clamp(12px,3vh,24px)">
+      <p class="game-label"><span class="cmt">//</span> daily · guess the stack</p>
+      <div class="terminal gts reveal" id="gts">
+        <div class="terminal__chrome" aria-hidden="true">
+          <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+          <span class="path">~/games — guess-the-stack</span>
+        </div>
+        <div class="terminal__body">
+          <div class="gts__head">
+            <span class="gts__no">#<span id="gtsNo">—</span></span>
+            <span class="gts__sub">name the company from its stack · one new puzzle a day</span>
+          </div>
+          <ol class="gts__clues" id="gtsClues"></ol>
+          <div id="gtsPlay">
+            <div class="gts__inputwrap">
+              <span class="gts__prompt" aria-hidden="true">$</span>
+              <input id="gtsInput" class="gts__input" type="text" autocomplete="off" autocorrect="off"
+                autocapitalize="off" spellcheck="false" placeholder="name the company…"
+                aria-label="Guess the company" aria-autocomplete="list" />
+              <ul class="gts__sug" id="gtsSug" role="listbox" hidden></ul>
+            </div>
+            <div class="gts__actions">
+              <button id="gtsGuess" class="gts__btn primary" type="button">guess</button>
+              <button id="gtsSkip" class="gts__btn" type="button">skip &#9656;</button>
+            </div>
+            <div class="gts__dots" id="gtsDots" aria-hidden="true"></div>
+          </div>
+          <div class="gts__result" id="gtsResult" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+
+      <div class="game-gap"></div>
+
+      <p class="game-label"><span class="cmt">//</span> anytime · typespeed</p>
       <div class="terminal typer reveal" id="typer">
         <div class="terminal__chrome" aria-hidden="true">
           <span class="tl"></span><span class="tl"></span><span class="tl"></span>
