@@ -178,6 +178,24 @@ Maintenance:
   and [Bing Webmaster Tools](https://www.bing.com/webmasters); validate rich results at
   [search.google.com/test/rich-results](https://search.google.com/test/rich-results).
 
+## Analytics (Google Analytics 4)
+
+Wired but **off until you add your ID** — a safe no-op otherwise.
+
+1. Create a **GA4 property** at [analytics.google.com](https://analytics.google.com) → copy the
+   **Measurement ID** (looks like `G-XXXXXXXXXX`).
+2. Open `site.js`, find `var GA_ID = "";` near the top, and paste it: `var GA_ID = "G-XXXXXXXXXX";`
+3. Commit + push. That's the only change — the tag loads on every page automatically.
+
+Details:
+- The ID lives in **one place** (`site.js`), not in every HTML file.
+- **Localhost is auto-skipped** (`localhost`, `127.0.0.1`, `*.local`) so your own dev visits aren't counted.
+- Beyond pageviews, two **custom events** fire: `command` (which shell command was run) and
+  `theme_change` (which theme was rolled) — so you can see how people play with the terminal + dice
+  in GA4 → Reports → Engagement → Events.
+- **Search Console tip:** once GA is live, you can verify `iyush.dev` in Search Console via the
+  "Google Analytics" method in one click (same Google account) — no extra meta tag needed.
+
 ## Accessibility & motion
 
 - Visible keyboard focus on every interactive element; the command input and theme toggle have `aria-label`s.

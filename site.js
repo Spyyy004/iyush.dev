@@ -19,6 +19,29 @@
     try { window.localStorage.setItem(key, val); } catch (e) { /* memory only */ }
   }
 
+  /* ---------- Analytics (Google Analytics 4 / gtag) ---------- */
+  // 👉 Paste your GA4 Measurement ID below (format: "G-XXXXXXXXXX") to switch analytics ON.
+  //    Empty string = disabled (safe no-op). Auto-skipped on localhost so your own
+  //    dev traffic never pollutes the numbers. This is the ONLY place you set it.
+  var GA_ID = "";
+  function initAnalytics() {
+    if (!GA_ID || GA_ID.indexOf("G-") !== 0) return;
+    var h = location.hostname;
+    if (!h || h === "localhost" || h === "127.0.0.1" || h.slice(-6) === ".local") return;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID);
+  }
+  // Fire a custom event (no-op until GA is configured).
+  function track(name, params) {
+    try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) { /* ignore */ }
+  }
+
   /* ---------- Themes ---------- */
   // mode drives the light/dark toggle behavior + the OS-default logic.
   var THEMES = {
@@ -62,6 +85,7 @@
     var pick = keys[Math.floor(Math.random() * keys.length)];
     applyTheme(pick);
     toast("🎲 rolled: " + THEMES[pick].label);
+    track("theme_change", { theme: pick, via: "dice" });
     return pick;
   }
 
@@ -325,6 +349,7 @@
       if (!cmd) return;
       history.push(cmd); hIndex = history.length;
       var lc = cmd.toLowerCase().replace(/^[>$]\s*/, "");
+      track("command", { command: lc.split(" ")[0] || "unknown" });
 
       if (lc === "clear") { input.value = ""; updateIdle(); hidePop(); return; }
       if (lc === "help" || lc === "?" || lc === "man") { showHelp(); return; }
@@ -498,6 +523,7 @@
 
   /* ---------- Wire up ---------- */
   function init() {
+    initAnalytics();
     updateToggle(currentTheme());
     injectThemeControls();
     var btn = document.getElementById("themeToggle");
