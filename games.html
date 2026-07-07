@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arcade — Ayush Pawar</title>
+<meta name="description" content="Small frontend-only games on iyush.dev. First up: Typespeed, a shell-command typing speed test — measure your WPM and accuracy." />
+<link rel="canonical" href="https://iyush.dev/games" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0C10" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F1E8" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Arcade — Ayush Pawar" />
+<meta property="og:description" content="Small frontend-only games. First up: Typespeed — a shell-command typing speed test." />
+<meta property="og:url" content="https://iyush.dev/games" />
+<meta property="og:image" content="https://iyush.dev/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Ayush Pawar — AI Product Engineer" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Arcade — Ayush Pawar" />
+<meta name="twitter:description" content="Small frontend-only games. First up: Typespeed — a shell-command typing speed test." />
+<meta name="twitter:image" content="https://iyush.dev/og.png" />
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://iyush.dev/games#webpage",
+      "url": "https://iyush.dev/games",
+      "name": "Arcade — Ayush Pawar",
+      "inLanguage": "en",
+      "about": { "@id": "https://iyush.dev/#person" }
+    },
+    {
+      "@type": "Game",
+      "name": "Typespeed",
+      "url": "https://iyush.dev/games",
+      "author": { "@id": "https://iyush.dev/#person" },
+      "genre": "Typing",
+      "description": "A shell-command typing speed test — measure your WPM and accuracy against real developer commands.",
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game"
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- Set theme before first paint to avoid a flash. Degrades gracefully if storage throws. -->
+<script>
+(function () {
+  try {
+    var t = null;
+    try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
+    if (t === null || t === "") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Status bar -->
+  <header class="statusbar">
+    <div class="statusbar__inner">
+      <div class="sb-left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sb-id">ayush@dev</span>
+        <span class="sb-sep">·</span>
+        <span class="sb-status" id="sbStatus">status: online</span>
+      </div>
+      <div class="sb-right">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="tt-icon" aria-hidden="true">☾</span><span class="tt-label">dark</span>
+        </button>
+        <nav class="sb-nav" aria-label="Primary">
+          <a href="projects.html">projects</a>
+          <a href="blog.html">blog</a>
+          <a class="ext" href="https://github.com/Spyyy004" target="_blank" rel="noopener">github ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="pagehead wrap reveal">
+      <p class="eyebrow"><span class="cmt">//</span> ~/games</p>
+      <h1 class="pagehead__title">Arcade</h1>
+      <p class="pagehead__lead">Small, frontend-only games to kill five minutes. First up: <strong>Typespeed</strong> — how fast can you type a real shell command? More games coming.</p>
+    </section>
+
+    <!--
+      ADD A GAME LATER: drop a new terminal "cabinet" section here, give it a root
+      element with a unique id, and add a matching IIFE in games.js guarded on that id.
+    -->
+    <section class="section wrap" style="padding-top: clamp(12px,3vh,24px)">
+      <div class="terminal typer reveal" id="typer">
+        <div class="terminal__chrome" aria-hidden="true">
+          <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+          <span class="path">~/games — typespeed</span>
+        </div>
+        <div class="terminal__body">
+          <div class="typer__stats">
+            <span class="stat"><span class="stat__k">wpm</span> <b id="tWpm">0</b></span>
+            <span class="stat"><span class="stat__k">acc</span> <b id="tAcc">100%</b></span>
+            <span class="stat"><span class="stat__k">time</span> <b id="tTime">0.0s</b></span>
+            <span class="stat"><span class="stat__k">best</span> <b id="tBest">—</b></span>
+          </div>
+          <p class="typer__prompt"><span class="typer__sym">$</span><span class="typer__text" id="tText"></span></p>
+          <input id="tInput" class="typer__input" type="text" autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false" aria-label="Type the command shown above to test your speed" />
+          <div class="typer__hint" id="tHint">start typing to begin</div>
+          <div class="typer__result" id="tResult" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+      <p class="typer__more">// more games soon — want one in particular? <a href="mailto:cswithiyush@gmail.com">tell me</a>.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="https://github.com/Spyyy004" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ayush-pawar004" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:cswithiyush@gmail.com">email</a>
+      </div>
+      <span class="build"><span class="dot" aria-hidden="true" style="width:7px;height:7px"></span> all systems operational</span>
+    </div>
+  </footer>
+
+  <!-- Floating command bar (shared markup across all pages) -->
+  <div class="cmdbar" id="cmdbar" role="search">
+    <span class="cmdbar__prompt" aria-hidden="true">&gt;</span>
+    <span class="cmdbar__caret" aria-hidden="true"></span>
+    <input id="cmdInput" class="cmdbar__input" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false"
+      aria-label="Command input — type a command like help, cd projects, or theme"
+      placeholder="type a command… try 'help'" />
+    <kbd class="cmdbar__key" aria-hidden="true">/</kbd>
+    <div class="cmdbar__pop" id="cmdPop" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="site.js" defer></script>
+  <script src="games.js" defer></script>
+</body>
+</html>

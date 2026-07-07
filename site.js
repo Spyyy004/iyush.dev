@@ -130,6 +130,18 @@
     }
   }
 
+  // Add the "games" nav link on every page (keeps the shell DRY).
+  function injectNav() {
+    var nav = document.querySelector(".sb-nav");
+    if (!nav || nav.querySelector('a[href="games.html"]')) return;
+    var a = document.createElement("a");
+    a.href = "games.html";
+    a.textContent = "games";
+    if (/(^|\/)games\.html$/.test(location.pathname)) a.setAttribute("aria-current", "page");
+    var ext = nav.querySelector(".ext");
+    nav.insertBefore(a, ext || null);
+  }
+
   /* ---------- Live telemetry (graceful — silent on failure) ---------- */
   var npmWeekly = null; // owthorize weekly downloads, once fetched
 
@@ -227,7 +239,7 @@
   }
 
   /* ---------- Command bar / shell ---------- */
-  var ROUTES = { home: "index.html", projects: "projects.html", blog: "blog.html" };
+  var ROUTES = { home: "index.html", projects: "projects.html", blog: "blog.html", games: "games.html" };
   var OPEN = {
     github: "https://github.com/Spyyy004",
     linkedin: "https://linkedin.com/in/ayush-pawar004",
@@ -249,6 +261,7 @@
     if (t === "" || t === "~" || t === "home" || t === "index") return { label: "home", url: ROUTES.home };
     if (t === "projects" || t === "project" || t === "services") return { label: "projects", url: ROUTES.projects };
     if (t === "blog" || t === "blogs" || t === "posts") return { label: "blog", url: ROUTES.blog };
+    if (t === "games" || t === "game" || t === "arcade" || t === "play") return { label: "games", url: ROUTES.games };
     return null;
   }
 
@@ -294,6 +307,7 @@
           "<li><b>~/</b><span>home</span></li>" +
           "<li><b>~/projects</b><span>all services</span></li>" +
           "<li><b>~/blog</b><span>writing</span></li>" +
+          "<li><b>~/games</b><span>the arcade</span></li>" +
         "</ul>"
       );
     }
@@ -526,6 +540,7 @@
     initAnalytics();
     updateToggle(currentTheme());
     injectThemeControls();
+    injectNav();
     var btn = document.getElementById("themeToggle");
     if (btn) btn.addEventListener("click", toggleTheme);
 

@@ -670,6 +670,53 @@ pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-h
 }
 .gh-last { font-size: 11px; color: var(--muted-bright); }
 
+/* ---------- Arcade: typing speed test ---------- */
+.typer { max-width: 800px; margin: 0 auto; position: relative; }
+.typer .terminal__body { cursor: text; }
+.typer__stats {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  font-family: var(--mono); font-size: 13px; color: var(--muted); margin-bottom: 24px;
+}
+.typer__stats .stat { display: inline-flex; align-items: baseline; gap: 7px; }
+.typer__stats .stat__k { text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; }
+.typer__stats b { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+.typer__prompt {
+  font-family: var(--mono); font-size: clamp(1.05rem, 3vw, 1.5rem); line-height: 1.85;
+  word-break: break-word; margin-bottom: 4px;
+}
+.typer__sym { color: var(--live); margin-right: 12px; }
+.typer__text .ch { color: var(--muted); position: relative; border-radius: 2px; }
+.typer__text .ch.ok { color: var(--text); }
+.typer__text .ch.bad { color: var(--deploy); background: color-mix(in srgb, var(--deploy) 18%, transparent); }
+.typer__text .ch.bad.sp { background: color-mix(in srgb, var(--deploy) 30%, transparent); }
+.typer__text .ch.cur::before {
+  content: ""; position: absolute; left: -2px; top: 0.05em; bottom: 0.05em; width: 2px;
+  background: var(--live); animation: blink 1.1s steps(1) infinite;
+}
+.typer__input { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; left: -9999px; }
+.typer__hint { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 22px; }
+.typer__hint kbd, .typer__result kbd {
+  font-family: var(--mono); border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; color: var(--muted-bright);
+}
+.typer.done .typer__hint { display: none; }
+.typer__result {
+  margin-top: 22px; border-top: 1px solid var(--border); padding-top: 20px;
+  font-family: var(--mono); font-size: 13px; color: var(--muted-bright);
+}
+.typer__result .big {
+  font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: var(--text); letter-spacing: -0.02em; line-height: 1;
+}
+.typer__result .big .unit { color: var(--live); font-size: 0.42em; margin-left: 4px; }
+.typer__result .sub { color: var(--muted); font-size: 1rem; margin-left: 6px; }
+.typer__result .best-new { color: var(--live); margin-top: 8px; }
+.typer__result .cta { margin-top: 14px; }
+.typer__result .cta .retry { color: var(--muted-bright); }
+.typer__result .cta .retry b { color: var(--live); font-weight: 500; }
+.typer__more { text-align: center; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 28px; }
+.typer__more a { color: var(--muted-bright); }
+.typer__more a:hover { color: var(--live); }
+
 /* ---------- Reveal states (JS adds .in) ---------- */
 .reveal { opacity: 0; transform: translateY(16px); }
 .reveal.in { animation: rise .55s cubic-bezier(.2,.7,.2,1) forwards; }

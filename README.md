@@ -10,8 +10,12 @@ index.html        Home — terminal hero + "active services" + boot animation
 projects.html     All projects, rendered as service cards
 blog.html         Blog index (a "commit log"); posts come from a JS array
 blog-post.html    Example article — duplicate this for each real post
+games.html        Arcade page (Typespeed typing test); room for more games
+games.js          Game logic — loaded ONLY on games.html
 styles.css        Shared design system: tokens, both themes, every component
 site.js           Shared behavior: theme toggle, command bar, reveals, home boot
+og.png            1200×630 social-share image
+robots.txt · sitemap.xml · llms.txt   Crawler + answer-engine files
 README.md         This file
 .claude/          launch.json for the local preview server (safe to ignore/delete)
 ```
@@ -19,6 +23,17 @@ README.md         This file
 The shell (status bar, footer, floating command bar) is the same markup on every page, and
 **all** styling/behavior lives in `styles.css` + `site.js` — so the pages can't drift apart.
 Both themes are defined as full CSS-variable sets (`:root` = dark, `[data-theme="light"]` = light).
+
+## Arcade (`/games`)
+
+`games.html` is a terminal "cabinet" that hosts small, frontend-only games. It ships with
+**Typespeed** — a shell-command typing speed test (WPM + live accuracy, best score saved via the
+crash-proof storage wrapper, keyboard + touch, GA `game_start`/`game_over` events). Reachable from
+the nav, and from the command bar (`cd games`, `games`, or `play`).
+
+**To add a game:** in `games.html`, add another terminal section with a uniquely-`id`'d root
+element; in `games.js`, add an IIFE guarded on that id (`var root = document.getElementById('x'); if (!root) return;`)
+so it no-ops elsewhere. Style it with the theme variables so it works in every theme.
 
 ## Running locally
 
