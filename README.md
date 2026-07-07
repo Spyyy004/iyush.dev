@@ -31,7 +31,9 @@ the command bar (`cd games`, `games`, or `play`). It ships with two:
 
 - **Guess the Stack** — a daily Wordle/Framed-style puzzle: name a mystery company from its tech
   stack, revealed one clue at a time (≤5 guesses). Same puzzle for everyone each day (seeded by
-  date, no backend), streak tracking, and a spoiler-free copy-to-clipboard result grid to share.
+  date, no backend), streak tracking, a spoiler-free copy-to-clipboard result grid, and a
+  **themed PNG share card** (rendered on a canvas in the current theme's colors — native share
+  sheet on mobile, download on desktop).
   Add a company to the `COMPANIES` array in `games.js` — `{ n: "Name", a: ["alias"], c: [["sector","…"],["does","…"],["scale","…"],["stack","…"],["lang","…"]] }`. Clues run **easy→hard** (broad sector first, language last) so it stays easy-to-medium; the full stack is revealed when the round ends.
 - **Typespeed** — a shell-command typing speed test (WPM + live accuracy, best score, keyboard + touch).
 

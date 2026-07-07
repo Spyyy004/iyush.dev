@@ -329,9 +329,13 @@
       '<div class="gts__grid" aria-hidden="true">' + gridEmoji() + "</div>" +
       '<div class="gts__statline"><span>streak <b>' + (s.streak || 0) + "</b></span><span>max <b>" + (s.max || 0) +
         "</b></span><span>win rate <b>" + winRate(s) + "%</b></span></div>" +
-      '<button class="gts__share" id="gtsShare" type="button">📋 copy result</button>' +
+      '<div class="gts__sharerow">' +
+        '<button class="gts__share" id="gtsImg" type="button">🖼 share image</button>' +
+        '<button class="gts__share ghost" id="gtsCopy" type="button">📋 copy</button>' +
+      "</div>" +
       '<div class="gts__next">next puzzle in <b id="gtsCountdown">—</b></div>';
-    document.getElementById("gtsShare").addEventListener("click", share);
+    document.getElementById("gtsImg").addEventListener("click", shareImage);
+    document.getElementById("gtsCopy").addEventListener("click", share);
     startCountdown();
   }
 
@@ -369,13 +373,17 @@
     }
   }
 
-  function share() {
+  function shareText() {
     var count = state.marks.length;
     var head = "Guess the Stack #" + puzzleNo + " " + (state.solved ? count + "/" + MAX : "X/" + MAX);
-    var text = head + "\n" + gridEmoji() + "\nhttps://iyush.dev/games";
+    return head + "\n" + gridEmoji() + "\nhttps://iyush.dev/games";
+  }
+
+  function share() {
+    var text = shareText();
     var done = function () {
-      var b = document.getElementById("gtsShare");
-      if (b) { b.textContent = "✓ copied"; setTimeout(function () { b.textContent = "📋 copy result"; }, 1600); }
+      var b = document.getElementById("gtsCopy");
+      if (b) { b.textContent = "✓ copied"; setTimeout(function () { b.textContent = "📋 copy"; }, 1600); }
     };
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -383,6 +391,107 @@
       } else fallbackCopy(text, done);
     } catch (e) { fallbackCopy(text, done); }
     track("gts_share", { won: state.solved, puzzle: puzzleNo });
+  }
+
+  /* ---- Share card (canvas → PNG), themed with the current palette ---- */
+  function cssVar(cs, name, fb) { var x = cs.getPropertyValue(name).trim(); return x || fb; }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function drawCard() {
+    return new Promise(function (resolve) {
+      var W = 1200, H = 630, S = 2;
+      var canvas = document.createElement("canvas");
+      canvas.width = W * S; canvas.height = H * S;
+      var ctx = canvas.getContext("2d"); ctx.scale(S, S);
+      var cs = getComputedStyle(document.documentElement);
+      var C = {
+        bg: cssVar(cs, "--bg", "#0A0C10"), surf: cssVar(cs, "--surface", "#101319"),
+        text: cssVar(cs, "--text", "#E8EBF0"), muted: cssVar(cs, "--muted", "#6B7482"),
+        mutedB: cssVar(cs, "--muted-bright", "#8B95A5"), border: cssVar(cs, "--border", "#1C2230"),
+        live: cssVar(cs, "--live", "#3FB950"), deploy: cssVar(cs, "--deploy", "#D29922"),
+        archived: cssVar(cs, "--archived", "#545E70")
+      };
+      function paint() {
+        ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = "rgba(127,127,127,0.05)"; ctx.lineWidth = 1;
+        var g;
+        for (g = 0; g <= W; g += 60) { ctx.beginPath(); ctx.moveTo(g, 0); ctx.lineTo(g, H); ctx.stroke(); }
+        for (g = 0; g <= H; g += 60) { ctx.beginPath(); ctx.moveTo(0, g); ctx.lineTo(W, g); ctx.stroke(); }
+        ctx.fillStyle = C.live; ctx.fillRect(0, 0, 6, H);
+        var padX = 80;
+        ctx.textBaseline = "middle"; ctx.textAlign = "left";
+        ctx.fillStyle = C.live; ctx.beginPath(); ctx.arc(padX + 9, 92, 8, 0, Math.PI * 2); ctx.fill();
+        ctx.font = '500 26px "JetBrains Mono", monospace';
+        ctx.fillStyle = C.text; ctx.fillText("iyush.dev", padX + 30, 93);
+        ctx.fillStyle = C.muted; ctx.textAlign = "right"; ctx.fillText("guess the stack", W - padX, 93); ctx.textAlign = "left";
+        ctx.fillStyle = state.solved ? C.live : C.text;
+        ctx.font = '700 74px "Space Grotesk", sans-serif';
+        ctx.fillText(state.solved ? "Nailed it." : "Out of guesses.", padX, 206);
+        var count = state.marks.length;
+        ctx.font = '400 30px "JetBrains Mono", monospace'; ctx.fillStyle = C.mutedB;
+        ctx.fillText("Guess the Stack #" + puzzleNo + "   ·   " + (state.solved ? count + "/" + MAX : "X/" + MAX), padX, 262);
+        var sz = 88, gap = 16, top = 312, i, m, col, x;
+        for (i = 0; i < MAX; i++) {
+          m = state.marks[i];
+          col = m === "solve" ? C.live : m === "miss" ? C.deploy : m === "skip" ? C.archived : C.surf;
+          x = padX + i * (sz + gap);
+          roundRect(ctx, x, top, sz, sz, 12); ctx.fillStyle = col; ctx.fill();
+          if (!m) { ctx.lineWidth = 1.5; ctx.strokeStyle = C.border; roundRect(ctx, x, top, sz, sz, 12); ctx.stroke(); }
+        }
+        var s = jget("gts_stats") || {};
+        ctx.font = '400 26px "JetBrains Mono", monospace'; ctx.fillStyle = C.muted;
+        ctx.fillText("streak " + (s.streak || 0) + "     ·     max " + (s.max || 0) + "     ·     win rate " + winRate(s) + "%", padX, 468);
+        ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(padX, 528); ctx.lineTo(W - padX, 528); ctx.stroke();
+        ctx.font = '500 26px "JetBrains Mono", monospace';
+        ctx.fillStyle = C.live; ctx.fillText("$", padX, 566);
+        ctx.fillStyle = C.mutedB; ctx.fillText("iyush.dev/games", padX + 28, 566);
+        ctx.fillStyle = C.muted; ctx.textAlign = "right"; ctx.fillText("play today →", W - padX, 566); ctx.textAlign = "left";
+        resolve(canvas);
+      }
+      if (document.fonts && document.fonts.load) {
+        Promise.all([
+          document.fonts.load('700 74px "Space Grotesk"'),
+          document.fonts.load('500 26px "JetBrains Mono"'),
+          document.fonts.load('400 30px "JetBrains Mono"')
+        ]).then(paint, paint);
+      } else { paint(); }
+    });
+  }
+  function downloadBlob(blob) {
+    try {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a"); a.href = url; a.download = "guess-the-stack-" + puzzleNo + ".png";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    } catch (e) { /* ignore */ }
+  }
+  function resetImgBtn() { var b = document.getElementById("gtsImg"); if (b) { b.textContent = "🖼 share image"; b.disabled = false; } }
+  function shareImage() {
+    var btn = document.getElementById("gtsImg");
+    if (btn) { btn.textContent = "rendering…"; btn.disabled = true; }
+    drawCard().then(function (canvas) {
+      var handle = function (blob) {
+        if (!blob) { resetImgBtn(); return; }
+        var file = null;
+        try { file = new File([blob], "guess-the-stack-" + puzzleNo + ".png", { type: "image/png" }); } catch (e) { /* File ctor unsupported */ }
+        if (file && navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+          navigator.share({ files: [file], title: "Guess the Stack #" + puzzleNo, text: shareText() })
+            .then(resetImgBtn, function () { downloadBlob(blob); resetImgBtn(); });
+        } else {
+          downloadBlob(blob); resetImgBtn();
+        }
+        track("gts_share_image", { won: state.solved, puzzle: puzzleNo });
+      };
+      if (canvas.toBlob) canvas.toBlob(handle, "image/png");
+      else { resetImgBtn(); }
+    }).catch(function () { resetImgBtn(); });
   }
   function fallbackCopy(text, done) {
     try {
