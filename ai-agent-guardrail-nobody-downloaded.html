@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>I built an AI agent guardrail. Nobody downloaded it. — Ayush Pawar</title>
+<meta name="description" content="Four downloads a week, zero upvotes. A postmortem on owthorize: being right about the problem, failing at distribution, and why you parse SQL instead of matching strings." />
+<link rel="canonical" href="https://iyush.dev/ai-agent-guardrail-nobody-downloaded" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0C10" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F1E8" />
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="I built an AI agent guardrail. Nobody downloaded it." />
+<meta property="og:description" content="Four downloads a week, zero upvotes. The post nobody writes — what actually happened when I was right about the problem and it didn't matter." />
+<meta property="og:url" content="https://iyush.dev/ai-agent-guardrail-nobody-downloaded" />
+<meta property="og:image" content="https://iyush.dev/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-07-07" />
+<meta property="article:author" content="Ayush Pawar" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="I built an AI agent guardrail. Nobody downloaded it." />
+<meta name="twitter:description" content="Four downloads a week, zero upvotes. A postmortem on owthorize — right about the problem, wrong about distribution." />
+<meta name="twitter:image" content="https://iyush.dev/og.png" />
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I built an AI agent guardrail. Nobody downloaded it.",
+  "description": "A postmortem on owthorize: being right about the problem, failing at distribution, and why you parse SQL structure instead of matching strings.",
+  "datePublished": "2026-07-07",
+  "dateModified": "2026-07-07",
+  "url": "https://iyush.dev/ai-agent-guardrail-nobody-downloaded",
+  "image": "https://iyush.dev/og.png",
+  "inLanguage": "en",
+  "author": { "@type": "Person", "@id": "https://iyush.dev/#person", "name": "Ayush Pawar", "url": "https://iyush.dev/" },
+  "publisher": { "@id": "https://iyush.dev/#person" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://iyush.dev/ai-agent-guardrail-nobody-downloaded" },
+  "keywords": ["AI agents", "AI safety", "tool calls", "guardrails", "owthorize", "SQL AST", "distribution", "postmortem"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<!-- Set theme before first paint to avoid a flash. Degrades gracefully if storage throws. -->
+<script>
+(function () {
+  try {
+    var t = null;
+    try { t = window.localStorage.getItem("theme"); } catch (e) { t = null; }
+    if (t === null || t === "") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+})();
+</script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Status bar -->
+  <header class="statusbar">
+    <div class="statusbar__inner">
+      <div class="sb-left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sb-id">ayush@dev</span>
+        <span class="sb-sep">·</span>
+        <span class="sb-status" id="sbStatus">status: online</span>
+      </div>
+      <div class="sb-right">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="tt-icon" aria-hidden="true">☾</span><span class="tt-label">dark</span>
+        </button>
+        <nav class="sb-nav" aria-label="Primary">
+          <a href="projects.html">projects</a>
+          <a href="blog.html" aria-current="page">blog</a>
+          <a class="ext" href="https://github.com/Spyyy004" target="_blank" rel="noopener">github ↗</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article class="article">
+      <a class="article__back" href="blog.html"><span class="arrow">←</span> back to blog</a>
+
+      <p class="article__meta">
+        <time datetime="2026-07-07">Jul 7, 2026</time>
+        <span class="sep">·</span> 6 min read
+        <span class="sep">·</span> postmortem
+      </p>
+
+      <h1>I built an AI agent guardrail. Nobody downloaded it.</h1>
+
+      <p>Four downloads a week. Zero upvotes on Hacker News. On the subreddits I got two or three comments that were pretty clearly AI generated, all sitting at zero points.</p>
+
+      <p>That is the scoreboard for <a class="link" href="https://www.npmjs.com/package/owthorize" target="_blank" rel="noopener">owthorize</a>, a library I spent weeks building and was completely sure people needed.</p>
+
+      <p>Everyone writes the win post. The launch that hit number one, the side project that got acquired, how I got my first 1,000 users. I have read a hundred of them and I have learned almost nothing, because success has too many parents and most of them are luck. So this is the other post. This is what actually happened, including the part where I was right about the problem and it did not help me at all.</p>
+
+      <h2>The problem is real</h2>
+
+      <p>I gave an AI agent access to a database. It worked fine, until one run where it decided the cleanest way to reset some test data was this:</p>
+
+      <pre><code><span class="tok-k">DELETE</span> <span class="tok-k">FROM</span> users</code></pre>
+
+      <p>No <code>WHERE</code>. My system prompt said "you are careful, never run destructive queries."</p>
+
+      <p>Well, the prompt does not run the query. The tool call does.</p>
+
+      <p>That is the whole thing. Once you see it you cannot unsee it. By the time the model has emitted a tool call, every "please be careful" you wrote is already spent. The only place left to stop the damage is the gap between the model deciding and your code executing.</p>
+
+      <p>So you do the obvious thing and block the scary words:</p>
+
+      <pre><code><span class="tok-k">if</span> (sql.<span class="tok-f">includes</span>(<span class="tok-s">"DELETE"</span>) || sql.<span class="tok-f">includes</span>(<span class="tok-s">"DROP"</span>)) <span class="tok-f">block</span>();</code></pre>
+
+      <p>This fails in both directions. It blocks <code>SELECT * FROM audit_drops</code> because the word "drop" is sitting inside a table name. And it lets through plenty of genuinely destructive queries, because a keyword match reads text, and SQL has structure. You are guessing what a query means by looking at its surface.</p>
+
+      <p>The fix is to stop matching strings and start reading the query:</p>
+
+      <pre><code><span class="tok-k">const</span> ast = <span class="tok-f">parse</span>(sql);
+<span class="tok-k">if</span> (ast.type === <span class="tok-s">"delete"</span> &amp;&amp; !ast.where) <span class="tok-f">block</span>();
+<span class="tok-k">if</span> (ast.type === <span class="tok-s">"drop"</span>) <span class="tok-f">block</span>();</code></pre>
+
+      <p>Parse it into an AST and ask structural questions. Is this a <code>DELETE</code> with no <code>WHERE</code> clause? Is this an actual <code>DROP TABLE</code>, or just the letters d, r, o, p sitting in a string? You read the shape of the thing instead of grepping its spelling.</p>
+
+      <p>The same idea covers the other ways an agent hurts you. Is this URL quietly pointing at the cloud metadata endpoint? Does this shell command carry metacharacters that break out of what you intended? Is this file path climbing out of its directory with <code>../</code>? Every one of them is the same question. Understand the call before you run it.</p>
+
+      <p>I still think all of this is correct. I would defend every line of it. That is what makes the rest of this post interesting instead of just sad.</p>
+
+      <h2>So why did nobody want it?</h2>
+
+      <p>Here is the thing that took me a while to admit, and it is the actual lesson.</p>
+
+      <blockquote>The problem being real is not the same as your solution being wanted.</blockquote>
+
+      <p>Everyone building agents that touch real systems does hit this. But when they hit it, they do not go looking for a library. They write twenty lines of validation around their own tool handler, ship it, and move on. It takes an afternoon. It is slightly wrong in ways they will not discover for months — a regex where an AST should be, a check sitting on the wrong layer — but it works well enough that the itch stops.</p>
+
+      <p>So the market for my library was never "people with this problem." It was "people with this problem who have also decided their own twenty line version is not good enough." That is a much smaller group. Right now it might be an empty one.</p>
+
+      <p>What I was selling was correctness and convenience. That is real value. It is just not urgent value. Nobody wakes up and searches for "how do I stop my agent dropping tables," because they already solved it, badly, three weeks ago, and they have not been burned yet.</p>
+
+      <blockquote>You do not get adopted for being more correct than somebody's hack. You get adopted for solving something they cannot solve themselves.</blockquote>
+
+      <p>That is the first reason, and it is the technical one.</p>
+
+      <h2>And then there is the real reason</h2>
+
+      <p>I am bad at distribution.</p>
+
+      <p>Not "I should learn some marketing" bad. Structurally bad. I have no audience. I have never had an audience. I built a thing, posted it into three rooms full of strangers who had no reason to care what I think, and then acted surprised when strangers did not care what I think.</p>
+
+      <blockquote>Posting into a cold room is not a launch. It is a lottery ticket.</blockquote>
+
+      <p>And this is not a one off. If I am honest with myself it is the pattern of everything I have built. Before this I built a monitoring app for a SaaS marketplace. It worked end to end, it was genuinely useful, and I had no way to reach the people who would want it. Before that, other things. The engineering was never the bottleneck. It has been distribution every single time, and I kept not noticing, because building is fun and distribution is not.</p>
+
+      <p>Here is the uncomfortable maths. A great product with no distribution gets four downloads. A mediocre product with distribution gets four thousand. I have spent years getting very good at the half of that equation that does not multiply.</p>
+
+      <h2>What I would tell myself before starting</h2>
+
+      <p><strong>Being right about the problem earns you nothing.</strong> The question is never "is this a real pain." It is "are people actively trying to solve this and failing." Those are two completely different questions and only the second one has customers in it.</p>
+
+      <p><strong>"They could build it themselves in an afternoon" is a death sentence, not a footnote.</strong> I knew this about owthorize and I built it anyway, because I wanted the version that was actually correct. That is fine, but then it is a craft project, and I should have called it that from day one.</p>
+
+      <p><strong>Distribution is not a launch step. It is a prerequisite.</strong> You do not build the thing and then work out how to reach people. You have the way to reach people, and then you build the thing they told you they wanted. I have had this backwards my whole building life.</p>
+
+      <p><strong>And post the loss, not just the win.</strong> This post will almost certainly do better than the library did. That tells you something about what people actually find useful, and it is not code.</p>
+
+      <h2>The library still exists</h2>
+
+      <p>It is MIT, it works, it is on npm. <a class="link" href="https://www.npmjs.com/package/owthorize" target="_blank" rel="noopener">owthorize</a>. Parse, do not match. If the day comes when agents routinely have write access to production and somebody's twenty line hack finally bites them hard enough, it will be sitting there.</p>
+
+      <p>Maybe I was early. Maybe I was just wrong in a way that took four weeks and one launch to find out. Honestly, from where I am standing, those two look identical. The only difference between them is whether anybody was listening when you said it.</p>
+
+      <p>Right now, nobody was. That is the part I am going to go fix.</p>
+
+      <hr />
+
+      <p style="font-family:var(--mono);color:var(--muted);font-size:0.9rem">— Ayush</p>
+
+      <a class="article__back" href="blog.html"><span class="arrow">←</span> back to blog</a>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links">
+        <a href="https://github.com/Spyyy004" target="_blank" rel="noopener">github</a>
+        <a href="https://linkedin.com/in/ayush-pawar004" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:cswithiyush@gmail.com">email</a>
+      </div>
+      <span class="build"><span class="dot" aria-hidden="true" style="width:7px;height:7px"></span> all systems operational</span>
+    </div>
+  </footer>
+
+  <!-- Floating command bar (shared markup across all pages) -->
+  <div class="cmdbar" id="cmdbar" role="search">
+    <span class="cmdbar__prompt" aria-hidden="true">&gt;</span>
+    <span class="cmdbar__caret" aria-hidden="true"></span>
+    <input id="cmdInput" class="cmdbar__input" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false"
+      aria-label="Command input — type a command like help, cd blog, or theme"
+      placeholder="type a command… try 'help'" />
+    <kbd class="cmdbar__key" aria-hidden="true">/</kbd>
+    <div class="cmdbar__pop" id="cmdPop" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

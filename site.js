@@ -461,7 +461,7 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" }); // threshold 0 so elements taller than the viewport still reveal
     els.forEach(function (el) { io.observe(el); });
   }
 
