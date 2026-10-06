@@ -32,3 +32,14 @@ Artificial intelligence and AI agents, LLM tooling and AI application security, 
 ## Contact
 
 For hiring, collaboration, or questions, email cswithiyush@gmail.com.
+
+## Football research — Home Turf & Hard Opponents
+
+[iyush.dev/football](https://iyush.dev/football): Five studies by Ayush Pawar on every player-match in the Premier League, La Liga, Serie A, Bundesliga and Ligue 1 from 2015/16 to 2024/25 (18,011 matches, 8,348 players, 525,328 player-matches), asking how much of football performance belongs to the player and how much to the context. Live seasons are tracked weekly and never alter the frozen results.
+
+- [Study 1 — Environment](https://iyush.dev/football/research/environment): Weather barely matters (rain and humidity within about ±2% on five leagues, wind about −1%; temperature is an open lead; final weather freeze pending). Empty stadiums roughly halved home advantage. Five-league weather confirmation still pending.
+- [Study 2 — Home advantage](https://iyush.dev/football/research/home-advantage): +27% xG per minute at home for the same player; 0 of 4,665 players have a reliable personal home edge.
+- [Study 3 — Opposition](https://iyush.dev/football/research/opposition): −14% xG per +1 SD of opponent strength; 0 of 23,022 player × metric estimates show reliable "big-game" resistance.
+- [Study 4 — Similarity](https://iyush.dev/football/research/similarity): Context-adjusted profiles find sensible cross-league matches (Bruno Fernandes → Serie A: Samardžić, Dybala, Chukwueze), but similarity is not a forecast.
+- [Study 5 — Transferability](https://iyush.dev/football/research/transferability): Movers keep 97% of output vs comparable stayers; into the Premier League 82%, out of it 117%. A model of the player's own history beats "he'll do what he did" on locked unseen seasons (MAE 0.096 vs 0.129); adding similarity changed the error by 0.000.
+- [Similarity tool](https://iyush.dev/football/tools/similarity) · [Transfer calculator](https://iyush.dev/football/tools/transfer) · [Live tracker](https://iyush.dev/football/live) · [Manchester United 2024 case study](https://iyush.dev/football/case-studies/manchester-united-2024) · [Glossary](https://iyush.dev/football/glossary) · [Methodology](https://iyush.dev/football/methodology)

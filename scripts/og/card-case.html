@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>OG card · case study</title>
+<!-- 1200×630 social card for the Manchester United 2024 case study (M7 §24). Values come from the query string, which
+     scripts/og/render.sh fills from football/data/case-study.json — nothing is typed in here. -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet" />
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #0f0f0e; }
+  .card { box-sizing: border-box; width: 1200px; height: 630px; padding: 60px 80px 52px; display: flex; flex-direction: column; color: #efe9df; border-left: 10px solid #c8513f; }
+  .k { font-family: "JetBrains Mono", monospace; font-size: 20px; letter-spacing: .14em; text-transform: uppercase; color: #e8806d; }
+  .t { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 66px; line-height: 1.02; letter-spacing: -0.02em; margin-top: 26px; max-width: 1000px; }
+  .rows { margin-top: 38px; display: grid; gap: 18px; }
+  .r { display: grid; grid-template-columns: 230px 1fr; align-items: baseline; font-family: "JetBrains Mono", monospace; }
+  .r b { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 36px; }
+  .r span { font-size: 34px; color: #efe9df; }
+  .r span i { font-style: normal; color: #8fa3b3; }
+  .r span em { font-style: normal; font-size: 20px; color: #8f897f; margin-left: 14px; letter-spacing: .06em; text-transform: uppercase; }
+  .r.out span em { color: #e8806d; }
+  .f { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #8f897f; border-top: 1px solid rgba(239,233,223,.2); padding-top: 22px; }
+  .f b { color: #efe9df; font-weight: 500; font-family: "Newsreader", Georgia, serif; font-size: 26px; }
+</style></head>
+<body><div class="card">
+  <div class="k">Home Turf &amp; Hard Opponents · Case study</div>
+  <div class="t">What would the model have told Manchester United in 2024?</div>
+  <div class="rows" id="rows"></div>
+  <div class="f"><b>A leakage-free recruitment case study</b><span style="color:#8f897f">xG + xA per 90 · iyush.dev/football</span></div>
+</div>
+<script>
+// r=Name|predicted|actual|inside(1/0) — repeated
+var p = new URLSearchParams(location.search), h = "";
+p.getAll("r").forEach(function (s) {
+  var a = s.split("|"), out = a[3] === "0";
+  h += '<div class="r' + (out ? " out" : "") + '"><b></b><span><i>' + a[1] + "</i> predicted → " + a[2] + " actual<em>" + (out ? "outside range" : "inside range") + "</em></span></div>";
+});
+document.getElementById("rows").innerHTML = h;
+p.getAll("r").forEach(function (s, i) { document.querySelectorAll(".r b")[i].textContent = s.split("|")[0]; });
+</script></body></html>

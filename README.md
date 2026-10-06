@@ -226,3 +226,44 @@ Details:
   fade, blinking carets) and shows content in its final state.
 - Status colors were re-tuned (darkened/desaturated, glows removed) for the light theme so both
   themes stay legible and intentional.
+
+## Football research (`/football`)
+
+"Home Turf & Hard Opponents" — five football studies plus interactive tools, spec'd in `docs/M0.md`
+(`docs/` and `scripts/` are kept out of deploys by `.vercelignore`). Same no-build, vanilla approach as the rest
+of the site, but with its **own** design system: `/football` pages load `football/football.css` and
+`football/js/football.js`, never the parent `styles.css`/`site.js`.
+
+```
+football/
+  index.html                 Homepage story (hero → thesis → five-study timeline → findings → tool teasers → live → methodology)
+  research/ tools/ case-studies/   Study pages, similarity tool, transfer calculator, Manchester United 2024
+  live.html glossary.html methodology.html about.html
+  football.css               Design tokens + every component (StatBlock, ResearchTimeline, FindingCard, LiveMetric, …)
+  js/football.js             Shared behaviour: Fan/Analyst mode, glossary popovers, data loader, PlayerSearch, share, SVG charts
+  js/glossary.js             All glossary terms (one source for inline popovers and /football/glossary)
+  js/s4_engine.js s5_engine.js   Browser ports of the Study 4 similarity and Study 5 transfer models
+  data/*.json                Precomputed research outputs (never edit by hand)
+  og/*.png                   1200×630 social cards
+```
+
+**Refreshing the data.** The research lives in a separate pipeline (`~/dev/weather_football`), rebuilt every Monday.
+After it runs, regenerate the frontend datasets and commit them:
+
+```bash
+python3 scripts/football_export.py      # reads ~/dev/weather_football/site/data.json → football/data/*.json
+```
+
+The script only splits and copies validated outputs; it never recomputes or rounds anything.
+
+**Engines.** `football/js/s4_engine.js` and `s5_engine.js` are verbatim copies of `~/dev/weather_football/site/*_engine.js`.
+Re-copy them whenever the pipeline's models change, and re-run the parity check there
+(`node site/s5_engine.js outputs/study5/tables/m9_engine_fixture.json` → `PASS`).
+
+**Local preview.** Football links use clean URLs (`/football/research`), so `python3 -m http.server` won't resolve them.
+Use a clean-URL server: `npx serve -l 4601 .` then open http://localhost:4601/football.
+
+**Redirects.** `vercel.json` sends `/football/tools/transfer` (the share URL in M0) to `/football/tools/transfer`.
+
+**OG images.** Edit the card list in `scripts/og/render.sh` (template: `scripts/og/card.html`), start the local server
+on :4601, then run `scripts/og/render.sh` to rewrite `football/og/*.png`.

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Study 05 · Transferability · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Study 5: movers keep 97% of their output vs comparable stayers, but the league ladder decides the direction. A history-based model beats the naive guess on 142 locked moves; similarity adds 0.000." />
+<link rel="canonical" href="https://iyush.dev/football/research/transferability" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Will his game travel?" />
+<meta property="og:description" content="Study 5: movers keep 97% of their output vs comparable stayers, but the league ladder decides the direction. A history-based model beats the naive guess on 142 locked moves; similarity adds 0.000." />
+<meta property="og:url" content="https://iyush.dev/football/research/transferability" />
+<meta property="og:image" content="https://iyush.dev/football/og/transferability.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Will his game travel?" />
+<meta name="twitter:description" content="Study 5: movers keep 97% of their output vs comparable stayers, but the league ladder decides the direction. A history-based model beats the naive guess on 142 locked moves; similarity adds 0.000." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/transferability.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Study 05 — Transferability",
+  "description": "Study 5: movers keep 97% of their output vs comparable stayers, but the league ladder decides the direction. A history-based model beats the naive guess on 142 locked moves; similarity adds 0.000.",
+  "url": "https://iyush.dev/football/research/transferability",
+  "mainEntityOfPage": "https://iyush.dev/football/research/transferability",
+  "image": "https://iyush.dev/football/og/transferability.png",
+  "inLanguage": "en",
+  "creativeWorkStatus": "Published",
+  "author": {
+    "@id": "https://iyush.dev/#person"
+  },
+  "isPartOf": {
+    "@id": "https://iyush.dev/football#site"
+  },
+  "about": "Association football performance analytics"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>document.documentElement.classList.add("js")</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research" aria-current="true">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="study" aria-labelledby="q-h">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li><a href="/football/research">Research</a></li><li aria-current="page">05 Transferability</li></ol></nav>
+<nav class="snav" aria-label="Studies"><div class="wrap"><ol><li><a href="/football/research/environment"><span class="snav__n">01</span><span class="snav__t">Environment</span><span class="snav__st" title="Weather freeze pending">pending</span></a></li><li><a href="/football/research/home-advantage"><span class="snav__n">02</span><span class="snav__t">Home</span></a></li><li><a href="/football/research/opposition"><span class="snav__n">03</span><span class="snav__t">Opposition</span></a></li><li><a href="/football/research/similarity"><span class="snav__n">04</span><span class="snav__t">Similarity</span></a></li><li><a href="/football/research/transferability" aria-current="page"><span class="snav__n">05</span><span class="snav__t">Transfers</span></a></li></ol></div></nav>
+<header class="s-hero wrap">
+  
+  <p class="eyebrow s-hero__no" data-reveal><b class="s-hero__num">05</b> / Transferability <span class="pill pill--final">Complete</span></p>
+  <div class="s-hero__grid">
+    <div>
+      <h1 id="q-h">Will his game travel?</h1>
+      <p class="study-sub">What happens to attacking output when a player changes leagues?</p>
+      <p class="clarify">Similarity can describe a player.<br>Transferability asks whether his output survives the move.</p>
+      <ul class="s-meta" aria-label="Study scope"><li><b>428</b><span>Summer moves</span></li><li><b>142</b><span>Locked test moves</span></li><li><b>5</b><span>Leagues</span></li></ul>
+    </div>
+    <div class="s-hero__side">
+      <div class="callout" data-reveal><p class="label">Finding</p><p>Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder decides the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.</p></div>
+      
+    </div>
+  </div>
+</header>
+<section class="ss" id="why" aria-labelledby="why-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="why-h"><span>02</span>Why it matters</h2></div>
+<div class="ss__body">
+<p class="body">Every summer, clubs pay for output produced somewhere else. Whether that output travels is the question behind every cross-league signing.</p><p class="body">Study 4 can say who a player resembles. It can't say what happens after he moves.</p><p class="q-big">How much of a player's output survives a league move — and can we predict it?</p>
+</div>
+</div>
+</section>
+<section class="ss" id="method" aria-labelledby="method-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="method-h"><span>03</span>What we did</h2></div>
+<div class="ss__body">
+<ol class="flow flow--v" aria-label="Method in steps" data-reveal><li>Player history</li><li>Origin league</li><li>Transfer</li><li>Destination league</li><li>Post-transfer output</li></ol><p class="benchmark"><span class="label">The benchmark</span>We compare movers against <button type="button" class="term" data-term="stayers">comparable players who stayed</button> — same club, role, output and age — so that ordinary <button type="button" class="term" data-term="regression-to-the-mean">regression to the mean</button> isn't mistaken for a transfer effect.</p><p class="body">Output drops after any strong season, move or no move. Comparing movers with similar players who stayed separates the move from that ordinary drop.</p><div class="acc"><details><summary><span class="label">Technical detail</span><span class="acc__h">How the estimate is built</span></summary><div class="acc__body"><p>Understat has no transfer records, so moves were inferred from club changes (including deadline-day moves after early matches). Of 2,917 cross-league moves, the primary population is 428 summer moves (2016/17–2025/26) by forwards and midfielders with ≥900 minutes before and after; every exclusion is listed with its reason.</p><p><button type="button" class="term" data-term="retention">Retention</button> = output after ÷ output before (xG + xA per 90). Dates of birth were linked from the CC0 Transfermarkt-derived dataset (100% of the 428 moves).</p><p>Every prediction uses only information available at the decision date; the final model was scored once on <button type="button" class="term" data-term="locked-test">locked seasons</button>.</p></div></details></div>
+</div>
+</div>
+</section>
+<section class="ss" id="found" aria-labelledby="found-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="found-h"><span>04</span>What we found</h2></div>
+<div class="ss__body">
+<article class="find find--head"><h3 class="find__big">On average, most of it survives.</h3><p class="lead lead--big">Movers keep <strong>97%</strong> of their output compared with comparable stayers (95% <button type="button" class="term" data-term="interval">confidence interval</button> <strong>93–101%</strong>): an average move costs about 3%.</p><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Output kept after a move, vs comparable stayers</p><p class="chart__sub">xG + xA per 90. 100% = no change relative to similar players who stayed. Line is the 95% interval.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="All 428 league moves: 97%"><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">All 428 league moves</span><span class="track"><span class="zero" style="left:75.00%"></span><span class="ci" style="left:41.83%;width:calc(81.48% - 41.83%)"></span><span class="mk mk--a mk--hot" style="left:61.89%"></span></span><span class="hbar__v hbar__v--hot">97%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">85%</span><span style="left:25.00%">90%</span><span style="left:50.00%">95%</span><span style="left:75.00%">100%</span><span style="left:100.00%">105%</span></div><span></span></div></div></div>
+  <p class="chart__summary">Movers keep 97% (95% interval 93–101%): an average move costs about 3%, and the interval just reaches 100%.</p>
+  <p class="source">Study 05 · 428 summer moves, 2016/17–2025/26</p>
+</figure></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">But the direction decides it.</h3><p class="lead">One <button type="button" class="term" data-term="league-ladder">ladder of league difficulty</button> explains all 20 directions: moving <strong>into</strong> the Premier League keeps <strong>82%</strong>; moving <strong>out</strong> of it, <strong>117%</strong>.</p><p class="body find__x">Premier League hardest, Serie A and La Liga in the middle, Bundesliga and Ligue 1 easiest. Pair-specific effects add nothing (p = 0.91): Serie A → Premier League keeps ~80%, Premier League → Serie A ~114%.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Output kept moving into vs out of each league</p><p class="chart__sub">vs comparable stayers, xG + xA per 90. 100% = no change.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Premier League: into 82%, out of 117%; La Liga: into 100%, out of 100%; Serie A: into 96%, out of 99%; Bundesliga: into 119%, out of 90%; Ligue 1: into 118%, out of 89%"><div class="hchart" style="--vw:7.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">Premier League</span><span class="track"><span class="zero" style="left:50.00%"></span><span class="gap" style="left:19.24%;width:calc(78.06% - 19.24%)"></span><span class="mk mk--b" style="left:78.06%"></span><span class="mk mk--a mk--hot" style="left:19.24%"></span></span><span class="hbar__v hbar__v--hot">82% · 117%</span></div><div class="hbar__row"><span class="hbar__lbl">La Liga</span><span class="track"><span class="zero" style="left:50.00%"></span><span class="gap" style="left:49.67%;width:calc(49.73% - 49.67%)"></span><span class="mk mk--b" style="left:49.73%"></span><span class="mk mk--a" style="left:49.67%"></span></span><span class="hbar__v">100% · 100%</span></div><div class="hbar__row"><span class="hbar__lbl">Serie A</span><span class="track"><span class="zero" style="left:50.00%"></span><span class="gap" style="left:42.56%;width:calc(48.46% - 42.56%)"></span><span class="mk mk--b" style="left:48.46%"></span><span class="mk mk--a" style="left:42.56%"></span></span><span class="hbar__v">96% · 99%</span></div><div class="hbar__row"><span class="hbar__lbl">Bundesliga</span><span class="track"><span class="zero" style="left:50.00%"></span><span class="gap" style="left:33.02%;width:calc(81.97% - 33.02%)"></span><span class="mk mk--b" style="left:33.02%"></span><span class="mk mk--a" style="left:81.97%"></span></span><span class="hbar__v">119% · 90%</span></div><div class="hbar__row"><span class="hbar__lbl">Ligue 1</span><span class="track"><span class="zero" style="left:50.00%"></span><span class="gap" style="left:31.03%;width:calc(80.27% - 31.03%)"></span><span class="mk mk--b" style="left:31.03%"></span><span class="mk mk--a" style="left:80.27%"></span></span><span class="hbar__v">118% · 89%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">70%</span><span style="left:50.00%">100%</span><span style="left:100.00%">130%</span></div><span></span></div></div><div class="legend"><span><i class="sw sw--dot"></i>Moving into</span><span><i class="sw sw--ring"></i>Moving out of</span></div><details class="data"><summary>Show the numbers</summary><div class="tscroll"><table><thead><tr><th>League</th><th>Moving into</th><th>Moving out of</th></tr></thead><tbody><tr><td>Premier League</td><td>82% (76–87) · n 137</td><td>117% (107–127) · n 78</td></tr><tr><td>La Liga</td><td>100% (92–108) · n 86</td><td>100% (91–109) · n 86</td></tr><tr><td>Serie A</td><td>96% (89–103) · n 97</td><td>99% (91–108) · n 69</td></tr><tr><td>Bundesliga</td><td>119% (107–130) · n 47</td><td>90% (82–98) · n 75</td></tr><tr><td>Ligue 1</td><td>118% (108–129) · n 61</td><td>89% (82–95) · n 120</td></tr></tbody></table></div></details></div>
+  <p class="chart__summary">Moving into the Premier League costs the most and moving out of it gains the most; the Bundesliga and Ligue 1 are the reverse.</p>
+  <p class="source">Study 05 · 428 moves; per-league 95% intervals in the table below</p>
+</figure></div></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">Age and the destination club matter too.</h3><p class="lead">Younger players keep more — about <strong>−2% per year</strong> of age (U21 <strong>109%</strong>, 30+ <strong>93%</strong>). The destination club matters as much as the league: weakest third of destination clubs <strong>79%</strong>, strongest third <strong>106%</strong>.</p><p class="body find__x">Players coming off a jump in output drop more (−9% per SD of last-season change). No effect: role (once regression to the mean is removed), consistency over three seasons, profile distinctiveness, penalty duties, loans.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Output kept vs comparable stayers, by age and destination club</p><p class="chart__sub">xG + xA per 90. 100% = no change.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="U21: 109%; 21–23: 104%; 24–26: 96%; 27–29: 92%; 30+: 93%; Weakest third: 79%; Middle third: 101%; Strongest third: 106%"><p class="label fig-sub">Age at the move</p><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">U21</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:77.17%"></span></span><span class="hbar__v">109%</span></div><div class="hbar__row"><span class="hbar__lbl">21–23</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:67.48%"></span></span><span class="hbar__v">104%</span></div><div class="hbar__row"><span class="hbar__lbl">24–26</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:51.41%"></span></span><span class="hbar__v">96%</span></div><div class="hbar__row"><span class="hbar__lbl">27–29</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:43.54%"></span></span><span class="hbar__v">92%</span></div><div class="hbar__row"><span class="hbar__lbl">30+</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:46.35%"></span></span><span class="hbar__v">93%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">70%</span><span style="left:60.00%">100%</span><span style="left:100.00%">120%</span></div><span></span></div></div><p class="label fig-sub">Destination club strength</p><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">Weakest third</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:17.82%"></span></span><span class="hbar__v">79%</span></div><div class="hbar__row"><span class="hbar__lbl">Middle third</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:61.92%"></span></span><span class="hbar__v">101%</span></div><div class="hbar__row"><span class="hbar__lbl">Strongest third</span><span class="track"><span class="zero" style="left:60.00%"></span><span class="mk mk--a mk--hot" style="left:72.31%"></span></span><span class="hbar__v">106%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">70%</span><span style="left:60.00%">100%</span><span style="left:100.00%">120%</span></div><span></span></div></div></div>
+  <p class="chart__summary">Under-21s keep 109%, players over 30 93%. Joining a club in the weakest third keeps 79%; the strongest third, 106%.</p>
+  <p class="source">Study 05 · 428 moves</p>
+</figure></div></article>
+<article class="find"><h3 class="find__h">Can we predict the move?</h3><p class="lead">Each step adds information the naive guess ignores. The final model cuts the error from <strong>0.129</strong> to <strong>0.096</strong> and lifts <button type="button" class="term" data-term="r-squared">R²</button> from <strong>0.58</strong> to <strong>0.76</strong>.</p><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Prediction error on 142 locked test moves, step by step</p><p class="chart__sub">First season after the move, xG + xA per 90. Lower MAE is better; higher R² is better.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Each step adds information and lowers the error: 0.129 → 0.117 → 0.102 → 0.096."><ol class="prog"><li class="prog__step"><div class="prog__h"><span class="prog__n">01</span><b>Naive</b><span>“He&#x27;ll do what he did before” (post = pre)</span></div><div class="prog__m"><span class="label">MAE</span><span class="track"><span class="bar grow-x" style="width:92.3%;transform-origin:left"></span></span><span class="hbar__v">0.129</span></div><div class="prog__r"><span class="label">R²</span><span class="hbar__v">0.58</span></div></li><li class="prog__step"><div class="prog__h"><span class="prog__n">02</span><b>Role</b><span>Pull toward the role average</span></div><div class="prog__m"><span class="label">MAE</span><span class="track"><span class="bar grow-x" style="width:83.5%;transform-origin:left"></span></span><span class="hbar__v">0.117</span></div><div class="prog__r"><span class="label">R²</span><span class="hbar__v">0.65</span></div></li><li class="prog__step"><div class="prog__h"><span class="prog__n">03</span><b>Context</b><span>Age, minutes, both clubs&#x27; strength, leagues</span></div><div class="prog__m"><span class="label">MAE</span><span class="track"><span class="bar grow-x" style="width:72.5%;transform-origin:left"></span></span><span class="hbar__v">0.102</span></div><div class="prog__r"><span class="label">R²</span><span class="hbar__v">0.74</span></div></li><li class="prog__step prog__step--hot"><div class="prog__h"><span class="prog__n">04</span><b>Final model</b><span>Context + three-season history</span></div><div class="prog__m"><span class="label">MAE</span><span class="track"><span class="bar grow-x bar--hot" style="width:68.6%;transform-origin:left"></span></span><span class="hbar__v hbar__v--hot">0.096</span></div><div class="prog__r"><span class="label">R²</span><span class="hbar__v">0.76</span></div></li></ol></div>
+  <p class="chart__summary">Each step adds information and lowers the error: 0.129 → 0.117 → 0.102 → 0.096.</p>
+  <p class="source">Study 05 · locked test, 2023/24–2025/26</p>
+</figure></article>
+<article class="find"><h3 class="find__h">The model was frozen before the test.</h3><ol class="locked" data-reveal><li>Training seasons</li><li>Model locked</li><li>2023/24 — 2025/26 opened</li><li>142 unseen moves, scored once</li></ol><p class="lead">The final model was fixed before the test seasons and evaluated once on 142 unseen moves. It beat the naive baseline by <strong>0.033</strong> xG + xA per 90 (CI 0.018–0.049) and did slightly better on the unseen seasons than on earlier ones — no sign of overfitting.</p></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">Similarity had to earn its place. It didn&#x27;t.</h3><p class="lead">Adding Study 4's similarity — what the most similar destination-league players produce, match quality, distinctiveness, how similar movers fared — changed the error by <strong>0.000</strong>. Comparables alone were worse than the player's own history.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Prediction error on 157 league moves</p><p class="chart__sub">Mean absolute error, xG + xA per 90, first season after the move. Lower is better.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="“He&#x27;ll do what he did”: 0.132; Similar players only: 0.129; Own history: 0.110; Own history + similar players: 0.109"><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">“He&#x27;ll do what he did”</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="bar grow-x" style="left:0.00%;width:calc(94.23% - 0.00%);transform-origin:left"></span></span><span class="hbar__v">0.132</span></div><div class="hbar__row"><span class="hbar__lbl">Similar players only</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="bar grow-x" style="left:0.00%;width:calc(91.85% - 0.00%);transform-origin:left"></span></span><span class="hbar__v">0.129</span></div><div class="hbar__row"><span class="hbar__lbl">Own history</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="bar grow-x bar--hot" style="left:0.00%;width:calc(78.24% - 0.00%);transform-origin:left"></span></span><span class="hbar__v hbar__v--hot">0.110</span></div><div class="hbar__row"><span class="hbar__lbl">Own history + similar players</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="bar grow-x" style="left:0.00%;width:calc(77.92% - 0.00%);transform-origin:left"></span></span><span class="hbar__v">0.109</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">0</span><span style="left:28.57%">0.04</span><span style="left:57.14%">0.08</span><span style="left:85.71%">0.12</span></div><span></span></div></div></div>
+  <p class="chart__summary">Similar players alone barely beat the naive guess. The player's own history cuts the error by 17%; adding similarity on top moves it by less than 0.001.</p>
+  <p class="source">Study 05 · critical experiment, transfers with Study 4 profiles</p>
+</figure></div></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">A prediction is a range, not a number.</h3><p class="lead">The chance of keeping ≥75% ranks players well (<button type="button" class="term" data-term="auc">AUC</button> <strong>0.80</strong>) and beats a same-for-everyone base rate (<button type="button" class="term" data-term="brier">Brier</button> <strong>0.179 vs 0.224</strong>), and is <button type="button" class="term" data-term="calibration">calibrated</button> at the top. But individual forecasts are uncertain: a typical <button type="button" class="term" data-term="range-80">80% range</button> is <strong>±0.2</strong> xG + xA per 90.</p><p class="body find__x">Lower thresholds (50%, 60%) were not well calibrated and are not used.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Is the chance of keeping ≥75% honest?</p><p class="chart__sub">Five groups of about 29 test moves. On the diagonal = says what it means.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Where the model says about 82% and 96%, 86% and 97% of players kept ≥75%. Lower down it is less reliable. AUC 0.80; Brier 0.179 vs 0.224 for a same-for-everyone guess."><div class="cal"><div class="cal__plot"><span class="cal__diag"></span><span class="cal__ci" style="left:26.3%;bottom:20.3%;height:35.3%"></span><span class="cal__dot" style="left:26.3%;bottom:37.9%" title="predicted 26%, observed 38%"></span><span class="cal__ci" style="left:54.1%;bottom:21.2%;height:36.2%"></span><span class="cal__dot" style="left:54.1%;bottom:39.3%" title="predicted 54%, observed 39%"></span><span class="cal__ci" style="left:67.6%;bottom:54.7%;height:33.5%"></span><span class="cal__dot" style="left:67.6%;bottom:71.4%" title="predicted 68%, observed 71%"></span><span class="cal__ci" style="left:81.9%;bottom:72.8%;height:25.9%"></span><span class="cal__dot" style="left:81.9%;bottom:85.7%" title="predicted 82%, observed 86%"></span><span class="cal__ci" style="left:95.7%;bottom:89.9%;height:10.1%"></span><span class="cal__dot" style="left:95.7%;bottom:96.6%" title="predicted 96%, observed 97%"></span></div><div class="cal__x"><span>0%</span><span>Predicted chance of keeping ≥75%</span><span>100%</span></div><div class="cal__y"><span>Observed share</span></div></div></div>
+  <p class="chart__summary">Where the model says about 82% and 96%, 86% and 97% of players kept ≥75%. Lower down it is less reliable. AUC 0.80; Brier 0.179 vs 0.224 for a same-for-everyone guess.</p>
+  <p class="source">Study 05 · locked test, calibration by fifths</p>
+</figure></div></article>
+<article class="find find--fail"><p class="label find__k">Known weakness</p><h3 class="find__h">Where the model breaks.</h3><p class="lead">The league effect is a fixed amount, not a percentage, so low-output central midfielders moving into the Premier League are under-predicted by about <strong>0.06</strong> xG + xA per 90.</p><div class="fail-ex"><p class="fail-ex__n">Example: Manuel Ugarte</p><p class="small muted">Manchester United case study, summer 2024 — standing at 1 June 2024 with only what was known then.</p><div class="hbar" role="img" aria-label="Predicted 0.02; Actual 0.14 xG + xA per 90"><div class="hbar__row"><span class="hbar__lbl">Predicted</span><span class="track"><span class="bar grow-x" style="width:11.4%;transform-origin:left"></span></span><span class="hbar__v">0.02</span></div><div class="hbar__row"><span class="hbar__lbl">Actual</span><span class="track"><span class="bar grow-x bar--hot" style="width:80.0%;transform-origin:left"></span></span><span class="hbar__v">0.14</span></div></div><p class="source" style="margin-top:8px">xG + xA per 90 · Study 05 case study</p></div><p class="body">Ugarte was bought for defensive work this data cannot see. The model primarily sees attacking output. A percentage-based league effect is the next version.</p><p><a class="link-arrow" href="/football/case-studies/manchester-united-2024">Read the case study <span class="arr" aria-hidden="true">→</span></a></p></article>
+</div>
+</div>
+</section>
+<section class="ss" id="surprise" aria-labelledby="surprise-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="surprise-h"><span>05</span>What surprised us</h2></div>
+<div class="ss__body">
+<ol class="surprise"><li><p class="label">What the raw data suggested</p><p>Early on, centre-forwards seemed to drop the most after a move, and a promoted-club effect looked like a data artefact.</p></li><li><p class="label">What happened after we checked</p><p>Against comparable stayers, centre-forwards keep 96% — mostly regression to the mean, no clear role effect. And the promoted-club effect is real: players joining promoted clubs produce more than the club's rating predicts.</p></li><li class="surprise__l"><p class="label">Lesson</p><p>Every raw transfer pattern needs a control group — and a second look.</p></li></ol>
+</div>
+</div>
+</section>
+<section class="ss" id="meaning" aria-labelledby="meaning-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="meaning-h"><span>06</span>What it means</h2></div>
+<div class="ss__body">
+<ul class="means"><li>To forecast a move, start from the player's own history, age and both clubs, and place both leagues on the difficulty ladder.</li><li>Use similarity to find candidates and the transfer model to size the risk — never one as the other.</li><li>Read every forecast as a range. The model knows how unsure it is; a single number hides that.</li></ul>
+</div>
+</div>
+</section>
+<section class="ss" id="limits" aria-labelledby="limits-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="limits-h"><span>07</span>Limitations</h2></div>
+<div class="ss__body">
+<ul class="limits"><li>Output only: defending, pace, possession, injuries, fees and contracts are not in the data; defenders and goalkeepers are excluded.</li><li>The league effect is fixed rather than proportional — the Ugarte weakness. A percentage-based version is to be validated on moves after 2025/26.</li><li>Individual forecasts are uncertain: a typical 80% range is ±0.2 xG + xA per 90.</li><li>Observational data: effects are associations within carefully matched comparisons.</li></ul><p class="prov"><span class="label">Sources</span>Understat · football-data.co.uk · Open-Meteo ERA5 · Wikipedia/Wikidata · OpenStreetMap<br><span class="label">Analysis period</span>Moves 2016/17 — 2025/26 · frozen dataset · <a href="/football/methodology">Methodology</a></p>
+</div>
+</div>
+</section>
+<section class="next" aria-labelledby="next-h"><div class="wrap"><p class="ss__k"><span>08</span>The next question</p><p class="next__k">Five studies, one answer: context belongs to the match; level belongs to the player.</p><h2 id="next-h">Does it still hold on seasons the studies never saw?</h2><span class="next__arrow" aria-hidden="true">↓</span><a class="next__go" href="/football/live">Live tracker <span class="arr" aria-hidden="true">→</span></a></div></section>
+<nav class="pager wrap" aria-label="Study sequence"><a class="pager__prev" href="/football/research/similarity"><span class="label">← Previous study</span><span>04 Similarity</span></a><a class="pager__next" href="/football/research"><span class="label">Back to →</span><span>All research</span></a></nav>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

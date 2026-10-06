@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en" data-mode="fan">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Home Turf &amp; Hard Opponents · Football research by Ayush Pawar</title>
+<meta name="description" content="Five studies on 525,328 player-matches from Europe's top five leagues, investigating how much of football performance belongs to the player — and how much belongs to the context." />
+<link rel="canonical" href="https://iyush.dev/football" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="What actually belongs to the player?" />
+<meta property="og:description" content="Five studies on 525K player-matches: home advantage, opponent quality, similarity and transfers. Football research by Ayush Pawar." />
+<meta property="og:url" content="https://iyush.dev/football" />
+<meta property="og:image" content="https://iyush.dev/football/og/home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="What actually belongs to the player?" />
+<meta name="twitter:description" content="Five studies on 525K player-matches from Europe's top five leagues." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/home.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://iyush.dev/football#site",
+  "name": "Home Turf & Hard Opponents",
+  "alternateName": "Football research by Ayush Pawar",
+  "url": "https://iyush.dev/football",
+  "description": "Five studies investigating how much of football performance belongs to the player — and how much belongs to the context.",
+  "inLanguage": "en",
+  "isPartOf": { "@id": "https://iyush.dev/#website" },
+  "author": { "@id": "https://iyush.dev/#person" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>try{document.documentElement.setAttribute("data-mode",localStorage.getItem("fb-mode")==="analyst"?"analyst":"fan")}catch(e){}</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- SiteHeader + FootballNav -->
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 01 Identity + Hero (M1 §10) -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <p class="eyebrow">Football research <b>·</b> 01—05</p>
+    <h1 id="hero-h">What actually <br class="hide-m">belongs to the player?</h1>
+    <p class="lede">Five studies investigating how much football performance belongs to the player — and how much belongs to the context.</p>
+    <div class="cta-row">
+      <a class="btn" href="/football/research">Explore the research <span class="arr" aria-hidden="true">→</span></a>
+      <a class="link-arrow link-arrow--plain" href="#how">How it works <span aria-hidden="true">↓</span></a>
+    </div>
+    <ul class="strip" aria-label="The dataset">
+      <li><b>5</b><span>Leagues</span></li>
+      <li><b>10</b><span>Seasons</span></li>
+      <li><b>525K</b><span>Player-matches</span></li>
+      <li><b>18,011</b><span>Matches</span></li>
+      <li><b>8,348</b><span>Players</span></li>
+    </ul>
+    <p class="source">Premier League, La Liga, Serie A, Bundesliga, Ligue 1 · 2015/16–2024/25 frozen study data · live seasons tracked separately</p>
+  </div>
+</section>
+
+<!-- Thesis (M1 §11) -->
+<section class="section" aria-labelledby="thesis-h">
+  <div class="wrap">
+    <div class="grid section__head" style="max-width:none">
+      <div class="d-6">
+        <p class="eyebrow">The thesis</p>
+        <h2 id="thesis-h">Context moves the numbers.</h2>
+      </div>
+      <p class="lede d-5 d-end" style="align-self:end;margin:0">A player’s output doesn’t exist in isolation. Venue, crowd, opposition and league can all change what the numbers look like.</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat__v">+27%</div>
+        <p class="stat__k">Home <button type="button" class="term" data-term="xg">xG</button></p>
+        <p class="stat__d">The same player, in the same team and season, produces this much more xG per minute at home.</p>
+        <p class="stat__src">Study 02 · 95% CI +25–28%</p>
+      </div>
+      <div class="stat">
+        <div class="stat__v">−14%</div>
+        <p class="stat__k">xG per +1 <button type="button" class="term" data-term="sd">SD</button> <button type="button" class="term" data-term="opponent-strength">opponent strength</button></p>
+        <p class="stat__d">Every step up in opposition quality cuts output by about the same share — for almost everyone.</p>
+        <p class="stat__src">Study 03 · −13.8%</p>
+      </div>
+      <div class="stat">
+        <div class="stat__v">97%</div>
+        <p class="stat__k">Average output <button type="button" class="term" data-term="retention">retained</button> on transfer</p>
+        <p class="stat__d">After a league move, compared with <button type="button" class="term" data-term="stayers">comparable players who stayed</button>. Averages hide wide individual swings.</p>
+        <p class="stat__src">Study 05 · 95% CI 93–101%</p>
+      </div>
+    </div>
+    <p class="closing">So we tried to remove the noise.</p>
+  </div>
+</section>
+
+<!-- Five-study journey (M1 §12–13) -->
+<section class="section" id="journey" aria-labelledby="journey-h">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow">Five studies, one investigation</p>
+      <h2 id="journey-h">Each study builds on the one before.</h2>
+    </div>
+    <ol class="timeline">
+      <li class="tl-item">
+        <span class="tl-no" aria-hidden="true">01</span>
+        <div class="tl-body">
+          <p class="tl-kicker"><b>01 / Environment</b> <span>2015/16 — 2024/25</span> <span class="pill pill--pending">Weather freeze pending</span></p>
+          <div class="tl-grid">
+            <div>
+              <h3 class="tl-q">Does the environment change the player?</h3>
+              <p class="tl-a">Mostly no.</p>
+              <p class="tl-d">Rain, wind and humidity had surprisingly small effects. Temperature remains the open question. The five-league models are done, but the final checks and freeze are still pending, so this answer is provisional.</p>
+              <a class="link-arrow" href="/football/research/environment">Read the study <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+<!-- gen:fig-s1 -->
+<figure class="chart fig">
+  <figcaption><p class="chart__title">Weather, next to home advantage</p><p class="chart__sub">Change in a player’s xG. The shaded band is the largest weather effect the data still allows.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Rain and humidity: within plus or minus 2 percent. Playing at home: plus 26.6 percent."><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">Rain, humidity</span><span class="track"><span class="zero" style="left:25.00%"></span><span class="band" style="left:20.00%;width:10.00%"></span></span><span class="hbar__v">±2%</span></div><div class="hbar__row"><span class="hbar__lbl"><b>Playing at home</b></span><span class="track"><span class="zero" style="left:25.00%"></span><span class="bar bar--hot" style="left:25.00%;width:66.50%"></span></span><span class="hbar__v hbar__v--hot">+26.6%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0%">−10%</span><span style="left:25.00%">0</span><span style="left:50.00%">+10%</span><span style="left:75.00%">+20%</span><span style="left:100.00%">+30%</span></div><span></span></div></div>
+  <p class="chart__summary">On all five leagues, rain and humidity move output by about ±2% at most (wind about −1%). Playing at home lifts the same player’s xG by 26.6%.</p>
+  <p class="source">Study 01 (five-league run, 6 Oct 2026; final conclusion pending) · Study 02</p>
+</figure>
+<!-- /gen:fig-s1 -->
+          </div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <span class="tl-no" aria-hidden="true">02</span>
+        <div class="tl-body">
+          <p class="tl-kicker"><b>02 / Home advantage</b> <span>2015/16 — 2024/25</span> <span class="pill pill--final">Complete</span></p>
+          <div class="tl-grid">
+            <div>
+              <h3 class="tl-q">Does playing at home change output?</h3>
+              <p class="tl-a">Yes.<span>But not because some players are simply “home specialists.”</span></p>
+              <p class="tl-d">Everyone gets about the same lift at home. Not one of 4,665 players has a reliable personal home edge.</p>
+              <a class="link-arrow" href="/football/research/home-advantage">Read the study <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+<!-- gen:fig-s2 -->
+<figure class="chart fig">
+  <figcaption><p class="chart__title">Each player’s personal home edge</p><p class="chart__sub">4,606 players in this export (the reliability test reports 4,665), xG at home vs away. Each row is scaled to its own peak; the outer bars collect everything beyond ±200%.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Histogram of 4606 players&#x27; home edges. Raw estimates spread widely; after shrinkage 4390 of 4606 sit between plus 20 and plus 30 percent."><div class="hist"><div class="hist__row"><p class="label"><span>As measured</span><span>spread ±77 pts</span></p><div class="hist__bars"><i style="height:19.5%"></i><i style="height:1.0%"></i><i style="height:2.5%"></i><i style="height:2.0%"></i><i style="height:2.0%"></i><i style="height:2.0%"></i><i style="height:3.0%"></i><i style="height:1.0%"></i><i style="height:4.0%"></i><i style="height:3.0%"></i><i style="height:5.0%"></i><i style="height:6.0%"></i><i style="height:6.0%"></i><i style="height:5.0%"></i><i style="height:6.5%"></i><i style="height:4.0%"></i><i style="height:4.5%"></i><i style="height:9.5%"></i><i style="height:9.0%"></i><i style="height:7.5%"></i><i style="height:15.0%"></i><i style="height:11.0%"></i><i style="height:8.5%"></i><i style="height:7.5%"></i><i style="height:14.5%"></i><i style="height:23.0%"></i><i style="height:16.5%"></i><i style="height:23.0%"></i><i style="height:18.0%"></i><i style="height:27.0%"></i><i style="height:26.5%"></i><i style="height:24.0%"></i><i style="height:31.5%"></i><i style="height:37.0%"></i><i style="height:36.5%"></i><i style="height:49.5%"></i><i style="height:50.5%"></i><i style="height:57.0%"></i><i style="height:58.0%"></i><i style="height:73.0%"></i><i style="height:73.5%"></i><i style="height:79.5%"></i><i style="height:83.5%"></i><i style="height:89.5%"></i><i style="height:93.5%"></i><i style="height:100.0%"></i><i style="height:87.5%"></i><i style="height:86.5%"></i><i style="height:78.5%"></i><i style="height:79.0%"></i><i style="height:71.0%"></i><i style="height:49.5%"></i><i style="height:59.5%"></i><i style="height:51.5%"></i><i style="height:46.5%"></i><i style="height:42.5%"></i><i style="height:40.5%"></i><i style="height:26.0%"></i><i style="height:33.5%"></i><i style="height:31.0%"></i><i style="height:28.5%"></i><i style="height:26.0%"></i><i style="height:19.0%"></i><i style="height:14.5%"></i><i style="height:15.5%"></i><i style="height:12.5%"></i><i style="height:16.0%"></i><i style="height:10.5%"></i><i style="height:12.5%"></i><i style="height:12.0%"></i><i style="height:7.5%"></i><i style="height:10.5%"></i><i style="height:8.0%"></i><i style="height:9.5%"></i><i style="height:7.0%"></i><i style="height:9.0%"></i><i style="height:5.5%"></i><i style="height:6.5%"></i><i style="height:2.0%"></i><i style="height:57.5%"></i></div></div><div class="hist__row hist__row--hot"><p class="label"><span>After removing noise</span><span>spread ±2 pts</span></p><div class="hist__bars"><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.2%"></i><i style="height:5.0%"></i><i style="height:100.0%"></i><i style="height:22.4%"></i><i style="height:0.8%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i><i style="height:0.0%"></i></div><div class="ticks"><span style="left:0%">−200%</span><span style="left:25.00%">−100%</span><span style="left:50.00%">0</span><span style="left:75.00%">+100%</span><span style="left:100%">+200%</span></div></div></div></div>
+  <p class="chart__summary">Measured naively, players’ home edges look wildly different. Once match-to-match noise is removed, 4,390 of 4,606 land between +20% and +30%.</p>
+  <p class="source">Study 02 · empirical-Bayes shrinkage</p>
+</figure>
+<!-- /gen:fig-s2 -->
+          </div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <span class="tl-no" aria-hidden="true">03</span>
+        <div class="tl-body">
+          <p class="tl-kicker"><b>03 / Opposition</b> <span>2015/16 — 2024/25</span> <span class="pill pill--final">Complete</span></p>
+          <div class="tl-grid">
+            <div>
+              <h3 class="tl-q">Do some players thrive against elite teams?</h3>
+              <p class="tl-a">We couldn’t find reliable evidence.</p>
+              <p class="tl-d">Strong opponents cut everyone’s output by about the same amount. No flat-track bullies, no big-game players.</p>
+              <a class="link-arrow" href="/football/research/opposition">Read the study <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+<!-- gen:fig-s3 -->
+<figure class="chart fig">
+  <figcaption><p class="chart__title">xG per 90, by opponent strength</p><p class="chart__sub">All players. Opponents split into ten equal groups by pre-match strength rating.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Bar chart: xG per 90 declines steadily from 0.18 against the weakest opponents to 0.10 against the strongest."><div class="cols"><span class="end" style="height:89.8%"><b>0.18</b></span><span style="height:84.5%"></span><span style="height:78.5%"></span><span style="height:74.6%"></span><span style="height:74.1%"></span><span style="height:71.7%"></span><span style="height:66.3%"></span><span style="height:64.9%"></span><span style="height:58.0%"></span><span class="end" style="height:51.0%"><b>0.10</b></span></div><div class="cols__x"><span>Weakest opponents</span><span>Strongest</span></div></div>
+  <p class="chart__summary">xG per 90 falls from 0.18 against the weakest tenth of opponents to 0.10 against the strongest — and by about the same share for everyone.</p>
+  <p class="source">Study 03 · sequential market rating from pre-match odds</p>
+</figure>
+<!-- /gen:fig-s3 -->
+          </div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <span class="tl-no" aria-hidden="true">04</span>
+        <div class="tl-body">
+          <p class="tl-kicker"><b>04 / Similarity</b> <span>Profiles to 2025/26</span> <span class="pill pill--final">Complete</span></p>
+          <div class="tl-grid">
+            <div>
+              <h3 class="tl-q">Can we find players who play alike?</h3>
+              <p class="tl-a">Yes — within limits.</p>
+              <p class="tl-d">Context-adjusted profiles find sensible matches across leagues. But similarity describes a player; it doesn’t forecast one — and some players have no real equivalent.</p>
+              <a class="link-arrow" href="/football/research/similarity">Read the study <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+<!-- gen:fig-s4 -->
+<figure class="chart fig">
+  <figcaption><p class="chart__title">Chance creation, above role average</p><p class="chart__sub">Bruno Fernandes (Premier League) against Serie A’s top 8 attacking midfielders and wide forwards. In standard deviations.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Dot strip: Bruno at 3.6 standard deviations; Serie A&#x27;s best at 1.9; the rest of the pool lower."><div class="dotstrip"><span class="axis"></span><span class="d" style="left:47.50%"></span><span class="d" style="left:45.50%"></span><span class="d" style="left:39.50%"></span><span class="d" style="left:34.75%"></span><span class="d" style="left:33.00%"></span><span class="d" style="left:26.00%"></span><span class="d" style="left:26.00%"></span><span class="d" style="left:25.25%"></span><span class="d d--hot" style="left:90.00%"></span><span class="tag tag--hot tag--r" style="left:calc(90.00% + 7px)">Bruno 3.6</span><span class="tag tag--below" style="left:47.50%">Best in Serie A 1.9</span></div><div class="ticks"><span style="left:0%">0</span><span style="left:25.00%">1</span><span style="left:50.00%">2</span><span style="left:75.00%">3</span><span style="left:100%">4 SD</span></div></div>
+  <p class="chart__summary">Bruno sits 3.6 SD above his role average. The best in Serie A’s pool, Martin Baturina, is at 1.9. His closest statistical matches all create less.</p>
+  <p class="source">Study 04 · Bruno case study, profiles to 2025/26</p>
+</figure>
+<!-- /gen:fig-s4 -->
+          </div>
+        </div>
+      </li>
+      <li class="tl-item tl-item--last">
+        <span class="tl-no" aria-hidden="true">05</span>
+        <div class="tl-body">
+          <p class="tl-kicker"><b>05 / Transferability</b> <span>Moves to 2025/26</span> <span class="pill pill--final">Complete</span></p>
+          <div class="tl-grid">
+            <div>
+              <h3 class="tl-q">Does similarity predict what happens after a move?</h3>
+              <p class="tl-a">No.<span>Player history does better.</span></p>
+              <p class="tl-d">A model of the player’s own history, age and both clubs beats “he’ll do what he did” on seasons it had never seen. Knowing who he resembles adds nothing.</p>
+              <a class="link-arrow" href="/football/research/transferability">Read the study <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+<!-- gen:fig-s5 -->
+<figure class="chart fig">
+  <figcaption><p class="chart__title">Prediction error on 157 league moves</p><p class="chart__sub">Mean absolute error in xG + xA per 90, first season after the move. Lower is better.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Bar chart of error: naive 0.132, similar players only 0.129, own history 0.110, own history plus similar players 0.109."><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">“He’ll do what he did”</span><span class="track"><span class="bar" style="width:94.23%"></span></span><span class="hbar__v">0.132</span></div><div class="hbar__row"><span class="hbar__lbl">Similar players only</span><span class="track"><span class="bar" style="width:91.85%"></span></span><span class="hbar__v">0.129</span></div><div class="hbar__row"><span class="hbar__lbl"><b>Own history</b></span><span class="track"><span class="bar bar--hot" style="width:78.24%"></span></span><span class="hbar__v hbar__v--hot">0.110</span></div><div class="hbar__row"><span class="hbar__lbl">Own history + similar players</span><span class="track"><span class="bar" style="width:77.92%"></span></span><span class="hbar__v">0.109</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0%">0</span><span style="left:28.57%">0.04</span><span style="left:57.14%">0.08</span><span style="left:85.71%">0.12</span></div><span></span></div></div>
+  <p class="chart__summary">Similar players alone barely beat the naive guess. The player’s own history cuts the error by 17%; adding similarity on top moves it by less than 0.001.</p>
+  <p class="source">Study 05 · comparison on transfers with Study 4 profiles</p>
+</figure>
+<!-- /gen:fig-s5 -->
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- Major findings (M1 §14) -->
+<section class="section" aria-labelledby="findings-h">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow">Findings</p>
+      <h2 id="findings-h">Four things the data changed my mind about.</h2>
+    </div>
+    <div class="findings">
+      <article class="finding-card" id="finding-home">
+        <p class="finding-card__no"><b>01</b><span>Study 02</span></p>
+        <h3>Everyone gets better at home.</h3>
+        <div class="finding-card__v">+27% <span class="vs">xG</span></div>
+        <p class="finding-card__d"><b>But</b> no reliable individual home specialists: the lift is about the same for every player.</p>
+        <div class="finding-card__more"><a class="link-arrow" href="/football/research/home-advantage">Read Study 02 <span class="arr" aria-hidden="true">→</span></a></div>
+      </article>
+      <article class="finding-card" id="finding-big-game">
+        <p class="finding-card__no"><b>02</b><span>Study 03</span></p>
+        <h3>There may be no such thing as a <span style="white-space:nowrap">“big-game player”</span> — at least in this data.</h3>
+        <div class="finding-card__v">0 <span class="vs">/</span> 23,022</div>
+        <p class="finding-card__d">player × metric estimates showed a reliable resistance to strong opponents after <button type="button" class="term" data-term="multiple-testing">correcting for chance</button>.</p>
+        <div class="finding-card__more"><a class="link-arrow" href="/football/research/opposition">Read Study 03 <span class="arr" aria-hidden="true">→</span></a></div>
+      </article>
+      <article class="finding-card" id="finding-bruno">
+        <p class="finding-card__no"><b>03</b><span>Study 04</span></p>
+        <h3>Bruno Fernandes doesn’t have a statistical twin in Serie A.</h3>
+        <div class="finding-card__v">3.6 SD <span class="vs">vs</span> <span class="alt">1.9 SD</span></div>
+        <p class="finding-card__d">Bruno’s chance creation above his role average, against Serie A’s best comparable profile.</p>
+        <div class="finding-card__more"><a class="link-arrow" href="/football/research/similarity">Read Study 04 <span class="arr" aria-hidden="true">→</span></a></div>
+      </article>
+      <article class="finding-card" id="finding-similarity">
+        <p class="finding-card__no"><b>04</b><span>Study 05</span></p>
+        <h3>Similarity doesn’t predict transfer performance.</h3>
+        <div class="finding-card__v">+0.000</div>
+        <p class="finding-card__d">Adding Study 4 similarity changed Study 5’s prediction <button type="button" class="term" data-term="mae">error</button> by essentially nothing.</p>
+        <div class="finding-card__more"><a class="link-arrow" href="/football/research/transferability">Read Study 05 <span class="arr" aria-hidden="true">→</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Similarity tool teaser (M1 §15) -->
+<section class="section" aria-labelledby="sim-h">
+  <div class="wrap teaser">
+    <div>
+      <p class="eyebrow">Tool · Player similarity</p>
+      <h2 id="sim-h">Who plays like Bruno?</h2>
+      <p class="lede">Find players with similar adjusted attacking profiles — then see where the comparison breaks down.</p>
+      <p class="caveat"><span class="label">Read this first</span>Similarity describes how alike two profiles are. It does not tell you how well one player will perform after a transfer.</p>
+      <div class="cta-row"><a class="btn" href="/football/tools/similarity?player=bruno-fernandes&amp;league=serie-a&amp;seasons=3">Explore similarity <span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="panel">
+      <div class="pc"><span class="pc__n">Bruno Fernandes</span><span class="pc__m">Manchester United · Premier League</span></div>
+      <p class="panel__title" style="margin-top:18px"><span>Most similar in Serie A</span><span>Score</span></p>
+      <ol class="simrows">
+<!-- gen:sim-rows -->
+<li><span class="r">01</span><span class="n">Lazar Samardžić<small>Atalanta</small></span><span class="track" aria-hidden="true"><span class="bar" style="width:99.2%;background:var(--muted-decor)"></span></span><span class="v">99</span></li>
+<li><span class="r">02</span><span class="n">Paulo Dybala<small>Roma</small></span><span class="track" aria-hidden="true"><span class="bar" style="width:96.5%;background:var(--muted-decor)"></span></span><span class="v">97</span></li>
+<li><span class="r">03</span><span class="n">Samuel Chukwueze<small>AC Milan</small></span><span class="track" aria-hidden="true"><span class="bar" style="width:94.1%;background:var(--muted-decor)"></span></span><span class="v">94</span></li>
+<!-- /gen:sim-rows -->
+      </ol>
+      <p style="margin:18px 0 6px;font-family:var(--display);font-size:21px;font-style:italic">But none matches Bruno’s chance creation.</p>
+      <p class="source">Study 04 case study · profiles to 2025/26 · score = closer to Bruno than that share of Serie A’s role pool (0–100), not a probability</p>
+    </div>
+  </div>
+</section>
+
+<!-- Transfer tool teaser (M1 §16) -->
+<section class="section" aria-labelledby="tr-h">
+  <div class="wrap teaser teaser--flip">
+    <div>
+      <p class="eyebrow">Tool · Transfer calculator</p>
+      <h2 id="tr-h">Will his game travel?</h2>
+      <p class="lede">Estimate expected attacking output after a league move using the transfer model.</p>
+      <p class="body" style="margin-top:18px">The model uses the player’s own history, age and both clubs. It beat “he’ll do what he did” on seasons it had never seen — and it tells you how unsure it is.</p>
+      <div class="cta-row"><a class="btn" href="/football/tools/transfer?player=bruno-fernandes&amp;from=premier-league&amp;to=serie-a&amp;club=inter">Run the model <span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="panel">
+      <dl class="inputs">
+        <div><dt>Player</dt><dd>Bruno Fernandes<small>Manchester United</small></dd></div>
+        <div><dt>From</dt><dd>Premier League</dd></div>
+        <div><dt>To</dt><dd>Serie A<small>Inter</small></dd></div>
+      </dl>
+<!-- gen:transfer -->
+<div class="kv">
+        <div><span class="label">Expected output</span><b>0.68</b><i>xG + xA / 90 · last season 0.87</i></div>
+        <div><span class="label">Retention</span><b class="hot">78%</b><i>of last season’s output</i></div>
+        <div><span class="label">Chance of ≥75%</span><b>49%</b><i>keeps at least three-quarters</i></div>
+      </div>
+      <div class="range" role="img" aria-label="80% prediction range 0.40 to 1.04; prediction 0.68; last season 0.87">
+        <p class="label" style="margin:0 0 6px">80% prediction range · 0.40 – 1.04</p>
+        <div class="range__track"><span class="range__axis"></span><span class="range__band" style="left:33.27%;width:calc(86.72% - 33.27%)"></span><span class="range__pt" style="left:56.57%"></span><span class="range__pre" style="left:72.25%"></span></div>
+        <div class="range__lbl"><span>0.00</span><span>0.60</span><span>1.20</span></div>
+        <div class="legend"><span><i class="sw" style="--c:var(--accent-text);width:4px"></i>Prediction</span><span><i class="sw" style="--c:var(--accent-wash);border:1px solid var(--accent)"></i>80% range</span><span><i class="sw sw--dash" style="--c:var(--frozen)"></i>Last season</span></div>
+      </div>
+      <p class="source" style="margin-top:14px">Example run of the Study 5 model · player inputs as of 2025/26</p>
+<!-- /gen:transfer -->
+    </div>
+  </div>
+</section>
+
+<!-- Live tracker (M1 §17) -->
+<section class="section" aria-labelledby="live-h">
+  <div class="wrap">
+    <div class="grid section__head" style="max-width:none">
+      <div class="d-6">
+        <p class="eyebrow"><span class="pill pill--live">Live</span> <span id="live-through"></span></p>
+        <h2 id="live-h">Does the research still hold?</h2>
+      </div>
+      <p class="lede d-5 d-end" style="align-self:end;margin:0">The research isn’t finished when the paper is published. New seasons are added weekly without rewriting the historical results.</p>
+    </div>
+    <div id="live-table" class="tscroll" aria-live="polite"><div class="skel" aria-hidden="true"><i></i><i></i><i></i><i></i></div><span class="sr-only">Loading the live tracker…</span></div>
+    <div class="cta-row"><a class="link-arrow" href="/football/live">View live tracker <span class="arr" aria-hidden="true">→</span></a></div>
+  </div>
+</section>
+
+<!-- Methodology preview (M1 §18) -->
+<section class="section" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow">Methodology</p>
+      <h2 id="how-h">How do we know?</h2>
+    </div>
+    <ul class="pillars">
+      <li><span class="label">Data</span><b>18,011 matches<br>8,348 players</b><p>Every player in every match of Europe’s top five leagues, 2015/16–2024/25: 525,328 player-matches and about 452,000 shots.</p></li>
+      <li><span class="label">Context</span><b>Player × team × season controls</b><p>Every comparison is a player against himself — same club, same season — so ability and team quality cancel out.</p></li>
+      <li><span class="label">Leakage</span><b>155,282 checks</b><p>No rating is allowed to peek at the future. Scrambling later results changed none of the ratings checked.</p></li>
+      <li><span class="label">Validation</span><b>Locked unseen transfer seasons</b><p>The transfer model was frozen before the last three seasons of moves were opened, then scored once.</p></li>
+    </ul>
+    <div class="cta-row"><a class="link-arrow" href="/football/methodology">Read the methodology <span class="arr" aria-hidden="true">→</span></a></div>
+  </div>
+</section>
+
+<!-- About (M1 §19) -->
+<section class="section" aria-labelledby="about-h">
+  <div class="wrap about">
+    <div>
+      <p class="eyebrow">About the research</p>
+      <h2 id="about-h">I’m Ayush.</h2>
+      <p>Product engineer by trade, football obsessive by choice. I build systems for answering football questions with data.</p>
+    </div>
+    <div class="about__links">
+      <a class="link-arrow" href="/">iyush.dev</a>
+      <a class="link-arrow" href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a>
+      <a class="link-arrow" href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var FB = window.FB;
+
+  /* Live tracker (M1 §17): the only data the homepage fetches, lazily, when scrolled near. */
+  var box = document.getElementById("live-table");
+  function render(L) {   // the live snapshot (scripts/build_live.py): values are pipeline outputs, nothing is computed here
+    var H = L.metrics && L.metrics.home && L.metrics.home[0], O = L.metrics && L.metrics.opposition && L.metrics.opposition[0];
+    if (L.state === "unavailable") { FB.state(box, "empty", { text: "Live data temporarily unavailable. The historical baseline remains available on the live tracker." }); return; }
+    if (!H || !O || !L.seasons.length) { FB.state(box, "empty", { text: "The live tracker has no seasons yet." }); return; }
+    var LBL = { complete: "complete", current: "current season", early: "early season" };
+    var head = '<tr><th scope="col"><span class="sr-only">Effect</span></th><th scope="col">Frozen<small>2015/16–24/25</small></th>' +
+      L.seasons.map(function (s) { return '<th scope="col">' + FB.esc(s.label) + "<small>" + LBL[s.status] + "</small></th>"; }).join("") + "</tr>";
+    function row(name, sub, m) {
+      return '<tr><th scope="row">' + name + "<small>" + sub + '</small></th><td class="frozen">' + FB.signed(m.frozen, 1) + "%</td>" +
+        m.seasons.map(function (r) {
+          return r.value == null ? "<td><small>Not yet available</small></td>" : "<td>" + FB.signed(r.value, 1) + "%<small>" + FB.signed(r.lo, 0) + " to " + FB.signed(r.hi, 0) + "</small></td>";
+        }).join("") + "</tr>";
+    }
+    box.innerHTML = '<table class="ltable fade-in"><caption class="sr-only">Headline effects: the frozen study estimate against each live season, with 95% intervals</caption><thead>' + head + "</thead><tbody>" +
+      row("Home " + FB.term("xg", "xG"), "home vs away, same player", H) + row("Opposition", "xG per +1 SD opponent strength", O) + "</tbody></table>" +
+      '<p class="source" style="margin-top:12px">Live seasons are re-estimated weekly with the frozen method; small text under each value is its 95% interval. The frozen column never changes.</p>';
+    document.getElementById("live-through").textContent = "Matches through " + FB.date(L.seasons[L.seasons.length - 1].through);
+  }
+  function load() {
+    FB.state(box, "loading");
+    FB.load("live").then(render).catch(function (e) { FB.fail(box, e, load); });
+  }
+  FB.whenNear(box, load);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Study 03 · The opposition effect · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Study 3: −13.8% xG per +1 SD of opponent strength, the same for everyone. 0 of 23,022 player × metric estimates show reliable resistance." />
+<link rel="canonical" href="https://iyush.dev/football/research/opposition" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Do some players actually thrive against better teams?" />
+<meta property="og:description" content="Study 3: −13.8% xG per +1 SD of opponent strength, the same for everyone. 0 of 23,022 player × metric estimates show reliable resistance." />
+<meta property="og:url" content="https://iyush.dev/football/research/opposition" />
+<meta property="og:image" content="https://iyush.dev/football/og/opposition.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Do some players actually thrive against better teams?" />
+<meta name="twitter:description" content="Study 3: −13.8% xG per +1 SD of opponent strength, the same for everyone. 0 of 23,022 player × metric estimates show reliable resistance." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/opposition.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Study 03 — The opposition effect",
+  "description": "Study 3: −13.8% xG per +1 SD of opponent strength, the same for everyone. 0 of 23,022 player × metric estimates show reliable resistance.",
+  "url": "https://iyush.dev/football/research/opposition",
+  "mainEntityOfPage": "https://iyush.dev/football/research/opposition",
+  "image": "https://iyush.dev/football/og/opposition.png",
+  "inLanguage": "en",
+  "creativeWorkStatus": "Published",
+  "author": {
+    "@id": "https://iyush.dev/#person"
+  },
+  "isPartOf": {
+    "@id": "https://iyush.dev/football#site"
+  },
+  "about": "Association football performance analytics"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>document.documentElement.classList.add("js")</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research" aria-current="true">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="study" aria-labelledby="q-h">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li><a href="/football/research">Research</a></li><li aria-current="page">03 Opposition</li></ol></nav>
+<nav class="snav" aria-label="Studies"><div class="wrap"><ol><li><a href="/football/research/environment"><span class="snav__n">01</span><span class="snav__t">Environment</span><span class="snav__st" title="Weather freeze pending">pending</span></a></li><li><a href="/football/research/home-advantage"><span class="snav__n">02</span><span class="snav__t">Home</span></a></li><li><a href="/football/research/opposition" aria-current="page"><span class="snav__n">03</span><span class="snav__t">Opposition</span></a></li><li><a href="/football/research/similarity"><span class="snav__n">04</span><span class="snav__t">Similarity</span></a></li><li><a href="/football/research/transferability"><span class="snav__n">05</span><span class="snav__t">Transfers</span></a></li></ol></div></nav>
+<header class="s-hero wrap">
+  
+  <p class="eyebrow s-hero__no" data-reveal><b class="s-hero__num">03</b> / Opposition <span class="pill pill--final">Complete</span></p>
+  <div class="s-hero__grid">
+    <div>
+      <h1 id="q-h">Do some players actually thrive against better teams?</h1>
+      <p class="study-sub">How much of a player&#x27;s output survives when the opponent gets stronger?</p>
+      
+      <ul class="s-meta" aria-label="Study scope"><li><b>2015/16 — 2024/25</b><span>Seasons</span></li><li><b>5</b><span>Leagues</span></li><li><b>525K</b><span>Player-matches</span></li></ul>
+    </div>
+    <div class="s-hero__side">
+      <div class="callout" data-reveal><p class="label">Finding</p><p>Player attacking output falls substantially as opponent strength increases — but we found no reliable evidence that some individuals consistently resist that effect.</p></div>
+      
+    </div>
+  </div>
+</header>
+<section class="ss" id="why" aria-labelledby="why-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="why-h"><span>02</span>Why it matters</h2></div>
+<div class="ss__body">
+<p class="body">Raw statistics make player comparison deceptively simple. A player who piles up numbers against weak sides isn't necessarily better than one who produces a little less against strong ones.</p><p class="body">And if some players really rise to big occasions, that would be worth knowing before a cup final — or a transfer.</p><p class="q-big">Can we separate player level from opponent difficulty?</p>
+</div>
+</div>
+</section>
+<section class="ss" id="method" aria-labelledby="method-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="method-h"><span>03</span>What we did</h2></div>
+<div class="ss__body">
+<ol class="flow" aria-label="Method in steps" data-reveal><li>Player output</li><li>Team / season context</li><li>Venue</li><li>Opponent strength</li><li class="flow__out">Adjusted player output</li></ol><p class="body">We're comparing a player's output against different opponents rather than simply comparing raw totals.</p><div class="acc"><details><summary><span class="label">Technical detail</span><span class="acc__h">How the estimate is built</span></summary><div class="acc__body"><p><button type="button" class="term" data-term="opponent-strength">Opponent strength</button> is a sequential market rating from pre-match odds: each match uses only earlier matches. Checked against an xG rating, Elo, opening odds and points per game; 0 changed ratings in 155,282 <button type="button" class="term" data-term="leakage">leakage</button> checks.</p><p>Within-player <button type="button" class="term" data-term="ppml">PPML</button> with <button type="button" class="term" data-term="fixed-effects">player × team × season fixed effects</button>, plus venue, month and kickoff hour; errors clustered by match.</p><p>Individual resistance: calibrated standard errors, between-player spread and <button type="button" class="term" data-term="shrinkage">empirical-Bayes shrinkage</button>; <button type="button" class="term" data-term="multiple-testing">Benjamini–Hochberg corrections</button>.</p></div></details></div>
+</div>
+</div>
+</section>
+<section class="ss" id="found" aria-labelledby="found-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="found-h"><span>04</span>What we found</h2></div>
+<div class="ss__body">
+<article class="find find--head"><h3 class="find__big">A stronger opponent hurts everyone.</h3><p class="lead lead--big"><button type="button" class="term" data-term="xg">xG</button> falls <strong>13.8%</strong> for every +1 <button type="button" class="term" data-term="sd">SD</button> increase in <button type="button" class="term" data-term="opponent-strength">opponent strength</button>.</p><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Change in output per +1 SD of opponent strength</p><p class="chart__sub">Same player, team and season, venue accounted for. Lines are 95% intervals.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="xG −13.8%; xA −15.1%; Shots −10.4%; Key passes −11.4%; Goals −15.8%"><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">xG</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x bar--hot" style="left:30.80%;width:calc(100.00% - 30.80%);transform-origin:right"></span><span class="ci" style="left:28.05%;width:calc(33.60% - 28.05%)"></span></span><span class="hbar__v hbar__v--hot">−13.8%</span></div><div class="hbar__row"><span class="hbar__lbl">xA</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:24.75%;width:calc(100.00% - 24.75%);transform-origin:right"></span><span class="ci" style="left:21.80%;width:calc(27.70% - 21.80%)"></span></span><span class="hbar__v">−15.1%</span></div><div class="hbar__row"><span class="hbar__lbl">Shots</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:47.75%;width:calc(100.00% - 47.75%);transform-origin:right"></span><span class="ci" style="left:45.95%;width:calc(49.55% - 45.95%)"></span></span><span class="hbar__v">−10.4%</span></div><div class="hbar__row"><span class="hbar__lbl">Key passes</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:43.20%;width:calc(100.00% - 43.20%);transform-origin:right"></span><span class="ci" style="left:41.20%;width:calc(45.20% - 41.20%)"></span></span><span class="hbar__v">−11.4%</span></div><div class="hbar__row"><span class="hbar__lbl">Goals</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:21.10%;width:calc(100.00% - 21.10%);transform-origin:right"></span><span class="ci" style="left:16.90%;width:calc(25.30% - 16.90%)"></span></span><span class="hbar__v">−15.8%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">−20%</span><span style="left:25.00%">−15%</span><span style="left:50.00%">−10%</span><span style="left:75.00%">−5%</span><span style="left:100.00%">0</span></div><span></span></div></div></div>
+  <p class="chart__summary">Every attacking metric falls by 10–16% for each step up in opposition; xG by 13.8%.</p>
+  <p class="source">Study 03 · sequential market rating · 2015/16–2024/25</p>
+</figure><p class="body find__x">Same player, team and season, after accounting for venue: <button type="button" class="term" data-term="xa">xA</button> −15.1%, shots −10.5%, key passes −11.4%, goals −15.8%.</p></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">How big is that?</h3><p class="lead">Against the strongest fifth of opponents, xG is <strong>33% lower</strong> than against the weakest fifth (xA −35%).</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">xG by opponent strength, relative to the weakest fifth</p><p class="chart__sub">Opponents in five equal groups by pre-match rating. Weakest fifth = 100.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Weakest fifth: 100.0; 20–40%: 89.2; 40–60%: 84.6; 60–80%: 78.7; Strongest fifth: 66.8"><div class="cols" style="grid-template-columns:repeat(5,minmax(0,1fr))"><span class="end grow-y" style="height:100.0%"><b>100</b></span><span class=" grow-y" style="height:89.2%"><b>−10.8%</b></span><span class=" grow-y" style="height:84.6%"><b>−15.4%</b></span><span class=" grow-y" style="height:78.7%"><b>−21.3%</b></span><span class="hot grow-y" style="height:66.8%"><b>−33.2%</b></span></div><div class="cols__lbl" style="grid-template-columns:repeat(5,minmax(0,1fr))"><span>Weakest fifth</span><span>20–40%</span><span>40–60%</span><span>60–80%</span><span>Strongest fifth</span></div></div>
+  <p class="chart__summary">Against the strongest fifth, the same player produces 33% less xG than against the weakest.</p>
+  <p class="source">Study 03 · same player, team and season</p>
+</figure></div></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">The same in every position.</h3><p class="lead">The effect is the same across positions and home/away, and unchanged behind closed doors — unlike home advantage.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">xG per +1 SD of opponent strength, by position</p><p class="chart__sub">Lines are 95% intervals.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Defenders −13.2%; Midfielders −13.5%; Forwards −14.1%"><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">Defenders</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:34.05%;width:calc(100.00% - 34.05%);transform-origin:right"></span><span class="ci" style="left:27.85%;width:calc(40.40% - 27.85%)"></span></span><span class="hbar__v">−13.2%</span></div><div class="hbar__row"><span class="hbar__lbl">Midfielders</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:32.50%;width:calc(100.00% - 32.50%);transform-origin:right"></span><span class="ci" style="left:27.85%;width:calc(37.15% - 27.85%)"></span></span><span class="hbar__v">−13.5%</span></div><div class="hbar__row"><span class="hbar__lbl">Forwards</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:29.35%;width:calc(100.00% - 29.35%);transform-origin:right"></span><span class="ci" style="left:25.60%;width:calc(33.15% - 25.60%)"></span></span><span class="hbar__v">−14.1%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">−20%</span><span style="left:25.00%">−15%</span><span style="left:50.00%">−10%</span><span style="left:75.00%">−5%</span><span style="left:100.00%">0</span></div><span></span></div></div></div>
+  <p class="chart__summary">Defenders, midfielders and forwards lose about the same share against stronger opponents.</p>
+  <p class="source">Study 03 · robustness by position</p>
+</figure></div></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">Leagues differ a little.</h3><p class="lead">Steepest in Serie A (xG <strong>−16%</strong>, xA <strong>−18%</strong> per SD). In La Liga and Ligue 1, shot and key-pass volume barely drops against strong sides (about −7% to −8%).</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">xG per +1 SD of opponent strength, by league</p><p class="chart__sub">Lines are 95% intervals.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="Serie A −16.3%; Premier League −14.1%; Bundesliga −13.0%; Ligue 1 −12.8%; La Liga −12.0%"><div class="hchart" style="--vw:4.2em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">Serie A</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x bar--hot" style="left:18.45%;width:calc(100.00% - 18.45%);transform-origin:right"></span><span class="ci" style="left:13.10%;width:calc(23.80% - 13.10%)"></span></span><span class="hbar__v hbar__v--hot">−16.3%</span></div><div class="hbar__row"><span class="hbar__lbl">Premier League</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:29.30%;width:calc(100.00% - 29.30%);transform-origin:right"></span><span class="ci" style="left:23.70%;width:calc(34.95% - 23.70%)"></span></span><span class="hbar__v">−14.1%</span></div><div class="hbar__row"><span class="hbar__lbl">Bundesliga</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:35.05%;width:calc(100.00% - 35.05%);transform-origin:right"></span><span class="ci" style="left:28.55%;width:calc(41.70% - 28.55%)"></span></span><span class="hbar__v">−13.0%</span></div><div class="hbar__row"><span class="hbar__lbl">Ligue 1</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:35.75%;width:calc(100.00% - 35.75%);transform-origin:right"></span><span class="ci" style="left:28.35%;width:calc(43.30% - 28.35%)"></span></span><span class="hbar__v">−12.8%</span></div><div class="hbar__row"><span class="hbar__lbl">La Liga</span><span class="track"><span class="zero" style="left:100.00%"></span><span class="bar grow-x" style="left:40.15%;width:calc(100.00% - 40.15%);transform-origin:right"></span><span class="ci" style="left:33.90%;width:calc(46.50% - 33.90%)"></span></span><span class="hbar__v">−12.0%</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">−20%</span><span style="left:25.00%">−15%</span><span style="left:50.00%">−10%</span><span style="left:75.00%">−5%</span><span style="left:100.00%">0</span></div><span></span></div></div></div>
+  <p class="chart__summary">Steepest in Serie A (−16.3%), shallowest in La Liga (−12.0%).</p>
+  <p class="source">Study 03 · per-league models</p>
+</figure></div></article>
+<article class="find find--counter"><h3 class="find__h">But are some players different?</h3><p class="body">Maybe the average effect is strong, but certain players are unusually resistant to elite opposition.</p><p class="counter" data-reveal><b class="count" data-to="0">0</b><span class="counter__of">of 23,022</span><span class="counter__l">player × metric estimates show reliable resistance</span></p><p class="lead">We found no reliable individual player × metric estimates showing consistent resistance to stronger opposition. Season-to-season correlation of a player's “resistance”: <strong>0.012</strong>.</p></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">The practical rule.</h3><p class="lead">To predict a player's output against elite opponents, use his overall opponent-adjusted level, not his record against elite teams: xG <strong>r 0.84 vs 0.75</strong>.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Which predicts output against elite opponents better?</p><p class="chart__sub">Correlation with output in later matches against elite teams.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="xG: 0.84 vs 0.75; xA: 0.71 vs 0.58; Shots: 0.89 vs 0.84; Key passes: 0.82 vs 0.74"><div class="hchart" style="--vw:7.8em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">xG</span><span class="track"><span class="gap" style="left:50.40%;width:calc(68.00% - 50.40%)"></span><span class="mk mk--b" style="left:50.40%"></span><span class="mk mk--a mk--hot" style="left:68.00%"></span></span><span class="hbar__v">0.84 vs 0.75</span></div><div class="hbar__row"><span class="hbar__lbl">xA</span><span class="track"><span class="gap" style="left:16.00%;width:calc(42.60% - 16.00%)"></span><span class="mk mk--b" style="left:16.00%"></span><span class="mk mk--a mk--hot" style="left:42.60%"></span></span><span class="hbar__v">0.71 vs 0.58</span></div><div class="hbar__row"><span class="hbar__lbl">Shots</span><span class="track"><span class="gap" style="left:67.20%;width:calc(78.40% - 67.20%)"></span><span class="mk mk--b" style="left:67.20%"></span><span class="mk mk--a mk--hot" style="left:78.40%"></span></span><span class="hbar__v">0.89 vs 0.84</span></div><div class="hbar__row"><span class="hbar__lbl">Key passes</span><span class="track"><span class="gap" style="left:47.60%;width:calc(64.20% - 47.60%)"></span><span class="mk mk--b" style="left:47.60%"></span><span class="mk mk--a mk--hot" style="left:64.20%"></span></span><span class="hbar__v">0.82 vs 0.74</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">0.50</span><span style="left:50.00%">0.75</span><span style="left:100.00%">1.00</span></div><span></span></div></div><div class="legend"><span><i class="sw sw--dot"></i>Overall adjusted level</span><span><i class="sw sw--ring"></i>Record against elite teams</span></div></div>
+  <p class="chart__summary">For every metric, a player's overall adjusted level predicts his output against elite teams better than his past record against them.</p>
+  <p class="source">Study 03 · out-of-sample check</p>
+</figure></div></article>
+<article class="find find--ev"><div class="ev"><div><h3 class="find__h">Adjusting a season changes little — except where it matters.</h3><p class="lead">Season adjustments are typically <strong>±2%</strong> because everyone plays everyone twice; up to ±10% for players used unevenly, e.g. Callum Wilson 2023/24 (<strong>−9.9%</strong>). Bruno Fernandes's elite chance creation survives: <strong>0.467 → 0.460</strong> xA per 90 in 2022/23, 99.6th percentile.</p><p class="body find__x">Adjustment matters most for partial seasons, single matches and cross-league comparisons.</p></div><figure class="chart fig" data-reveal>
+  <figcaption><p class="chart__title">Bruno Fernandes, xA per 90: raw and opponent-adjusted</p><p class="chart__sub">Each season, before and after adjusting for the opponents he faced.</p></figcaption>
+  <div class="chart__plot" role="img" aria-label="2015/16 · Udinese: 0.170 → 0.164; 2016/17 · Sampdoria: 0.232 → 0.227; 2019/20 · Man Utd: 0.205 → 0.202; 2020/21 · Man Utd: 0.331 → 0.323; 2021/22 · Man Utd: 0.253 → 0.247; 2022/23 · Man Utd: 0.467 → 0.460; 2023/24 · Man Utd: 0.379 → 0.367; 2024/25 · Man Utd: 0.303 → 0.301"><div class="hchart" style="--vw:8.5em"><div class="hbar"><div class="hbar__row"><span class="hbar__lbl">2015/16 · Udinese</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:32.80%;width:calc(34.00% - 32.80%)"></span><span class="mk mk--b" style="left:34.00%"></span><span class="mk mk--a" style="left:32.80%"></span></span><span class="hbar__v">0.170 → 0.164</span></div><div class="hbar__row"><span class="hbar__lbl">2016/17 · Sampdoria</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:45.40%;width:calc(46.40% - 45.40%)"></span><span class="mk mk--b" style="left:46.40%"></span><span class="mk mk--a" style="left:45.40%"></span></span><span class="hbar__v">0.232 → 0.227</span></div><div class="hbar__row"><span class="hbar__lbl">2019/20 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:40.40%;width:calc(41.00% - 40.40%)"></span><span class="mk mk--b" style="left:41.00%"></span><span class="mk mk--a" style="left:40.40%"></span></span><span class="hbar__v">0.205 → 0.202</span></div><div class="hbar__row"><span class="hbar__lbl">2020/21 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:64.60%;width:calc(66.20% - 64.60%)"></span><span class="mk mk--b" style="left:66.20%"></span><span class="mk mk--a" style="left:64.60%"></span></span><span class="hbar__v">0.331 → 0.323</span></div><div class="hbar__row"><span class="hbar__lbl">2021/22 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:49.40%;width:calc(50.60% - 49.40%)"></span><span class="mk mk--b" style="left:50.60%"></span><span class="mk mk--a" style="left:49.40%"></span></span><span class="hbar__v">0.253 → 0.247</span></div><div class="hbar__row"><span class="hbar__lbl">2022/23 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:92.00%;width:calc(93.40% - 92.00%)"></span><span class="mk mk--b" style="left:93.40%"></span><span class="mk mk--a mk--hot" style="left:92.00%"></span></span><span class="hbar__v hbar__v--hot">0.467 → 0.460</span></div><div class="hbar__row"><span class="hbar__lbl">2023/24 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:73.40%;width:calc(75.80% - 73.40%)"></span><span class="mk mk--b" style="left:75.80%"></span><span class="mk mk--a" style="left:73.40%"></span></span><span class="hbar__v">0.379 → 0.367</span></div><div class="hbar__row"><span class="hbar__lbl">2024/25 · Man Utd</span><span class="track"><span class="zero" style="left:0.00%"></span><span class="gap" style="left:60.20%;width:calc(60.60% - 60.20%)"></span><span class="mk mk--b" style="left:60.60%"></span><span class="mk mk--a" style="left:60.20%"></span></span><span class="hbar__v">0.303 → 0.301</span></div></div><div class="hbar__axis" aria-hidden="true"><span></span><div class="ticks"><span style="left:0.00%">0</span><span style="left:50.00%">0.25</span><span style="left:100.00%">0.50</span></div><span></span></div></div><div class="legend"><span><i class="sw sw--dot"></i>Opponent-adjusted</span><span><i class="sw sw--ring"></i>Raw</span></div></div>
+  <p class="chart__summary">Adjustment barely moves a full season — Bruno's 2022/23 goes from 0.467 to 0.460, still the 99.6th percentile.</p>
+  <p class="source">Study 03 · season adjustments</p>
+</figure></div></article>
+</div>
+</div>
+</section>
+<section class="ss" id="surprise" aria-labelledby="surprise-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="surprise-h"><span>05</span>What surprised us</h2></div>
+<div class="ss__body">
+<ol class="surprise"><li><p class="label">What the raw data suggested</p><p>In the raw data, about 29% of players look like “flat-track bullies” and about 26% like “big-game players”.</p></li><li><p class="label">What happened after we checked</p><p>That is exactly what noise produces. With proper intervals, one player in about 4,800 shows a reliable pattern (for shots) — what chance alone would produce — and after correcting for multiple tests, none of the 23,022 estimates survives.</p></li><li class="surprise__l"><p class="label">Lesson</p><p>Raw “big-game” records reflect context and noise rather than a stable player trait.</p></li></ol>
+</div>
+</div>
+</section>
+<section class="ss" id="meaning" aria-labelledby="meaning-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="meaning-h"><span>06</span>What it means</h2></div>
+<div class="ss__body">
+<ul class="means"><li>Opposition is one of the biggest contexts in the numbers. Adjust for it — especially for partial seasons, single matches and cross-league comparisons.</li><li>To judge how a player will do against elite teams, look at his overall adjusted level.</li></ul>
+</div>
+</div>
+</section>
+<section class="ss" id="limits" aria-labelledby="limits-h">
+<div class="wrap ss__grid">
+<div class="ss__rail"><h2 class="ss__k" id="limits-h"><span>07</span>Limitations</h2></div>
+<div class="ss__body">
+<ul class="limits"><li>Opponent strength is the betting market's pre-match view of a team; it is validated against four alternatives, but it is still a rating, not a fact.</li><li>Output only — the data cannot see defending, pressing or possession.</li><li>Cup matches and fixture congestion are not in the data.</li><li>Observational data: effects are associations within carefully matched comparisons.</li></ul><p class="prov"><span class="label">Sources</span>Understat · football-data.co.uk · Open-Meteo ERA5 · Wikipedia/Wikidata · OpenStreetMap<br><span class="label">Analysis period</span>2015/16 — 2024/25 · frozen dataset · <a href="/football/methodology">Methodology</a></p>
+</div>
+</div>
+</section>
+<section class="next" aria-labelledby="next-h"><div class="wrap"><p class="ss__k"><span>08</span>The next question</p><h2 id="next-h">With context removed, can we finally compare players — across leagues?</h2><span class="next__arrow" aria-hidden="true">↓</span><a class="next__go" href="/football/research/similarity">04 / Similarity <span class="arr" aria-hidden="true">→</span></a></div></section>
+<nav class="pager wrap" aria-label="Study sequence"><a class="pager__prev" href="/football/research/home-advantage"><span class="label">← Previous study</span><span>02 Home advantage</span></a><a class="pager__next" href="/football/research/similarity"><span class="label">Next study →</span><span>04 Similarity</span></a></nav>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,898 @@
+{
+  "_about": "Research content for /football/research (M2 §33). Rendered by scripts/build_research.py. Prose comes from the Final Summary (docs/Football Research Series — Final Summary.pdf); chart values are read from football/data/research.json at build time. Inline markup: {glossary-key|label} = glossary term, **bold**, *italic*. Charts: a string is a builder id computed from research.json; an object is an inline chart for results with no data export (Study 1), always with a source.",
+  "sources": "Understat · football-data.co.uk · Open-Meteo ERA5 · Wikipedia/Wikidata · OpenStreetMap",
+  "index": {
+    "eyebrow": "Research · 01—05",
+    "title": "What actually belongs to the player?",
+    "lede": "Five studies investigating how much football performance belongs to the player — and how much belongs to the context.",
+    "strip": [
+      [
+        "2015/16 — 2024/25",
+        "Frozen dataset"
+      ],
+      [
+        "5",
+        "Leagues"
+      ],
+      [
+        "18,011",
+        "Matches"
+      ],
+      [
+        "8,348",
+        "Players"
+      ]
+    ],
+    "spine_title": "One question. Five investigations.",
+    "spine_lede": "Each study builds on the one before. The first three remove context from the numbers; the last two use the cleaned numbers to compare players and follow them across leagues.",
+    "fit_title": "How the studies fit together",
+    "fit": [
+      "Study 1 asked whether the environment moves performance — weather barely, crowds clearly. Study 2 took the crowd effect to the individual: home advantage is real, large and shared by everyone. Study 3 did the same for opposition: large, shared, with no individual “big-game” trait.",
+      "Together they gave clean, context-adjusted player numbers. Study 4 used those numbers to find similar players across leagues, and found the limit: similarity describes, it does not forecast. Study 5 tested forecasting directly on real transfers and built a validated, leakage-free model of how much output survives a move — in which similarity had to earn its place and did not."
+    ],
+    "lessons_title": "Five lessons that run through everything",
+    "lessons": [
+      [
+        "Context moves the numbers, and it moves everyone the same.",
+        "Home, crowd and opposition effects are large, but they belong to the match and the league, not to individual players or clubs. Every “special” player we looked for — home specialists, big-game players, crowd-sensitive players — disappeared once noise was separated from signal."
+      ],
+      [
+        "Most apparent individual differences are small samples.",
+        "A player's home/away split is only 5–8% signal, and his strong/weak-opponent split is mostly noise; raw rankings of these traits are {regression-to-the-mean|regression to the mean} in action (Study 2: the correlation between players' 2015–19 and 2022–25 home edges is 0.018)."
+      ],
+      [
+        "A player's overall level is the best predictor of almost everything.",
+        "His overall opponent-adjusted output predicts his output against elite teams better than his record against elite teams (Study 3); his own pre-move history predicts his post-move output better than similar players do (Studies 4 and 5)."
+      ],
+      [
+        "Similarity is a discovery tool, not a forecasting tool.",
+        "Comparable players help find candidates; they add nothing to a forecast once the player's own history is known (Study 5, critical experiment)."
+      ],
+      [
+        "Leakage discipline matters.",
+        "Understat's match “forecast” turned out to be post-match; it was never used. Opponent strength is built only from pre-match odds; every Study 5 prediction uses only information available at the decision date, and the final model was scored once on {locked-test|locked seasons}."
+      ]
+    ],
+    "corrections_title": "Where we corrected ourselves",
+    "corrections_lede": "The interesting result isn't always the first one. These are the readings we changed along the way.",
+    "corrections": [
+      "Understat's win/draw/loss “forecast” was at first described as pre-match; it is post-match (r = 0.96 with the match's xG difference). It was never used in any model.",
+      "Study 2's “stable part” magnitudes are upper bounds: the cross-season covariance estimator is biased upward even with no true persistence (found in Study 3). Conclusions unchanged.",
+      "Study 5: a promoted-club term was first read as an imputation artefact; it is a real effect (players joining promoted clubs produce more than the club's rating predicts).",
+      "Study 5: the early “centre-forwards drop most” reading was mostly regression to the mean (96% vs stayers, no clear role effect)."
+    ],
+    "open_title": "Still open",
+    "open": [
+      "Study 1's final temperature placebo check, hand-written weather conclusion and freeze.",
+      "Study 4's user-curated “known similar pairs” check.",
+      "Study 5's percentage-based league effect, to be validated on moves after 2025/26."
+    ],
+    "meta": {
+      "title": "Research · Home Turf & Hard Opponents",
+      "description": "Five studies on 525,328 player-matches from Europe's top five leagues: environment, home advantage, opposition, similarity and transferability — one investigation into what belongs to the player.",
+      "og_title": "One question. Five investigations.",
+      "og_image": "research.png"
+    }
+  },
+  "studies": [
+    {
+      "id": 1,
+      "slug": "environment",
+      "short": "Environment",
+      "title": "Weather, crowds and player performance",
+      "question": "Does the environment change the player?",
+      "subquestion": "Do weather and crowds change how much a player produces?",
+      "spine_question": "Does weather change performance?",
+      "spine_answer": "Mostly no. Crowds do.",
+      "status": "pending",
+      "status_label": "Weather freeze pending",
+      "status_parts": [
+        [
+          "Crowds",
+          "final",
+          "Final"
+        ],
+        [
+          "Weather · five-league models (6 Oct 2026)",
+          "final",
+          "Done"
+        ],
+        [
+          "Final temperature check (1,000-permutation placebo)",
+          "pending",
+          "Pending"
+        ],
+        [
+          "Hand-written weather conclusion and freeze",
+          "pending",
+          "Pending"
+        ],
+        [
+          "Temperature",
+          "open",
+          "Open lead — not a finding"
+        ]
+      ],
+      "status_note": "The five-league weather models finished on 6 October 2026. A final temperature placebo check, the hand-written weather conclusion and the freeze are still to come, so the weather answer on this page is provisional. The crowd results are final.",
+      "period": "2015/16 — 2024/25",
+      "leagues": [
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "sample": [
+        [
+          "2015/16 — 2024/25",
+          "Seasons"
+        ],
+        [
+          "5",
+          "Leagues"
+        ],
+        [
+          "525K",
+          "Player-matches"
+        ]
+      ],
+      "summary": "Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds clearly do: empty stadiums roughly halved home advantage, and it came back with the fans.",
+      "why": {
+        "body": [
+          "If rain, wind or heat changed what players produce, every raw stat line would carry the weather with it, and a player's numbers would partly depend on the climate he plays in.",
+          "Crowds are the same question with people instead of weather: does a full stadium change what happens on the pitch?"
+        ],
+        "question": "Does the environment a match is played in move player numbers?"
+      },
+      "method": {
+        "flow": [
+          "Player-match output",
+          "Kickoff weather at the stadium",
+          "Fans or closed doors",
+          "Same player, team and season"
+        ],
+        "result": "Effect of the environment",
+        "plain": "Each player is compared with himself — wet days against dry, full stadiums against empty — so differences in ability and team quality never enter the comparison.",
+        "technical": [
+          "Weather: {ppml|PPML} on per-minute output with player × season, opponent × season, league × kickoff-hour and league × season × month {fixed-effects|fixed effects}; ERA5 weather at the stadium and kickoff hour. A player × team × season version moves no estimate by more than 0.9 percentage points.",
+          "Crowds: team-level PPML with team × season and opponent × season fixed effects; 13,888 matches with fans and 1,893 behind closed doors, partial crowds excluded. Crowd status from a dated, sourced calendar per league.",
+          "Six hypotheses fixed before looking (rain and long shots, wind and headers/crosses, heat and late-game output). {multiple-testing|Benjamini–Hochberg corrections} on cluster and {permutation-test|permutation} p-values; {placebo|placebo tests} with the closed-doors dates shifted 2–4 years."
+        ]
+      },
+      "findings": [
+        {
+          "kind": "group",
+          "title": "Crowds",
+          "status": "final",
+          "status_label": "Final"
+        },
+        {
+          "kind": "headline",
+          "title": "Without fans, home advantage shrank — and came back with them.",
+          "lead": "The pooled xG home edge went from **+30%** with fans to **+13%** behind closed doors, then back to **+26%** when crowds returned.",
+          "chart": {
+            "type": "cols",
+            "title": "Pooled team xG home edge, by period",
+            "sub": "Home ÷ away, team level, all five leagues.",
+            "unit": "%",
+            "rows": [
+              [
+                "With fans",
+                30,
+                "end"
+              ],
+              [
+                "Closed doors",
+                13,
+                "hot"
+              ],
+              [
+                "Fans back",
+                26,
+                "end"
+              ]
+            ],
+            "max": 35,
+            "words": "The xG home edge fell from +30% to +13% without crowds and recovered to +26% when they returned.",
+            "source": "Study 01 · Final Summary §3 (team level)"
+          },
+          "explain": "Every league lost xG home advantage without fans; Ligue 1 lost its whole goals edge."
+        },
+        {
+          "kind": "evidence",
+          "title": "The crowd touches every part of the home edge.",
+          "lead": "Home ÷ away at team level: goals **1.27 → 1.11**, {xg|xG} **1.29 → 1.13**, shots **1.23 → 1.13**. Yellow cards went from **0.89** (home side booked less) to **1.02** — the advantage gone.",
+          "chart": {
+            "type": "paired",
+            "title": "Home ÷ away, with fans vs behind closed doors",
+            "sub": "1.00 = no home advantage. Team level.",
+            "a": "With fans",
+            "b": "Closed doors",
+            "lo": 0.8,
+            "hi": 1.35,
+            "ref": 1.0,
+            "fmt": "2",
+            "rows": [
+              [
+                "Goals",
+                1.27,
+                1.11
+              ],
+              [
+                "xG",
+                1.29,
+                1.13
+              ],
+              [
+                "Shots",
+                1.23,
+                1.13
+              ],
+              [
+                "Yellow cards",
+                0.89,
+                1.02
+              ]
+            ],
+            "words": "Every attacking ratio moved toward 1.00 without fans, and the home side's lighter treatment in yellow cards disappeared.",
+            "source": "Study 01 · Final Summary §3"
+          }
+        },
+        {
+          "kind": "group",
+          "title": "Weather",
+          "status": "pending",
+          "status_label": "Five-league models done · conclusion and freeze pending"
+        },
+        {
+          "kind": "headline",
+          "title": "Weather barely changes how much players produce.",
+          "lead": "With all five leagues, rain and humidity effects on shots, xG, xA, goals and key passes sit within about **±2%**. Wind is small but now detectable: about **−1%** shots, key passes and xA per +10 km/h. Over ten Premier League seasons alone, **0 of 20** weather × metric effects survived correction.",
+          "chart": {
+            "type": "scale",
+            "title": "Weather, next to the crowd",
+            "sub": "Change in output. The shaded band is the range the five-league rain and humidity estimates sit in.",
+            "lo": -5,
+            "hi": 35,
+            "rows": [
+              [
+                "Rain, humidity",
+                "band",
+                -2,
+                2,
+                "±2%"
+              ],
+              [
+                "Wind +10 km/h (xA)",
+                "bar",
+                0,
+                -1.2,
+                "−1.2%"
+              ],
+              [
+                "Home edge, behind closed doors",
+                "bar",
+                0,
+                13,
+                "+13%"
+              ],
+              [
+                "Home edge, with fans",
+                "hot",
+                0,
+                30,
+                "+30%"
+              ]
+            ],
+            "ticks": [
+              -5,
+              0,
+              10,
+              20,
+              30
+            ],
+            "words": "Rain and humidity move output by about 2% at most and wind by about 1% — a small fraction of what a crowd does to home advantage.",
+            "source": "Study 01 · five-league weather run (6 Oct 2026); crowd rows team level"
+          }
+        },
+        {
+          "kind": "counter",
+          "title": "Six predictions, written down before looking.",
+          "value": "0",
+          "of": "6",
+          "label": "pre-registered weather hypotheses survive",
+          "lead": "Rain and long shots, wind and headers or crosses, heat and late-game output: on five leagues and 445,377 non-penalty shots, none of them held up."
+        },
+        {
+          "kind": "open",
+          "title": "Open: temperature",
+          "lead": "With all five leagues, warmer kickoffs go with slightly more chance creation: key passes **+3.2%** and goals **+4.2%** per +10 °C, surviving correction — strongest in Serie A (xA +10.7%, key passes +5.8%) and absent in the Premier League. Part of it is “warm stadiums” rather than warm days: a stadium control shrinks it. The verdict waits on a 1,000-permutation placebo check. **Not yet a finding.**"
+        }
+      ],
+      "surprise": {
+        "suggested": "Forwards' xA rose 29% in the rain in the 2024/25 Premier League — a promising lead.",
+        "after": "On three other leagues the same effect was −1.4%; on all five, −1.2% (p = 0.43). Not replicated.",
+        "lesson": "A striking result from one league and one season is a hypothesis, not a finding. It has to replicate."
+      },
+      "meaning": [
+        "For rain, wind and humidity, the weather is not something a player's numbers need correcting for. Temperature is still open.",
+        "Crowds are different — and a crowd effect is a home effect. That is where Study 2 picks up."
+      ],
+      "limitations": [
+        "The final temperature placebo check, the hand-written weather conclusion and the freeze are still pending.",
+        "The closed-doors period is mostly one season, so per-player crowd estimates are noisy; there are no attendance figures — only fans or no fans.",
+        "Cup matches and fixture congestion are not in the data.",
+        "Observational data: effects are associations within carefully matched comparisons."
+      ],
+      "next": {
+        "question": "If crowds move home advantage, does it belong to individual players?",
+        "slug": "home-advantage"
+      },
+      "meta": {
+        "title": "Study 01 · Weather, crowds and player performance · Home Turf & Hard Opponents",
+        "description": "Study 1: rain and humidity barely change player output (within about ±2% on five leagues); empty stadiums roughly halved home advantage. Final weather conclusion and freeze pending.",
+        "og_title": "Does the environment change the player?",
+        "og_image": "environment.png"
+      }
+    },
+    {
+      "id": 2,
+      "slug": "home-advantage",
+      "short": "Home advantage",
+      "nav": "Home",
+      "title": "Individual home advantage",
+      "question": "Does home advantage belong to the player?",
+      "subquestion": "Which players benefit most from playing at home?",
+      "spine_question": "How much does playing at home matter?",
+      "spine_answer": "A lot — and the same for everyone.",
+      "status": "final",
+      "status_label": "Complete",
+      "period": "2015/16 — 2024/25",
+      "leagues": [
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "sample": [
+        [
+          "2015/16 — 2024/25",
+          "Seasons"
+        ],
+        [
+          "5",
+          "Leagues"
+        ],
+        [
+          "4,665",
+          "Players tested"
+        ]
+      ],
+      "summary": "Everyone does better at home by about the same amount: +27% xG per minute for the same player, in the same team and season. Not one of 4,665 players has a reliable personal home edge.",
+      "why": {
+        "body": [
+          "Home and away splits are one of the first things people reach for: this striker is a home player, that winger travels badly.",
+          "If those splits were real, part of a player's value would depend on where he plays — and a transfer would change it."
+        ],
+        "question": "Is home advantage a property of the player, or of the match?"
+      },
+      "method": {
+        "flow": [
+          "Same player",
+          "Same team and season",
+          "Home matches vs away matches"
+        ],
+        "result": "His home edge, per minute",
+        "plain": "Comparing a player only with himself removes ability, team quality and season form. What's left is the effect of playing at home.",
+        "technical": [
+          "Within-player {ppml|PPML} on per-minute output with {fixed-effects|player × team × season fixed effects}; errors clustered by match.",
+          "Individual effects get calibrated standard errors from pseudo-splits and shuffles within each player's own matches, a DerSimonian–Laird estimate of the real between-player spread, and {shrinkage|empirical-Bayes shrinkage}.",
+          "Persistence is measured against shuffled data. {multiple-testing|Benjamini–Hochberg corrections}, {permutation-test|permutation tests} and {placebo|placebo tests} for every headline effect."
+        ]
+      },
+      "findings": [
+        {
+          "kind": "headline",
+          "title": "Everyone gets better at home.",
+          "lead": "Per minute, for the same player: {xg|xG} **+27%**, {xa|xA} **+25%**, shots **+22%**, {key-passes|key passes} **+21%**, goals **+24%**.",
+          "chart": "s2-effects",
+          "explain": "Every attacking number moves together, by roughly a quarter."
+        },
+        {
+          "kind": "evidence",
+          "title": "How big is that? Most of it is the crowd.",
+          "lead": "Behind closed doors the xG edge fell from **+28%** to **+12%**, and came back to **+25%** with fans. The betting market priced the same loss: the home/away win-probability ratio for evenly matched teams fell from **1.58** to **1.31**.",
+          "chart": "s2-periods"
+        },
+        {
+          "kind": "evidence",
+          "title": "Leagues differ.",
+          "lead": "La Liga has the largest home edge (xG **+35%**), Serie A the smallest (**+23%**).",
+          "chart": "s2-leagues"
+        },
+        {
+          "kind": "counter",
+          "title": "But do some players have more of it?",
+          "intro": "Maybe the average is shared, but a few players are genuine home specialists.",
+          "value": "0",
+          "of": "4,665",
+          "label": "players with a reliable personal home edge",
+          "lead": "Each player's estimate is only 5–8% {signal-noise|signal}. Within a team-season, individual differences vanish for xG, shots, key passes and goals.",
+          "chart": "s2-hist"
+        },
+        {
+          "kind": "evidence",
+          "title": "Clubs don't own it either.",
+          "lead": "Against their own league's average, clubs differ by about **±1%**: **0 of 121** clubs are reliably different, and a club's past home edge does not predict its future one.",
+          "chart": "s2-clubs"
+        }
+      ],
+      "surprise": {
+        "suggested": "The 2015–19 “top 10 home players” looked like genuine home specialists.",
+        "after": "In 2022–25 they were back near the all-player average: +43%, against +33% for everyone. The correlation between the two periods was 0.018.",
+        "lesson": "A home/away split is mostly noise. Ranking players by it is {regression-to-the-mean|regression to the mean} in action."
+      },
+      "meaning": [
+        "Treat home advantage as part of the match, not the player: give every player the same home lift, and don't credit or blame anyone for a home/away split.",
+        "On new seasons, the league average is a better forecast of a player's home edge than his own past record (2025/26: r = 0.011)."
+      ],
+      "limitations": [
+        "The closed-doors period is mostly one season, so per-player crowd effects are noisy; there are no attendance figures.",
+        "Study 2's “stable part” magnitudes are upper bounds: the cross-season estimator is biased upward even with no true persistence (found later, in Study 3). Conclusions are unchanged.",
+        "Output only — no defending, pace or possession; goalkeepers are excluded.",
+        "Observational data: effects are associations within carefully matched comparisons."
+      ],
+      "next": {
+        "question": "Home is one context. What happens when the opponent gets stronger?",
+        "slug": "opposition"
+      },
+      "meta": {
+        "title": "Study 02 · Individual home advantage · Home Turf & Hard Opponents",
+        "description": "Study 2: every player produces about 27% more xG per minute at home, by about the same amount. 0 of 4,665 players have a reliable personal home edge.",
+        "og_title": "Does home advantage belong to the player?",
+        "og_image": "home-advantage.png"
+      }
+    },
+    {
+      "id": 3,
+      "slug": "opposition",
+      "short": "Opposition",
+      "title": "The opposition effect",
+      "question": "Do some players actually thrive against better teams?",
+      "subquestion": "How much of a player's output survives when the opponent gets stronger?",
+      "spine_question": "What happens when the opponent gets stronger?",
+      "spine_answer": "Everyone drops — by about the same amount.",
+      "status": "final",
+      "status_label": "Complete",
+      "period": "2015/16 — 2024/25",
+      "leagues": [
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "sample": [
+        [
+          "2015/16 — 2024/25",
+          "Seasons"
+        ],
+        [
+          "5",
+          "Leagues"
+        ],
+        [
+          "525K",
+          "Player-matches"
+        ]
+      ],
+      "summary": "Player attacking output falls substantially as opponent strength increases — but we found no reliable evidence that some individuals consistently resist that effect.",
+      "why": {
+        "body": [
+          "Raw statistics make player comparison deceptively simple. A player who piles up numbers against weak sides isn't necessarily better than one who produces a little less against strong ones.",
+          "And if some players really rise to big occasions, that would be worth knowing before a cup final — or a transfer."
+        ],
+        "question": "Can we separate player level from opponent difficulty?"
+      },
+      "method": {
+        "flow": [
+          "Player output",
+          "Team / season context",
+          "Venue",
+          "Opponent strength"
+        ],
+        "result": "Adjusted player output",
+        "plain": "We're comparing a player's output against different opponents rather than simply comparing raw totals.",
+        "technical": [
+          "{opponent-strength|Opponent strength} is a sequential market rating from pre-match odds: each match uses only earlier matches. Checked against an xG rating, Elo, opening odds and points per game; 0 changed ratings in 155,282 {leakage|leakage} checks.",
+          "Within-player {ppml|PPML} with {fixed-effects|player × team × season fixed effects}, plus venue, month and kickoff hour; errors clustered by match.",
+          "Individual resistance: calibrated standard errors, between-player spread and {shrinkage|empirical-Bayes shrinkage}; {multiple-testing|Benjamini–Hochberg corrections}."
+        ]
+      },
+      "findings": [
+        {
+          "kind": "headline",
+          "title": "A stronger opponent hurts everyone.",
+          "lead": "{xg|xG} falls **13.8%** for every +1 {sd|SD} increase in {opponent-strength|opponent strength}.",
+          "chart": "s3-effects",
+          "explain": "Same player, team and season, after accounting for venue: {xa|xA} −15.1%, shots −10.5%, key passes −11.4%, goals −15.8%."
+        },
+        {
+          "kind": "evidence",
+          "title": "How big is that?",
+          "lead": "Against the strongest fifth of opponents, xG is **33% lower** than against the weakest fifth (xA −35%).",
+          "chart": "s3-quintiles"
+        },
+        {
+          "kind": "evidence",
+          "title": "The same in every position.",
+          "lead": "The effect is the same across positions and home/away, and unchanged behind closed doors — unlike home advantage.",
+          "chart": "s3-positions"
+        },
+        {
+          "kind": "evidence",
+          "title": "Leagues differ a little.",
+          "lead": "Steepest in Serie A (xG **−16%**, xA **−18%** per SD). In La Liga and Ligue 1, shot and key-pass volume barely drops against strong sides (about −7% to −8%).",
+          "chart": "s3-leagues"
+        },
+        {
+          "kind": "counter",
+          "title": "But are some players different?",
+          "intro": "Maybe the average effect is strong, but certain players are unusually resistant to elite opposition.",
+          "value": "0",
+          "of": "23,022",
+          "label": "player × metric estimates show reliable resistance",
+          "lead": "We found no reliable individual player × metric estimates showing consistent resistance to stronger opposition. Season-to-season correlation of a player's “resistance”: **0.012**."
+        },
+        {
+          "kind": "evidence",
+          "title": "The practical rule.",
+          "lead": "To predict a player's output against elite opponents, use his overall opponent-adjusted level, not his record against elite teams: xG **r 0.84 vs 0.75**.",
+          "chart": "s3-elite"
+        },
+        {
+          "kind": "evidence",
+          "title": "Adjusting a season changes little — except where it matters.",
+          "lead": "Season adjustments are typically **±2%** because everyone plays everyone twice; up to ±10% for players used unevenly, e.g. Callum Wilson 2023/24 (**−9.9%**). Bruno Fernandes's elite chance creation survives: **0.467 → 0.460** xA per 90 in 2022/23, 99.6th percentile.",
+          "chart": "s3-adjust",
+          "explain": "Adjustment matters most for partial seasons, single matches and cross-league comparisons."
+        }
+      ],
+      "surprise": {
+        "suggested": "In the raw data, about 29% of players look like “flat-track bullies” and about 26% like “big-game players”.",
+        "after": "That is exactly what noise produces. With proper intervals, one player in about 4,800 shows a reliable pattern (for shots) — what chance alone would produce — and after correcting for multiple tests, none of the 23,022 estimates survives.",
+        "lesson": "Raw “big-game” records reflect context and noise rather than a stable player trait."
+      },
+      "meaning": [
+        "Opposition is one of the biggest contexts in the numbers. Adjust for it — especially for partial seasons, single matches and cross-league comparisons.",
+        "To judge how a player will do against elite teams, look at his overall adjusted level."
+      ],
+      "limitations": [
+        "Opponent strength is the betting market's pre-match view of a team; it is validated against four alternatives, but it is still a rating, not a fact.",
+        "Output only — the data cannot see defending, pressing or possession.",
+        "Cup matches and fixture congestion are not in the data.",
+        "Observational data: effects are associations within carefully matched comparisons."
+      ],
+      "next": {
+        "question": "With context removed, can we finally compare players — across leagues?",
+        "slug": "similarity"
+      },
+      "meta": {
+        "title": "Study 03 · The opposition effect · Home Turf & Hard Opponents",
+        "description": "Study 3: −13.8% xG per +1 SD of opponent strength, the same for everyone. 0 of 23,022 player × metric estimates show reliable resistance.",
+        "og_title": "Do some players actually thrive against better teams?",
+        "og_image": "opposition.png"
+      }
+    },
+    {
+      "id": 4,
+      "slug": "similarity",
+      "short": "Similarity",
+      "title": "Cross-league player similarity",
+      "turn": {
+        "before": "Studies 1–3 asked: can we remove context?",
+        "after": "Study 4 asks: now that we've adjusted for context, can we compare players?"
+      },
+      "question": "Who actually plays like whom?",
+      "subquestion": "Can we find functionally similar players across leagues?",
+      "spine_question": "Can we find players who actually play alike?",
+      "spine_answer": "Yes — within limits.",
+      "status": "final",
+      "status_label": "Complete",
+      "period": "Profiles to 2025/26",
+      "leagues": [
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "sample": [
+        [
+          "9",
+          "Profile metrics"
+        ],
+        [
+          "7",
+          "Roles from the data"
+        ],
+        [
+          "5",
+          "Leagues"
+        ]
+      ],
+      "summary": "Context-adjusted profiles find sensible matches across leagues — Bruno → Serie A: Samardžić, Dybala, Chukwueze — but nobody matches his chance creation. Similarity describes a player; it is not a forecast.",
+      "why": {
+        "body": [
+          "Recruitment often starts with “who plays like him, in a league we can afford?”. Raw numbers can't answer it across leagues: the league, the opponents and the venue all leave fingerprints on a stat line.",
+          "Studies 1–3 measured those fingerprints. Now they can be removed."
+        ],
+        "question": "Once context is removed, can we find a player's functional twin in another league?"
+      },
+      "method": {
+        "dims": [
+          [
+            "Chance creation",
+            [
+              "{xa|xA}",
+              "{key-passes|Key passes}"
+            ]
+          ],
+          [
+            "Involvement",
+            [
+              "{xgchain|xGChain}",
+              "{xgbuildup|xGBuildup}"
+            ]
+          ],
+          [
+            "Shooting",
+            [
+              "{npxg|npxG}",
+              "{per90|Shots / 90}",
+              "{xg-per-shot|xG / shot}"
+            ]
+          ],
+          [
+            "Profile",
+            [
+              "Headed share",
+              "In-box share"
+            ]
+          ]
+        ],
+        "flow": [
+          "Nine-metric profile",
+          "Adjusted for opponent, venue and league",
+          "Normalized within role"
+        ],
+        "result": "Cosine similarity",
+        "plain": "Each profile is adjusted for opponent, venue and league, normalized within {role|role}, then compared using {cosine-similarity|cosine similarity}.",
+        "technical": [
+          "Roles come from the data: clustering Understat's granular positions on per-90 output gives seven roles. A central attacking midfielder produces like a wide forward, not like other central midfielders.",
+          "Metrics are {z-score|z-scored} within role and compared by cosine similarity; three-season {profile-window|profile windows} are the steadiest.",
+          "Validated without opinions by {self-retrieval|self-retrieval}: after a league move, does a player's new profile find his old one?"
+        ]
+      },
+      "findings": [
+        {
+          "kind": "headline",
+          "title": "The profile finds the same player again — even after a move.",
+          "lead": "Three-season profiles find the same player in the **top 9%** of a destination league's role pool after a league move. Adjusted inputs beat raw ones for players who changed league.",
+          "chart": "s4-retrieval",
+          "explain": "Single seasons are noisy profiles; longer windows are steadier."
+        },
+        {
+          "kind": "climax",
+          "title": "We tried to find Bruno's replacement.",
+          "lead": "Bruno Fernandes's chance creation is **3.6 SD** above his role average. Serie A's best comparable is **1.9 SD**.",
+          "chart": "s4-bruno",
+          "list_title": "Closest profiles in Serie A",
+          "list": "s4-closest",
+          "callout": "None was a true like-for-like Bruno equivalent.",
+          "explain": "Samardžić, Dybala and Chukwueze are robust matches on the rest of the profile — but every one of them creates less. A high score means two profiles look alike, not that one player is the other."
+        },
+        {
+          "kind": "evidence",
+          "title": "About half of what makes a player distinctive survives a move.",
+          "lead": "After a real move, the player's own pre-move profile forecasts his new-league output **as well as** his comparables do."
+        }
+      ],
+      "surprise": {
+        "suggested": "A central attacking midfielder sounds like a kind of central midfielder.",
+        "after": "On the numbers he produces like a wide forward — so roles were rebuilt from what players produce, not where the team sheet puts them.",
+        "lesson": "A position label describes where a player stands. Output describes what he does."
+      },
+      "meaning": [
+        "Similarity is a discovery tool: it finds candidates worth watching in leagues you don't follow.",
+        "It is not a forecasting tool. A high score says two profiles look alike — not that one player will produce like the other after a move."
+      ],
+      "limitations": [
+        "Output only: the profile cannot see defending, pressing, pace or physical data.",
+        "Single seasons are noisy profiles; longer windows are steadier.",
+        "Study 4's user-curated “known similar pairs” check is still open.",
+        "Similarity scores rank players within a role pool; they are not probabilities."
+      ],
+      "next": {
+        "kicker": "We had found players who looked similar.",
+        "question": "But does similarity actually tell us what happens next?",
+        "slug": "transferability"
+      },
+      "meta": {
+        "title": "Study 04 · Cross-league player similarity · Home Turf & Hard Opponents",
+        "description": "Study 4: context-adjusted, role-normalised profiles find similar players across leagues. Bruno → Serie A: Samardžić, Dybala, Chukwueze — but nobody matches his 3.6 SD chance creation.",
+        "og_title": "Who actually plays like whom?",
+        "og_image": "similarity-study.png"
+      }
+    },
+    {
+      "id": 5,
+      "slug": "transferability",
+      "short": "Transferability",
+      "nav": "Transfers",
+      "title": "Transferability",
+      "question": "Will his game travel?",
+      "subquestion": "What happens to attacking output when a player changes leagues?",
+      "clarify": [
+        "Similarity can describe a player.",
+        "Transferability asks whether his output survives the move."
+      ],
+      "spine_question": "Can we predict what happens when the player moves?",
+      "spine_answer": "Partly — from his own history, not from who he resembles.",
+      "status": "final",
+      "status_label": "Complete",
+      "period": "Moves 2016/17 — 2025/26",
+      "leagues": [
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "sample": [
+        [
+          "428",
+          "Summer moves"
+        ],
+        [
+          "142",
+          "Locked test moves"
+        ],
+        [
+          "5",
+          "Leagues"
+        ]
+      ],
+      "summary": "Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder decides the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.",
+      "why": {
+        "body": [
+          "Every summer, clubs pay for output produced somewhere else. Whether that output travels is the question behind every cross-league signing.",
+          "Study 4 can say who a player resembles. It can't say what happens after he moves."
+        ],
+        "question": "How much of a player's output survives a league move — and can we predict it?"
+      },
+      "method": {
+        "flow": [
+          "Player history",
+          "Origin league",
+          "Transfer",
+          "Destination league",
+          "Post-transfer output"
+        ],
+        "vertical": true,
+        "benchmark": "We compare movers against {stayers|comparable players who stayed} — same club, role, output and age — so that ordinary {regression-to-the-mean|regression to the mean} isn't mistaken for a transfer effect.",
+        "plain": "Output drops after any strong season, move or no move. Comparing movers with similar players who stayed separates the move from that ordinary drop.",
+        "technical": [
+          "Understat has no transfer records, so moves were inferred from club changes (including deadline-day moves after early matches). Of 2,917 cross-league moves, the primary population is 428 summer moves (2016/17–2025/26) by forwards and midfielders with ≥900 minutes before and after; every exclusion is listed with its reason.",
+          "{retention|Retention} = output after ÷ output before (xG + xA per 90). Dates of birth were linked from the CC0 Transfermarkt-derived dataset (100% of the 428 moves).",
+          "Every prediction uses only information available at the decision date; the final model was scored once on {locked-test|locked seasons}."
+        ]
+      },
+      "findings": [
+        {
+          "kind": "headline",
+          "title": "On average, most of it survives.",
+          "lead": "Movers keep **97%** of their output compared with comparable stayers (95% {interval|confidence interval} **93–101%**): an average move costs about 3%.",
+          "chart": "s5-overall"
+        },
+        {
+          "kind": "evidence",
+          "title": "But the direction decides it.",
+          "lead": "One {league-ladder|ladder of league difficulty} explains all 20 directions: moving **into** the Premier League keeps **82%**; moving **out** of it, **117%**.",
+          "chart": "s5-leagues",
+          "explain": "Premier League hardest, Serie A and La Liga in the middle, Bundesliga and Ligue 1 easiest. Pair-specific effects add nothing (p = 0.91): Serie A → Premier League keeps ~80%, Premier League → Serie A ~114%."
+        },
+        {
+          "kind": "evidence",
+          "title": "Age and the destination club matter too.",
+          "lead": "Younger players keep more — about **−2% per year** of age (U21 **109%**, 30+ **93%**). The destination club matters as much as the league: weakest third of destination clubs **79%**, strongest third **106%**.",
+          "chart": "s5-groups",
+          "explain": "Players coming off a jump in output drop more (−9% per SD of last-season change). No effect: role (once regression to the mean is removed), consistency over three seasons, profile distinctiveness, penalty duties, loans."
+        },
+        {
+          "kind": "progression",
+          "title": "Can we predict the move?",
+          "lead": "Each step adds information the naive guess ignores. The final model cuts the error from **0.129** to **0.096** and lifts {r-squared|R²} from **0.58** to **0.76**.",
+          "chart": "s5-progression"
+        },
+        {
+          "kind": "locked",
+          "title": "The model was frozen before the test.",
+          "steps": [
+            "Training seasons",
+            "Model locked",
+            "2023/24 — 2025/26 opened",
+            "142 unseen moves, scored once"
+          ],
+          "lead": "The final model was fixed before the test seasons and evaluated once on 142 unseen moves. It beat the naive baseline by **0.033** xG + xA per 90 (CI 0.018–0.049) and did slightly better on the unseen seasons than on earlier ones — no sign of overfitting."
+        },
+        {
+          "kind": "evidence",
+          "title": "Similarity had to earn its place. It didn't.",
+          "lead": "Adding Study 4's similarity — what the most similar destination-league players produce, match quality, distinctiveness, how similar movers fared — changed the error by **0.000**. Comparables alone were worse than the player's own history.",
+          "chart": "s5-similarity"
+        },
+        {
+          "kind": "evidence",
+          "title": "A prediction is a range, not a number.",
+          "lead": "The chance of keeping ≥75% ranks players well ({auc|AUC} **0.80**) and beats a same-for-everyone base rate ({brier|Brier} **0.179 vs 0.224**), and is {calibration|calibrated} at the top. But individual forecasts are uncertain: a typical {range-80|80% range} is **±0.2** xG + xA per 90.",
+          "chart": "s5-calibration",
+          "explain": "Lower thresholds (50%, 60%) were not well calibrated and are not used."
+        },
+        {
+          "kind": "failure",
+          "title": "Where the model breaks.",
+          "lead": "The league effect is a fixed amount, not a percentage, so low-output central midfielders moving into the Premier League are under-predicted by about **0.06** xG + xA per 90.",
+          "example": {
+            "name": "Manuel Ugarte",
+            "context": "Manchester United case study, summer 2024 — standing at 1 June 2024 with only what was known then.",
+            "rows": [
+              [
+                "Predicted",
+                0.02
+              ],
+              [
+                "Actual",
+                0.14
+              ]
+            ]
+          },
+          "explain": "Ugarte was bought for defensive work this data cannot see. The model primarily sees attacking output. A percentage-based league effect is the next version.",
+          "link": [
+            "/football/case-studies/manchester-united-2024",
+            "Read the case study"
+          ]
+        }
+      ],
+      "surprise": {
+        "suggested": "Early on, centre-forwards seemed to drop the most after a move, and a promoted-club effect looked like a data artefact.",
+        "after": "Against comparable stayers, centre-forwards keep 96% — mostly regression to the mean, no clear role effect. And the promoted-club effect is real: players joining promoted clubs produce more than the club's rating predicts.",
+        "lesson": "Every raw transfer pattern needs a control group — and a second look."
+      },
+      "meaning": [
+        "To forecast a move, start from the player's own history, age and both clubs, and place both leagues on the difficulty ladder.",
+        "Use similarity to find candidates and the transfer model to size the risk — never one as the other.",
+        "Read every forecast as a range. The model knows how unsure it is; a single number hides that."
+      ],
+      "limitations": [
+        "Output only: defending, pace, possession, injuries, fees and contracts are not in the data; defenders and goalkeepers are excluded.",
+        "The league effect is fixed rather than proportional — the Ugarte weakness. A percentage-based version is to be validated on moves after 2025/26.",
+        "Individual forecasts are uncertain: a typical 80% range is ±0.2 xG + xA per 90.",
+        "Observational data: effects are associations within carefully matched comparisons."
+      ],
+      "next": {
+        "kicker": "Five studies, one answer: context belongs to the match; level belongs to the player.",
+        "question": "Does it still hold on seasons the studies never saw?",
+        "href": "/football/live",
+        "label": "Live tracker"
+      },
+      "meta": {
+        "title": "Study 05 · Transferability · Home Turf & Hard Opponents",
+        "description": "Study 5: movers keep 97% of their output vs comparable stayers, but the league ladder decides the direction. A history-based model beats the naive guess on 142 locked moves; similarity adds 0.000.",
+        "og_title": "Will his game travel?",
+        "og_image": "transferability.png"
+      }
+    }
+  ]
+}

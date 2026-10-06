@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-mode="fan">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>About · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for answering football questions with data." />
+<link rel="canonical" href="https://iyush.dev/football/about" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="I&#x27;m Ayush." />
+<meta property="og:description" content="Product engineer by trade, football obsessive by choice." />
+<meta property="og:url" content="https://iyush.dev/football/about" />
+<meta property="og:image" content="https://iyush.dev/football/og/about.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="I&#x27;m Ayush." />
+<meta name="twitter:description" content="Product engineer by trade, football obsessive by choice." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/about.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "url": "https://iyush.dev/football/about",
+  "description": "Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for answering football questions with data.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@id": "https://iyush.dev/football#site"
+  },
+  "author": {
+    "@id": "https://iyush.dev/#person"
+  },
+  "@type": "AboutPage",
+  "name": "About"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>try{document.documentElement.setAttribute("data-mode",localStorage.getItem("fb-mode")==="analyst"?"analyst":"fan")}catch(e){}</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+<style>
+.ab-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); }
+.ab-cols h3 { font-size: 22px; margin: 10px 0 12px; }
+.ab-cols p { color: var(--ink-2); font-size: 16.5px; }
+@media (max-width: 820px) { .ab-cols { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- SiteHeader + FootballNav -->
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about" aria-current="page">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Football</a></li><li aria-current="page">About</li></ol></nav>
+
+<section class="hero" aria-labelledby="a-h">
+  <div class="wrap about">
+    <div>
+      <p class="eyebrow">About</p>
+      <h1 id="a-h" style="font-style:italic">I'm Ayush.</h1>
+      <p class="lede" style="margin-top:24px">Product engineer by trade, football obsessive by choice. I build systems for answering football questions with data.</p>
+    </div>
+    <div class="about__links">
+      <a class="link-arrow" href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a>
+      <a class="link-arrow" href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a>
+      <a class="link-arrow" href="/">iyush.dev</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="About the project">
+  <div class="wrap ab-cols">
+    <div>
+      <p class="label">Why</p>
+      <h3>One question, asked properly</h3>
+      <p>Football talk is full of “big-game players”, home specialists and can't-miss signings. This project asks one question — what actually belongs to the player? — and follows it through five studies on every player-match in Europe's top five leagues since 2015/16.</p>
+    </div>
+    <div>
+      <p class="label">How it's built</p>
+      <h3>Research first, interface second</h3>
+      <p>The research runs as a separate pipeline. This site only reads its precomputed, validated outputs; the similarity search and transfer calculator are browser ports of the study models, tested against the originals. It's a static site with no framework and no build step.</p>
+    </div>
+    <div>
+      <p class="label">Kept current</p>
+      <h3>Rebuilt every Monday</h3>
+      <p>Every Monday the pipeline adds the weekend's matches, re-tests the home-advantage and opposition findings on seasons the studies never saw, refreshes the similarity profiles and rebuilds the data behind this site. The frozen results never change.</p>
+    </div>
+  </div>
+  <div class="wrap cta-row">
+    <a class="btn" href="/football/research">Explore the research →</a>
+    <a class="link-arrow" href="/football/methodology">Read the methodology →</a>
+  </div>
+</section>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

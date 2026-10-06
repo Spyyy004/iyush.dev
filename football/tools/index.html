@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-mode="fan">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tools · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Interactive football research tools: find statistically similar players across Europe's top five leagues, and predict how much of a player's output survives a league move." />
+<link rel="canonical" href="https://iyush.dev/football/tools" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Football research tools · Similarity and transfers" />
+<meta property="og:description" content="Run the Study 4 similarity search and the Study 5 transfer model yourself." />
+<meta property="og:url" content="https://iyush.dev/football/tools" />
+<meta property="og:image" content="https://iyush.dev/football/og/tools.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Football research tools · Similarity and transfers" />
+<meta name="twitter:description" content="Run the Study 4 similarity search and the Study 5 transfer model yourself." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/tools.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Football research tools",
+  "url": "https://iyush.dev/football/tools",
+  "isPartOf": { "@id": "https://iyush.dev/football#site" },
+  "author": { "@id": "https://iyush.dev/#person" },
+  "hasPart": [
+    { "@type": "WebApplication", "name": "Player similarity search", "url": "https://iyush.dev/football/tools/similarity", "applicationCategory": "SportsApplication", "operatingSystem": "Any (web browser)", "author": { "@id": "https://iyush.dev/#person" } },
+    { "@type": "WebApplication", "name": "Transfer calculator", "url": "https://iyush.dev/football/tools/transfer", "applicationCategory": "SportsApplication", "operatingSystem": "Any (web browser)", "author": { "@id": "https://iyush.dev/#person" } }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>try{document.documentElement.setAttribute("data-mode",localStorage.getItem("fb-mode")==="analyst"?"analyst":"fan")}catch(e){}</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+<style>
+  .card dl { margin: 0; display: grid; gap: 10px; }
+  .card dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .card dd { margin: 2px 0 0; color: var(--ink-2); font-size: 16px; }
+  .card dd.fresh { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
+  .card h2 { font-size: clamp(26px, 3vw, 34px); }
+  .card .q { font-style: italic; color: var(--ink); font-size: 20px; margin: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools" aria-current="page">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol><li><a href="/football">Football</a></li><li aria-current="page">Tools</li></ol>
+  </nav>
+</div>
+
+<section class="study-hero" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="eyebrow">Tools <b>·</b> Studies 04–05</p>
+    <h1 id="h1">Run the models yourself.</h1>
+    <p class="study-q">Two of the five studies ended in something you can use: a way to find players who play alike, and a way to estimate what survives a move. They answer different questions — and only one of them is a forecast.</p>
+  </div>
+</section>
+
+<section class="wrap" aria-label="Tools">
+  <div class="cards">
+    <a class="card" href="/football/tools/similarity?player=bruno-fernandes&amp;league=serie-a&amp;seasons=3">
+      <span class="label">Study 04 · Discovery</span>
+      <h2>Player similarity</h2>
+      <p class="q">Who plays like him?</p>
+      <dl>
+        <div><dt>What it does</dt><dd>Finds the players in any top-five league whose context-adjusted profile — chance creation, involvement, shooting volume and shot profile — looks most like the player you pick, compared only within the same role.</dd></div>
+        <div><dt>What it can't do</dt><dd>Predict how a player will do after a move. Study 5 tested exactly that: similarity added nothing to the forecast. It also can't see defending, pace or anything outside attacking output.</dd></div>
+        <div><dt>Data</dt><dd>Profiles as of the 2025/26 season · every result precomputed with the Study 4 engine</dd></div>
+      </dl>
+      <span class="link-arrow">Explore player similarity →</span>
+    </a>
+    <a class="card" href="/football/tools/transfer?player=bruno-fernandes&amp;from=premier-league&amp;to=serie-a&amp;club=inter">
+      <span class="label">Study 05 · Decision</span>
+      <h2>Transfer calculator</h2>
+      <p class="q">Will his game travel?</p>
+      <dl>
+        <div><dt>What it does</dt><dd>Predicts a forward or midfielder's first-season xG + xA per 90 at a chosen club in another league, with an 80% range and the chance he keeps at least 75% of his output — and shows which inputs drive the number.</dd></div>
+        <div><dt>What it can't do</dt><dd>Price, fit, injuries or defensive work. Individual forecasts are uncertain (a typical 80% range is ±0.2), and low-output central midfielders moving into the Premier League are under-predicted.</dd></div>
+        <div><dt>Data</dt><dd class="fresh" data-fresh="tr">Model fitted on 428 real summer moves · tested once on 142 unseen moves</dd></div>
+      </dl>
+      <span class="link-arrow">Run a transfer prediction →</span>
+    </a>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="cs-h" style="margin-top:64px">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Case study</p>
+      <h2 id="cs-h">What would the model have told Manchester United in June 2024?</h2>
+    </div>
+    <div>
+      <p class="lede" style="margin-top:0">Standing at 1 June 2024 with only what was known then, every striker and central midfielder in the other four leagues was ranked. Zirkzee: predicted 0.46, actual 0.47 — the right number, but 48th of 106 strikers.</p>
+      <div class="cta-row" style="margin-top:20px"><a class="link-arrow" href="/football/case-studies/manchester-united-2024">Read the case study →</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // meta.json is tiny: data freshness without loading the tool datasets.
+  window.FB.load("meta").then(function (m) {
+    var tr = document.querySelector('[data-fresh="tr"]');
+    if (tr && m.transfer_inputs_season) tr.textContent = "Model fitted on 428 real summer moves · player inputs as of " + m.transfer_inputs_season + " · tested once on 142 unseen moves";
+  }).catch(function () { /* keep the static fallback */ });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>OG card</title>
+<!-- 1200×630 social card for /football. Params: k=kicker, t=title, s=subtitle. Rendered by scripts/og/render.sh. -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet" />
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #0f0f0e; }
+  .card { box-sizing: border-box; width: 1200px; height: 630px; padding: 72px 80px; display: flex; flex-direction: column; color: #efe9df; border-left: 10px solid #c8513f; }
+  .k { font-family: "JetBrains Mono", monospace; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: #e8806d; }
+  .t { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 84px; line-height: 1.02; letter-spacing: -0.02em; margin-top: 36px; max-width: 980px; }
+  .s { font-family: "Newsreader", Georgia, serif; font-style: italic; font-size: 32px; line-height: 1.35; color: #c4bdb1; margin-top: 28px; max-width: 960px; }
+  .f { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #8f897f; border-top: 1px solid rgba(239,233,223,.2); padding-top: 24px; }
+  .f b { color: #efe9df; font-weight: 500; font-family: "Newsreader", Georgia, serif; font-size: 26px; }
+</style></head>
+<body><div class="card">
+  <div class="k" id="k"></div><div class="t" id="t"></div><div class="s" id="s"></div>
+  <div class="f"><b>Home Turf &amp; Hard Opponents</b><span>iyush.dev/football</span></div>
+</div>
+<script>
+var p = new URLSearchParams(location.search);
+document.getElementById("k").textContent = p.get("k") || "Football research";
+document.getElementById("t").textContent = p.get("t") || "What actually belongs to the player?";
+document.getElementById("s").textContent = p.get("s") || "";
+if (document.getElementById("t").textContent.length > 46) document.getElementById("t").style.fontSize = "68px";
+</script></body></html>

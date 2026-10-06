@@ -1,0 +1,66 @@
+{
+ "season": "2025/26",
+ "built_utc": "2026-10-06T11:36:49Z",
+ "engine": "src/study4/similarity.py Engine, windows w3, w2, recent2500, w1 × cosine, Euclidean",
+ "metrics": [
+  "xA",
+  "key passes",
+  "xGChain",
+  "xGBuildup",
+  "np xG",
+  "shots",
+  "headed share",
+  "in-box share",
+  "xG/shot"
+ ],
+ "groups": {
+  "chance creation": [
+   0,
+   1
+  ],
+  "involvement": [
+   2,
+   3
+  ],
+  "shooting volume": [
+   4,
+   5
+  ],
+  "shot profile": [
+   6,
+   7,
+   8
+  ]
+ },
+ "roles": [
+  "Attacking mid / wide forward",
+  "Central / defensive mid",
+  "Centre-back",
+  "Centre-forward",
+  "Full-back",
+  "Wide mid",
+  "Wing-back"
+ ],
+ "leagues": [
+  "EPL",
+  "La_Liga",
+  "Serie_A",
+  "Bundesliga",
+  "Ligue_1"
+ ],
+ "windows": {
+  "w1": 1,
+  "w2": 2,
+  "w3": 3
+ },
+ "min_minutes": 900,
+ "k": 10,
+ "rules": {
+  "similar": 0.5,
+  "moderate": 1.0,
+  "group_close": 0.5,
+  "group_diff": 0.75,
+  "robust_score": 90
+ },
+ "players": 1914
+}

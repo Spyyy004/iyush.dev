@@ -1,0 +1,130 @@
+{
+ "period": "2015/16 — 2024/25",
+ "createdAt": "2026-10-06T17:15:41+00:00",
+ "sha256": "4dae6a51f310b4011437757e7b65324ed045bf3d6202272d43b704b83b85badc",
+ "values": {
+  "opposition_seasons_xg": [
+   {
+    "season": "2015/16",
+    "value": -16.09,
+    "lo": -18.0,
+    "hi": -14.13
+   },
+   {
+    "season": "2016/17",
+    "value": -14.74,
+    "lo": -16.37,
+    "hi": -13.09
+   },
+   {
+    "season": "2017/18",
+    "value": -11.84,
+    "lo": -13.56,
+    "hi": -10.08
+   },
+   {
+    "season": "2018/19",
+    "value": -12.05,
+    "lo": -13.68,
+    "hi": -10.39
+   },
+   {
+    "season": "2019/20",
+    "value": -13.32,
+    "lo": -15.1,
+    "hi": -11.51
+   },
+   {
+    "season": "2020/21",
+    "value": -14.14,
+    "lo": -15.87,
+    "hi": -12.37
+   },
+   {
+    "season": "2021/22",
+    "value": -13.97,
+    "lo": -15.67,
+    "hi": -12.23
+   },
+   {
+    "season": "2022/23",
+    "value": -14.72,
+    "lo": -16.59,
+    "hi": -12.81
+   },
+   {
+    "season": "2023/24",
+    "value": -14.5,
+    "lo": -16.24,
+    "hi": -12.73
+   },
+   {
+    "season": "2024/25",
+    "value": -14.49,
+    "lo": -16.18,
+    "hi": -12.77
+   }
+  ],
+  "home_periods_xg": [
+   {
+    "period": "before",
+    "value": 27.7,
+    "lo": 25.6,
+    "hi": 29.9
+   },
+   {
+    "period": "closed",
+    "value": 11.8,
+    "lo": 7.7,
+    "hi": 16.1
+   },
+   {
+    "period": "after",
+    "value": 24.9,
+    "lo": 22.3,
+    "hi": 27.6
+   }
+  ],
+  "home_persistence": {
+   "r": 0.018,
+   "players": 595,
+   "method": "raw home ÷ away xG/90 per player, 2015/16–2018/19 vs 2022/23–2024/25"
+  },
+  "elite": {
+   "players": 2047,
+   "method": "odd vs even seasons; elite = top 20% of opponents",
+   "r": {
+    "key_passes": {
+     "overall": 0.821,
+     "past": 0.738
+    },
+    "shots": {
+     "overall": 0.892,
+     "past": 0.836
+    },
+    "xa": {
+     "overall": 0.713,
+     "past": 0.58
+    },
+    "xg": {
+     "overall": 0.84,
+     "past": 0.752
+    }
+   }
+  },
+  "home": {
+   "xg": 26.6,
+   "xa": 24.7,
+   "shots": 21.7,
+   "key_passes": 20.8,
+   "goals": 23.8
+  },
+  "opposition": {
+   "xg": -13.8,
+   "xa": -15.1,
+   "shots": -10.4,
+   "key_passes": -11.4,
+   "goals": -15.8
+  }
+ }
+}

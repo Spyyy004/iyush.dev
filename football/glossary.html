@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-mode="fan">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Glossary · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Football analytics terms in plain English — xG, xA, home advantage, opponent strength, shrinkage, leakage, retention and more — with where each is used in the five studies." />
+<link rel="canonical" href="https://iyush.dev/football/glossary" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Football analytics, in plain English" />
+<meta property="og:description" content="Every term used in the five studies: what it means, why we use it, and an example." />
+<meta property="og:url" content="https://iyush.dev/football/glossary" />
+<meta property="og:image" content="https://iyush.dev/football/og/glossary.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Football analytics, in plain English" />
+<meta name="twitter:description" content="Every term used in the five studies: what it means, why we use it, and an example." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/glossary.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "url": "https://iyush.dev/football/glossary",
+  "description": "Football analytics terms in plain English — xG, xA, home advantage, opponent strength, shrinkage, leakage, retention and more — with where each is used in the five studies.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@id": "https://iyush.dev/football#site"
+  },
+  "author": {
+    "@id": "https://iyush.dev/#person"
+  },
+  "@type": "DefinedTermSet",
+  "name": "Football analytics glossary"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>try{document.documentElement.setAttribute("data-mode",localStorage.getItem("fb-mode")==="analyst"?"analyst":"fan")}catch(e){}</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+<style>
+.gsearch .input { padding-left: 42px; font-size: 16px; }
+.gsearch svg { position: absolute; left: 14px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); pointer-events: none; }
+.gsearch svg * { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+.gcount { font-family: var(--mono); font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.gentry dd a { font-family: var(--mono); font-size: 13px; }
+.gentry .cat { color: var(--accent-text); }
+.gentry:target, .gentry.hl { background: linear-gradient(90deg, var(--accent-wash), transparent 70%); }
+.gentry.hl { transition: background 1.2s var(--ease); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- SiteHeader + FootballNav -->
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Football</a></li><li aria-current="page">Glossary</li></ol></nav>
+
+<section class="hero" style="padding-bottom:clamp(24px,4vw,40px)" aria-labelledby="g-h">
+  <div class="wrap">
+    <p class="eyebrow">Understand</p>
+    <h1 id="g-h">Glossary</h1>
+    <p class="lede">Every term the five studies use, in plain English first. No technical background required.</p>
+  </div>
+</section>
+
+<section class="wrap" aria-label="Glossary entries" style="padding-bottom:40px">
+  <div class="gsearch">
+    <label class="sr-only" for="gq">Search the glossary</label>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+    <input class="input" id="gq" type="search" placeholder="Search football analytics..." autocomplete="off" />
+  </div>
+  <div class="seg gcats" role="group" aria-label="Category" id="gcats">
+    <button type="button" data-c="" aria-pressed="true">All</button>
+    <button type="button" data-c="METRICS" aria-pressed="false">Metrics</button>
+    <button type="button" data-c="STATISTICS" aria-pressed="false">Statistics</button>
+    <button type="button" data-c="MODELLING" aria-pressed="false">Modelling</button>
+    <button type="button" data-c="RECRUITMENT" aria-pressed="false">Recruitment</button>
+  </div>
+  <p class="gcount" id="gcount" aria-live="polite"></p>
+  <div id="glist"></div>
+  <noscript><p class="empty-state">The glossary needs JavaScript to display. Every term is also explained inline where it appears in the research.</p></noscript>
+</section>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var FB = window.FB, G = window.FB_GLOSSARY || {};
+  var STUDY = { 1: ["environment", "Environment"], 2: ["home-advantage", "Home advantage"], 3: ["opposition", "Opposition"], 4: ["similarity", "Similarity"], 5: ["transferability", "Transferability"] };
+  var ORDER = ["METRICS", "STATISTICS", "MODELLING", "RECRUITMENT"];
+  var src = Object.keys(G);
+  var keys = src.slice().sort(function (a, b) { return ORDER.indexOf(G[a].cat) - ORDER.indexOf(G[b].cat) || src.indexOf(a) - src.indexOf(b); });
+  var list = document.getElementById("glist"), q = document.getElementById("gq"), cat = "";
+
+  list.innerHTML = keys.map(function (k) {
+    var g = G[k];
+    return '<article class="gentry" id="' + k + '" data-cat="' + g.cat + '" data-text="' + FB.esc(FB.fold([g.term, g.full, g.short, g.plain].join(" "))) + '">' +
+      "<div><h3>" + FB.esc(g.full || g.term) + '</h3><span class="label cat">' + g.cat.charAt(0) + g.cat.slice(1).toLowerCase() + "</span></div>" +
+      "<dl><div><dt>" + FB.esc(g.term) + '</dt><dd class="def">' + FB.esc(g.short) + "</dd></div>" +
+      "<div><dt>In plain English</dt><dd>" + FB.esc(g.plain) + "</dd></div>" +
+      "<div><dt>Why we use it</dt><dd>" + FB.esc(g.why) + "</dd></div>" +
+      "<div><dt>Example</dt><dd>" + FB.esc(g.example) + "</dd></div>" +
+      '<div data-for="analyst"><dt>For analysts</dt><dd>' + FB.esc(g.analyst) + "</dd></div>" +
+      (g.used && g.used.length ? "<div><dt>Used in</dt><dd>" + g.used.map(function (n) { return '<a href="/football/research/' + STUDY[n][0] + '">Study ' + n + " · " + STUDY[n][1] + "</a>"; }).join(" &nbsp;·&nbsp; ") + "</dd></div>" : "") +
+      "</dl></article>";
+  }).join("");
+
+  function filter() {
+    var f = FB.fold(q.value.trim()), n = 0;
+    FB.$$(".gentry", list).forEach(function (el) {
+      var ok = (!cat || el.getAttribute("data-cat") === cat) && (!f || el.getAttribute("data-text").indexOf(f) >= 0);
+      el.hidden = !ok; if (ok) n++;
+    });
+    document.getElementById("gcount").textContent = n === keys.length ? keys.length + " terms" : n ? n + " of " + keys.length + " terms" : "No terms match — try “xG”, “noise” or “transfer”.";
+  }
+  q.addEventListener("input", filter);
+  document.getElementById("gcats").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-c]"); if (!b) return;
+    cat = b.getAttribute("data-c");
+    FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    filter();
+  });
+  filter();
+
+  function goHash(e) {
+    var initial = !e;
+    var id = decodeURIComponent(location.hash.slice(1)), el = id && document.getElementById(id);
+    if (!el || !el.classList.contains("gentry")) return;
+    if (el.hidden) { q.value = ""; cat = ""; FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-c") === "" ? "true" : "false"); }); filter(); }
+    var go = function (smooth) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: smooth && !FB.reduce ? "smooth" : "instant" }); };
+    go(!initial);
+    if (initial && document.fonts && document.fonts.ready) document.fonts.ready.then(function () { go(false); });
+    el.classList.add("hl"); setTimeout(function () { el.classList.remove("hl"); }, 2400);
+    FB.track("glossary_view", { term: id });
+  }
+  window.addEventListener("hashchange", goHash);
+  goHash(null);
+});
+</script>
+</body>
+</html>
