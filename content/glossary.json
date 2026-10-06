@@ -1,0 +1,1139 @@
+{
+  "_about": "Glossary (M8). Source for /football/glossary and the inline popovers; built by scripts/build_glossary.py. Definitions follow the research's own terminology (findings/*.md); examples are drawn only from the research. Fields: term, full, cat, aka (search synonyms), used (studies), tools, method (methodology section), short (popover), plain (simple), analyst (technical), why, example.",
+  "categories": [
+    [
+      "metrics",
+      "Football metrics"
+    ],
+    [
+      "context",
+      "Football context"
+    ],
+    [
+      "statistics",
+      "Statistics"
+    ],
+    [
+      "modelling",
+      "Modelling"
+    ],
+    [
+      "recruitment",
+      "Recruitment"
+    ]
+  ],
+  "terms": {
+    "xg": {
+      "term": "xG",
+      "full": "Expected goals (xG)",
+      "cat": "metrics",
+      "aka": [
+        "expected goals"
+      ],
+      "used": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "tools": [
+        "transfer",
+        "live"
+      ],
+      "method": "data",
+      "short": "How likely a shot was to become a goal, based on thousands of similar shots.",
+      "plain": "Every shot gets a score between 0 and 1. A tap-in from a yard out might be 0.8; a hopeful strike from 35 yards might be 0.02. Add them up and you get how many goals a player 'should' have scored from the chances he got.",
+      "analyst": "Understat's shot-level probability of scoring given location, situation, body part and the action before the shot; summed per player-match.",
+      "why": "Goals are rare and noisy. xG measures the quality and quantity of chances, which is far more stable from match to match, so it lets small effects (like playing at home) show up.",
+      "example": "At home, the same player produces about 27% more xG per minute than away (Study 2)."
+    },
+    "xa": {
+      "term": "xA",
+      "full": "Expected assists (xA)",
+      "cat": "metrics",
+      "aka": [
+        "expected assists"
+      ],
+      "used": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "tools": [
+        "similarity",
+        "transfer"
+      ],
+      "method": "data",
+      "short": "The xG of the shots a player set up with his passes.",
+      "plain": "If you put a teammate through on goal and he misses, you still created a great chance. xA gives you credit for the chance, not the finish.",
+      "analyst": "Sum of the xG of shots directly assisted by the player's pass, regardless of whether the shot was scored.",
+      "why": "It measures chance creation without depending on a teammate's finishing — the core of a creative player's job.",
+      "example": "Bruno Fernandes's xA per 90 in 2022/23 was 0.467 raw and 0.460 after adjusting for opponents — the 99.6th percentile (Study 3)."
+    },
+    "npxg": {
+      "term": "npxG",
+      "full": "Non-penalty xG",
+      "cat": "metrics",
+      "aka": [
+        "non-penalty xg",
+        "non penalty xg",
+        "npxg"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "xG with penalties removed.",
+      "plain": "Penalties are worth a lot of xG but say little about how a player plays — whoever takes them gets the boost. Removing them makes players comparable.",
+      "analyst": "xG excluding penalty attempts, so penalty-taking duties don't inflate a profile.",
+      "why": "The similarity profile should describe a playing style, not who is on penalties.",
+      "example": "Non-penalty xG is one of the nine metrics in each Study 4 similarity profile."
+    },
+    "shots": {
+      "term": "Shots / 90",
+      "full": "Shots per 90 minutes",
+      "cat": "metrics",
+      "aka": [
+        "shots per 90",
+        "shot volume"
+      ],
+      "used": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "How many shots a player takes per 90 minutes played.",
+      "plain": "Volume, not quality: a player who shoots often from anywhere scores high here even if his chances are poor.",
+      "analyst": "Shot count per player-match from Understat, expressed per 90 minutes; one of the nine Study 4 profile metrics and an outcome in Studies 1–3.",
+      "why": "Volume and quality behave differently — pairing shots with xG per shot separates 'shoots a lot' from 'gets good chances'.",
+      "example": "Per +1 SD of opponent strength, a player's shots per 90 fall 10.5% (Study 3)."
+    },
+    "key-passes": {
+      "term": "Key passes",
+      "full": "Key passes",
+      "cat": "metrics",
+      "aka": [
+        "chance created",
+        "chances created"
+      ],
+      "used": [
+        2,
+        3,
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "Passes that lead directly to a shot.",
+      "plain": "Any pass that sets up a shot, whether the shot is good or bad.",
+      "analyst": "Count of passes immediately followed by a teammate's shot (Understat definition).",
+      "why": "It measures how often a player creates, alongside xA, which measures how good those chances were.",
+      "example": "Per +1 SD of opponent strength, key passes fall 11.4% (Study 3)."
+    },
+    "xgchain": {
+      "term": "xGChain",
+      "full": "xGChain",
+      "cat": "metrics",
+      "aka": [
+        "xg chain"
+      ],
+      "used": [
+        4,
+        5
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "The xG of every attack a player was involved in.",
+      "plain": "If you were part of a move that ended in a shot, you share the credit — even if you just played a simple pass early on.",
+      "analyst": "Total xG of every possession that ends in a shot in which the player was involved, credited in full to each player in the chain.",
+      "why": "It captures involvement in dangerous attacks, not just the last two touches.",
+      "example": "xGChain is used as an alternative target in Study 5's robustness checks."
+    },
+    "xgbuildup": {
+      "term": "xGBuildup",
+      "full": "xGBuildup",
+      "cat": "metrics",
+      "aka": [
+        "xg buildup",
+        "xg build-up",
+        "build-up"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "Like xGChain, but ignoring the shot and the final pass.",
+      "plain": "Credit for helping build attacks before the final ball.",
+      "analyst": "xGChain excluding possessions where the player took the shot or made the key pass — isolates build-up contribution.",
+      "why": "It distinguishes deep playmakers from players who only appear at the end of moves.",
+      "example": "xGBuildup is part of the 'involvement' group in the Study 4 profile."
+    },
+    "per90": {
+      "term": "Per 90",
+      "full": "Per 90 minutes",
+      "cat": "metrics",
+      "aka": [
+        "per 90",
+        "p90",
+        "rate"
+      ],
+      "used": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "data",
+      "short": "A stat scaled to a full match, so players with different minutes compare fairly.",
+      "plain": "A sub who plays 30 minutes and a starter who plays 90 can't be compared on totals. Per 90 puts them on the same footing.",
+      "analyst": "Total ÷ minutes × 90. The studies model per-minute rates directly with minutes as exposure.",
+      "why": "Every comparison in the series is about rates, not totals.",
+      "example": "Zirkzee was predicted 0.46 xG + xA per 90 at United; he produced 0.47 (case study)."
+    },
+    "xg-per-shot": {
+      "term": "xG / shot",
+      "full": "xG per shot",
+      "cat": "metrics",
+      "aka": [
+        "shot quality",
+        "npxg per shot"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "The average quality of a player's shots.",
+      "plain": "Two strikers can both take three shots a game. One takes them from six yards, the other from thirty. xG per shot tells them apart.",
+      "analyst": "Total xG divided by shots: a shot-quality measure, independent of how many shots he takes.",
+      "why": "Volume and quality are different styles. The similarity profile needs both to tell a poacher from a long-range shooter.",
+      "example": "One of the nine metrics in the Study 4 similarity profile, alongside shots per 90 and non-penalty xG (Study 4)."
+    },
+    "headed-share": {
+      "term": "Headed share",
+      "full": "Headed-shot share",
+      "cat": "metrics",
+      "aka": [
+        "headers",
+        "headed shots"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "The share of a player's shots taken with his head.",
+      "plain": "Tells you how a player gets his shots — a target man heads far more of them than a winger.",
+      "analyst": "Headed shots ÷ all shots, derived from Understat's shot-level body-part field; one of the three shot-style metrics in the Study 4 profile.",
+      "why": "Two players with the same xG can get it in completely different ways; shot style keeps the similarity profile about playing style.",
+      "example": "Headed share, in-box share and non-penalty xG per shot make up the shot-style part of the nine-metric Study 4 profile."
+    },
+    "in-box-share": {
+      "term": "In-box share",
+      "full": "In-box shot share",
+      "cat": "metrics",
+      "aka": [
+        "inside the box",
+        "penalty area",
+        "shot location"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "data",
+      "short": "The share of a player's shots taken from inside the penalty box.",
+      "plain": "Low means a player shoots a lot from distance; high means he gets into the box to shoot.",
+      "analyst": "Shots from inside the box ÷ all shots, derived from Understat shot locations; a Study 4 shot-style metric.",
+      "why": "It captures where a player shoots from, which raw shot or xG totals hide.",
+      "example": "Bruno Fernandes's in-box shot share is in the 3rd percentile of his role: a high volume of shots from distance (Study 4)."
+    },
+    "home-advantage": {
+      "term": "Home advantage",
+      "full": "Home advantage",
+      "cat": "context",
+      "aka": [
+        "home edge",
+        "home specialist",
+        "venue"
+      ],
+      "used": [
+        1,
+        2
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "context",
+      "short": "How much more a player produces at home than away.",
+      "plain": "Compare a player with himself: same club, same season, home games versus away games.",
+      "analyst": "Home ÷ away ratio of per-minute output for the same player, team and season, from a PPML model with fixed effects.",
+      "why": "It separates what belongs to the venue (and the crowd) from what belongs to the player.",
+      "example": "+27% xG per minute at home; behind closed doors that fell to about +8–14% (Study 2)."
+    },
+    "behind-closed-doors": {
+      "term": "Behind closed doors",
+      "full": "Behind closed doors",
+      "cat": "context",
+      "aka": [
+        "empty stadiums",
+        "no fans",
+        "covid",
+        "crowds"
+      ],
+      "used": [
+        1,
+        2,
+        3
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "context",
+      "short": "Matches played without fans during COVID-19 restrictions.",
+      "plain": "A natural experiment: the same teams and players, suddenly without a crowd.",
+      "analyst": "Dated per-league crowd-restriction calendars; mostly one season, so per-player crowd estimates are noisy.",
+      "why": "It shows how much of home advantage is the crowd itself.",
+      "example": "Without fans the xG home edge fell from +28% to +12%, then came back to +25% (Study 2)."
+    },
+    "opponent-strength": {
+      "term": "Opponent strength",
+      "full": "Opponent strength (market rating)",
+      "cat": "context",
+      "aka": [
+        "opposition",
+        "market rating",
+        "big-game players",
+        "strong opponents"
+      ],
+      "used": [
+        3,
+        5
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "opponents",
+      "short": "How good the opponent was, measured from pre-match betting odds.",
+      "plain": "Bookmakers' odds before kick-off are a very good summary of how strong a team is. We turn them into a rating that never peeks at results after the match.",
+      "analyst": "A sequential rating built only from pre-match Pinnacle odds; each match uses only earlier matches. Checked against an xG rating, Elo, opening odds and points per game.",
+      "why": "Using only pre-match information means the rating can't leak the result it is trying to explain.",
+      "example": "Per +1 SD of opponent strength, a player's xG falls about 14% (Study 3)."
+    },
+    "adjusted-output": {
+      "term": "Context-adjusted output",
+      "full": "Context-adjusted output",
+      "cat": "context",
+      "aka": [
+        "adjusted",
+        "context adjustment",
+        "raw vs adjusted"
+      ],
+      "used": [
+        3,
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "context",
+      "short": "A player's output with the effect of opponents, venue and league environment taken out.",
+      "plain": "What the player would have produced against average opposition, in an average setting.",
+      "analyst": "Per-match output re-weighted to an average opponent, half at home and an average league-season environment, from a PPML context model (Study 4); opponent-adjusted per-90s in Study 3.",
+      "why": "Raw output carries its context with it. Adjusting lets players from different leagues and schedules be compared — though for forecasting a move it added little.",
+      "example": "Bruno Fernandes's xA per 90 in 2022/23: 0.467 raw, 0.460 adjusted for opponents (Study 3)."
+    },
+    "sd": {
+      "term": "SD",
+      "full": "Standard deviation (SD)",
+      "cat": "statistics",
+      "aka": [
+        "standard deviation"
+      ],
+      "used": [
+        3,
+        4
+      ],
+      "tools": [],
+      "method": "models",
+      "short": "A standard unit for 'how far from average' something is.",
+      "plain": "Roughly, one SD up in opponent strength is the jump from an average side to a clearly strong one.",
+      "analyst": "Standard deviation; effects are reported per +1 SD of the opponent rating, and profiles are z-scored within role.",
+      "why": "It puts very different scales (odds, xA, shots) on a common footing.",
+      "example": "Bruno's chance creation is 3.6 SD above his role average; Serie A's best is 1.9 SD (Study 4)."
+    },
+    "z-score": {
+      "term": "z-score",
+      "full": "z-score",
+      "cat": "statistics",
+      "aka": [
+        "standardised",
+        "standardized",
+        "z score"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "models",
+      "short": "How many SDs a number sits above or below the average.",
+      "plain": "0 means exactly average for the position; +2 means far above it.",
+      "analyst": "(value − role mean) ÷ role SD; computed within role so a full-back is compared with full-backs.",
+      "why": "It lets nine different metrics be combined into one profile without one dominating.",
+      "example": "Study 4 profiles are z-scored within each of seven data-derived roles."
+    },
+    "interval": {
+      "term": "95% interval",
+      "full": "Confidence interval (95%)",
+      "cat": "statistics",
+      "aka": [
+        "confidence interval",
+        "ci",
+        "uncertainty"
+      ],
+      "used": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "models",
+      "short": "The range the true value plausibly sits in, given the data.",
+      "plain": "A single number hides uncertainty. The interval shows how sure we are: narrow means confident, wide means 'early days'.",
+      "analyst": "95% confidence interval from match-clustered standard errors (or bootstrap where stated).",
+      "why": "Live-season figures early in a season have wide intervals — the interval tells you not to over-read them.",
+      "example": "Early in a live season the home-edge interval is wide; it narrows as each weekend's matches are added (live tracker)."
+    },
+    "correlation": {
+      "term": "Correlation (r)",
+      "full": "Correlation (r)",
+      "cat": "statistics",
+      "aka": [
+        "r",
+        "pearson",
+        "spearman"
+      ],
+      "used": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "models",
+      "short": "How closely two numbers move together, from −1 to +1; 0 means no relationship.",
+      "plain": "If players who were good at something last season are also good at it this season, the correlation is high. If knowing last season tells you nothing, it is near zero.",
+      "analyst": "Pearson correlation unless stated (Spearman for rank comparisons).",
+      "why": "It is the simplest test of whether a 'trait' is real: something that belongs to a player should persist from one period to the next.",
+      "example": "Past home edge vs later home edge: r = 0.018 across 595 players (Study 2) — past home edge says nothing about the future."
+    },
+    "percentile": {
+      "term": "Percentile",
+      "full": "Percentile",
+      "cat": "statistics",
+      "aka": [
+        "rank",
+        "ranking"
+      ],
+      "used": [
+        3,
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "Where a value ranks in a group, from 0 (lowest) to 100 (highest).",
+      "plain": "99th percentile means higher than 99% of the comparison group.",
+      "analyst": "Percentile rank within the stated comparison pool (usually the player's role, adjusted profiles).",
+      "why": "It makes very different metrics readable on one scale, always relative to a stated group.",
+      "example": "Bruno Fernandes's adjusted key passes are in the 100th percentile of attacking mids / wide forwards (Study 4)."
+    },
+    "signal-noise": {
+      "term": "Signal vs noise",
+      "full": "Signal vs noise",
+      "cat": "statistics",
+      "aka": [
+        "noise",
+        "luck",
+        "reliability"
+      ],
+      "used": [
+        2,
+        3
+      ],
+      "tools": [],
+      "method": "models",
+      "short": "How much of a difference is real, and how much is chance.",
+      "plain": "If you flip a coin 20 times, some 'players' get 14 heads. That doesn't make them better at flipping. Most individual splits in football are like that.",
+      "analyst": "Share of observed between-player variance that is true variance, from calibrated standard errors and DerSimonian–Laird estimates.",
+      "why": "Without separating the two, you crown players for luck.",
+      "example": "A player's home/away split is only 5–8% signal (Study 2)."
+    },
+    "mae": {
+      "term": "MAE",
+      "full": "Mean absolute error (MAE)",
+      "cat": "statistics",
+      "aka": [
+        "mean absolute error",
+        "prediction error",
+        "error"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "validation",
+      "short": "The average size of a prediction's miss.",
+      "plain": "If MAE is 0.10, predictions are off by about 0.10 xG + xA per 90 on average.",
+      "analyst": "Mean |actual − predicted| in xG + xA per 90 on the test moves.",
+      "why": "It's the headline measure for comparing transfer models.",
+      "example": "Adding similarity changed the error by 0.000 (Study 5)."
+    },
+    "r-squared": {
+      "term": "R²",
+      "full": "R² (variance explained)",
+      "cat": "statistics",
+      "aka": [
+        "r2",
+        "variance explained"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [],
+      "method": "validation",
+      "short": "How much of the variation in outcomes a model explains (0 to 1).",
+      "plain": "0.76 means the model accounts for about three-quarters of the differences between players' post-move output.",
+      "analyst": "1 − SSE/SST on the locked test moves.",
+      "why": "It complements MAE by showing how much of the spread is captured.",
+      "example": "Final model R² 0.76 vs 0.58 for the naive baseline (Study 5)."
+    },
+    "auc": {
+      "term": "AUC",
+      "full": "AUC",
+      "cat": "statistics",
+      "aka": [
+        "roc",
+        "area under the curve",
+        "ranking accuracy"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "validation",
+      "short": "How well a model ranks players who succeed above those who don't (0.5 = coin flip, 1 = perfect).",
+      "plain": "Pick one mover who kept his output and one who didn't. AUC is how often the model ranks them the right way round.",
+      "analyst": "Area under the ROC curve for P(retention ≥ 75%).",
+      "why": "It measures ranking quality independent of any cut-off.",
+      "example": "The chance of keeping ≥ 75% ranks players with AUC 0.80 (Study 5)."
+    },
+    "brier": {
+      "term": "Brier score",
+      "full": "Brier score",
+      "cat": "statistics",
+      "aka": [
+        "brier score",
+        "probability accuracy"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [],
+      "method": "validation",
+      "short": "How accurate probability forecasts are (lower is better).",
+      "plain": "Saying '90%' and being wrong is punished more than saying '60%' and being wrong.",
+      "analyst": "Mean squared error of predicted probabilities against 0/1 outcomes.",
+      "why": "It checks the probabilities themselves, not just the ranking.",
+      "example": "Brier 0.179 vs 0.224 for a same-for-everyone base rate (Study 5)."
+    },
+    "ppml": {
+      "term": "PPML",
+      "full": "Poisson pseudo-likelihood (PPML)",
+      "cat": "modelling",
+      "aka": [
+        "poisson",
+        "poisson pseudo-likelihood",
+        "regression model"
+      ],
+      "used": [
+        2,
+        3
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "models",
+      "short": "A model for counts and rates that reads results as percentage changes.",
+      "plain": "A standard tool for modelling things like 'shots per minute' that handles lots of zeros well.",
+      "analyst": "Poisson pseudo-maximum-likelihood on per-minute output with minutes as exposure and high-dimensional fixed effects; robust to non-Poisson variance.",
+      "why": "It gives effects as clean percentages (e.g. +27%) and stays valid when the data aren't perfectly Poisson.",
+      "example": "The +27% home xG edge is a PPML estimate."
+    },
+    "fixed-effects": {
+      "term": "Fixed effects",
+      "full": "Player × team × season fixed effects",
+      "cat": "modelling",
+      "aka": [
+        "controls",
+        "player team season",
+        "within-player"
+      ],
+      "used": [
+        2,
+        3
+      ],
+      "tools": [
+        "live"
+      ],
+      "method": "context",
+      "short": "Comparing each player only with himself.",
+      "plain": "Instead of comparing Haaland with a full-back, the model only asks: how did this player, at this club, this season, do in one situation versus another?",
+      "analyst": "A separate intercept for every player × team × season, so identification comes only from within-player variation; errors clustered by match.",
+      "why": "It removes differences in ability, team and season, leaving the context effect.",
+      "example": "All headline Study 2 and 3 effects are 'same player, team and season'."
+    },
+    "shrinkage": {
+      "term": "Shrinkage",
+      "full": "Empirical-Bayes shrinkage",
+      "cat": "modelling",
+      "aka": [
+        "empirical bayes",
+        "reliability adjustment"
+      ],
+      "used": [
+        2,
+        3
+      ],
+      "tools": [],
+      "method": "models",
+      "short": "Pulling noisy individual estimates toward the average by how unreliable they are.",
+      "plain": "A player with a tiny sample gets pulled most of the way back to average; a player with lots of data keeps more of his own number.",
+      "analyst": "Empirical-Bayes posterior means: each player's estimate is weighted against the population mean by its precision relative to the between-player variance (τ²).",
+      "why": "It gives the fairest single guess for each player and stops small samples dominating rankings.",
+      "example": "After shrinkage, 0 of 4,665 players have a reliable personal home edge (Study 2)."
+    },
+    "regression-to-the-mean": {
+      "term": "Regression to the mean",
+      "full": "Regression to the mean",
+      "cat": "modelling",
+      "aka": [
+        "regression",
+        "mean reversion"
+      ],
+      "used": [
+        2,
+        3,
+        5
+      ],
+      "tools": [],
+      "method": "models",
+      "short": "Extreme results tend to be followed by more ordinary ones.",
+      "plain": "The player who looked brilliant at home last season was partly lucky. Next season the luck evens out and he looks more ordinary.",
+      "analyst": "When a measurement is part signal, part noise, the most extreme observations are disproportionately noise, so they shrink toward the average on re-measurement.",
+      "why": "It explains why so many 'special' players disappear when you check them again.",
+      "example": "The 2015–19 'top 10 home players' were exactly average in 2022–25; correlation between periods 0.018 (Study 2)."
+    },
+    "leakage": {
+      "term": "Leakage",
+      "full": "Leakage",
+      "cat": "modelling",
+      "aka": [
+        "look-ahead",
+        "hindsight",
+        "data leakage"
+      ],
+      "used": [
+        3,
+        5
+      ],
+      "tools": [
+        "case"
+      ],
+      "method": "opponents",
+      "short": "When a model accidentally uses information it wouldn't have had at the time.",
+      "plain": "Like predicting a match using the final score. It looks brilliant and is useless.",
+      "analyst": "Any use of post-decision information in features or ratings; tested by scrambling later results and checking nothing earlier changes.",
+      "why": "Every prediction here must be one you could actually have made on the day.",
+      "example": "0 changed ratings in 155,282 leakage checks; Understat's post-match 'forecast' was never used."
+    },
+    "locked-test": {
+      "term": "Locked test seasons",
+      "full": "Locked test seasons",
+      "cat": "modelling",
+      "aka": [
+        "test set",
+        "holdout",
+        "unseen seasons",
+        "out of sample"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "validation",
+      "short": "Seasons the model never saw until it was finished — scored once.",
+      "plain": "Like sealing an exam paper until the student has stopped studying.",
+      "analyst": "The final model was fixed before 2023/24–2025/26 moves were opened, then scored once on 142 unseen moves.",
+      "why": "It's the honest test of whether a model works on the future, not just the past.",
+      "example": "On the locked seasons the final model's error was 0.096 vs 0.129 for 'he'll do what he did' (Study 5)."
+    },
+    "calibration": {
+      "term": "Calibration",
+      "full": "Calibration",
+      "cat": "modelling",
+      "aka": [
+        "calibrated",
+        "probability check"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "validation",
+      "short": "Whether '70% likely' really happens about 70% of the time.",
+      "plain": "A forecaster who says 'rain: 70%' should see rain on about 7 of every 10 such days.",
+      "analyst": "Observed frequency vs mean predicted probability in bins; the ≥75% threshold is calibrated at the top, lower thresholds were not and are not used.",
+      "why": "An uncalibrated probability looks precise but misleads.",
+      "example": "The 50% and 60% retention thresholds were not well calibrated, so the site only shows ≥75%."
+    },
+    "range-80": {
+      "term": "80% range",
+      "full": "80% prediction range",
+      "cat": "modelling",
+      "aka": [
+        "prediction interval",
+        "prediction range",
+        "80% range",
+        "uncertainty"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "validation",
+      "short": "Where the player's output should land 4 times out of 5.",
+      "plain": "Not a guarantee: one move in five should land outside it.",
+      "analyst": "10th–90th percentile of a log-normal predictive distribution with role-group bias and SD from out-of-sample errors.",
+      "why": "Individual forecasts are uncertain; the range shows how much.",
+      "example": "A typical 80% range is ±0.2 xG + xA per 90; strikers 4 of 4 and midfielders 5 of 6 landed inside it in the case study."
+    },
+    "multiple-testing": {
+      "term": "Multiple testing",
+      "full": "Multiple-testing correction",
+      "cat": "modelling",
+      "aka": [
+        "benjamini-hochberg",
+        "bh",
+        "false discovery",
+        "multiple comparisons"
+      ],
+      "used": [
+        1,
+        2,
+        3
+      ],
+      "tools": [],
+      "method": "multiple-testing",
+      "short": "Adjusting for the fact that testing many things guarantees some flukes.",
+      "plain": "Test 20 weather effects and one will look 'significant' by chance. The correction raises the bar to account for that.",
+      "analyst": "Benjamini–Hochberg false-discovery-rate correction plus permutation tests.",
+      "why": "With thousands of players and metrics, flukes are certain unless corrected.",
+      "example": "0 of 23,022 player × metric opposition estimates survive the correction (Study 3)."
+    },
+    "permutation-test": {
+      "term": "Permutation test",
+      "full": "Permutation test",
+      "cat": "modelling",
+      "aka": [
+        "permutation",
+        "shuffle test"
+      ],
+      "used": [
+        1,
+        2,
+        3
+      ],
+      "tools": [],
+      "method": "multiple-testing",
+      "short": "Shuffling the data many times to see how often chance alone produces a result this big.",
+      "plain": "If you shuffle which matches were 'home' and still see the same pattern, the pattern wasn't about home at all.",
+      "analyst": "Builds the null distribution by randomly permuting labels (e.g. home/away within a player's own matches) and comparing the real statistic against it.",
+      "why": "It checks headline effects without leaning on textbook assumptions about the data.",
+      "example": "Benjamini–Hochberg corrections and permutation tests were run for every headline effect (Final Summary, key methods)."
+    },
+    "placebo": {
+      "term": "Placebo test",
+      "full": "Placebo test",
+      "cat": "modelling",
+      "aka": [
+        "placebo test",
+        "fake dates"
+      ],
+      "used": [
+        1,
+        2
+      ],
+      "tools": [],
+      "method": "multiple-testing",
+      "short": "Re-running an analysis on fake dates to check the effect isn't an artefact.",
+      "plain": "If 'no fans' really caused the drop, pretending the fans left in a different year should show nothing.",
+      "analyst": "E.g. shifting the closed-doors dates 2–4 years earlier; a real crowd effect should vanish on the placebo dates.",
+      "why": "It rules out the effect being a quirk of the method or the calendar.",
+      "example": "Moving the closed-doors period 2–4 years earlier found nothing beyond chance (Study 2)."
+    },
+    "cosine-similarity": {
+      "term": "Cosine similarity",
+      "full": "Cosine similarity",
+      "cat": "modelling",
+      "aka": [
+        "similarity",
+        "cosine",
+        "distance"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "How alike two players' profiles are in shape, ignoring overall size.",
+      "plain": "Two players who do the same things in the same proportions score high, even if one does more of everything.",
+      "analyst": "1 − cosine distance between z-scored adjusted profile vectors; checked against Euclidean distance across four profile windows.",
+      "why": "It finds players with the same style rather than just the same volume.",
+      "example": "Bruno → Serie A: Samardžić, Dybala and Chukwueze are the robust matches (Study 4)."
+    },
+    "similarity-score": {
+      "term": "Similarity score",
+      "full": "Similarity score (closer than X%)",
+      "cat": "modelling",
+      "aka": [
+        "similarity",
+        "closer than",
+        "profile similarity"
+      ],
+      "used": [
+        4,
+        5
+      ],
+      "tools": [
+        "similarity",
+        "case"
+      ],
+      "method": "similarity",
+      "short": "How close a candidate's profile is to the target's, as 'closer than X% of the pool'.",
+      "plain": "A score of 90 means this player's profile is closer to the target than 90% of the players in that role.",
+      "analyst": "100 × (1 − percentile of the candidate's distance among the query's distances to the role pool).",
+      "why": "A raw distance means nothing on its own; ranking it against the pool makes it readable — and it is a resemblance, not a forecast.",
+      "example": "Zirkzee's profile was closer to Højlund's than only 1% of the 2024 striker pool — the least Højlund-like on the board (case study)."
+    },
+    "role": {
+      "term": "Role",
+      "full": "Role (data-derived)",
+      "cat": "modelling",
+      "aka": [
+        "position",
+        "role pool"
+      ],
+      "used": [
+        4,
+        5
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "A position group defined by what players actually produce, not their listed position.",
+      "plain": "A central attacking midfielder turns out to produce like a wide forward, so they're compared in the same pool.",
+      "analyst": "Ward clustering of Understat's granular positions on per-90 output gives seven roles.",
+      "why": "Comparing like with like matters more than the name on the team sheet.",
+      "example": "Bruno's comparison pool includes inside forwards (Study 4)."
+    },
+    "profile-window": {
+      "term": "Profile window",
+      "full": "Profile window",
+      "cat": "modelling",
+      "aka": [
+        "window",
+        "seasons"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "How much of a player's history the similarity profile uses.",
+      "plain": "One season can be a fluke; three seasons is a steadier picture.",
+      "analyst": "Windows: last three seasons (w3), two seasons (w2), most recent 2,500 minutes, one season (w1). Single seasons are noisy.",
+      "why": "Results that hold across several windows are more trustworthy.",
+      "example": "Three-season profiles find the same player in the top 9% of the destination pool after a move (Study 4)."
+    },
+    "self-retrieval": {
+      "term": "Self-retrieval",
+      "full": "Self-retrieval validation",
+      "cat": "modelling",
+      "aka": [
+        "validation",
+        "find the same player"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "Testing similarity by checking it can find the same player again after he moves league.",
+      "plain": "If the method is any good, it should recognise a player in his new league.",
+      "analyst": "Profile before a move is matched against the destination league's role pool after it; the player's own post-move profile should rank near the top.",
+      "why": "It validates the method without relying on anyone's opinion of who is 'similar'.",
+      "example": "Three-season profiles find the same player in the top 9% after a league move (Study 4)."
+    },
+    "retention": {
+      "term": "Retention",
+      "full": "Retention",
+      "cat": "recruitment",
+      "aka": [
+        "survives",
+        "kept output"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "transfer",
+      "short": "How much of his output a player keeps after a move.",
+      "plain": "100% means he produced exactly as much in the new league; 80% means he lost a fifth.",
+      "analyst": "Output after ÷ output before (xG + xA per 90), also compared with matched stayers to remove regression to the mean.",
+      "why": "It's the direct answer to 'will his game travel?'.",
+      "example": "Into the Premier League players keep 82%; out of it, 116% (Study 5)."
+    },
+    "stayers": {
+      "term": "Comparable stayers",
+      "full": "Comparable stayers",
+      "cat": "recruitment",
+      "aka": [
+        "comparable stayer",
+        "benchmark"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "transfer",
+      "short": "Players who didn't move but had the same role, output and age — the fair comparison.",
+      "plain": "Players often move after a great season, and great seasons are usually followed by worse ones anyway. Stayers show what would have happened without the move.",
+      "analyst": "Matched control group at the same club and role with similar pre-period output and age, to net out regression to the mean.",
+      "why": "Without them, every move looks costly.",
+      "example": "Movers keep 97% (CI 93–101%) of output relative to comparable stayers (Study 5)."
+    },
+    "destination-league": {
+      "term": "Destination league",
+      "full": "Destination league",
+      "cat": "recruitment",
+      "aka": [
+        "target league"
+      ],
+      "used": [
+        4
+      ],
+      "tools": [
+        "similarity",
+        "transfer"
+      ],
+      "method": "similarity",
+      "short": "Player output varies with league context. The similarity model adjusts for league differences before comparing profiles.",
+      "plain": "Asking for Serie A means: which Serie A players have profiles that resemble this player once league, opponents and venue are taken out?",
+      "analyst": "Profiles are adjusted for opponent, venue and league environment, then compared only with players in the same data-derived role in the chosen league.",
+      "why": "A raw stat line carries its league with it. Comparing across leagues without adjusting would mostly match players by league, not by style.",
+      "example": "Bruno Fernandes → Serie A: the robust matches are Samardžić, Dybala and Chukwueze (Study 4)."
+    },
+    "league-effect": {
+      "term": "League effect",
+      "full": "League effect (transfer model)",
+      "cat": "recruitment",
+      "aka": [
+        "league adjustment",
+        "league difficulty"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "transfer",
+      "short": "The model's adjustment for how hard the destination (and origin) league is.",
+      "plain": "Moving into the Premier League costs a typical player some output; moving into Ligue 1 adds some. The model learns how much from past moves.",
+      "analyst": "Destination- and origin-league terms in Model A, additive in xG + xA per 90, fitted on earlier moves; relative to the average move.",
+      "why": "League difficulty is the biggest single driver of what survives a move. Because the effect is a fixed amount, it over-penalises low-output players — the model's known weakness.",
+      "example": "Into the Premier League: −21% (−30 to −11%) relative to the average move; into Ligue 1: +25% (Study 5)."
+    },
+    "league-ladder": {
+      "term": "League-difficulty ladder",
+      "full": "League-difficulty ladder",
+      "cat": "recruitment",
+      "aka": [
+        "league difficulty",
+        "ladder"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "transfer",
+      "short": "One ranking of how hard each league is to produce in.",
+      "plain": "Premier League hardest, Serie A and La Liga in the middle, Bundesliga and Ligue 1 easiest. Moving down the ladder boosts numbers; moving up costs them.",
+      "analyst": "A single league effect per league explains all 20 move directions; pair-specific effects add nothing (p = 0.91).",
+      "why": "It means you don't need a separate rule for every pair of leagues.",
+      "example": "Serie A → Premier League keeps ~80%; Premier League → Serie A ~114% (Study 5)."
+    },
+    "club-strength": {
+      "term": "Club strength",
+      "full": "Destination club strength",
+      "cat": "recruitment",
+      "aka": [
+        "destination club",
+        "club rating",
+        "promoted"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "transfer",
+      "short": "How strong the team a player joins is.",
+      "plain": "Joining a better team usually means more of the ball and better chances.",
+      "analyst": "The destination club's market-implied rating at the decision date; promoted clubs get an additional term.",
+      "why": "It matters as much as the league.",
+      "example": "Weakest third of destination clubs: 79% retention; strongest third: 106% (Study 5)."
+    },
+    "naive-baseline": {
+      "term": "Naive baseline",
+      "full": "Naive baseline",
+      "cat": "recruitment",
+      "aka": [
+        "naive",
+        "baseline"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer"
+      ],
+      "method": "transfer",
+      "short": "The simplest forecast: 'he'll do what he did before'.",
+      "plain": "Any model worth using has to beat this.",
+      "analyst": "Post-move output predicted as equal to pre-move output.",
+      "why": "It's the honest benchmark for a transfer model.",
+      "example": "Naive MAE 0.129 vs final model 0.096 on locked seasons (Study 5)."
+    },
+    "comparables": {
+      "term": "Comparables",
+      "full": "Comparable players",
+      "cat": "recruitment",
+      "aka": [
+        "similar players",
+        "shortlist"
+      ],
+      "used": [
+        4,
+        5
+      ],
+      "tools": [
+        "similarity"
+      ],
+      "method": "similarity",
+      "short": "Statistically similar players, used to find candidates.",
+      "plain": "A shortlist of players who play like someone you know.",
+      "analyst": "The top-ranked players by context-adjusted profile similarity in a destination league.",
+      "why": "Good for discovery — but they don't forecast how a player will do after a move.",
+      "example": "Comparables alone were worse than the player's own history at predicting post-move output (Study 5)."
+    },
+    "transfer-model": {
+      "term": "Model A",
+      "full": "Transfer prediction (Model A)",
+      "cat": "recruitment",
+      "aka": [
+        "model a",
+        "transfer prediction",
+        "prediction",
+        "forecast"
+      ],
+      "used": [
+        5
+      ],
+      "tools": [
+        "transfer",
+        "case"
+      ],
+      "method": "transfer",
+      "short": "The Study 5 model that predicts a player's xG + xA per 90 after a league move.",
+      "plain": "It starts from what the player has done over several seasons, then adjusts for his age, the club he joins and the league he moves into.",
+      "analyst": "Regression on player history (three-season level), age, minutes, both clubs' strength, both leagues and a promoted-club term; fitted on earlier moves and fixed before the locked test.",
+      "why": "It beats 'he'll do what he did before' on seasons it never saw — and it is the model behind the Transfer Calculator and the Manchester United case study.",
+      "example": "Fixed before the test and scored once: MAE 0.096 on 142 unseen moves, vs 0.129 for the naive baseline (Study 5)."
+    }
+  }
+}

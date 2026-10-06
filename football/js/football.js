@@ -188,6 +188,9 @@
 
   /* ---------- glossary popover / bottom sheet (M0 §18) ---------- */
   var pop, scrim, lastTerm;
+  var GSTUDY = { 1: ["environment", "Environment"], 2: ["home-advantage", "Home advantage"], 3: ["opposition", "Opposition"], 4: ["similarity", "Similarity"], 5: ["transferability", "Transferability"] };
+  var GTOOL = { similarity: ["/football/tools/similarity", "Similarity Explorer"], transfer: ["/football/tools/transfer", "Transfer Calculator"],
+    live: ["/football/live", "Live tracker"], "case": ["/football/case-studies/manchester-united-2024", "Man Utd 2024"] };
   function glossary() { return window.FB_GLOSSARY || {}; }
   function closePop() {
     if (!pop || pop.hidden) return;
@@ -206,10 +209,14 @@
     }
     // M1 §26: plain definition first, the technical one underneath (progressive disclosure)
     pop.setAttribute("aria-label", g.full || g.term);
-    pop.innerHTML = '<p class="gpop__term">' + FB.esc(g.full || g.term) + "</p>" +
+    var used = (g.used || []).map(function (n) { var s = GSTUDY[n]; return '<a href="/football/research/' + s[0] + '" title="Study ' + n + " · " + s[1] + '" aria-label="Study ' + n + " · " + s[1] + '">0' + n + "</a>"; })
+      .concat((g.tools || []).map(function (t) { var s = GTOOL[t]; return '<a href="' + s[0] + '">' + s[1] + "</a>"; }));
+    pop.innerHTML = '<p class="gpop__term">' + FB.esc(g.term) + "</p>" +
+      (g.full && g.full !== g.term ? '<p class="gpop__full">' + FB.esc(g.full) + "</p>" : "") +
       '<p class="gpop__def">' + FB.esc(g.short) + "</p>" +
       (g.analyst ? '<p class="gpop__tech"><span class="label">Technical</span>' + FB.esc(g.analyst) + "</p>" : "") +
-      '<a class="link-arrow" href="/football/glossary#' + key + '">View glossary <span class="arr" aria-hidden="true">→</span></a>' +
+      (used.length ? '<p class="gpop__used"><span class="label">Used in</span>' + used.join(" ") + "</p>" : "") +
+      '<a class="link-arrow" href="/football/glossary#' + key + '">Read full definition <span class="arr" aria-hidden="true">→</span></a>' +
       '<button type="button" class="gpop__close" aria-label="Close definition">×</button>';
     pop.querySelector(".gpop__close").addEventListener("click", closePop);
     pop.hidden = false;

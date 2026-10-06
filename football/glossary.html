@@ -1,64 +1,373 @@
 <!doctype html>
-<html lang="en" data-mode="fan">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Glossary · Home Turf &amp; Hard Opponents</title>
-<meta name="description" content="Football analytics terms in plain English — xG, xA, home advantage, opponent strength, shrinkage, leakage, retention and more — with where each is used in the five studies." />
+<title>Glossary · Football, translated · Home Turf &amp; Hard Opponents</title>
+<meta name="description" content="Football, translated: 50 terms — xG, xA, PPML, shrinkage, MAE, AUC, retention and more — each with a simple and a technical definition, why the research uses it, and where." />
 <link rel="canonical" href="https://iyush.dev/football/glossary" />
 <meta name="author" content="Ayush Pawar" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0b0b0b" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="iyush.dev" />
-<meta property="og:title" content="Football analytics, in plain English" />
-<meta property="og:description" content="Every term used in the five studies: what it means, why we use it, and an example." />
+<meta property="og:title" content="Football, translated" />
+<meta property="og:description" content="Football, translated: 50 terms — xG, xA, PPML, shrinkage, MAE, AUC, retention and more — each with a simple and a technical definition, why the research uses it, and where." />
 <meta property="og:url" content="https://iyush.dev/football/glossary" />
 <meta property="og:image" content="https://iyush.dev/football/og/glossary.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Football analytics, in plain English" />
-<meta name="twitter:description" content="Every term used in the five studies: what it means, why we use it, and an example." />
+<meta name="twitter:title" content="Football, translated" />
+<meta name="twitter:description" content="Football, translated: 50 terms — xG, xA, PPML, shrinkage, MAE, AUC, retention and more — each with a simple and a technical definition, why the research uses it, and where." />
 <meta name="twitter:image" content="https://iyush.dev/football/og/glossary.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "url": "https://iyush.dev/football/glossary",
-  "description": "Football analytics terms in plain English — xG, xA, home advantage, opponent strength, shrinkage, leakage, retention and more — with where each is used in the five studies.",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://iyush.dev/football#site"
-  },
-  "author": {
-    "@id": "https://iyush.dev/#person"
-  },
   "@type": "DefinedTermSet",
-  "name": "Football analytics glossary"
+  "name": "Home Turf & Hard Opponents — glossary",
+  "url": "https://iyush.dev/football/glossary",
+  "description": "Football, translated: 50 terms — xG, xA, PPML, shrinkage, MAE, AUC, retention and more — each with a simple and a technical definition, why the research uses it, and where.",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "xG",
+      "alternateName": "Expected goals (xG)",
+      "description": "How likely a shot was to become a goal, based on thousands of similar shots.",
+      "url": "https://iyush.dev/football/glossary#xg"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "xA",
+      "alternateName": "Expected assists (xA)",
+      "description": "The xG of the shots a player set up with his passes.",
+      "url": "https://iyush.dev/football/glossary#xa"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "npxG",
+      "alternateName": "Non-penalty xG",
+      "description": "xG with penalties removed.",
+      "url": "https://iyush.dev/football/glossary#npxg"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Shots / 90",
+      "alternateName": "Shots per 90 minutes",
+      "description": "How many shots a player takes per 90 minutes played.",
+      "url": "https://iyush.dev/football/glossary#shots"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Key passes",
+      "description": "Passes that lead directly to a shot.",
+      "url": "https://iyush.dev/football/glossary#key-passes"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "xGChain",
+      "description": "The xG of every attack a player was involved in.",
+      "url": "https://iyush.dev/football/glossary#xgchain"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "xGBuildup",
+      "description": "Like xGChain, but ignoring the shot and the final pass.",
+      "url": "https://iyush.dev/football/glossary#xgbuildup"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Per 90",
+      "alternateName": "Per 90 minutes",
+      "description": "A stat scaled to a full match, so players with different minutes compare fairly.",
+      "url": "https://iyush.dev/football/glossary#per90"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "xG / shot",
+      "alternateName": "xG per shot",
+      "description": "The average quality of a player's shots.",
+      "url": "https://iyush.dev/football/glossary#xg-per-shot"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Headed share",
+      "alternateName": "Headed-shot share",
+      "description": "The share of a player's shots taken with his head.",
+      "url": "https://iyush.dev/football/glossary#headed-share"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "In-box share",
+      "alternateName": "In-box shot share",
+      "description": "The share of a player's shots taken from inside the penalty box.",
+      "url": "https://iyush.dev/football/glossary#in-box-share"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Home advantage",
+      "description": "How much more a player produces at home than away.",
+      "url": "https://iyush.dev/football/glossary#home-advantage"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Behind closed doors",
+      "description": "Matches played without fans during COVID-19 restrictions.",
+      "url": "https://iyush.dev/football/glossary#behind-closed-doors"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Opponent strength",
+      "alternateName": "Opponent strength (market rating)",
+      "description": "How good the opponent was, measured from pre-match betting odds.",
+      "url": "https://iyush.dev/football/glossary#opponent-strength"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Context-adjusted output",
+      "description": "A player's output with the effect of opponents, venue and league environment taken out.",
+      "url": "https://iyush.dev/football/glossary#adjusted-output"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "SD",
+      "alternateName": "Standard deviation (SD)",
+      "description": "A standard unit for 'how far from average' something is.",
+      "url": "https://iyush.dev/football/glossary#sd"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "z-score",
+      "description": "How many SDs a number sits above or below the average.",
+      "url": "https://iyush.dev/football/glossary#z-score"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "95% interval",
+      "alternateName": "Confidence interval (95%)",
+      "description": "The range the true value plausibly sits in, given the data.",
+      "url": "https://iyush.dev/football/glossary#interval"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Correlation (r)",
+      "description": "How closely two numbers move together, from −1 to +1; 0 means no relationship.",
+      "url": "https://iyush.dev/football/glossary#correlation"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Percentile",
+      "description": "Where a value ranks in a group, from 0 (lowest) to 100 (highest).",
+      "url": "https://iyush.dev/football/glossary#percentile"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Signal vs noise",
+      "description": "How much of a difference is real, and how much is chance.",
+      "url": "https://iyush.dev/football/glossary#signal-noise"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "MAE",
+      "alternateName": "Mean absolute error (MAE)",
+      "description": "The average size of a prediction's miss.",
+      "url": "https://iyush.dev/football/glossary#mae"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "R²",
+      "alternateName": "R² (variance explained)",
+      "description": "How much of the variation in outcomes a model explains (0 to 1).",
+      "url": "https://iyush.dev/football/glossary#r-squared"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "AUC",
+      "description": "How well a model ranks players who succeed above those who don't (0.5 = coin flip, 1 = perfect).",
+      "url": "https://iyush.dev/football/glossary#auc"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Brier score",
+      "description": "How accurate probability forecasts are (lower is better).",
+      "url": "https://iyush.dev/football/glossary#brier"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "PPML",
+      "alternateName": "Poisson pseudo-likelihood (PPML)",
+      "description": "A model for counts and rates that reads results as percentage changes.",
+      "url": "https://iyush.dev/football/glossary#ppml"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Fixed effects",
+      "alternateName": "Player × team × season fixed effects",
+      "description": "Comparing each player only with himself.",
+      "url": "https://iyush.dev/football/glossary#fixed-effects"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Shrinkage",
+      "alternateName": "Empirical-Bayes shrinkage",
+      "description": "Pulling noisy individual estimates toward the average by how unreliable they are.",
+      "url": "https://iyush.dev/football/glossary#shrinkage"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Regression to the mean",
+      "description": "Extreme results tend to be followed by more ordinary ones.",
+      "url": "https://iyush.dev/football/glossary#regression-to-the-mean"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Leakage",
+      "description": "When a model accidentally uses information it wouldn't have had at the time.",
+      "url": "https://iyush.dev/football/glossary#leakage"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Locked test seasons",
+      "description": "Seasons the model never saw until it was finished — scored once.",
+      "url": "https://iyush.dev/football/glossary#locked-test"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Calibration",
+      "description": "Whether '70% likely' really happens about 70% of the time.",
+      "url": "https://iyush.dev/football/glossary#calibration"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "80% range",
+      "alternateName": "80% prediction range",
+      "description": "Where the player's output should land 4 times out of 5.",
+      "url": "https://iyush.dev/football/glossary#range-80"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Multiple testing",
+      "alternateName": "Multiple-testing correction",
+      "description": "Adjusting for the fact that testing many things guarantees some flukes.",
+      "url": "https://iyush.dev/football/glossary#multiple-testing"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Permutation test",
+      "description": "Shuffling the data many times to see how often chance alone produces a result this big.",
+      "url": "https://iyush.dev/football/glossary#permutation-test"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Placebo test",
+      "description": "Re-running an analysis on fake dates to check the effect isn't an artefact.",
+      "url": "https://iyush.dev/football/glossary#placebo"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Cosine similarity",
+      "description": "How alike two players' profiles are in shape, ignoring overall size.",
+      "url": "https://iyush.dev/football/glossary#cosine-similarity"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Similarity score",
+      "alternateName": "Similarity score (closer than X%)",
+      "description": "How close a candidate's profile is to the target's, as 'closer than X% of the pool'.",
+      "url": "https://iyush.dev/football/glossary#similarity-score"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Role",
+      "alternateName": "Role (data-derived)",
+      "description": "A position group defined by what players actually produce, not their listed position.",
+      "url": "https://iyush.dev/football/glossary#role"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Profile window",
+      "description": "How much of a player's history the similarity profile uses.",
+      "url": "https://iyush.dev/football/glossary#profile-window"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Self-retrieval",
+      "alternateName": "Self-retrieval validation",
+      "description": "Testing similarity by checking it can find the same player again after he moves league.",
+      "url": "https://iyush.dev/football/glossary#self-retrieval"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Retention",
+      "description": "How much of his output a player keeps after a move.",
+      "url": "https://iyush.dev/football/glossary#retention"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Comparable stayers",
+      "description": "Players who didn't move but had the same role, output and age — the fair comparison.",
+      "url": "https://iyush.dev/football/glossary#stayers"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Destination league",
+      "description": "Player output varies with league context. The similarity model adjusts for league differences before comparing profiles.",
+      "url": "https://iyush.dev/football/glossary#destination-league"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "League effect",
+      "alternateName": "League effect (transfer model)",
+      "description": "The model's adjustment for how hard the destination (and origin) league is.",
+      "url": "https://iyush.dev/football/glossary#league-effect"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "League-difficulty ladder",
+      "description": "One ranking of how hard each league is to produce in.",
+      "url": "https://iyush.dev/football/glossary#league-ladder"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Club strength",
+      "alternateName": "Destination club strength",
+      "description": "How strong the team a player joins is.",
+      "url": "https://iyush.dev/football/glossary#club-strength"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Naive baseline",
+      "description": "The simplest forecast: 'he'll do what he did before'.",
+      "url": "https://iyush.dev/football/glossary#naive-baseline"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Comparables",
+      "alternateName": "Comparable players",
+      "description": "Statistically similar players, used to find candidates.",
+      "url": "https://iyush.dev/football/glossary#comparables"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Model A",
+      "alternateName": "Transfer prediction (Model A)",
+      "description": "The Study 5 model that predicts a player's xG + xA per 90 after a league move.",
+      "url": "https://iyush.dev/football/glossary#transfer-model"
+    }
+  ]
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/football/football.css" />
-<script>try{document.documentElement.setAttribute("data-mode",localStorage.getItem("fb-mode")==="analyst"?"analyst":"fan")}catch(e){}</script>
+<script>document.documentElement.classList.add("js")</script>
 <script src="/football/js/glossary.js" defer></script>
 <script src="/football/js/football.js" defer></script>
-<style>
-.gsearch .input { padding-left: 42px; font-size: 16px; }
-.gsearch svg { position: absolute; left: 14px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); pointer-events: none; }
-.gsearch svg * { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
-.gcount { font-family: var(--mono); font-size: 12px; color: var(--muted); margin: 0 0 8px; }
-.gentry dd a { font-family: var(--mono); font-size: 13px; }
-.gentry .cat { color: var(--accent-text); }
-.gentry:target, .gentry.hl { background: linear-gradient(90deg, var(--accent-wash), transparent 70%); }
-.gentry.hl { transition: background 1.2s var(--ease); }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- SiteHeader + FootballNav -->
 <header class="fhead">
   <div class="wrap">
     <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
@@ -68,43 +377,670 @@
         <li><a href="/football/research">Research</a></li>
         <li><a href="/football/tools">Tools</a></li>
         <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/glossary" aria-current="page">Glossary</a></li>
         <li><a href="/football/methodology">Methodology</a></li>
         <li><a href="/football/about">About</a></li>
       </ul>
-      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
     </nav>
   </div>
 </header>
 
-<main id="main">
-<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Football</a></li><li aria-current="page">Glossary</li></ol></nav>
-
-<section class="hero" style="padding-bottom:clamp(24px,4vw,40px)" aria-labelledby="g-h">
-  <div class="wrap">
-    <p class="eyebrow">Understand</p>
-    <h1 id="g-h">Glossary</h1>
-    <p class="lede">Every term the five studies use, in plain English first. No technical background required.</p>
-  </div>
-</section>
-
-<section class="wrap" aria-label="Glossary entries" style="padding-bottom:40px">
-  <div class="gsearch">
+<main id="main" class="gl">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li aria-current="page">Glossary</li></ol></nav>
+<header class="gl-hero wrap">
+  <p class="lv-kicker">Glossary · 50 terms</p>
+  <h1>Football, translated.</h1>
+  <p class="lede">The metrics, statistical concepts and modelling terms used throughout the research — explained without assuming you already know the jargon.</p>
+  <div class="gl-search">
     <label class="sr-only" for="gq">Search the glossary</label>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-    <input class="input" id="gq" type="search" placeholder="Search football analytics..." autocomplete="off" />
+    <input class="input" id="gq" type="search" placeholder="Search xG, MAE, PPML…" autocomplete="off" />
+    <p class="gl-count" id="gcount" aria-live="polite">50 terms</p>
   </div>
-  <div class="seg gcats" role="group" aria-label="Category" id="gcats">
-    <button type="button" data-c="" aria-pressed="true">All</button>
-    <button type="button" data-c="METRICS" aria-pressed="false">Metrics</button>
-    <button type="button" data-c="STATISTICS" aria-pressed="false">Statistics</button>
-    <button type="button" data-c="MODELLING" aria-pressed="false">Modelling</button>
-    <button type="button" data-c="RECRUITMENT" aria-pressed="false">Recruitment</button>
-  </div>
-  <p class="gcount" id="gcount" aria-live="polite"></p>
-  <div id="glist"></div>
-  <noscript><p class="empty-state">The glossary needs JavaScript to display. Every term is also explained inline where it appears in the research.</p></noscript>
-</section>
+  <div class="seg gl-cats" id="gcats" role="group" aria-label="Category"><button type="button" data-c="" aria-pressed="true">All</button><button type="button" data-c="metrics" aria-pressed="false">Football metrics <span>11</span></button><button type="button" data-c="context" aria-pressed="false">Football context <span>4</span></button><button type="button" data-c="statistics" aria-pressed="false">Statistics <span>10</span></button><button type="button" data-c="modelling" aria-pressed="false">Modelling <span>16</span></button><button type="button" data-c="recruitment" aria-pressed="false">Recruitment <span>9</span></button></div>
+  <p class="small muted">Every entry has a simple and a technical definition. Technical definitions use the research's own methods — where a term has a more specific meaning here than in a textbook, the research's meaning wins. <a href="/football/methodology">How the research works →</a></p>
+</header>
+<div class="wrap gl-list" id="glist"><section class="ggroup" data-group="metrics" aria-labelledby="g-metrics"><h2 id="g-metrics" class="h2-sm">Football metrics</h2><article class="gentry" id="xg" data-cat="metrics" data-text="xg expected goals (xg) expected goals how likely a shot was to become a goal, based on thousands of similar shots. every shot gets a score between 0 and 1. a tap-in from a yard out might be 0.8; a hopeful strike from 35 yards might be 0.02. add them up and you get how many goals a player &#x27;should&#x27; have scored from the chances he got." aria-labelledby="xg-h">
+  <header><h3 id="xg-h">xG <span class="gentry__full">Expected goals (xG)</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: expected goals</p></header>
+  <p class="gentry__short">How likely a shot was to become a goal, based on thousands of similar shots.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Every shot gets a score between 0 and 1. A tap-in from a yard out might be 0.8; a hopeful strike from 35 yards might be 0.02. Add them up and you get how many goals a player &#x27;should&#x27; have scored from the chances he got.</dd></div>
+    <div><dt>Technical</dt><dd>Understat&#x27;s shot-level probability of scoring given location, situation, body part and the action before the shot; summed per player-match.</dd></div>
+    <div><dt>Why we use it</dt><dd>Goals are rare and noisy. xG measures the quality and quantity of chances, which is far more stable from match to match, so it lets small effects (like playing at home) show up.</dd></div>
+    <div><dt>In the research</dt><dd>At home, the same player produces about 27% more xG per minute than away (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#xg" aria-label="Link to xG">#</a>
+</article><article class="gentry" id="xa" data-cat="metrics" data-text="xa expected assists (xa) expected assists the xg of the shots a player set up with his passes. if you put a teammate through on goal and he misses, you still created a great chance. xa gives you credit for the chance, not the finish." aria-labelledby="xa-h">
+  <header><h3 id="xa-h">xA <span class="gentry__full">Expected assists (xA)</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: expected assists</p></header>
+  <p class="gentry__short">The xG of the shots a player set up with his passes.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If you put a teammate through on goal and he misses, you still created a great chance. xA gives you credit for the chance, not the finish.</dd></div>
+    <div><dt>Technical</dt><dd>Sum of the xG of shots directly assisted by the player&#x27;s pass, regardless of whether the shot was scored.</dd></div>
+    <div><dt>Why we use it</dt><dd>It measures chance creation without depending on a teammate&#x27;s finishing — the core of a creative player&#x27;s job.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno Fernandes&#x27;s xA per 90 in 2022/23 was 0.467 raw and 0.460 after adjusting for opponents — the 99.6th percentile (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#xa" aria-label="Link to xA">#</a>
+</article><article class="gentry" id="npxg" data-cat="metrics" data-text="npxg non-penalty xg non-penalty xg non penalty xg npxg xg with penalties removed. penalties are worth a lot of xg but say little about how a player plays — whoever takes them gets the boost. removing them makes players comparable." aria-labelledby="npxg-h">
+  <header><h3 id="npxg-h">npxG <span class="gentry__full">Non-penalty xG</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: non-penalty xg, non penalty xg, npxg</p></header>
+  <p class="gentry__short">xG with penalties removed.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Penalties are worth a lot of xG but say little about how a player plays — whoever takes them gets the boost. Removing them makes players comparable.</dd></div>
+    <div><dt>Technical</dt><dd>xG excluding penalty attempts, so penalty-taking duties don&#x27;t inflate a profile.</dd></div>
+    <div><dt>Why we use it</dt><dd>The similarity profile should describe a playing style, not who is on penalties.</dd></div>
+    <div><dt>In the research</dt><dd>Non-penalty xG is one of the nine metrics in each Study 4 similarity profile.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#npxg" aria-label="Link to npxG">#</a>
+</article><article class="gentry" id="shots" data-cat="metrics" data-text="shots / 90 shots per 90 minutes shots per 90 shot volume how many shots a player takes per 90 minutes played. volume, not quality: a player who shoots often from anywhere scores high here even if his chances are poor." aria-labelledby="shots-h">
+  <header><h3 id="shots-h">Shots / 90 <span class="gentry__full">Shots per 90 minutes</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: shots per 90, shot volume</p></header>
+  <p class="gentry__short">How many shots a player takes per 90 minutes played.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Volume, not quality: a player who shoots often from anywhere scores high here even if his chances are poor.</dd></div>
+    <div><dt>Technical</dt><dd>Shot count per player-match from Understat, expressed per 90 minutes; one of the nine Study 4 profile metrics and an outcome in Studies 1–3.</dd></div>
+    <div><dt>Why we use it</dt><dd>Volume and quality behave differently — pairing shots with xG per shot separates &#x27;shoots a lot&#x27; from &#x27;gets good chances&#x27;.</dd></div>
+    <div><dt>In the research</dt><dd>Per +1 SD of opponent strength, a player&#x27;s shots per 90 fall 10.5% (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#shots" aria-label="Link to Shots / 90">#</a>
+</article><article class="gentry" id="key-passes" data-cat="metrics" data-text="key passes key passes chance created chances created passes that lead directly to a shot. any pass that sets up a shot, whether the shot is good or bad." aria-labelledby="key-passes-h">
+  <header><h3 id="key-passes-h">Key passes</h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: chance created, chances created</p></header>
+  <p class="gentry__short">Passes that lead directly to a shot.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Any pass that sets up a shot, whether the shot is good or bad.</dd></div>
+    <div><dt>Technical</dt><dd>Count of passes immediately followed by a teammate&#x27;s shot (Understat definition).</dd></div>
+    <div><dt>Why we use it</dt><dd>It measures how often a player creates, alongside xA, which measures how good those chances were.</dd></div>
+    <div><dt>In the research</dt><dd>Per +1 SD of opponent strength, key passes fall 11.4% (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#key-passes" aria-label="Link to Key passes">#</a>
+</article><article class="gentry" id="xgchain" data-cat="metrics" data-text="xgchain xgchain xg chain the xg of every attack a player was involved in. if you were part of a move that ended in a shot, you share the credit — even if you just played a simple pass early on." aria-labelledby="xgchain-h">
+  <header><h3 id="xgchain-h">xGChain</h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: xg chain</p></header>
+  <p class="gentry__short">The xG of every attack a player was involved in.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If you were part of a move that ended in a shot, you share the credit — even if you just played a simple pass early on.</dd></div>
+    <div><dt>Technical</dt><dd>Total xG of every possession that ends in a shot in which the player was involved, credited in full to each player in the chain.</dd></div>
+    <div><dt>Why we use it</dt><dd>It captures involvement in dangerous attacks, not just the last two touches.</dd></div>
+    <div><dt>In the research</dt><dd>xGChain is used as an alternative target in Study 5&#x27;s robustness checks.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#xgchain" aria-label="Link to xGChain">#</a>
+</article><article class="gentry" id="xgbuildup" data-cat="metrics" data-text="xgbuildup xgbuildup xg buildup xg build-up build-up like xgchain, but ignoring the shot and the final pass. credit for helping build attacks before the final ball." aria-labelledby="xgbuildup-h">
+  <header><h3 id="xgbuildup-h">xGBuildup</h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: xg buildup, xg build-up, build-up</p></header>
+  <p class="gentry__short">Like xGChain, but ignoring the shot and the final pass.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Credit for helping build attacks before the final ball.</dd></div>
+    <div><dt>Technical</dt><dd>xGChain excluding possessions where the player took the shot or made the key pass — isolates build-up contribution.</dd></div>
+    <div><dt>Why we use it</dt><dd>It distinguishes deep playmakers from players who only appear at the end of moves.</dd></div>
+    <div><dt>In the research</dt><dd>xGBuildup is part of the &#x27;involvement&#x27; group in the Study 4 profile.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#xgbuildup" aria-label="Link to xGBuildup">#</a>
+</article><article class="gentry" id="per90" data-cat="metrics" data-text="per 90 per 90 minutes per 90 p90 rate a stat scaled to a full match, so players with different minutes compare fairly. a sub who plays 30 minutes and a starter who plays 90 can&#x27;t be compared on totals. per 90 puts them on the same footing." aria-labelledby="per90-h">
+  <header><h3 id="per90-h">Per 90 <span class="gentry__full">Per 90 minutes</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: per 90, p90, rate</p></header>
+  <p class="gentry__short">A stat scaled to a full match, so players with different minutes compare fairly.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A sub who plays 30 minutes and a starter who plays 90 can&#x27;t be compared on totals. Per 90 puts them on the same footing.</dd></div>
+    <div><dt>Technical</dt><dd>Total ÷ minutes × 90. The studies model per-minute rates directly with minutes as exposure.</dd></div>
+    <div><dt>Why we use it</dt><dd>Every comparison in the series is about rates, not totals.</dd></div>
+    <div><dt>In the research</dt><dd>Zirkzee was predicted 0.46 xG + xA per 90 at United; he produced 0.47 (case study).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#per90" aria-label="Link to Per 90">#</a>
+</article><article class="gentry" id="xg-per-shot" data-cat="metrics" data-text="xg / shot xg per shot shot quality npxg per shot the average quality of a player&#x27;s shots. two strikers can both take three shots a game. one takes them from six yards, the other from thirty. xg per shot tells them apart." aria-labelledby="xg-per-shot-h">
+  <header><h3 id="xg-per-shot-h">xG / shot <span class="gentry__full">xG per shot</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: shot quality, npxg per shot</p></header>
+  <p class="gentry__short">The average quality of a player&#x27;s shots.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Two strikers can both take three shots a game. One takes them from six yards, the other from thirty. xG per shot tells them apart.</dd></div>
+    <div><dt>Technical</dt><dd>Total xG divided by shots: a shot-quality measure, independent of how many shots he takes.</dd></div>
+    <div><dt>Why we use it</dt><dd>Volume and quality are different styles. The similarity profile needs both to tell a poacher from a long-range shooter.</dd></div>
+    <div><dt>In the research</dt><dd>One of the nine metrics in the Study 4 similarity profile, alongside shots per 90 and non-penalty xG (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#xg-per-shot" aria-label="Link to xG / shot">#</a>
+</article><article class="gentry" id="headed-share" data-cat="metrics" data-text="headed share headed-shot share headers headed shots the share of a player&#x27;s shots taken with his head. tells you how a player gets his shots — a target man heads far more of them than a winger." aria-labelledby="headed-share-h">
+  <header><h3 id="headed-share-h">Headed share <span class="gentry__full">Headed-shot share</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: headers, headed shots</p></header>
+  <p class="gentry__short">The share of a player&#x27;s shots taken with his head.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Tells you how a player gets his shots — a target man heads far more of them than a winger.</dd></div>
+    <div><dt>Technical</dt><dd>Headed shots ÷ all shots, derived from Understat&#x27;s shot-level body-part field; one of the three shot-style metrics in the Study 4 profile.</dd></div>
+    <div><dt>Why we use it</dt><dd>Two players with the same xG can get it in completely different ways; shot style keeps the similarity profile about playing style.</dd></div>
+    <div><dt>In the research</dt><dd>Headed share, in-box share and non-penalty xG per shot make up the shot-style part of the nine-metric Study 4 profile.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#headed-share" aria-label="Link to Headed share">#</a>
+</article><article class="gentry" id="in-box-share" data-cat="metrics" data-text="in-box share in-box shot share inside the box penalty area shot location the share of a player&#x27;s shots taken from inside the penalty box. low means a player shoots a lot from distance; high means he gets into the box to shoot." aria-labelledby="in-box-share-h">
+  <header><h3 id="in-box-share-h">In-box share <span class="gentry__full">In-box shot share</span></h3>
+    <span class="label cat">Football metrics</span><p class="gentry__aka">Also: inside the box, penalty area, shot location</p></header>
+  <p class="gentry__short">The share of a player&#x27;s shots taken from inside the penalty box.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Low means a player shoots a lot from distance; high means he gets into the box to shoot.</dd></div>
+    <div><dt>Technical</dt><dd>Shots from inside the box ÷ all shots, derived from Understat shot locations; a Study 4 shot-style metric.</dd></div>
+    <div><dt>Why we use it</dt><dd>It captures where a player shoots from, which raw shot or xG totals hide.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno Fernandes&#x27;s in-box shot share is in the 3rd percentile of his role: a high volume of shots from distance (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#data">Methodology · Data</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#in-box-share" aria-label="Link to In-box share">#</a>
+</article></section><section class="ggroup" data-group="context" aria-labelledby="g-context"><h2 id="g-context" class="h2-sm">Football context</h2><article class="gentry" id="home-advantage" data-cat="context" data-text="home advantage home advantage home edge home specialist venue how much more a player produces at home than away. compare a player with himself: same club, same season, home games versus away games." aria-labelledby="home-advantage-h">
+  <header><h3 id="home-advantage-h">Home advantage</h3>
+    <span class="label cat">Football context</span><p class="gentry__aka">Also: home edge, home specialist, venue</p></header>
+  <p class="gentry__short">How much more a player produces at home than away.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Compare a player with himself: same club, same season, home games versus away games.</dd></div>
+    <div><dt>Technical</dt><dd>Home ÷ away ratio of per-minute output for the same player, team and season, from a PPML model with fixed effects.</dd></div>
+    <div><dt>Why we use it</dt><dd>It separates what belongs to the venue (and the crowd) from what belongs to the player.</dd></div>
+    <div><dt>In the research</dt><dd>+27% xG per minute at home; behind closed doors that fell to about +8–14% (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#context">Methodology · Context adjustment</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#home-advantage" aria-label="Link to Home advantage">#</a>
+</article><article class="gentry" id="behind-closed-doors" data-cat="context" data-text="behind closed doors behind closed doors empty stadiums no fans covid crowds matches played without fans during covid-19 restrictions. a natural experiment: the same teams and players, suddenly without a crowd." aria-labelledby="behind-closed-doors-h">
+  <header><h3 id="behind-closed-doors-h">Behind closed doors</h3>
+    <span class="label cat">Football context</span><p class="gentry__aka">Also: empty stadiums, no fans, covid, crowds</p></header>
+  <p class="gentry__short">Matches played without fans during COVID-19 restrictions.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A natural experiment: the same teams and players, suddenly without a crowd.</dd></div>
+    <div><dt>Technical</dt><dd>Dated per-league crowd-restriction calendars; mostly one season, so per-player crowd estimates are noisy.</dd></div>
+    <div><dt>Why we use it</dt><dd>It shows how much of home advantage is the crowd itself.</dd></div>
+    <div><dt>In the research</dt><dd>Without fans the xG home edge fell from +28% to +12%, then came back to +25% (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#context">Methodology · Context adjustment</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#behind-closed-doors" aria-label="Link to Behind closed doors">#</a>
+</article><article class="gentry" id="opponent-strength" data-cat="context" data-text="opponent strength opponent strength (market rating) opposition market rating big-game players strong opponents how good the opponent was, measured from pre-match betting odds. bookmakers&#x27; odds before kick-off are a very good summary of how strong a team is. we turn them into a rating that never peeks at results after the match." aria-labelledby="opponent-strength-h">
+  <header><h3 id="opponent-strength-h">Opponent strength <span class="gentry__full">Opponent strength (market rating)</span></h3>
+    <span class="label cat">Football context</span><p class="gentry__aka">Also: opposition, market rating, big-game players, strong opponents</p></header>
+  <p class="gentry__short">How good the opponent was, measured from pre-match betting odds.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Bookmakers&#x27; odds before kick-off are a very good summary of how strong a team is. We turn them into a rating that never peeks at results after the match.</dd></div>
+    <div><dt>Technical</dt><dd>A sequential rating built only from pre-match Pinnacle odds; each match uses only earlier matches. Checked against an xG rating, Elo, opening odds and points per game.</dd></div>
+    <div><dt>Why we use it</dt><dd>Using only pre-match information means the rating can&#x27;t leak the result it is trying to explain.</dd></div>
+    <div><dt>In the research</dt><dd>Per +1 SD of opponent strength, a player&#x27;s xG falls about 14% (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#opponents">Methodology · Opponent strength</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#opponent-strength" aria-label="Link to Opponent strength">#</a>
+</article><article class="gentry" id="adjusted-output" data-cat="context" data-text="context-adjusted output context-adjusted output adjusted context adjustment raw vs adjusted a player&#x27;s output with the effect of opponents, venue and league environment taken out. what the player would have produced against average opposition, in an average setting." aria-labelledby="adjusted-output-h">
+  <header><h3 id="adjusted-output-h">Context-adjusted output</h3>
+    <span class="label cat">Football context</span><p class="gentry__aka">Also: adjusted, context adjustment, raw vs adjusted</p></header>
+  <p class="gentry__short">A player&#x27;s output with the effect of opponents, venue and league environment taken out.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>What the player would have produced against average opposition, in an average setting.</dd></div>
+    <div><dt>Technical</dt><dd>Per-match output re-weighted to an average opponent, half at home and an average league-season environment, from a PPML context model (Study 4); opponent-adjusted per-90s in Study 3.</dd></div>
+    <div><dt>Why we use it</dt><dd>Raw output carries its context with it. Adjusting lets players from different leagues and schedules be compared — though for forecasting a move it added little.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno Fernandes&#x27;s xA per 90 in 2022/23: 0.467 raw, 0.460 adjusted for opponents (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#context">Methodology · Context adjustment</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#adjusted-output" aria-label="Link to Context-adjusted output">#</a>
+</article></section><section class="ggroup" data-group="statistics" aria-labelledby="g-statistics"><h2 id="g-statistics" class="h2-sm">Statistics</h2><article class="gentry" id="sd" data-cat="statistics" data-text="sd standard deviation (sd) standard deviation a standard unit for &#x27;how far from average&#x27; something is. roughly, one sd up in opponent strength is the jump from an average side to a clearly strong one." aria-labelledby="sd-h">
+  <header><h3 id="sd-h">SD <span class="gentry__full">Standard deviation (SD)</span></h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: standard deviation</p></header>
+  <p class="gentry__short">A standard unit for &#x27;how far from average&#x27; something is.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Roughly, one SD up in opponent strength is the jump from an average side to a clearly strong one.</dd></div>
+    <div><dt>Technical</dt><dd>Standard deviation; effects are reported per +1 SD of the opponent rating, and profiles are z-scored within role.</dd></div>
+    <div><dt>Why we use it</dt><dd>It puts very different scales (odds, xA, shots) on a common footing.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno&#x27;s chance creation is 3.6 SD above his role average; Serie A&#x27;s best is 1.9 SD (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#sd" aria-label="Link to SD">#</a>
+</article><article class="gentry" id="z-score" data-cat="statistics" data-text="z-score z-score standardised standardized z score how many sds a number sits above or below the average. 0 means exactly average for the position; +2 means far above it." aria-labelledby="z-score-h">
+  <header><h3 id="z-score-h">z-score</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: standardised, standardized, z score</p></header>
+  <p class="gentry__short">How many SDs a number sits above or below the average.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>0 means exactly average for the position; +2 means far above it.</dd></div>
+    <div><dt>Technical</dt><dd>(value − role mean) ÷ role SD; computed within role so a full-back is compared with full-backs.</dd></div>
+    <div><dt>Why we use it</dt><dd>It lets nine different metrics be combined into one profile without one dominating.</dd></div>
+    <div><dt>In the research</dt><dd>Study 4 profiles are z-scored within each of seven data-derived roles.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#z-score" aria-label="Link to z-score">#</a>
+</article><article class="gentry" id="interval" data-cat="statistics" data-text="95% interval confidence interval (95%) confidence interval ci uncertainty the range the true value plausibly sits in, given the data. a single number hides uncertainty. the interval shows how sure we are: narrow means confident, wide means &#x27;early days&#x27;." aria-labelledby="interval-h">
+  <header><h3 id="interval-h">95% interval <span class="gentry__full">Confidence interval (95%)</span></h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: confidence interval, ci, uncertainty</p></header>
+  <p class="gentry__short">The range the true value plausibly sits in, given the data.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A single number hides uncertainty. The interval shows how sure we are: narrow means confident, wide means &#x27;early days&#x27;.</dd></div>
+    <div><dt>Technical</dt><dd>95% confidence interval from match-clustered standard errors (or bootstrap where stated).</dd></div>
+    <div><dt>Why we use it</dt><dd>Live-season figures early in a season have wide intervals — the interval tells you not to over-read them.</dd></div>
+    <div><dt>In the research</dt><dd>Early in a live season the home-edge interval is wide; it narrows as each weekend&#x27;s matches are added (live tracker).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#interval" aria-label="Link to 95% interval">#</a>
+</article><article class="gentry" id="correlation" data-cat="statistics" data-text="correlation (r) correlation (r) r pearson spearman how closely two numbers move together, from −1 to +1; 0 means no relationship. if players who were good at something last season are also good at it this season, the correlation is high. if knowing last season tells you nothing, it is near zero." aria-labelledby="correlation-h">
+  <header><h3 id="correlation-h">Correlation (r)</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: r, pearson, spearman</p></header>
+  <p class="gentry__short">How closely two numbers move together, from −1 to +1; 0 means no relationship.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If players who were good at something last season are also good at it this season, the correlation is high. If knowing last season tells you nothing, it is near zero.</dd></div>
+    <div><dt>Technical</dt><dd>Pearson correlation unless stated (Spearman for rank comparisons).</dd></div>
+    <div><dt>Why we use it</dt><dd>It is the simplest test of whether a &#x27;trait&#x27; is real: something that belongs to a player should persist from one period to the next.</dd></div>
+    <div><dt>In the research</dt><dd>Past home edge vs later home edge: r = 0.018 across 595 players (Study 2) — past home edge says nothing about the future.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#correlation" aria-label="Link to Correlation (r)">#</a>
+</article><article class="gentry" id="percentile" data-cat="statistics" data-text="percentile percentile rank ranking where a value ranks in a group, from 0 (lowest) to 100 (highest). 99th percentile means higher than 99% of the comparison group." aria-labelledby="percentile-h">
+  <header><h3 id="percentile-h">Percentile</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: rank, ranking</p></header>
+  <p class="gentry__short">Where a value ranks in a group, from 0 (lowest) to 100 (highest).</p>
+  <dl>
+    <div><dt>Simple</dt><dd>99th percentile means higher than 99% of the comparison group.</dd></div>
+    <div><dt>Technical</dt><dd>Percentile rank within the stated comparison pool (usually the player&#x27;s role, adjusted profiles).</dd></div>
+    <div><dt>Why we use it</dt><dd>It makes very different metrics readable on one scale, always relative to a stated group.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno Fernandes&#x27;s adjusted key passes are in the 100th percentile of attacking mids / wide forwards (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#percentile" aria-label="Link to Percentile">#</a>
+</article><article class="gentry" id="signal-noise" data-cat="statistics" data-text="signal vs noise signal vs noise noise luck reliability how much of a difference is real, and how much is chance. if you flip a coin 20 times, some &#x27;players&#x27; get 14 heads. that doesn&#x27;t make them better at flipping. most individual splits in football are like that." aria-labelledby="signal-noise-h">
+  <header><h3 id="signal-noise-h">Signal vs noise</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: noise, luck, reliability</p></header>
+  <p class="gentry__short">How much of a difference is real, and how much is chance.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If you flip a coin 20 times, some &#x27;players&#x27; get 14 heads. That doesn&#x27;t make them better at flipping. Most individual splits in football are like that.</dd></div>
+    <div><dt>Technical</dt><dd>Share of observed between-player variance that is true variance, from calibrated standard errors and DerSimonian–Laird estimates.</dd></div>
+    <div><dt>Why we use it</dt><dd>Without separating the two, you crown players for luck.</dd></div>
+    <div><dt>In the research</dt><dd>A player&#x27;s home/away split is only 5–8% signal (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#signal-noise" aria-label="Link to Signal vs noise">#</a>
+</article><article class="gentry" id="mae" data-cat="statistics" data-text="mae mean absolute error (mae) mean absolute error prediction error error the average size of a prediction&#x27;s miss. if mae is 0.10, predictions are off by about 0.10 xg + xa per 90 on average." aria-labelledby="mae-h">
+  <header><h3 id="mae-h">MAE <span class="gentry__full">Mean absolute error (MAE)</span></h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: mean absolute error, prediction error, error</p></header>
+  <p class="gentry__short">The average size of a prediction&#x27;s miss.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If MAE is 0.10, predictions are off by about 0.10 xG + xA per 90 on average.</dd></div>
+    <div><dt>Technical</dt><dd>Mean |actual − predicted| in xG + xA per 90 on the test moves.</dd></div>
+    <div><dt>Why we use it</dt><dd>It&#x27;s the headline measure for comparing transfer models.</dd></div>
+    <div><dt>In the research</dt><dd>Adding similarity changed the error by 0.000 (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#mae" aria-label="Link to MAE">#</a>
+</article><article class="gentry" id="r-squared" data-cat="statistics" data-text="r² r² (variance explained) r2 variance explained how much of the variation in outcomes a model explains (0 to 1). 0.76 means the model accounts for about three-quarters of the differences between players&#x27; post-move output." aria-labelledby="r-squared-h">
+  <header><h3 id="r-squared-h">R² <span class="gentry__full">R² (variance explained)</span></h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: r2, variance explained</p></header>
+  <p class="gentry__short">How much of the variation in outcomes a model explains (0 to 1).</p>
+  <dl>
+    <div><dt>Simple</dt><dd>0.76 means the model accounts for about three-quarters of the differences between players&#x27; post-move output.</dd></div>
+    <div><dt>Technical</dt><dd>1 − SSE/SST on the locked test moves.</dd></div>
+    <div><dt>Why we use it</dt><dd>It complements MAE by showing how much of the spread is captured.</dd></div>
+    <div><dt>In the research</dt><dd>Final model R² 0.76 vs 0.58 for the naive baseline (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#r-squared" aria-label="Link to R²">#</a>
+</article><article class="gentry" id="auc" data-cat="statistics" data-text="auc auc roc area under the curve ranking accuracy how well a model ranks players who succeed above those who don&#x27;t (0.5 = coin flip, 1 = perfect). pick one mover who kept his output and one who didn&#x27;t. auc is how often the model ranks them the right way round." aria-labelledby="auc-h">
+  <header><h3 id="auc-h">AUC</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: roc, area under the curve, ranking accuracy</p></header>
+  <p class="gentry__short">How well a model ranks players who succeed above those who don&#x27;t (0.5 = coin flip, 1 = perfect).</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Pick one mover who kept his output and one who didn&#x27;t. AUC is how often the model ranks them the right way round.</dd></div>
+    <div><dt>Technical</dt><dd>Area under the ROC curve for P(retention ≥ 75%).</dd></div>
+    <div><dt>Why we use it</dt><dd>It measures ranking quality independent of any cut-off.</dd></div>
+    <div><dt>In the research</dt><dd>The chance of keeping ≥ 75% ranks players with AUC 0.80 (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#auc" aria-label="Link to AUC">#</a>
+</article><article class="gentry" id="brier" data-cat="statistics" data-text="brier score brier score brier score probability accuracy how accurate probability forecasts are (lower is better). saying &#x27;90%&#x27; and being wrong is punished more than saying &#x27;60%&#x27; and being wrong." aria-labelledby="brier-h">
+  <header><h3 id="brier-h">Brier score</h3>
+    <span class="label cat">Statistics</span><p class="gentry__aka">Also: brier score, probability accuracy</p></header>
+  <p class="gentry__short">How accurate probability forecasts are (lower is better).</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Saying &#x27;90%&#x27; and being wrong is punished more than saying &#x27;60%&#x27; and being wrong.</dd></div>
+    <div><dt>Technical</dt><dd>Mean squared error of predicted probabilities against 0/1 outcomes.</dd></div>
+    <div><dt>Why we use it</dt><dd>It checks the probabilities themselves, not just the ranking.</dd></div>
+    <div><dt>In the research</dt><dd>Brier 0.179 vs 0.224 for a same-for-everyone base rate (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#brier" aria-label="Link to Brier score">#</a>
+</article></section><section class="ggroup" data-group="modelling" aria-labelledby="g-modelling"><h2 id="g-modelling" class="h2-sm">Modelling</h2><article class="gentry" id="ppml" data-cat="modelling" data-text="ppml poisson pseudo-likelihood (ppml) poisson poisson pseudo-likelihood regression model a model for counts and rates that reads results as percentage changes. a standard tool for modelling things like &#x27;shots per minute&#x27; that handles lots of zeros well." aria-labelledby="ppml-h">
+  <header><h3 id="ppml-h">PPML <span class="gentry__full">Poisson pseudo-likelihood (PPML)</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: poisson, poisson pseudo-likelihood, regression model</p></header>
+  <p class="gentry__short">A model for counts and rates that reads results as percentage changes.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A standard tool for modelling things like &#x27;shots per minute&#x27; that handles lots of zeros well.</dd></div>
+    <div><dt>Technical</dt><dd>Poisson pseudo-maximum-likelihood on per-minute output with minutes as exposure and high-dimensional fixed effects; robust to non-Poisson variance.</dd></div>
+    <div><dt>Why we use it</dt><dd>It gives effects as clean percentages (e.g. +27%) and stays valid when the data aren&#x27;t perfectly Poisson.</dd></div>
+    <div><dt>In the research</dt><dd>The +27% home xG edge is a PPML estimate.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#ppml" aria-label="Link to PPML">#</a>
+</article><article class="gentry" id="fixed-effects" data-cat="modelling" data-text="fixed effects player × team × season fixed effects controls player team season within-player comparing each player only with himself. instead of comparing haaland with a full-back, the model only asks: how did this player, at this club, this season, do in one situation versus another?" aria-labelledby="fixed-effects-h">
+  <header><h3 id="fixed-effects-h">Fixed effects <span class="gentry__full">Player × team × season fixed effects</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: controls, player team season, within-player</p></header>
+  <p class="gentry__short">Comparing each player only with himself.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Instead of comparing Haaland with a full-back, the model only asks: how did this player, at this club, this season, do in one situation versus another?</dd></div>
+    <div><dt>Technical</dt><dd>A separate intercept for every player × team × season, so identification comes only from within-player variation; errors clustered by match.</dd></div>
+    <div><dt>Why we use it</dt><dd>It removes differences in ability, team and season, leaving the context effect.</dd></div>
+    <div><dt>In the research</dt><dd>All headline Study 2 and 3 effects are &#x27;same player, team and season&#x27;.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#context">Methodology · Context adjustment</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#fixed-effects" aria-label="Link to Fixed effects">#</a>
+</article><article class="gentry" id="shrinkage" data-cat="modelling" data-text="shrinkage empirical-bayes shrinkage empirical bayes reliability adjustment pulling noisy individual estimates toward the average by how unreliable they are. a player with a tiny sample gets pulled most of the way back to average; a player with lots of data keeps more of his own number." aria-labelledby="shrinkage-h">
+  <header><h3 id="shrinkage-h">Shrinkage <span class="gentry__full">Empirical-Bayes shrinkage</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: empirical bayes, reliability adjustment</p></header>
+  <p class="gentry__short">Pulling noisy individual estimates toward the average by how unreliable they are.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A player with a tiny sample gets pulled most of the way back to average; a player with lots of data keeps more of his own number.</dd></div>
+    <div><dt>Technical</dt><dd>Empirical-Bayes posterior means: each player&#x27;s estimate is weighted against the population mean by its precision relative to the between-player variance (τ²).</dd></div>
+    <div><dt>Why we use it</dt><dd>It gives the fairest single guess for each player and stops small samples dominating rankings.</dd></div>
+    <div><dt>In the research</dt><dd>After shrinkage, 0 of 4,665 players have a reliable personal home edge (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#shrinkage" aria-label="Link to Shrinkage">#</a>
+</article><article class="gentry" id="regression-to-the-mean" data-cat="modelling" data-text="regression to the mean regression to the mean regression mean reversion extreme results tend to be followed by more ordinary ones. the player who looked brilliant at home last season was partly lucky. next season the luck evens out and he looks more ordinary." aria-labelledby="regression-to-the-mean-h">
+  <header><h3 id="regression-to-the-mean-h">Regression to the mean</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: regression, mean reversion</p></header>
+  <p class="gentry__short">Extreme results tend to be followed by more ordinary ones.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>The player who looked brilliant at home last season was partly lucky. Next season the luck evens out and he looks more ordinary.</dd></div>
+    <div><dt>Technical</dt><dd>When a measurement is part signal, part noise, the most extreme observations are disproportionately noise, so they shrink toward the average on re-measurement.</dd></div>
+    <div><dt>Why we use it</dt><dd>It explains why so many &#x27;special&#x27; players disappear when you check them again.</dd></div>
+    <div><dt>In the research</dt><dd>The 2015–19 &#x27;top 10 home players&#x27; were exactly average in 2022–25; correlation between periods 0.018 (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#regression-to-the-mean" aria-label="Link to Regression to the mean">#</a>
+</article><article class="gentry" id="leakage" data-cat="modelling" data-text="leakage leakage look-ahead hindsight data leakage when a model accidentally uses information it wouldn&#x27;t have had at the time. like predicting a match using the final score. it looks brilliant and is useless." aria-labelledby="leakage-h">
+  <header><h3 id="leakage-h">Leakage</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: look-ahead, hindsight, data leakage</p></header>
+  <p class="gentry__short">When a model accidentally uses information it wouldn&#x27;t have had at the time.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Like predicting a match using the final score. It looks brilliant and is useless.</dd></div>
+    <div><dt>Technical</dt><dd>Any use of post-decision information in features or ratings; tested by scrambling later results and checking nothing earlier changes.</dd></div>
+    <div><dt>Why we use it</dt><dd>Every prediction here must be one you could actually have made on the day.</dd></div>
+    <div><dt>In the research</dt><dd>0 changed ratings in 155,282 leakage checks; Understat&#x27;s post-match &#x27;forecast&#x27; was never used.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#opponents">Methodology · Opponent strength</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#leakage" aria-label="Link to Leakage">#</a>
+</article><article class="gentry" id="locked-test" data-cat="modelling" data-text="locked test seasons locked test seasons test set holdout unseen seasons out of sample seasons the model never saw until it was finished — scored once. like sealing an exam paper until the student has stopped studying." aria-labelledby="locked-test-h">
+  <header><h3 id="locked-test-h">Locked test seasons</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: test set, holdout, unseen seasons, out of sample</p></header>
+  <p class="gentry__short">Seasons the model never saw until it was finished — scored once.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Like sealing an exam paper until the student has stopped studying.</dd></div>
+    <div><dt>Technical</dt><dd>The final model was fixed before 2023/24–2025/26 moves were opened, then scored once on 142 unseen moves.</dd></div>
+    <div><dt>Why we use it</dt><dd>It&#x27;s the honest test of whether a model works on the future, not just the past.</dd></div>
+    <div><dt>In the research</dt><dd>On the locked seasons the final model&#x27;s error was 0.096 vs 0.129 for &#x27;he&#x27;ll do what he did&#x27; (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#locked-test" aria-label="Link to Locked test seasons">#</a>
+</article><article class="gentry" id="calibration" data-cat="modelling" data-text="calibration calibration calibrated probability check whether &#x27;70% likely&#x27; really happens about 70% of the time. a forecaster who says &#x27;rain: 70%&#x27; should see rain on about 7 of every 10 such days." aria-labelledby="calibration-h">
+  <header><h3 id="calibration-h">Calibration</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: calibrated, probability check</p></header>
+  <p class="gentry__short">Whether &#x27;70% likely&#x27; really happens about 70% of the time.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A forecaster who says &#x27;rain: 70%&#x27; should see rain on about 7 of every 10 such days.</dd></div>
+    <div><dt>Technical</dt><dd>Observed frequency vs mean predicted probability in bins; the ≥75% threshold is calibrated at the top, lower thresholds were not and are not used.</dd></div>
+    <div><dt>Why we use it</dt><dd>An uncalibrated probability looks precise but misleads.</dd></div>
+    <div><dt>In the research</dt><dd>The 50% and 60% retention thresholds were not well calibrated, so the site only shows ≥75%.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#calibration" aria-label="Link to Calibration">#</a>
+</article><article class="gentry" id="range-80" data-cat="modelling" data-text="80% range 80% prediction range prediction interval prediction range 80% range uncertainty where the player&#x27;s output should land 4 times out of 5. not a guarantee: one move in five should land outside it." aria-labelledby="range-80-h">
+  <header><h3 id="range-80-h">80% range <span class="gentry__full">80% prediction range</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: prediction interval, prediction range, 80% range, uncertainty</p></header>
+  <p class="gentry__short">Where the player&#x27;s output should land 4 times out of 5.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Not a guarantee: one move in five should land outside it.</dd></div>
+    <div><dt>Technical</dt><dd>10th–90th percentile of a log-normal predictive distribution with role-group bias and SD from out-of-sample errors.</dd></div>
+    <div><dt>Why we use it</dt><dd>Individual forecasts are uncertain; the range shows how much.</dd></div>
+    <div><dt>In the research</dt><dd>A typical 80% range is ±0.2 xG + xA per 90; strikers 4 of 4 and midfielders 5 of 6 landed inside it in the case study.</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#range-80" aria-label="Link to 80% range">#</a>
+</article><article class="gentry" id="multiple-testing" data-cat="modelling" data-text="multiple testing multiple-testing correction benjamini-hochberg bh false discovery multiple comparisons adjusting for the fact that testing many things guarantees some flukes. test 20 weather effects and one will look &#x27;significant&#x27; by chance. the correction raises the bar to account for that." aria-labelledby="multiple-testing-h">
+  <header><h3 id="multiple-testing-h">Multiple testing <span class="gentry__full">Multiple-testing correction</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: benjamini-hochberg, bh, false discovery, multiple comparisons</p></header>
+  <p class="gentry__short">Adjusting for the fact that testing many things guarantees some flukes.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Test 20 weather effects and one will look &#x27;significant&#x27; by chance. The correction raises the bar to account for that.</dd></div>
+    <div><dt>Technical</dt><dd>Benjamini–Hochberg false-discovery-rate correction plus permutation tests.</dd></div>
+    <div><dt>Why we use it</dt><dd>With thousands of players and metrics, flukes are certain unless corrected.</dd></div>
+    <div><dt>In the research</dt><dd>0 of 23,022 player × metric opposition estimates survive the correction (Study 3).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/methodology#multiple-testing">Methodology · Multiple testing</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#multiple-testing" aria-label="Link to Multiple testing">#</a>
+</article><article class="gentry" id="permutation-test" data-cat="modelling" data-text="permutation test permutation test permutation shuffle test shuffling the data many times to see how often chance alone produces a result this big. if you shuffle which matches were &#x27;home&#x27; and still see the same pattern, the pattern wasn&#x27;t about home at all." aria-labelledby="permutation-test-h">
+  <header><h3 id="permutation-test-h">Permutation test</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: permutation, shuffle test</p></header>
+  <p class="gentry__short">Shuffling the data many times to see how often chance alone produces a result this big.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If you shuffle which matches were &#x27;home&#x27; and still see the same pattern, the pattern wasn&#x27;t about home at all.</dd></div>
+    <div><dt>Technical</dt><dd>Builds the null distribution by randomly permuting labels (e.g. home/away within a player&#x27;s own matches) and comparing the real statistic against it.</dd></div>
+    <div><dt>Why we use it</dt><dd>It checks headline effects without leaning on textbook assumptions about the data.</dd></div>
+    <div><dt>In the research</dt><dd>Benjamini–Hochberg corrections and permutation tests were run for every headline effect (Final Summary, key methods).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/methodology#multiple-testing">Methodology · Multiple testing</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#permutation-test" aria-label="Link to Permutation test">#</a>
+</article><article class="gentry" id="placebo" data-cat="modelling" data-text="placebo test placebo test placebo test fake dates re-running an analysis on fake dates to check the effect isn&#x27;t an artefact. if &#x27;no fans&#x27; really caused the drop, pretending the fans left in a different year should show nothing." aria-labelledby="placebo-h">
+  <header><h3 id="placebo-h">Placebo test</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: placebo test, fake dates</p></header>
+  <p class="gentry__short">Re-running an analysis on fake dates to check the effect isn&#x27;t an artefact.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If &#x27;no fans&#x27; really caused the drop, pretending the fans left in a different year should show nothing.</dd></div>
+    <div><dt>Technical</dt><dd>E.g. shifting the closed-doors dates 2–4 years earlier; a real crowd effect should vanish on the placebo dates.</dd></div>
+    <div><dt>Why we use it</dt><dd>It rules out the effect being a quirk of the method or the calendar.</dd></div>
+    <div><dt>In the research</dt><dd>Moving the closed-doors period 2–4 years earlier found nothing beyond chance (Study 2).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/methodology#multiple-testing">Methodology · Multiple testing</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#placebo" aria-label="Link to Placebo test">#</a>
+</article><article class="gentry" id="cosine-similarity" data-cat="modelling" data-text="cosine similarity cosine similarity similarity cosine distance how alike two players&#x27; profiles are in shape, ignoring overall size. two players who do the same things in the same proportions score high, even if one does more of everything." aria-labelledby="cosine-similarity-h">
+  <header><h3 id="cosine-similarity-h">Cosine similarity</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: similarity, cosine, distance</p></header>
+  <p class="gentry__short">How alike two players&#x27; profiles are in shape, ignoring overall size.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Two players who do the same things in the same proportions score high, even if one does more of everything.</dd></div>
+    <div><dt>Technical</dt><dd>1 − cosine distance between z-scored adjusted profile vectors; checked against Euclidean distance across four profile windows.</dd></div>
+    <div><dt>Why we use it</dt><dd>It finds players with the same style rather than just the same volume.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno → Serie A: Samardžić, Dybala and Chukwueze are the robust matches (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#cosine-similarity" aria-label="Link to Cosine similarity">#</a>
+</article><article class="gentry" id="similarity-score" data-cat="modelling" data-text="similarity score similarity score (closer than x%) similarity closer than profile similarity how close a candidate&#x27;s profile is to the target&#x27;s, as &#x27;closer than x% of the pool&#x27;. a score of 90 means this player&#x27;s profile is closer to the target than 90% of the players in that role." aria-labelledby="similarity-score-h">
+  <header><h3 id="similarity-score-h">Similarity score <span class="gentry__full">Similarity score (closer than X%)</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: similarity, closer than, profile similarity</p></header>
+  <p class="gentry__short">How close a candidate&#x27;s profile is to the target&#x27;s, as &#x27;closer than X% of the pool&#x27;.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A score of 90 means this player&#x27;s profile is closer to the target than 90% of the players in that role.</dd></div>
+    <div><dt>Technical</dt><dd>100 × (1 − percentile of the candidate&#x27;s distance among the query&#x27;s distances to the role pool).</dd></div>
+    <div><dt>Why we use it</dt><dd>A raw distance means nothing on its own; ranking it against the pool makes it readable — and it is a resemblance, not a forecast.</dd></div>
+    <div><dt>In the research</dt><dd>Zirkzee&#x27;s profile was closer to Højlund&#x27;s than only 1% of the 2024 striker pool — the least Højlund-like on the board (case study).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#similarity-score" aria-label="Link to Similarity score">#</a>
+</article><article class="gentry" id="role" data-cat="modelling" data-text="role role (data-derived) position role pool a position group defined by what players actually produce, not their listed position. a central attacking midfielder turns out to produce like a wide forward, so they&#x27;re compared in the same pool." aria-labelledby="role-h">
+  <header><h3 id="role-h">Role <span class="gentry__full">Role (data-derived)</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: position, role pool</p></header>
+  <p class="gentry__short">A position group defined by what players actually produce, not their listed position.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A central attacking midfielder turns out to produce like a wide forward, so they&#x27;re compared in the same pool.</dd></div>
+    <div><dt>Technical</dt><dd>Ward clustering of Understat&#x27;s granular positions on per-90 output gives seven roles.</dd></div>
+    <div><dt>Why we use it</dt><dd>Comparing like with like matters more than the name on the team sheet.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno&#x27;s comparison pool includes inside forwards (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#role" aria-label="Link to Role">#</a>
+</article><article class="gentry" id="profile-window" data-cat="modelling" data-text="profile window profile window window seasons how much of a player&#x27;s history the similarity profile uses. one season can be a fluke; three seasons is a steadier picture." aria-labelledby="profile-window-h">
+  <header><h3 id="profile-window-h">Profile window</h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: window, seasons</p></header>
+  <p class="gentry__short">How much of a player&#x27;s history the similarity profile uses.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>One season can be a fluke; three seasons is a steadier picture.</dd></div>
+    <div><dt>Technical</dt><dd>Windows: last three seasons (w3), two seasons (w2), most recent 2,500 minutes, one season (w1). Single seasons are noisy.</dd></div>
+    <div><dt>Why we use it</dt><dd>Results that hold across several windows are more trustworthy.</dd></div>
+    <div><dt>In the research</dt><dd>Three-season profiles find the same player in the top 9% of the destination pool after a move (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#profile-window" aria-label="Link to Profile window">#</a>
+</article><article class="gentry" id="self-retrieval" data-cat="modelling" data-text="self-retrieval self-retrieval validation validation find the same player testing similarity by checking it can find the same player again after he moves league. if the method is any good, it should recognise a player in his new league." aria-labelledby="self-retrieval-h">
+  <header><h3 id="self-retrieval-h">Self-retrieval <span class="gentry__full">Self-retrieval validation</span></h3>
+    <span class="label cat">Modelling</span><p class="gentry__aka">Also: validation, find the same player</p></header>
+  <p class="gentry__short">Testing similarity by checking it can find the same player again after he moves league.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>If the method is any good, it should recognise a player in his new league.</dd></div>
+    <div><dt>Technical</dt><dd>Profile before a move is matched against the destination league&#x27;s role pool after it; the player&#x27;s own post-move profile should rank near the top.</dd></div>
+    <div><dt>Why we use it</dt><dd>It validates the method without relying on anyone&#x27;s opinion of who is &#x27;similar&#x27;.</dd></div>
+    <div><dt>In the research</dt><dd>Three-season profiles find the same player in the top 9% after a league move (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#self-retrieval" aria-label="Link to Self-retrieval">#</a>
+</article></section><section class="ggroup" data-group="recruitment" aria-labelledby="g-recruitment"><h2 id="g-recruitment" class="h2-sm">Recruitment</h2><article class="gentry" id="retention" data-cat="recruitment" data-text="retention retention survives kept output how much of his output a player keeps after a move. 100% means he produced exactly as much in the new league; 80% means he lost a fifth." aria-labelledby="retention-h">
+  <header><h3 id="retention-h">Retention</h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: survives, kept output</p></header>
+  <p class="gentry__short">How much of his output a player keeps after a move.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>100% means he produced exactly as much in the new league; 80% means he lost a fifth.</dd></div>
+    <div><dt>Technical</dt><dd>Output after ÷ output before (xG + xA per 90), also compared with matched stayers to remove regression to the mean.</dd></div>
+    <div><dt>Why we use it</dt><dd>It&#x27;s the direct answer to &#x27;will his game travel?&#x27;.</dd></div>
+    <div><dt>In the research</dt><dd>Into the Premier League players keep 82%; out of it, 116% (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#retention" aria-label="Link to Retention">#</a>
+</article><article class="gentry" id="stayers" data-cat="recruitment" data-text="comparable stayers comparable stayers comparable stayer benchmark players who didn&#x27;t move but had the same role, output and age — the fair comparison. players often move after a great season, and great seasons are usually followed by worse ones anyway. stayers show what would have happened without the move." aria-labelledby="stayers-h">
+  <header><h3 id="stayers-h">Comparable stayers</h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: comparable stayer, benchmark</p></header>
+  <p class="gentry__short">Players who didn&#x27;t move but had the same role, output and age — the fair comparison.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Players often move after a great season, and great seasons are usually followed by worse ones anyway. Stayers show what would have happened without the move.</dd></div>
+    <div><dt>Technical</dt><dd>Matched control group at the same club and role with similar pre-period output and age, to net out regression to the mean.</dd></div>
+    <div><dt>Why we use it</dt><dd>Without them, every move looks costly.</dd></div>
+    <div><dt>In the research</dt><dd>Movers keep 97% (CI 93–101%) of output relative to comparable stayers (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#stayers" aria-label="Link to Comparable stayers">#</a>
+</article><article class="gentry" id="destination-league" data-cat="recruitment" data-text="destination league destination league target league player output varies with league context. the similarity model adjusts for league differences before comparing profiles. asking for serie a means: which serie a players have profiles that resemble this player once league, opponents and venue are taken out?" aria-labelledby="destination-league-h">
+  <header><h3 id="destination-league-h">Destination league</h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: target league</p></header>
+  <p class="gentry__short">Player output varies with league context. The similarity model adjusts for league differences before comparing profiles.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Asking for Serie A means: which Serie A players have profiles that resemble this player once league, opponents and venue are taken out?</dd></div>
+    <div><dt>Technical</dt><dd>Profiles are adjusted for opponent, venue and league environment, then compared only with players in the same data-derived role in the chosen league.</dd></div>
+    <div><dt>Why we use it</dt><dd>A raw stat line carries its league with it. Comparing across leagues without adjusting would mostly match players by league, not by style.</dd></div>
+    <div><dt>In the research</dt><dd>Bruno Fernandes → Serie A: the robust matches are Samardžić, Dybala and Chukwueze (Study 4).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#destination-league" aria-label="Link to Destination league">#</a>
+</article><article class="gentry" id="league-effect" data-cat="recruitment" data-text="league effect league effect (transfer model) league adjustment league difficulty the model&#x27;s adjustment for how hard the destination (and origin) league is. moving into the premier league costs a typical player some output; moving into ligue 1 adds some. the model learns how much from past moves." aria-labelledby="league-effect-h">
+  <header><h3 id="league-effect-h">League effect <span class="gentry__full">League effect (transfer model)</span></h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: league adjustment, league difficulty</p></header>
+  <p class="gentry__short">The model&#x27;s adjustment for how hard the destination (and origin) league is.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Moving into the Premier League costs a typical player some output; moving into Ligue 1 adds some. The model learns how much from past moves.</dd></div>
+    <div><dt>Technical</dt><dd>Destination- and origin-league terms in Model A, additive in xG + xA per 90, fitted on earlier moves; relative to the average move.</dd></div>
+    <div><dt>Why we use it</dt><dd>League difficulty is the biggest single driver of what survives a move. Because the effect is a fixed amount, it over-penalises low-output players — the model&#x27;s known weakness.</dd></div>
+    <div><dt>In the research</dt><dd>Into the Premier League: −21% (−30 to −11%) relative to the average move; into Ligue 1: +25% (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#league-effect" aria-label="Link to League effect">#</a>
+</article><article class="gentry" id="league-ladder" data-cat="recruitment" data-text="league-difficulty ladder league-difficulty ladder league difficulty ladder one ranking of how hard each league is to produce in. premier league hardest, serie a and la liga in the middle, bundesliga and ligue 1 easiest. moving down the ladder boosts numbers; moving up costs them." aria-labelledby="league-ladder-h">
+  <header><h3 id="league-ladder-h">League-difficulty ladder</h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: league difficulty, ladder</p></header>
+  <p class="gentry__short">One ranking of how hard each league is to produce in.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Premier League hardest, Serie A and La Liga in the middle, Bundesliga and Ligue 1 easiest. Moving down the ladder boosts numbers; moving up costs them.</dd></div>
+    <div><dt>Technical</dt><dd>A single league effect per league explains all 20 move directions; pair-specific effects add nothing (p = 0.91).</dd></div>
+    <div><dt>Why we use it</dt><dd>It means you don&#x27;t need a separate rule for every pair of leagues.</dd></div>
+    <div><dt>In the research</dt><dd>Serie A → Premier League keeps ~80%; Premier League → Serie A ~114% (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#league-ladder" aria-label="Link to League-difficulty ladder">#</a>
+</article><article class="gentry" id="club-strength" data-cat="recruitment" data-text="club strength destination club strength destination club club rating promoted how strong the team a player joins is. joining a better team usually means more of the ball and better chances." aria-labelledby="club-strength-h">
+  <header><h3 id="club-strength-h">Club strength <span class="gentry__full">Destination club strength</span></h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: destination club, club rating, promoted</p></header>
+  <p class="gentry__short">How strong the team a player joins is.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Joining a better team usually means more of the ball and better chances.</dd></div>
+    <div><dt>Technical</dt><dd>The destination club&#x27;s market-implied rating at the decision date; promoted clubs get an additional term.</dd></div>
+    <div><dt>Why we use it</dt><dd>It matters as much as the league.</dd></div>
+    <div><dt>In the research</dt><dd>Weakest third of destination clubs: 79% retention; strongest third: 106% (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#club-strength" aria-label="Link to Club strength">#</a>
+</article><article class="gentry" id="naive-baseline" data-cat="recruitment" data-text="naive baseline naive baseline naive baseline the simplest forecast: &#x27;he&#x27;ll do what he did before&#x27;. any model worth using has to beat this." aria-labelledby="naive-baseline-h">
+  <header><h3 id="naive-baseline-h">Naive baseline</h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: naive, baseline</p></header>
+  <p class="gentry__short">The simplest forecast: &#x27;he&#x27;ll do what he did before&#x27;.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>Any model worth using has to beat this.</dd></div>
+    <div><dt>Technical</dt><dd>Post-move output predicted as equal to pre-move output.</dd></div>
+    <div><dt>Why we use it</dt><dd>It&#x27;s the honest benchmark for a transfer model.</dd></div>
+    <div><dt>In the research</dt><dd>Naive MAE 0.129 vs final model 0.096 on locked seasons (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#naive-baseline" aria-label="Link to Naive baseline">#</a>
+</article><article class="gentry" id="comparables" data-cat="recruitment" data-text="comparables comparable players similar players shortlist statistically similar players, used to find candidates. a shortlist of players who play like someone you know." aria-labelledby="comparables-h">
+  <header><h3 id="comparables-h">Comparables <span class="gentry__full">Comparable players</span></h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: similar players, shortlist</p></header>
+  <p class="gentry__short">Statistically similar players, used to find candidates.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>A shortlist of players who play like someone you know.</dd></div>
+    <div><dt>Technical</dt><dd>The top-ranked players by context-adjusted profile similarity in a destination league.</dd></div>
+    <div><dt>Why we use it</dt><dd>Good for discovery — but they don&#x27;t forecast how a player will do after a move.</dd></div>
+    <div><dt>In the research</dt><dd>Comparables alone were worse than the player&#x27;s own history at predicting post-move output (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/similarity">Study 04 · Similarity</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/similarity">Similarity Explorer</a></li><li><a href="/football/methodology#similarity">Methodology · Similarity method</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#comparables" aria-label="Link to Comparables">#</a>
+</article><article class="gentry" id="transfer-model" data-cat="recruitment" data-text="model a transfer prediction (model a) model a transfer prediction prediction forecast the study 5 model that predicts a player&#x27;s xg + xa per 90 after a league move. it starts from what the player has done over several seasons, then adjusts for his age, the club he joins and the league he moves into." aria-labelledby="transfer-model-h">
+  <header><h3 id="transfer-model-h">Model A <span class="gentry__full">Transfer prediction (Model A)</span></h3>
+    <span class="label cat">Recruitment</span><p class="gentry__aka">Also: model a, transfer prediction, prediction, forecast</p></header>
+  <p class="gentry__short">The Study 5 model that predicts a player&#x27;s xG + xA per 90 after a league move.</p>
+  <dl>
+    <div><dt>Simple</dt><dd>It starts from what the player has done over several seasons, then adjusts for his age, the club he joins and the league he moves into.</dd></div>
+    <div><dt>Technical</dt><dd>Regression on player history (three-season level), age, minutes, both clubs&#x27; strength, both leagues and a promoted-club term; fitted on earlier moves and fixed before the locked test.</dd></div>
+    <div><dt>Why we use it</dt><dd>It beats &#x27;he&#x27;ll do what he did before&#x27; on seasons it never saw — and it is the model behind the Transfer Calculator and the Manchester United case study.</dd></div>
+    <div><dt>In the research</dt><dd>Fixed before the test and scored once: MAE 0.096 on 142 unseen moves, vs 0.129 for the naive baseline (Study 5).</dd></div>
+    <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#transfer">Methodology · Transfer model</a></li></ul></dd></div>
+  </dl>
+  <a class="gentry__link" href="#transfer-model" aria-label="Link to Model A">#</a>
+</article></section></div>
+<p class="wrap gl-empty" id="gempty" hidden>No terms match. Try “xG”, “prediction error” or “similarity”.</p>
 </main>
+
+<script>
+// Glossary search + category filter over the static entries (synonyms are in each entry's data-text).
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var FB = window.FB, list = document.getElementById("glist"), q = document.getElementById("gq"), cat = "";
+  var all = FB.$$(".gentry", list), total = all.length;
+  function filter() {
+    var f = FB.fold(q.value.trim()), n = 0;
+    all.forEach(function (el) {
+      var ok = (!cat || el.getAttribute("data-cat") === cat) && (!f || el.getAttribute("data-text").indexOf(f) >= 0);
+      el.hidden = !ok; if (ok) n++;
+    });
+    FB.$$(".ggroup", list).forEach(function (s) { s.hidden = !s.querySelector(".gentry:not([hidden])"); });
+    document.getElementById("gcount").textContent = n === total ? total + " terms" : n + " of " + total + " terms";
+    document.getElementById("gempty").hidden = n > 0;
+  }
+  var t; q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { filter(); if (q.value.trim().length > 2) FB.track("glossary_search", { q: q.value.trim().slice(0, 40) }); }, 120); });
+  document.getElementById("gcats").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-c]"); if (!b) return;
+    cat = b.getAttribute("data-c");
+    FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    filter();
+  });
+  function goHash(e) {
+    var id = decodeURIComponent(location.hash.slice(1)), el = id && document.getElementById(id);
+    if (!el || !el.classList.contains("gentry")) return;
+    if (el.hidden) { q.value = ""; cat = ""; FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-c") === "" ? "true" : "false"); }); filter(); }
+    var go = function (smooth) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: smooth && !FB.reduce ? "smooth" : "instant" }); };
+    go(!!e);
+    if (!e && document.fonts && document.fonts.ready) document.fonts.ready.then(function () { go(false); });
+    el.classList.add("hl"); setTimeout(function () { el.classList.remove("hl"); }, 2400);
+    FB.track("glossary_view", { term: id });
+  }
+  window.addEventListener("hashchange", goHash);
+  goHash(null);
+});
+</script>
 
 <footer class="ffoot">
   <div class="wrap grid">
@@ -135,60 +1071,5 @@
     </div>
   </div>
 </footer>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  "use strict";
-  var FB = window.FB, G = window.FB_GLOSSARY || {};
-  var STUDY = { 1: ["environment", "Environment"], 2: ["home-advantage", "Home advantage"], 3: ["opposition", "Opposition"], 4: ["similarity", "Similarity"], 5: ["transferability", "Transferability"] };
-  var ORDER = ["METRICS", "STATISTICS", "MODELLING", "RECRUITMENT"];
-  var src = Object.keys(G);
-  var keys = src.slice().sort(function (a, b) { return ORDER.indexOf(G[a].cat) - ORDER.indexOf(G[b].cat) || src.indexOf(a) - src.indexOf(b); });
-  var list = document.getElementById("glist"), q = document.getElementById("gq"), cat = "";
-
-  list.innerHTML = keys.map(function (k) {
-    var g = G[k];
-    return '<article class="gentry" id="' + k + '" data-cat="' + g.cat + '" data-text="' + FB.esc(FB.fold([g.term, g.full, g.short, g.plain].join(" "))) + '">' +
-      "<div><h3>" + FB.esc(g.full || g.term) + '</h3><span class="label cat">' + g.cat.charAt(0) + g.cat.slice(1).toLowerCase() + "</span></div>" +
-      "<dl><div><dt>" + FB.esc(g.term) + '</dt><dd class="def">' + FB.esc(g.short) + "</dd></div>" +
-      "<div><dt>In plain English</dt><dd>" + FB.esc(g.plain) + "</dd></div>" +
-      "<div><dt>Why we use it</dt><dd>" + FB.esc(g.why) + "</dd></div>" +
-      "<div><dt>Example</dt><dd>" + FB.esc(g.example) + "</dd></div>" +
-      '<div data-for="analyst"><dt>For analysts</dt><dd>' + FB.esc(g.analyst) + "</dd></div>" +
-      (g.used && g.used.length ? "<div><dt>Used in</dt><dd>" + g.used.map(function (n) { return '<a href="/football/research/' + STUDY[n][0] + '">Study ' + n + " · " + STUDY[n][1] + "</a>"; }).join(" &nbsp;·&nbsp; ") + "</dd></div>" : "") +
-      "</dl></article>";
-  }).join("");
-
-  function filter() {
-    var f = FB.fold(q.value.trim()), n = 0;
-    FB.$$(".gentry", list).forEach(function (el) {
-      var ok = (!cat || el.getAttribute("data-cat") === cat) && (!f || el.getAttribute("data-text").indexOf(f) >= 0);
-      el.hidden = !ok; if (ok) n++;
-    });
-    document.getElementById("gcount").textContent = n === keys.length ? keys.length + " terms" : n ? n + " of " + keys.length + " terms" : "No terms match — try “xG”, “noise” or “transfer”.";
-  }
-  q.addEventListener("input", filter);
-  document.getElementById("gcats").addEventListener("click", function (e) {
-    var b = e.target.closest("button[data-c]"); if (!b) return;
-    cat = b.getAttribute("data-c");
-    FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-    filter();
-  });
-  filter();
-
-  function goHash(e) {
-    var initial = !e;
-    var id = decodeURIComponent(location.hash.slice(1)), el = id && document.getElementById(id);
-    if (!el || !el.classList.contains("gentry")) return;
-    if (el.hidden) { q.value = ""; cat = ""; FB.$$("#gcats button").forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-c") === "" ? "true" : "false"); }); filter(); }
-    var go = function (smooth) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: smooth && !FB.reduce ? "smooth" : "instant" }); };
-    go(!initial);
-    if (initial && document.fonts && document.fonts.ready) document.fonts.ready.then(function () { go(false); });
-    el.classList.add("hl"); setTimeout(function () { el.classList.remove("hl"); }, 2400);
-    FB.track("glossary_view", { term: id });
-  }
-  window.addEventListener("hashchange", goHash);
-  goHash(null);
-});
-</script>
 </body>
 </html>

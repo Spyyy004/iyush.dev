@@ -9,7 +9,7 @@ SITE = "https://iyush.dev"
 FONTS = ("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1"
          "&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap")
 NAV = [("/football/research", "Research"), ("/football/tools", "Tools"), ("/football/live", "Live"),
-       ("/football/methodology", "Methodology"), ("/football/about", "About")]
+       ("/football/glossary", "Glossary"), ("/football/methodology", "Methodology"), ("/football/about", "About")]
 esc = html.escape
 
 
@@ -68,7 +68,7 @@ def header(path):
       <ul>
 """ + "\n".join(lis) + """
       </ul>
-      <p class="fnav__extra"><a href="/football/glossary">Glossary</a><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
     </nav>
   </div>
 </header>"""

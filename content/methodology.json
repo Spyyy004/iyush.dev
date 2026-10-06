@@ -1,0 +1,221 @@
+{
+  "_about": "Methodology page content (M8 §8–21). Rendered by scripts/build_methodology.py. Source of truth: the research findings (~/dev/weather_football/findings/*.md) and the Final Summary. Inline markup: {glossary-key|label} = glossary term (build fails on an unknown key), **bold**. Every section lists `checks`: [findings file, regex] pairs that must still match, so the numbers here cannot drift from the research. Section blocks follow the brief's pattern: why · technical · controls · not.",
+  "hero": {
+    "kicker": "Methodology",
+    "title": "How do we know?",
+    "lede": "A transparent account of the data, adjustments, models, validation and limitations behind the research.",
+    "pipeline": [["Data", "data"], ["Context", "context"], ["Adjustment", "opponents"], ["Model", "models"], ["Validation", "validation"], ["Limitations", "limitations"]]
+  },
+  "sections": [
+    {
+      "id": "data", "num": "01", "kicker": "Data", "title": "One dataset, frozen.",
+      "lead": "Every player in every match of the Premier League, La Liga, Serie A, the Bundesliga and Ligue 1 from 2015/16 to 2024/25 — the frozen study data that all five studies share.",
+      "stats": [["5", "leagues"], ["2015/16–2024/25", "ten seasons"], ["18,011", "matches"], ["18,008", "with usable player data"], ["160", "teams"], ["8,348", "players"], ["525,328", "player-matches"], ["~452,000", "shots"]],
+      "paras": [
+        "Per player-match: minutes, goals, assists, shots, {xg|xG}, {xa|xA}, {key-passes|key passes}, {xgchain|xGChain}, {xgbuildup|xGBuildup}, cards, granular position, home or away, opponent and kickoff. Per shot: location, xG, situation, body part, last action and the assisting player.",
+        "Three matches have no usable player data and are excluded. **Live seasons are added weekly without altering the frozen dataset**: 2025/26 and 2026/27 are estimated the same way and shown beside the frozen results on the <a href=\"/football/live\">live tracker</a>, never pooled into them."
+      ],
+      "checks": [["study1_environmental_conditions", "18,011 matches, 160 teams, 8,348 players, 525,328 player-matches, ~452,000 shots"],
+                 ["study1_environmental_conditions", "Three matches excluded \\(no usable player data\\)"],
+                 ["study4_player_similarity", "Frozen 2015/16–2024/25: 18,008 matches, 525,328 player-matches"]]
+    },
+    {
+      "id": "sources", "num": "02", "kicker": "Data sources", "title": "Where each piece comes from",
+      "sources": [
+        ["Understat", "Player-match and shot data: xG, xA, shots, key passes, xGChain, xGBuildup, positions, shot locations and situations.", "Every study"],
+        ["football-data.co.uk", "Pre-match Pinnacle odds for the frozen seasons; market-average closing odds for the live seasons.", "Opponent strength (Studies 3–5, live tracker); Study 2's market check"],
+        ["fixturedownload.com · openfootball", "Kickoff times, reconciled across up to four sources.", "Weather at the kickoff hour (Study 1); kickoff-hour controls"],
+        ["Wikipedia / Wikidata · OpenStreetMap", "Stadium locations (geocoded with Nominatim).", "Weather at the stadium (Study 1)"],
+        ["Open-Meteo (ERA5)", "Hourly reanalysis weather at each stadium and kickoff hour.", "Study 1"],
+        ["Crowd-restriction calendars", "A dated, sourced calendar of crowd status per league, from news reports.", "Behind-closed-doors comparisons (Studies 1–2)"],
+        ["Transfermarkt-derived dataset", "Dates of birth, from the CC0 dcaribou/transfermarkt-datasets.", "Age in the transfer model (Study 5)"]
+      ],
+      "checks": [["study1_environmental_conditions", "Sources: Understat, football-data.co.uk, fixturedownload.com, openfootball, Wikipedia/Wikidata, OpenStreetMap \\(Nominatim\\), Open-Meteo \\(ERA5\\), news reports for crowd dates"],
+                 ["study1_environmental_conditions", "crowd status from a dated, sourced calendar per league"],
+                 ["study3_opposition_effect", "pre-match Pinnacle odds"],
+                 ["study5_transferability", "CC0 Transfermarkt-derived dataset \\(dcaribou/transfermarkt-datasets\\)"]]
+    },
+    {
+      "id": "context", "num": "03", "kicker": "Context adjustment", "title": "A player's raw output isn't necessarily his own signal.",
+      "lead": "The same striker produces more at home, less against a strong side, more in some leagues than others. The research's core move is to take that context out before asking what belongs to the player.",
+      "flow": ["Player", "Team", "Season", "Venue", "Opponent", "League environment"], "flow_to": "Context-adjusted output",
+      "blocks": [
+        {"h": "Compare each player with himself (Studies 1–3)",
+         "why": "Comparing different players mixes ability, team quality and luck. Comparing one player with himself — same club, same season, home against away or strong against weak opponents — makes those cancel out.",
+         "technical": "{ppml|PPML} on per-minute output with {fixed-effects|player × team × season fixed effects} (Study 1's weather models use player × season), plus calendar and kickoff-hour terms (league × season × month, league × kickoff hour); standard errors clustered by match.",
+         "controls": "Who the player is, his club and season, the calendar, kickoff time — and, depending on the study, venue and opponent strength.",
+         "not": "It is observational: effects are associations within matched comparisons. Game state (trailing against strong teams) and squad rotation are part of what is measured, not removed."},
+        {"h": "Adjusted profiles (Study 4)",
+         "why": "To compare players across leagues, a profile has to describe the player, not his schedule.",
+         "technical": "One model per role and metric, not stacked corrections: PPML with a player effect, opponent rating, own-team rating, home and league × season. Each match is then re-weighted to an average opponent, half at home, in an average league-season — {adjusted-output|context-adjusted output}.",
+         "controls": "Opponent strength, venue and league environment.",
+         "not": "Own-team strength is estimated but **deliberately not applied**: players tend to join stronger teams at their best, so the term absorbs form, and applying it made profiles markedly less persistent (movers' xGChain r 0.40 → 0.27)."}
+      ],
+      "checks": [["study2_individual_home_advantage", "fixed effects player × team × season, opponent × season,\\s*league × season × month, league × kickoff hour; clustered by match"],
+                 ["study1_environmental_conditions", "PPML on per-minute output with player × season, opponent × season, league × kickoff hour"],
+                 ["study4_player_similarity", "player effect \\+ opponent rating \\+ own-team rating \\+ home \\+ league × season"],
+                 ["study4_player_similarity", "Own-team strength is estimated but not applied"],
+                 ["study4_player_similarity", "xGChain r 0.40 → 0.27"]]
+    },
+    {
+      "id": "opponents", "num": "04", "kicker": "Opponent strength", "title": "Measured before kick-off, never after.",
+      "lead": "How strong was the opponent? The answer has to come from information available before the match — otherwise the match's own result leaks into the measure of how hard it was.",
+      "flow": ["Pre-match information", "Opponent rating", "Player performance"],
+      "blocks": [
+        {"h": "A sequential market rating",
+         "why": "Betting odds published before kick-off are the sharpest public estimate of team strength — and they cannot know the result.",
+         "technical": "From pre-match Pinnacle odds: ln(p_home / p_away) = home + r_home − r_away, updated match by match (learning rate 0.3, carry-over 0.9). Each match only sees matches that kicked off at least two hours earlier. Promoted teams start at the mean of last season's relegated teams; the first five matches of 2015/16 are burn-in. Effects are reported per +1 {sd|SD} of the rating (1 SD = 0.77 log-odds).",
+         "controls": "Checked against an xG rating, Elo on results, opening odds and points per game: opponent ratings correlate 0.91–0.95, and the opposition effect is −11.8% to −13.8% per SD on every definition.",
+         "not": "Odds price in team news, so a rating reflects the expected line-up, not necessarily the actual one (opening odds give the same answer: −13.7% vs −13.8%)."}
+      ],
+      "callout": ["0 of 155,282", "Replacing every odds price, xG value and score after a random cutoff changed **0 of 155,282** pre-cutoff ratings ({leakage|leakage} checks across 5 cutoffs × 3 ratings)."],
+      "paras": ["Unseen-season test (2019/20–2024/25): the market rating's Brier score is 0.582 against 0.577 for the match's own closing odds and 0.652 with no information — about 93% of the way to the market's own forecast."],
+      "checks": [["study3_opposition_effect", "ln\\(p_home/p_away\\) = home \\+ r_home −\\s*r_away, learning rate 0.3, carry-over 0.9"],
+                 ["study3_opposition_effect", "kicked off at\\s*least two hours earlier"],
+                 ["study3_opposition_effect", "changed 0 of 155,282\\s*pre-cutoff ratings \\(5 cutoffs × 3 ratings\\)"],
+                 ["study3_opposition_effect", "market 0.582, xG rating 0.586, Elo 0.595;\\s*the match's own closing odds \\(ceiling\\) 0.577; no information 0.652"],
+                 ["study3_opposition_effect", "1 SD = 0.77 log-odds"],
+                 ["study3_opposition_effect", "xG effect −11.8% to −13.8% per SD"],
+                 ["study3_opposition_effect", "xG −13.7% vs −13.8% per SD"],
+                 ["study3_opposition_effect", "0.95 \\(market–xG\\), 0.91 \\(market–Elo\\), 0.91 \\(xG–Elo\\)"]]
+    },
+    {
+      "id": "models", "num": "05", "kicker": "Statistical models", "title": "Counts, per minute, with honest uncertainty",
+      "blocks": [
+        {"h": "PPML on per-minute output",
+         "why": "Goals, shots and xG are counts that are often zero, and players play different minutes. A Poisson-type model handles both and reads naturally as percentage changes.",
+         "technical": "{ppml|Poisson pseudo-likelihood} with minutes as exposure and the fixed effects above; 95% {interval|intervals} from match-clustered standard errors.",
+         "controls": "Everything in the fixed effects, plus the specific context terms (venue, opponent rating, weather, crowd status).",
+         "not": "It estimates average effects. Whether an individual player differs from the average is a separate, much harder question — next block."},
+        {"h": "Individual effects: signal vs noise",
+         "why": "Some players will always look like home specialists or big-game players by chance. Each individual estimate has to be weighed by how much real information it carries.",
+         "technical": "Calibrated standard errors (shuffles within each player's own matches), DerSimonian–Laird between-player spread and empirical-Bayes {shrinkage|shrinkage}; persistence measured as the excess over shuffled data ({regression-to-the-mean|regression to the mean} in action).",
+         "controls": "Small samples and luck: an estimate built on few minutes is pulled toward the average.",
+         "not": "Shrinkage can hide a real but rare individual trait — the studies report that none is detectable, not that none can exist."}
+      ],
+      "checks": [["study3_opposition_effect", "DerSimonian–Laird spread and empirical-Bayes shrinkage"],
+                 ["study3_opposition_effect", "calibrated\\s*against shuffles"]]
+    },
+    {
+      "id": "multiple-testing", "num": "06", "kicker": "Multiple testing", "title": "Test thousands of players and some will look special by luck.",
+      "lead": "When you test thousands of player-level effects, some will look significant by chance. The research uses {multiple-testing|multiple-testing correction} and {permutation-test|permutation} / {placebo|placebo} tests to reduce that risk.",
+      "items": [
+        ["Home specialists (Study 2)", "0 of 4,665 players have a reliable personal home edge once noise is accounted for."],
+        ["Big-game players (Study 3)", "0 of 23,022 player × metric opposition estimates survive the correction."],
+        ["Individual resistance to opposition (Study 3)", "After calibration, a shuffle placebo finds 3.5–4.6% of players with p < 0.05 — what chance alone produces."],
+        ["Weather (Study 1)", "Weather shuffled within league × season × month 1,000 times; the placebo flags 4.5–6.9% of cells per test (nominal 5%)."],
+        ["Crowds (Studies 1–2)", "Closed-doors dates shifted 2–4 years into full-stadium seasons: 14 of 15 tests null."]
+      ],
+      "paras": ["Every headline effect states which correction it survived: Benjamini–Hochberg on cluster and permutation p-values."],
+      "checks": [["study2_individual_home_advantage", "0 of 4,665 players \\(xG\\) have a"],
+                 ["study3_opposition_effect", "0 of 23,022 player × metric estimates survive BH"],
+                 ["study3_opposition_effect", "3.5–4.6% with p < 0.05"],
+                 ["study1_environmental_conditions", "rate 4.5–6.9% per cell \\(nominal 5%\\)"],
+                 ["study1_environmental_conditions", "14 of 15 tests null"]]
+    },
+    {
+      "id": "similarity", "num": "07", "kicker": "Similarity method", "title": "Who plays like him?",
+      "flow": ["9 metrics", "Context adjustment", "Role normalisation", "Cosine similarity", "Ranked player profiles"],
+      "blocks": [
+        {"h": "The profile",
+         "why": "A profile should describe how a player plays, not who takes the penalties or which league he is in.",
+         "technical": "Nine metrics: xA, key passes, xGChain, xGBuildup, {npxg|non-penalty xG}, shots per 90, and shot style — {headed-share|headed share}, {in-box-share|in-box share} and {xg-per-shot|non-penalty xG per shot}. Context-adjusted, then {z-score|z-scored} within one of seven data-derived {role|roles}, equal weights.",
+         "controls": "Opponents, venue, league environment and role.",
+         "not": "Output only — no dribbling, pace, defending, passing volume or age."},
+        {"h": "The match",
+         "why": "Two profiles that point the same way are similar even if one player is busier than the other.",
+         "technical": "{cosine-similarity|Cosine similarity} (Euclidean, correlation and Mahalanobis as checks), reported as a {similarity-score|similarity score}: closer than X% of the role pool. A candidate is robust only if it holds across windows and algorithms. Validated without anyone's opinion by {self-retrieval|self-retrieval}: three-season profiles find the same player in the top 9% of the destination league's role pool after a move.",
+         "controls": "The arbitrariness of any one window or distance measure.",
+         "not": "It cannot say whether a player would succeed after a move."}
+      ],
+      "callout": ["Similarity ≠ prediction", "**Similarity describes profile resemblance. It is not a transfer-performance prediction.** Study 5 tested it directly: adding Study 4's similarity to the transfer forecast changed nothing — similarity finds candidates, it does not forecast them."],
+      "checks": [["study4_player_similarity", "Profile = xA, key passes, xGChain, xGBuildup, non-penalty xG, shots per 90 \\+ shot style \\(headed share, in-box share,\\s*non-penalty xG per shot\\)"],
+                 ["study4_player_similarity", "Nine-metric profile \\(Milestone 3 option B\\), z-scored within role, equal weights; Euclidean, cosine,\\s*correlation and Mahalanobis"],
+                 ["study4_player_similarity", "Three-season profiles find the same player in the top 9%"],
+                 ["study5_transferability", "similarity adds\\s*nothing to that forecast"]]
+    },
+    {
+      "id": "transfer", "num": "08", "kicker": "Transfer model", "title": "What happens when he moves?",
+      "flow": ["Player history", "Age", "Both clubs", "Both leagues"], "flow_to": "Expected post-transfer output",
+      "blocks": [
+        {"h": "Model A",
+         "why": "A player's output after a move depends mostly on what he has done before — but a single good season overstates it, and the destination matters.",
+         "technical": "{transfer-model|Model A}: the player's three-season level of xG + xA per 90, age, minutes, the strength of both clubs, {league-effect|league effects} for both leagues and a promoted-club term — learned from earlier moves (428 in total for the calculator; fitted before the locked test for validation). Prediction ranges come from the model's own out-of-sample errors.",
+         "controls": "Regression to the mean (a three-season level instead of the last season), ageing, and destination difficulty: into the Premier League players keep 82% on average.",
+         "not": "League effects are a fixed amount, so low-output midfielders moving into the Premier League are under-predicted — see the known failure below."},
+        {"h": "The comparable-stayer benchmark",
+         "why": "Raw before / after comparisons exaggerate the drop: players move after good seasons, and good seasons regress anyway.",
+         "technical": "{retention|Retention} is also measured against {stayers|comparable stayers} — players at their own club, same role, same pre-season output and age — which removes regression to the mean and normal ageing. Movers keep 97% of output against stayers (CI 93–101%).",
+         "controls": "Regression to the mean and age.",
+         "not": "Who chooses to move is not random; the benchmark matches on output and age, not on everything."}
+      ],
+      "checks": [["study5_transferability", "context \\(\\+ age, minutes, club strengths\\)"],
+                 ["study5_transferability", "Model A \\(M3 context \\+ 3-season level\\)"],
+                 ["study5_transferability", "Model A refitted on all 428 moves"],
+                 ["study5_transferability", "into the Premier League keeps 82%"],
+                 ["study5_transferability", "97% of xG \\+ xA per 90 against comparable players who stayed"],
+                 ["study5_transferability", "who\\s*stayed at their club, in the same role with the same pre-season output and age"],
+                 ["study5_transferability", "players joining a promoted club genuinely produce more"]]
+    },
+    {
+      "id": "validation", "num": "09", "kicker": "Validation", "title": "We don't test the model on the data it learned from.",
+      "flow": ["Training · 286 moves", "Model locked", "2023/24–2025/26", "142 unseen moves"],
+      "metrics": [["MAE", "0.096", "vs 0.129 naive", "mae"], ["R²", "0.76", "vs 0.58 naive", "r-squared"], ["AUC", "0.80", "keeps ≥ 75%", "auc"], ["Brier", "0.179", "vs 0.224 base rate", "brier"]],
+      "scope": "These are metrics from the locked transfer-model test, not general measures of the entire football research system.",
+      "paras": [
+        "Model A was fixed before the test seasons were opened, fitted on 286 moves (destinations 2016/17–2022/23), and scored once on 142 moves in 2023/24–2025/26. Its error was lower on the unseen seasons than in the earlier folds (0.110) — no sign of overfitting — and its {range-80|80% ranges} covered 87% of outcomes (conservative). Only the ≥ 75% retention probability is shown on the site: lower thresholds were not {calibration|calibrated}.",
+        "Elsewhere: Study 4 is validated by self-retrieval on real league moves; Study 1's weather effects by permutation placebos; Studies 2 and 3 are re-tested every week on seasons they never saw, on the <a href=\"/football/live\">live tracker</a>, which keeps the frozen and live results separate."
+      ],
+      "checks": [["study5_transferability", "fit on 286 moves \\(destination 2016/17–2022/23\\),\\s*scored once on 142 moves in 2023/24–2025/26"],
+                 ["study5_transferability", "\\*\\*Model A\\*\\* \\| \\*\\*0.096\\*\\* \\| \\*\\*0.76\\*\\*"],
+                 ["study5_transferability", "naive \\(post = pre\\) \\| 0.129 \\| 0.58"],
+                 ["study5_transferability", "AUC 0.80 \\(shrinkage 0.63\\); Brier 0.179 vs 0.224 base rate"],
+                 ["study5_transferability", "pre-test folds \\(0.110\\)"],
+                 ["study5_transferability", "80% prediction intervals cover 87% \\(conservative\\)"],
+                 ["study5_transferability", "Not calibrated at ≥ 50% / ≥ 60%"]]
+    },
+    {
+      "id": "limitations", "num": "10", "kicker": "Limitations", "title": "What the data cannot see",
+      "chips": ["Defending", "Passing", "Carrying", "Possession", "Injuries", "Transfer fees", "Contracts", "Tactical fit", "Cup matches", "Pace"],
+      "lead": "The project is primarily about attacking output. That isn't an apology — it is the honest edge of what this data can measure.",
+      "paras": [
+        "Not in the data: defensive actions and pressing, passing volume and completion, progressive carries, possession, injuries, salaries, fees and contracts. Cup matches aren't in the data either, so fixture congestion is only partly visible. Goalkeepers are excluded throughout, and defenders from the transfer model.",
+        "The closed-doors period is mostly one season, so per-player crowd estimates are noisy, and there are no attendance figures. All effects are associations within carefully matched comparisons, not experiments."
+      ],
+      "checks": [["study4_player_similarity", "\\*\\*Not in the data:\\*\\* age / date of birth, height, passing volume / completion, progressive passes or carries,\\s*dribbles"],
+                 ["study4_player_similarity", "touches, defensive actions, pressing, possession, salary, contract, injuries"],
+                 ["study3_opposition_effect", "fixture congestion\\s*\\(cups not in data\\)"]]
+    },
+    {
+      "id": "failures", "num": "11", "kicker": "Known model failure", "title": "Where the transfer model goes wrong",
+      "lead": "The transfer model under-predicts some low-output central midfielders moving into the Premier League. Its league effect is a fixed amount, so it wipes out most of a low-output player's forecast: on the locked test, central and defensive midfielders moving into the Premier League were under-predicted by about 0.06 xG + xA per 90.",
+      "link": ["/football/case-studies/manchester-united-2024#ugarte", "See the Ugarte case"],
+      "paras": ["The research's next version is a percentage-based (log-scale) league effect, to be validated on moves after 2025/26."],
+      "checks": [["study5_transferability", "central / defensive mids moving into the EPL are under-predicted by 0.06"],
+                 ["study5_transferability", "A log-scale\\s*league effect is the next version"]]
+    },
+    {
+      "id": "corrections", "num": "12", "kicker": "Corrections & clarifications", "title": "Recorded, not silently edited",
+      "lead": "Corrections to earlier statements are recorded in each study's findings, not quietly changed.",
+      "corrections": [
+        ["2026-10-05", "Study 1 · 2 · 3", "Understat's win / draw / loss “forecast” was at first described as a pre-match probability. It is post-match (r = 0.96 with the match's xG difference) and was never used in any model."],
+        ["2026-10-05", "Study 2", "The “stable part” magnitudes (e.g. ±7.7% for xG) are upper bounds, not estimates: the cross-season covariance is biased upward even with no true persistence. Conclusions unchanged; Study 3 reports the excess over shuffled data instead."],
+        ["2026-10-06", "Study 5", "The promoted-club effect is real: with a better imputation of promoted clubs' strength the term stays at +0.078 (CI +0.024 to +0.133) — players joining a promoted club genuinely produce more than the club's rating predicts."],
+        ["2026-10-06", "Study 5", "Centre-forwards' “clearest drop” after a move (raw 92%) was mostly regression from their high pre-season level: against comparable stayers it is 96% (CI 91–102%), and role has no clear effect."]
+      ],
+      "checks": [["study1_environmental_conditions", "correlates 0.96 with the same match's xG difference"],
+                 ["study2_individual_home_advantage", "are upper bounds, not estimates"],
+                 ["study5_transferability", "it stays at \\+0.078 \\(CI \\+0.024\\s*to \\+0.133\\)"],
+                 ["study5_transferability", "Against comparable\\s*stayers it is 96% \\(CI 91–102%\\)"]]
+    },
+    {
+      "id": "site", "num": "13", "kicker": "How this site uses it", "title": "A presentation layer, not a re-run",
+      "paras": [
+        "The site never re-runs the research in your browser. Every number is read from validated outputs exported by the research pipeline; the Similarity Explorer and Transfer Calculator show results precomputed by the studies' own Python engines, checked against them at build time. Each weekly rebuild checks the frozen numbers against a fixed manifest and stops if any of them has moved.",
+        "The research project is still open in a few places: Study 1's hand-written weather conclusion and freeze; Study 4's user-curated “known similar pairs” check; and Study 5's percentage-based league effect."
+      ],
+      "checks": [["study1_environmental_conditions", "\\[ \\] Final weather conclusion"],
+                 ["study4_player_similarity", "Known similar pairs:\\*\\* not yet run"]]
+    }
+  ]
+}
