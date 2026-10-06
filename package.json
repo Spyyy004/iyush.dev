@@ -2,8 +2,9 @@
   "name": "iyush-dev",
   "private": true,
   "type": "module",
-  "description": "Static site; the only dependency serves social preview images for /football/tools/similarity (api/og).",
+  "description": "Static site; @vercel/og renders social preview images (api/og), @vercel/functions routes shared tool links (middleware.js).",
   "dependencies": {
+    "@vercel/functions": "^3.9.11",
     "@vercel/og": "^0.6.8"
   }
 }
