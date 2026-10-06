@@ -279,9 +279,11 @@ def research_part(live):
          "items": [["final", "Frozen", frozen_note], ["pending", "League-effect improvement planned", ""]]},
     ]
     questions = []
-    temp = re.search(r"Temperature is the one open lead", flat(s1))
-    if temp and not s1_frozen:   # Study 1's open lead, shown only while its own checklist says it is unresolved
-        questions.append({"title": "Temperature", "q": "Does the small temperature effect survive Study 1's final placebo check and freeze?", "source": temp.group(0)})
+    concl = next((t for d, t, _ in s1_items if not d and t.lower().startswith("final weather conclusion")), None)
+    temp = re.search(r"Temperature is the one (weather effect that holds up|open lead)", flat(s1))
+    if temp and concl and not s1_frozen:   # shown only while Study 1's own checklist leaves the conclusion open
+        questions.append({"title": "Temperature", "q": "The small temperature effect survived the placebo check, mostly in Serie A. What does the reviewed final conclusion make of it?",
+                          "source": temp.group(0)})
     questions += [
         {"title": "Similarity validation", "q": "Do known similar-player pairs behave as expected?", "source": s4_pairs},
         {"title": "Transfer model", "q": "Can a percentage-based league effect improve predictions for low-output central midfielders moving into the Premier League?", "source": s5_next},

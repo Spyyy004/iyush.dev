@@ -63,7 +63,7 @@
     ],
     "open_title": "Still open",
     "open": [
-      "Study 1's final temperature placebo check, hand-written weather conclusion and freeze.",
+      "Study 1's hand-written weather conclusion and freeze.",
       "Study 4's user-curated “known similar pairs” check.",
       "Study 5's percentage-based league effect, to be validated on moves after 2025/26."
     ],
@@ -98,9 +98,9 @@
           "Done"
         ],
         [
-          "Final temperature check (1,000-permutation placebo)",
-          "pending",
-          "Pending"
+          "Final temperature check (1,000-permutation placebo · 6 Oct 2026)",
+          "final",
+          "Done"
         ],
         [
           "Hand-written weather conclusion and freeze",
@@ -110,10 +110,10 @@
         [
           "Temperature",
           "open",
-          "Open lead — not a finding"
+          "Survives the placebo check · conclusion pending"
         ]
       ],
-      "status_note": "The five-league weather models finished on 6 October 2026. A final temperature placebo check, the hand-written weather conclusion and the freeze are still to come, so the weather answer on this page is provisional. The crowd results are final.",
+      "status_note": "The five-league weather models and the final 1,000-permutation temperature placebo check finished on 6 October 2026. The hand-written weather conclusion and the freeze are still to come, so the weather answer on this page is provisional. The crowd results are final.",
       "period": "2015/16 — 2024/25",
       "leagues": [
         "Premier League",
@@ -242,7 +242,7 @@
           "kind": "group",
           "title": "Weather",
           "status": "pending",
-          "status_label": "Five-league models done · conclusion and freeze pending"
+          "status_label": "Models and placebo check done · conclusion and freeze pending"
         },
         {
           "kind": "headline",
@@ -305,8 +305,8 @@
         },
         {
           "kind": "open",
-          "title": "Open: temperature",
-          "lead": "With all five leagues, warmer kickoffs go with slightly more chance creation: key passes **+3.2%** and goals **+4.2%** per +10 °C, surviving correction — strongest in Serie A (xA +10.7%, key passes +5.8%) and absent in the Premier League. Part of it is “warm stadiums” rather than warm days: a stadium control shrinks it. The verdict waits on a 1,000-permutation placebo check. **Not yet a finding.**"
+          "title": "Temperature: survives the placebo check",
+          "lead": "With all five leagues, warmer kickoffs go with slightly more chance creation: per +10 °C, key passes **+3.2%**, xA **+3.2%** and goals **+4.2%** (xG +1.2%, not significant). It survives a 1,000-permutation placebo check and team and stadium controls (a stadium control trims it slightly). It is strongest in Serie A (xA +10.7%, goals +9.3%), present in Ligue 1 and La Liga, and absent in the Premier League and Bundesliga. **A small, league-specific association — the final conclusion is pending review.**"
         }
       ],
       "surprise": {
@@ -315,11 +315,11 @@
         "lesson": "A striking result from one league and one season is a hypothesis, not a finding. It has to replicate."
       },
       "meaning": [
-        "For rain, wind and humidity, the weather is not something a player's numbers need correcting for. Temperature is still open.",
+        "For rain, wind and humidity, the weather is not something a player's numbers need correcting for. Temperature is the exception: a small association that survives the placebo check, mostly in Serie A — its final conclusion is pending review.",
         "Crowds are different — and a crowd effect is a home effect. That is where Study 2 picks up."
       ],
       "limitations": [
-        "The final temperature placebo check, the hand-written weather conclusion and the freeze are still pending.",
+        "The hand-written weather conclusion and the freeze are still pending; the temperature result is provisional until then.",
         "The closed-doors period is mostly one season, so per-player crowd estimates are noisy; there are no attendance figures — only fans or no fans.",
         "Cup matches and fixture congestion are not in the data.",
         "Observational data: effects are associations within carefully matched comparisons."

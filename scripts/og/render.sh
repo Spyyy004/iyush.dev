@@ -12,7 +12,7 @@ card() { # name kicker title subtitle
 }
 card home "Football research · 01—05" "What actually belongs to the player?" "Five studies on 525K player-matches from Europe's top five leagues."
 card research "Research · 01—05" "Five studies, one dataset" "Environment → Home → Opponent → Similarity → Transferability."
-card environment "Study 01 · Environment" "Does the environment change player performance?" "Mostly no. Weather barely matters; crowds clearly do. Weather confirmation pending."
+card environment "Study 01 · Environment" "Does the environment change player performance?" "Mostly no. Weather barely matters; crowds clearly do. Temperature is the one small exception."
 card home-advantage "Study 02 · Home advantage" "Everyone gets better at home." "+27% xG per minute for the same player. 0 of 4,665 players have a reliable personal home edge."
 card opposition "Study 03 · Opposition" "There aren't reliable “big-game players.”" "−14% xG per +1 SD of opponent strength. 0 of 23,022 estimates show reliable resistance."
 card similarity-study "Study 04 · Similarity" "Bruno doesn't have a statistical twin in Serie A." "Chance creation 3.6 SD above his role average; Serie A's best is 1.9."
