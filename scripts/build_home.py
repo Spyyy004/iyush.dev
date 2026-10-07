@@ -7,7 +7,7 @@ Re-run after football_export.py:   python3 scripts/build_home.py
 
 Each fragment replaces the region between <!-- gen:NAME --> and <!-- /gen:NAME --> in
 football/index.html. Study 1 has no frozen export yet, so its weather bound (±2%, five-league run of 6 Oct 2026) is
-taken from findings/study1_environmental_conditions.md in the research project, flagged pending on the page.
+taken from findings/study1_environmental_conditions.md in the research project, final since the 7 Oct 2026 freeze.
 """
 import html, json, math, re, sys
 from pathlib import Path
@@ -58,7 +58,7 @@ def fig_s1():
                   "Change in a player’s xG. The shaded band is the largest weather effect the data still allows.",
                   plot,
                   f"On all five leagues, rain and humidity move output by about ±2% at most (wind about −1%). Playing at home lifts the same player’s xG by {hv:.1f}%.",
-                  "Study 01 (five-league run, 6 Oct 2026; final conclusion pending) · Study 02",
+                  "Study 01 (final, frozen 7 Oct 2026) · Study 02",
                   f"Rain and humidity: within plus or minus 2 percent. Playing at home: plus {hv:.1f} percent.")
 
 

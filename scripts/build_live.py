@@ -259,7 +259,7 @@ def research_part(live):
     if not s1_items:
         fail("findings/study1 '## Open' has no checklist items")
     s1_frozen = any(done and t.lower().startswith("freeze") for done, t, _ in s1_items)
-    need("study1_environmental_conditions", r"crowd results final")
+    need("study1_environmental_conditions", r"crowd results final|final and frozen")
     updated = {i: re.search(r"Last updated: (\d{4}-\d{2}-\d{2})", findings(f)).group(1) for i, f in
                [(1, "study1_environmental_conditions"), (2, "study2_individual_home_advantage"), (3, "study3_opposition_effect"),
                 (4, "study4_player_similarity"), (5, "study5_transferability")]}

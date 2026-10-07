@@ -212,9 +212,9 @@
       "id": "site", "num": "13", "kicker": "How this site uses it", "title": "A presentation layer, not a re-run",
       "paras": [
         "The site never re-runs the research in your browser. Every number is read from validated outputs exported by the research pipeline; the Similarity Explorer and Transfer Calculator show results precomputed by the studies' own Python engines, checked against them at build time. Each weekly rebuild checks the frozen numbers against a fixed manifest and stops if any of them has moved.",
-        "The research project is still open in a few places: Study 1's hand-written weather conclusion and freeze; Study 4's user-curated “known similar pairs” check; and Study 5's percentage-based league effect."
+        "Study 1 was frozen on 7 October 2026: a git tag, a SHA-256 manifest of every data and output file, and pinned package versions. The research is still open in two places: Study 4's user-curated “known similar pairs” check, and Study 5's percentage-based league effect."
       ],
-      "checks": [["study1_environmental_conditions", "\\[ \\] Final weather conclusion"],
+      "checks": [["study1_environmental_conditions", "\\[x\\] Freeze: git tag, checksum manifest, pinned packages"],
                  ["study4_player_similarity", "Known similar pairs:\\*\\* not yet run"]]
     }
   ]

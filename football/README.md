@@ -20,7 +20,7 @@ Five studies on every player-match in Europe's top five leagues from 2015/16 to 
 
 ## Key findings
 
-- **Weather barely matters; crowds do.** Rain and humidity move per-90 output by less than ±2% and wind by about −1% per +10 km/h. Temperature is a small association, mostly in Serie A, that survived a 1,000-permutation placebo check; the written conclusion is still pending, so it is provisional. Without fans, the xG home edge roughly halved (+29% → +13% at team level).
+- **Weather barely matters; crowds do.** Rain and humidity move per-90 output by less than ±2% and wind by about −1% per +10 km/h. Temperature is the one exception: about +3% chance creation per +10 °C, mostly in Serie A, surviving a 1,000-permutation placebo check (final, frozen 7 Oct 2026). Without fans, the xG home edge roughly halved (+29% → +13% at team level).
 - **Everyone gets better at home — nobody is a home specialist.** The same player produces about +27% xG per minute at home, but 0 of 4,665 players show a reliable personal home edge, and past home edge doesn't predict future home edge (r = 0.018).
 - **There aren't reliable "big-game players".** Output falls 13.8% per +1 SD of opponent strength; 0 of 23,022 player × metric estimates show individual resistance. A player's overall adjusted level predicts his output against elite opponents better than his past elite record (xG r 0.84 vs 0.75).
 - **Similarity is descriptive, not predictive.** Three-season profiles find the same player in the top 9% of a destination league's role pool after a move. Bruno Fernandes's chance creation is 3.6 SD above his role average; Serie A's closest is 1.9 SD.

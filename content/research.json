@@ -63,7 +63,6 @@
     ],
     "open_title": "Still open",
     "open": [
-      "Study 1's hand-written weather conclusion and freeze.",
       "Study 4's user-curated “known similar pairs” check.",
       "Study 5's percentage-based league effect, to be validated on moves after 2025/26."
     ],
@@ -83,9 +82,9 @@
       "question": "Does the environment change the player?",
       "subquestion": "Do weather and crowds change how much a player produces?",
       "spine_question": "Does weather change performance?",
-      "spine_answer": "Mostly no. Crowds do.",
-      "status": "pending",
-      "status_label": "Weather freeze pending",
+      "spine_answer": "Mostly no — except temperature. Crowds do.",
+      "status": "final",
+      "status_label": "Final · frozen 7 Oct 2026",
       "status_parts": [
         [
           "Crowds",
@@ -103,17 +102,17 @@
           "Done"
         ],
         [
-          "Hand-written weather conclusion and freeze",
-          "pending",
-          "Pending"
+          "Weather conclusion",
+          "final",
+          "Final · 7 Oct 2026"
         ],
         [
-          "Temperature",
-          "open",
-          "Survives the placebo check · conclusion pending"
+          "Freeze",
+          "final",
+          "Frozen · 7 Oct 2026"
         ]
       ],
-      "status_note": "The five-league weather models and the final 1,000-permutation temperature placebo check finished on 6 October 2026. The hand-written weather conclusion and the freeze are still to come, so the weather answer on this page is provisional. The crowd results are final.",
+      "status_note": "Final and frozen on 7 October 2026, after the five-league weather models and a 1,000-permutation temperature placebo check. Weather barely changes how much players produce; temperature is the one exception, and crowds change home advantage.",
       "period": "2015/16 — 2024/25",
       "leagues": [
         "Premier League",
@@ -136,7 +135,7 @@
           "Player-matches"
         ]
       ],
-      "summary": "Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds appear to: empty stadiums roughly halved home advantage, and it came back with the fans.",
+      "summary": "Weather barely changes how much players produce: rain and humidity sit within about ±2% and wind about −1% per +10 km/h. Temperature is the one exception — about 3% more chance creation per +10 °C, mostly in Serie A. Crowds matter more: empty stadiums roughly halved home advantage, and it came back with the fans.",
       "why": {
         "body": [
           "If rain, wind or heat changed what players produce, every raw stat line would carry the weather with it, and a player's numbers would partly depend on the climate he plays in.",
@@ -241,8 +240,8 @@
         {
           "kind": "group",
           "title": "Weather",
-          "status": "pending",
-          "status_label": "Models and placebo check done · conclusion and freeze pending"
+          "status": "final",
+          "status_label": "Final · frozen 7 Oct 2026"
         },
         {
           "kind": "headline",
@@ -304,9 +303,46 @@
           "lead": "Rain and long shots, wind and headers or crosses, heat and late-game output: on five leagues and 445,377 non-penalty shots, none of them held up."
         },
         {
-          "kind": "open",
-          "title": "Temperature: survives the placebo check",
-          "lead": "With all five leagues, warmer kickoffs go with slightly more chance creation: per +10 °C, key passes **+3.2%**, xA **+3.2%** and goals **+4.2%** (xG +1.2%, not significant). It survives a 1,000-permutation placebo check and team and stadium controls (a stadium control trims it slightly). It is strongest in Serie A (xA +10.7%, goals +9.3%), present in Ligue 1 and La Liga, and absent in the Premier League and Bundesliga. **A small, league-specific association — the final conclusion is pending review.**"
+          "kind": "evidence",
+          "title": "Temperature is the one weather effect that holds up.",
+          "lead": "Per +10 °C, across five leagues: key passes **+3.2%**, xA **+3.2%**, goals **+4.2%**, shots **+1.2%** (xG +1.2%, not significant). It survives a 1,000-permutation placebo check, stadium and team controls (which trim it slightly) and three other model types. It works mainly through whether a player registers any chance creation at all.",
+          "chart": {
+            "type": "cols",
+            "title": "Temperature +10 °C, five-league pool",
+            "sub": "Change in per-90 output, same player. Red: holds up under every check. Grey: shots loses significance once the stadium is controlled for; xG is not significant.",
+            "unit": "%",
+            "rows": [
+              [
+                "Goals",
+                4.2,
+                "hot"
+              ],
+              [
+                "Key passes",
+                3.2,
+                "hot"
+              ],
+              [
+                "xA",
+                3.2,
+                "hot"
+              ],
+              [
+                "Shots",
+                1.2,
+                "end"
+              ],
+              [
+                "xG (n.s.)",
+                1.2,
+                "end"
+              ]
+            ],
+            "max": 5,
+            "words": "Per +10 °C: goals +4.2%, key passes +3.2%, xA +3.2%, shots +1.2%; xG +1.2% is not significant.",
+            "source": "Study 01 · M12 final checks (6 Oct 2026); frozen 7 Oct 2026"
+          },
+          "explain": "Serie A carries it — all five metrics survive the placebo (xA +10.7%, goals +9.3%) — Ligue 1 and La Liga show part of it, and no Premier League or Bundesliga result does. The data can't say why warmer games create more."
         }
       ],
       "surprise": {
@@ -315,11 +351,11 @@
         "lesson": "A striking result from one league and one season is a hypothesis, not a finding. It has to replicate."
       },
       "meaning": [
-        "For rain, wind and humidity, the weather is not something a player's numbers need correcting for. Temperature is the exception: a small association that survives the placebo check, mostly in Serie A — its final conclusion is pending review.",
+        "For rain, wind and humidity, the weather is not something a player's numbers need correcting for. Temperature is the exception: about 3% more chance creation per +10 °C, mostly in Serie A — small, but it survives every check.",
         "Crowds are different — and a crowd effect is a home effect. That is where Study 2 picks up."
       ],
       "limitations": [
-        "The hand-written weather conclusion and the freeze are still pending; the temperature result is provisional until then.",
+        "No mechanism: the data cannot say why warmer matches produce more chance creation, or why the effect lives mostly in Serie A. Effects are per +10 °C across normal top-flight conditions, not rare extremes.",
         "The closed-doors period is mostly one season, so per-player crowd estimates are noisy; there are no attendance figures — only fans or no fans.",
         "Cup matches and fixture congestion are not in the data.",
         "Observational data: effects are associations within carefully matched comparisons."
@@ -330,7 +366,7 @@
       },
       "meta": {
         "title": "Study 01 · Weather, crowds and player performance · Home Turf & Hard Opponents",
-        "description": "Study 1: rain and humidity barely change player output (within about ±2% on five leagues); empty stadiums roughly halved home advantage. Final weather conclusion and freeze pending.",
+        "description": "Study 1 (final): weather barely changes player output — rain and humidity within about ±2% on five leagues — except temperature, about +3% chance creation per +10 °C, mostly in Serie A; empty stadiums roughly halved home advantage.",
         "og_title": "Does the environment change the player?",
         "og_image": "environment.png"
       }
