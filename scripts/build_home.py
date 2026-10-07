@@ -9,7 +9,7 @@ Each fragment replaces the region between <!-- gen:NAME --> and <!-- /gen:NAME -
 football/index.html. Study 1 has no frozen export yet, so its weather bound (±2%, five-league run of 6 Oct 2026) is
 taken from findings/study1_environmental_conditions.md in the research project, flagged pending on the page.
 """
-import html, json, re, sys
+import html, json, math, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,18 +72,20 @@ def fig_s2():
     i20 = edges.index(0.2)
     core = shr[i20] + shr[i20 + 1]
     lo, hi = edges[0], edges[-1]
-    tk = ticks([("−200%", "0%"), ("−100%", pct(-1, lo, hi)), ("0", pct(0, lo, hi)), ("+100%", pct(1, lo, hi)), ("+200%", "100%")])
+    # edges are log(home ÷ away) units; label the axis in true % changes
+    band = f"{(math.exp(edges[i20]) - 1) * 100:+.0f}% and {(math.exp(edges[i20 + 2]) - 1) * 100:+.0f}%"
+    tk = ticks([(t, pct(math.log(r), lo, hi)) for t, r in (("−75%", 0.25), ("−50%", 0.5), ("0", 1), ("+100%", 2), ("+300%", 4))])
     plot = ('<div class="hist">'
-            f'<div class="hist__row"><p class="label"><span>As measured</span><span>spread ±{h["raw_sd"] * 100:.0f} pts</span></p><div class="hist__bars">{bars(raw)}</div></div>'
-            f'<div class="hist__row hist__row--hot"><p class="label"><span>After removing noise</span><span>spread ±{h["shrunk_sd"] * 100:.0f} pts</span></p><div class="hist__bars">{bars(shr)}</div>{tk}</div>'
+            f'<div class="hist__row"><p class="label"><span>As measured</span><span>spread (SD, log scale) {h["raw_sd"]:.2f}</span></p><div class="hist__bars">{bars(raw)}</div></div>'
+            f'<div class="hist__row hist__row--hot"><p class="label"><span>After removing noise</span><span>spread (SD, log scale) {h["shrunk_sd"]:.2f}</span></p><div class="hist__bars">{bars(shr)}</div>{tk}</div>'
             '</div>')
     n = h["n"]
     return figure("Each player’s personal home edge",
-                  f"{n:,} players in this export (the reliability test reports 4,665), xG at home vs away. Each row is scaled to its own peak; the outer bars collect everything beyond ±200%.",
+                  f"{n:,} players in this export (the reliability test reports 4,665), xG at home vs away. Log scale; each row is scaled to its own peak; the outer bars collect everything below −86% or above +639%.",
                   plot,
-                  f"Measured naively, players’ home edges look wildly different. Once match-to-match noise is removed, {core:,} of {n:,} land between +20% and +30%.",
+                  f"Measured naively, players’ home edges look wildly different. Once match-to-match noise is removed, {core:,} of {n:,} land between {band}.",
                   "Study 02 · empirical-Bayes shrinkage",
-                  f"Histogram of {n} players' home edges. Raw estimates spread widely; after shrinkage {core} of {n} sit between plus 20 and plus 30 percent.")
+                  f"Histogram of {n} players' home edges. Raw estimates spread widely; after shrinkage {core} of {n} sit between {band}.")
 
 
 # ---------- 03 Opposition: xG per 90 by opponent-strength decile ----------
@@ -139,7 +141,7 @@ def fig_s5():
         v = ev[key]["MAE"]
         out.append(f'<div class="hbar__row"><span class="hbar__lbl">{lab}</span>'
                    f'<span class="track"><span class="bar{" bar--hot" if hot else ""}" style="width:{pct(v, 0, top)}"></span></span>'
-                   f'<span class="hbar__v{" hbar__v--hot" if hot else ""}">{v:.3f}</span></div>')
+                   f'<span class="hbar__v{" hbar__v--hot" if hot else ""}">{v:.4f}</span></div>')   # 4 dp: 0.1095 vs 0.1091
     plot = '<div class="hbar">' + "".join(out) + "</div>" + axis_row([("0", "0%"), ("0.04", pct(.04, 0, top)), ("0.08", pct(.08, 0, top)), ("0.12", pct(.12, 0, top))])
     a, nv = ev["Model A: own history"]["MAE"], ev["naive"]["MAE"]
     plus = ev["A + comparable output"]["MAE"] - a
@@ -148,7 +150,7 @@ def fig_s5():
                   plot,
                   f"Similar players alone barely beat the naive guess. The player’s own history cuts the error by {round((1 - a / nv) * 100)}%; adding similarity on top moves it by less than 0.001.",
                   "Study 05 · comparison on transfers with Study 4 profiles",
-                  f"Bar chart of error: naive {nv:.3f}, similar players only {ev['Model B: comparables only']['MAE']:.3f}, own history {a:.3f}, own history plus similar players {a + plus:.3f}.")
+                  f"Bar chart of error: naive {nv:.4f}, similar players only {ev['Model B: comparables only']['MAE']:.4f}, own history {a:.4f}, own history plus similar players {a + plus:.4f}.")
 
 
 # ---------- Similarity teaser: Study 4 case-study top 3 ----------
@@ -187,7 +189,7 @@ def transfer():
         <div class="range__lbl"><span>0.00</span><span>0.60</span><span>1.20</span></div>
         <div class="legend"><span><i class="sw" style="--c:var(--accent-text);width:4px"></i>Prediction</span><span><i class="sw" style="--c:var(--accent-wash);border:1px solid var(--accent)"></i>80% range</span><span><i class="sw sw--dash" style="--c:var(--frozen)"></i>Last season</span></div>
       </div>
-      <p class="source" style="margin-top:14px">Example run of the Study 5 model · player inputs as of {esc(o["pre_season"])}</p>'''
+      <p class="source" style="margin-top:14px">Example run of the Study 5 model · player inputs as of {esc(o["pre_season"])} · attacking output only — it can't see defending, fit or injuries</p>'''
 
 
 def footer_date():

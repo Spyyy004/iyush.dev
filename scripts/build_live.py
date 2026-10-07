@@ -50,6 +50,7 @@ SCHEMA = 2
 STALE_DAYS = 8          # the pipeline runs every Monday; older than 8 days means at least one run was missed
 EARLY_SHARE = 1 / 3     # an in-progress season with under a third of fixtures played is labelled "early season"
 NEAR_ZERO_R = 0.1       # |r| below this is described as "near zero" (Claim 03)
+T_CORR = '<button type="button" class="term" data-term="correlation">r</button>'
 esc = html.escape
 
 
@@ -427,7 +428,7 @@ def interpretation(m, kind):
 
 def hero_variants(m, kind, seasons):
     """One hero per selector option; the selector only shows/hides them (no values computed in the browser)."""
-    unit = "home vs away, same player" if kind == "home" else "per +1 SD of opponent strength"
+    unit = "home vs away, same player" if kind == "home" else "per +1 " + '<button type="button" class="term" data-term="sd">SD</button>' + " of opponent strength"
     out = [f'<div class="lv-hv" data-for="baseline" hidden><p class="lv-hero"><b class="lv-hero--fz">{signed(m["frozen"])}%</b>'
            f'<span>{pill("frozen")} historical baseline · {m["metric"]} · {unit}</span></p></div>']
     rows = {r["slug"]: r for r in m["seasons"]}
@@ -500,7 +501,7 @@ def claim_block(n, kind, title, claim, m, snap, lo_ax, hi_ax):
       </div>
       <figure class="chart lv-fig">
         <figcaption><p class="chart__title">{esc(m["metric"])} {"home edge" if kind == "home" else "opposition effect"} · baseline vs live seasons</p>
-        <p class="chart__sub">Historical baseline {FROZEN_PERIOD} (◇) · live seasons with 95% intervals. Live seasons never change the baseline.</p></figcaption>
+        <p class="chart__sub">Historical baseline {FROZEN_PERIOD} (◇) · live seasons with 95% <button type="button" class="term" data-term="interval">intervals</button>. Live seasons never change the baseline.</p></figcaption>
         <div class="chart__plot" role="img" aria-label="{esc(aria)}">{comparison(m, lo_ax, hi_ax)}</div>
         {tbl}
       </figure>
@@ -519,7 +520,7 @@ def player_claims(snap):
         return (f'<li class="lv-pc {cls}"><span class="lv-pc__s">{label}{pill(status, status not in ("complete", "frozen"))}</span>'
                 f'<span class="lv-pc__v">{value}</span><small>{note}</small></li>')
 
-    h = [row("Historical", "frozen", f'r = {hp["r"]:.3f}', f'{hp["players"]:,} players · {esc(hp["method"])} · {near(hp["r"])}', "lv-pc--fz")]
+    h = [row("Historical", "frozen", f'{T_CORR} = {hp["r"]:.3f}', f'{hp["players"]:,} players · {esc(hp["method"])} · {near(hp["r"])}', "lv-pc--fz")]
     e = [row("Historical", "frozen", f'{el["r"]["xg"]["overall"]:.2f} <span class="muted">vs</span> {el["r"]["xg"]["past"]:.2f}',
              f'{el["players"]:,} players · {esc(el["method"])}', "lv-pc--fz")]
     for c in checks:
@@ -660,8 +661,8 @@ def render(snap):
   <div class="lv-legend" aria-label="How to read this page"><span><i class="lv-sw lv-sw--fz"></i>Historical baseline · never changes</span><span><i class="lv-sw lv-sw--live"></i>Live season estimate</span><span><i class="lv-sw lv-sw--ci"></i>95% interval</span><span>{pill("complete")} {pill("current")} {pill("early")}</span></div>
 </div></section>
 
-{claim_block(1, "home", "Home advantage", "Playing at home increases attacking output.", H, snap, -5, 40)}
-{claim_block(2, "opp", "Opposition", "Stronger opponents suppress attacking output.", O, snap, -25, 5)}
+{claim_block(1, "home", "Home advantage", "Players produce more attacking output at home.", H, snap, -5, 40)}
+{claim_block(2, "opp", "Opposition", "Players produce less attacking output against stronger opponents.", O, snap, -25, 5)}
 {player_claims(snap)}
 {changed_html(snap)}
 

@@ -87,7 +87,7 @@
       return { label: r[1], sub: r[2] + " · " + META.roles[r[4]], tag: FB.LEAGUE_NAME[r[3]], value: r[0] };
     }), function (it) {
       sel.key = it.value; syncForm();
-      FB.track("sim_pick", { player: player(sel.key).name });
+      FB.track("similarity_started", { player: player(sel.key).name });
       if (window.matchMedia("(max-width: 639px)").matches) setStep(2);
     }, { emptyHint: "players with at least " + META.min_minutes + " minutes in " + META.season });
     $("q-player").placeholder = "Search for a player…";
@@ -153,7 +153,7 @@
     Promise.all([pr, zq, zt]).then(function (d) {
       tick(3);
       var res = d[0].res[sel.league] || {}, rows = res[w] || [], qz = d[1][pl.key], Z = d[2];
-      FB.track("sim_run", { player: pl.name, league: sel.league, seasons: sel.seasons, ms: Math.round(performance.now() - t0) });
+      FB.track("similarity_completed", { player: pl.name, league: sel.league, seasons: sel.seasons, ms: Math.round(performance.now() - t0) });
       if (!rows.length) {
         stateBox("empty", "No comparable profiles found",
           "<p>No " + esc(pl.role) + " in " + FB.LEAGUE_NAME[sel.league] + " has a " + sel.seasons + "-season profile to compare with. Try:</p>" +
@@ -212,7 +212,7 @@
       '<div class="sx-who"><h3>' + esc(c.name) + "</h3><p>" + esc(c.team) + " · " + FB.LEAGUE_NAME[c.league] + "</p></div>" +
       '<div class="sx-level"><span class="sx-badge sx-badge--' + k.m.cls + '">' + k.m.t + "</span>" +
       (r[4] ? '<span class="sx-lim">limited evidence</span>' : "") +
-      '<span class="sx-score" title="' + esc(k.m.d) + '">Profile similarity ' + Math.round(r[1]) + "</span></div></div>" +
+      '<span class="sx-score" title="' + esc(k.m.d) + '">Profile similarity ' + Math.round(r[1]) + '<small> · closer than ' + Math.round(r[1]) + "% of the pool</small></span></div></div>" +
       groupChips(k.gs) +
       '<div class="sx-actions"><button type="button" class="link-arrow link-arrow--plain sx-why" aria-expanded="false" data-why="' + c.key + '">Why this player? <span class="arr" aria-hidden="true">↓</span></button>' +
       '<button type="button" class="link-arrow sx-cmp" data-cmp="' + c.key + '">Compare <span class="arr" aria-hidden="true">→</span></button></div>' +
@@ -224,13 +224,12 @@
       var key = w.getAttribute("data-why"), box = $("why-" + key), open = box.hidden;
       box.hidden = !open; w.setAttribute("aria-expanded", open ? "true" : "false");
       if (open && !box.innerHTML) box.innerHTML = drivers(key);
-      FB.track("sim_why", { cand: player(key).name });
     }
     if (c) {
       sel.compare = player(c.getAttribute("data-cmp")).slug;
       history.pushState(null, "", url(sel));
       renderCompare(c.getAttribute("data-cmp"));
-      FB.track("sim_compare", { cand: player(c.getAttribute("data-cmp")).name });
+      FB.track("similarity_compare", { cand: player(c.getAttribute("data-cmp")).name });
     }
   }
   function drivers(key) {   // SimilarityDrivers

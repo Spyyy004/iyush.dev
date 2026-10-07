@@ -27,7 +27,7 @@
     "spine_lede": "Each study builds on the one before. The first three remove context from the numbers; the last two use the cleaned numbers to compare players and follow them across leagues.",
     "fit_title": "How the studies fit together",
     "fit": [
-      "Study 1 asked whether the environment moves performance — weather barely, crowds clearly. Study 2 took the crowd effect to the individual: home advantage is real, large and shared by everyone. Study 3 did the same for opposition: large, shared, with no individual “big-game” trait.",
+      "Study 1 asked whether the environment moves performance — weather barely, crowds much more (home advantage roughly halved without fans). Study 2 took the crowd effect to the individual: home advantage is real, large and shared by everyone. Study 3 did the same for opposition: large, shared, with no individual “big-game” trait.",
       "Together they gave clean, context-adjusted player numbers. Study 4 used those numbers to find similar players across leagues, and found the limit: similarity describes, it does not forecast. Study 5 tested forecasting directly on real transfers and built a validated, leakage-free model of how much output survives a move — in which similarity had to earn its place and did not."
     ],
     "lessons_title": "Five lessons that run through everything",
@@ -136,7 +136,7 @@
           "Player-matches"
         ]
       ],
-      "summary": "Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds clearly do: empty stadiums roughly halved home advantage, and it came back with the fans.",
+      "summary": "Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds appear to: empty stadiums roughly halved home advantage, and it came back with the fans.",
       "why": {
         "body": [
           "If rain, wind or heat changed what players produce, every raw stat line would carry the weather with it, and a player's numbers would partly depend on the climate he plays in.",
@@ -154,7 +154,7 @@
         "result": "Effect of the environment",
         "plain": "Each player is compared with himself — wet days against dry, full stadiums against empty — so differences in ability and team quality never enter the comparison.",
         "technical": [
-          "Weather: {ppml|PPML} on per-minute output with player × season, opponent × season, league × kickoff-hour and league × season × month {fixed-effects|fixed effects}; ERA5 weather at the stadium and kickoff hour. A player × team × season version moves no estimate by more than 0.9 percentage points.",
+          "Weather: {ppml|PPML} on per-minute output with player × season, opponent × season, league × kickoff-hour and league × season × month {fixed-effects|fixed effects}; ERA5 weather at the stadium and kickoff hour. A player × team × season version moves no estimate by more than 0.6 percentage points.",
           "Crowds: team-level PPML with team × season and opponent × season fixed effects; 13,888 matches with fans and 1,893 behind closed doors, partial crowds excluded. Crowd status from a dated, sourced calendar per league.",
           "Six hypotheses fixed before looking (rain and long shots, wind and headers/crosses, heat and late-game output). {multiple-testing|Benjamini–Hochberg corrections} on cluster and {permutation-test|permutation} p-values; {placebo|placebo tests} with the closed-doors dates shifted 2–4 years."
         ]
@@ -169,7 +169,7 @@
         {
           "kind": "headline",
           "title": "Without fans, home advantage shrank — and came back with them.",
-          "lead": "The pooled xG home edge went from **+30%** with fans to **+13%** behind closed doors, then back to **+26%** when crowds returned.",
+          "lead": "The pooled xG home edge went from **+30%** with fans before 2020 to **+13%** behind closed doors, then back to **+26%** when crowds returned.",
           "chart": {
             "type": "cols",
             "title": "Pooled team xG home edge, by period",
@@ -193,14 +193,14 @@
               ]
             ],
             "max": 35,
-            "words": "The xG home edge fell from +30% to +13% without crowds and recovered to +26% when they returned.",
+            "words": "The xG home edge fell from +30% (with fans, before 2020) to +13% without crowds and recovered to +26% when they returned.",
             "source": "Study 01 · Final Summary §3 (team level)"
           },
           "explain": "Every league lost xG home advantage without fans; Ligue 1 lost its whole goals edge."
         },
         {
           "kind": "evidence",
-          "title": "The crowd touches every part of the home edge.",
+          "title": "Without fans, the home edge shrank on every measure.",
           "lead": "Home ÷ away at team level: goals **1.27 → 1.11**, {xg|xG} **1.29 → 1.13**, shots **1.23 → 1.13**. Yellow cards went from **0.89** (home side booked less) to **1.02** — the advantage gone.",
           "chart": {
             "type": "paired",
@@ -277,7 +277,7 @@
                 "+13%"
               ],
               [
-                "Home edge, with fans",
+                "Home edge, with fans (before 2020)",
                 "hot",
                 0,
                 30,
@@ -401,7 +401,7 @@
         },
         {
           "kind": "evidence",
-          "title": "How big is that? Most of it is the crowd.",
+          "title": "How big is that? About half of it disappeared without crowds.",
           "lead": "Behind closed doors the xG edge fell from **+28%** to **+12%**, and came back to **+25%** with fans. The betting market priced the same loss: the home/away win-probability ratio for evenly matched teams fell from **1.58** to **1.31**.",
           "chart": "s2-periods"
         },
@@ -562,7 +562,7 @@
       "surprise": {
         "suggested": "In the raw data, about 29% of players look like “flat-track bullies” and about 26% like “big-game players”.",
         "after": "That is exactly what noise produces. With proper intervals, one player in about 4,800 shows a reliable pattern (for shots) — what chance alone would produce — and after correcting for multiple tests, none of the 23,022 estimates survives.",
-        "lesson": "Raw “big-game” records reflect context and noise rather than a stable player trait."
+        "lesson": "Raw “big-game” records look like context and noise: the research found no evidence of a stable player trait."
       },
       "meaning": [
         "Opposition is one of the biggest contexts in the numbers. Adjust for it — especially for partial seasons, single matches and cross-league comparisons.",
@@ -685,7 +685,7 @@
         },
         {
           "kind": "climax",
-          "title": "We tried to find Bruno's replacement.",
+          "title": "We looked for Bruno's closest statistical profile in Serie A.",
           "lead": "Bruno Fernandes's chance creation is **3.6 SD** above his role average. Serie A's best comparable is **1.9 SD**.",
           "chart": "s4-bruno",
           "list_title": "Closest profiles in Serie A",
@@ -764,7 +764,7 @@
           "Leagues"
         ]
       ],
-      "summary": "Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder decides the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.",
+      "summary": "Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder accounts for the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.",
       "why": {
         "body": [
           "Every summer, clubs pay for output produced somewhere else. Whether that output travels is the question behind every cross-league signing.",
@@ -798,8 +798,8 @@
         },
         {
           "kind": "evidence",
-          "title": "But the direction decides it.",
-          "lead": "One {league-ladder|ladder of league difficulty} explains all 20 directions: moving **into** the Premier League keeps **82%**; moving **out** of it, **117%**.",
+          "title": "But direction matters most.",
+          "lead": "One {league-ladder|ladder of league difficulty} fits all 20 directions: moving **into** the Premier League keeps **82%**; moving **out** of it, **117%**.",
           "chart": "s5-leagues",
           "explain": "Premier League hardest, Serie A and La Liga in the middle, Bundesliga and Ligue 1 easiest. Pair-specific effects add nothing (p = 0.91): Serie A → Premier League keeps ~80%, Premier League → Serie A ~114%."
         },
@@ -830,7 +830,7 @@
         {
           "kind": "evidence",
           "title": "Similarity had to earn its place. It didn't.",
-          "lead": "Adding Study 4's similarity — what the most similar destination-league players produce, match quality, distinctiveness, how similar movers fared — changed the error by **0.000**. Comparables alone were worse than the player's own history.",
+          "lead": "Adding Study 4's similarity — what the most similar destination-league players produce, match quality, distinctiveness, how similar movers fared — changed the error by nothing detectable — at most **0.002** either way (all similarity features together: +0.001, 95% CI −0.002 to +0.005). Comparables alone were worse than the player's own history.",
           "chart": "s5-similarity"
         },
         {
@@ -867,13 +867,13 @@
       ],
       "surprise": {
         "suggested": "Early on, centre-forwards seemed to drop the most after a move, and a promoted-club effect looked like a data artefact.",
-        "after": "Against comparable stayers, centre-forwards keep 96% — mostly regression to the mean, no clear role effect. And the promoted-club effect is real: players joining promoted clubs produce more than the club's rating predicts.",
+        "after": "Against comparable stayers, centre-forwards keep 96% — mostly regression to the mean, no clear role effect. And the promoted-club effect holds up: players joining promoted clubs produced more than the club's rating predicted.",
         "lesson": "Every raw transfer pattern needs a control group — and a second look."
       },
       "meaning": [
         "To forecast a move, start from the player's own history, age and both clubs, and place both leagues on the difficulty ladder.",
         "Use similarity to find candidates and the transfer model to size the risk — never one as the other.",
-        "Read every forecast as a range. The model knows how unsure it is; a single number hides that."
+        "Read every forecast as a range. The model estimates its own uncertainty; a single number hides that."
       ],
       "limitations": [
         "Output only: defending, pace, possession, injuries, fees and contracts are not in the data; defenders and goalkeepers are excluded.",

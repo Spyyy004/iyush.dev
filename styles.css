@@ -818,3 +818,6 @@ pre code { background: none; border: none; padding: 0; font-size: 13.5px; line-h
   .prompt, .name, .role, .metrics, .service, .reveal { opacity: 1 !important; transform: none !important; }
   .dot, .name .cursorblock, .role .typed-caret, .cmdbar__caret { animation: none !important; }
 }
+
+/* screen-reader-only text */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

@@ -295,7 +295,7 @@
       "plain": "Compare a player with himself: same club, same season, home games versus away games.",
       "analyst": "Home ÷ away ratio of per-minute output for the same player, team and season, from a PPML model with fixed effects.",
       "why": "It separates what belongs to the venue (and the crowd) from what belongs to the player.",
-      "example": "+27% xG per minute at home; behind closed doors that fell to about +8–14% (Study 2)."
+      "example": "+27% xG per minute at home; behind closed doors that fell to +12% (Study 2)."
     },
     "behind-closed-doors": {
       "term": "Behind closed doors",
@@ -524,7 +524,7 @@
       "plain": "If MAE is 0.10, predictions are off by about 0.10 xG + xA per 90 on average.",
       "analyst": "Mean |actual − predicted| in xG + xA per 90 on the test moves.",
       "why": "It's the headline measure for comparing transfer models.",
-      "example": "Adding similarity changed the error by 0.000 (Study 5)."
+      "example": "Adding the most similar players' output changed the error by −0.000 (95% CI −0.002 to +0.001) — nothing detectable (Study 5)."
     },
     "r-squared": {
       "term": "R²",
@@ -671,7 +671,7 @@
       "plain": "The player who looked brilliant at home last season was partly lucky. Next season the luck evens out and he looks more ordinary.",
       "analyst": "When a measurement is part signal, part noise, the most extreme observations are disproportionately noise, so they shrink toward the average on re-measurement.",
       "why": "It explains why so many 'special' players disappear when you check them again.",
-      "example": "The 2015–19 'top 10 home players' were exactly average in 2022–25; correlation between periods 0.018 (Study 2)."
+      "example": "The 2015–19 'top 10 home players' went from +955% to +43% in 2022–25 — close to the all-player average of +33%; correlation between periods 0.018 (Study 2)."
     },
     "leakage": {
       "term": "Leakage",

@@ -239,7 +239,7 @@
   }
 
   /* ---------- Command bar / shell ---------- */
-  var ROUTES = { home: "index.html", projects: "projects.html", blog: "blog.html", games: "games.html" };
+  var ROUTES = { home: "index.html", projects: "projects.html", blog: "blog.html", games: "games.html", football: "/football" };
   var OPEN = {
     github: "https://github.com/Spyyy004",
     linkedin: "https://linkedin.com/in/ayush-pawar004",
@@ -262,6 +262,7 @@
     if (t === "projects" || t === "project" || t === "services") return { label: "projects", url: ROUTES.projects };
     if (t === "blog" || t === "blogs" || t === "posts") return { label: "blog", url: ROUTES.blog };
     if (t === "games" || t === "game" || t === "arcade" || t === "play") return { label: "games", url: ROUTES.games };
+    if (t === "football" || t === "football-research" || t === "research" || t === "lab") return { label: "football-research", url: ROUTES.football };
     return null;
   }
 
@@ -288,7 +289,7 @@
       showPop(
         '<div class="pop-h">available commands</div>' +
         '<ul class="pop-list">' +
-          "<li><b>cd projects</b> · <b>cd blog</b> · <b>cd home</b><span>navigate</span></li>" +
+          "<li><b>cd projects</b> · <b>cd blog</b> · <b>cd football</b> · <b>cd home</b><span>navigate</span></li>" +
           "<li><b>ls</b><span>list routes</span></li>" +
           "<li><b>neofetch</b><span>system card</span></li>" +
           "<li><b>top</b><span>projects as processes</span></li>" +
@@ -308,6 +309,7 @@
           "<li><b>~/projects</b><span>all services</span></li>" +
           "<li><b>~/blog</b><span>writing</span></li>" +
           "<li><b>~/games</b><span>the arcade</span></li>" +
+          "<li><b>~/football-research</b><span>the football lab</span></li>" +
         "</ul>"
       );
     }

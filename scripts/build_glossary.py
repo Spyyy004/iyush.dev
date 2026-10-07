@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {{
     document.getElementById("gcount").textContent = n === total ? total + " terms" : n + " of " + total + " terms";
     document.getElementById("gempty").hidden = n > 0;
   }}
-  var t; q.addEventListener("input", function () {{ clearTimeout(t); t = setTimeout(function () {{ filter(); if (q.value.trim().length > 2) FB.track("glossary_search", {{ q: q.value.trim().slice(0, 40) }}); }}, 120); }});
+  var t; q.addEventListener("input", function () {{ clearTimeout(t); t = setTimeout(function () {{ filter(); }}, 120); }});
   document.getElementById("gcats").addEventListener("click", function (e) {{
     var b = e.target.closest("button[data-c]"); if (!b) return;
     cat = b.getAttribute("data-c");
@@ -154,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {{
     go(!!e);
     if (!e && document.fonts && document.fonts.ready) document.fonts.ready.then(function () {{ go(false); }});
     el.classList.add("hl"); setTimeout(function () {{ el.classList.remove("hl"); }}, 2400);
-    FB.track("glossary_view", {{ term: id }});
   }}
   window.addEventListener("hashchange", goHash);
   goHash(null);

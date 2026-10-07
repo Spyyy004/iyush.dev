@@ -13,6 +13,27 @@ NAV = [("/football/research", "Research"), ("/football/tools", "Tools"), ("/foot
 esc = html.escape
 
 
+CRUMB = {"football": "Football", "research": "Research", "tools": "Tools", "live": "Live", "glossary": "Glossary", "methodology": "Methodology",
+         "about": "About", "case-studies": "Case studies", "environment": "Study 01 · Environment", "home-advantage": "Study 02 · Home advantage",
+         "opposition": "Study 03 · Opposition", "similarity": "Similarity", "transferability": "Study 05 · Transferability", "transfer": "Transfer Calculator",
+         "manchester-united-2024": "Manchester United 2024"}
+
+
+def breadcrumbs(path):
+    """BreadcrumbList JSON-LD mirroring the visible breadcrumb trail (M9 §15)."""
+    parts = [p for p in path.strip("/").split("/") if p]
+    items, acc = [], ""
+    for p in parts:
+        acc += "/" + p
+        if p == "case-studies":   # no index page for this segment
+            continue
+        name = CRUMB.get(p, p)
+        if p == "similarity":
+            name = "Study 04 · Similarity" if "research" in parts else "Similarity Explorer"
+        items.append({"@type": "ListItem", "position": len(items) + 1, "name": name, "item": SITE + acc})
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
+
+
 def head(path, title, description, og_title, og_image, ld, og_type="article"):
     url = SITE + path
     img = f"{SITE}/football/og/{og_image}"
@@ -28,6 +49,9 @@ def head(path, title, description, og_title, og_image, ld, og_type="article"):
 <meta name="author" content="Ayush Pawar" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta property="og:type" content="{og_type}" />
 <meta property="og:site_name" content="iyush.dev" />
 <meta property="og:title" content="{ot}" />
@@ -43,6 +67,7 @@ def head(path, title, description, og_title, og_image, ld, og_type="article"):
 <script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}
 </script>
+<script type="application/ld+json">{json.dumps(breadcrumbs(path), ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="{FONTS}" rel="stylesheet" />
@@ -68,7 +93,7 @@ def header(path):
       <ul>
 """ + "\n".join(lis) + """
       </ul>
-      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
     </nav>
   </div>
 </header>"""

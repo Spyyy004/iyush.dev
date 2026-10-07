@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>About · Home Turf &amp; Hard Opponents</title>
-<meta name="description" content="Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for answering football questions with data." />
+<meta name="description" content="Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for turning football questions into data, models and usable decision tools." />
 <link rel="canonical" href="https://iyush.dev/football/about" />
 <meta name="author" content="Ayush Pawar" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -25,7 +25,7 @@
 {
   "@context": "https://schema.org",
   "url": "https://iyush.dev/football/about",
-  "description": "Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for answering football questions with data.",
+  "description": "Ayush Pawar — product engineer by trade, football obsessive by choice — builds systems for turning football questions into data, models and usable decision tools.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://iyush.dev/football#site"
@@ -34,6 +34,9 @@
     "@id": "https://iyush.dev/#person"
   },
   "@type": "AboutPage",
+  "mainEntity": {
+    "@id": "https://iyush.dev/#person"
+  },
   "name": "About"
 }
 </script>
@@ -50,6 +53,10 @@
 .ab-cols p { color: var(--ink-2); font-size: 16.5px; }
 @media (max-width: 820px) { .ab-cols { grid-template-columns: minmax(0, 1fr); } }
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json" id="ld-crumbs">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://iyush.dev/football/about"}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,7 +74,7 @@
         <li><a href="/football/methodology">Methodology</a></li>
         <li><a href="/football/about" aria-current="page">About</a></li>
       </ul>
-      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
     </nav>
   </div>
 </header>
@@ -80,13 +87,21 @@
     <div>
       <p class="eyebrow">About</p>
       <h1 id="a-h" style="font-style:italic">I'm Ayush.</h1>
-      <p class="lede" style="margin-top:24px">Product engineer by trade, football obsessive by choice. I build systems for answering football questions with data.</p>
+      <p class="lede" style="margin-top:24px">Product engineer by trade, football obsessive by choice.</p>
+      <p class="body" style="margin-top:16px;max-width:34em">I build systems for turning football questions into data, models and usable decision tools.</p>
+      <ol class="mt-flow ab-flow" aria-label="Product engineer, then research, then engineering, then football">
+        <li class="mt-flow__s">Product engineer</li><li class="mt-flow__op" aria-hidden="true">↓</li>
+        <li class="mt-flow__s">Research</li><li class="mt-flow__op" aria-hidden="true">↓</li>
+        <li class="mt-flow__s">Engineering</li><li class="mt-flow__op" aria-hidden="true">↓</li>
+        <li class="mt-flow__s mt-flow__s--to">Football</li>
+      </ol>
     </div>
-    <div class="about__links">
-      <a class="link-arrow" href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a>
-      <a class="link-arrow" href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a>
-      <a class="link-arrow" href="/">iyush.dev</a>
-    </div>
+    <ul class="about__links" aria-label="Find me">
+      <li><a class="link-arrow" href="/">iyush.dev <span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a class="link-arrow" href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub <span class="arr" aria-hidden="true">↗</span></a></li>
+      <li><a class="link-arrow" href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn <span class="arr" aria-hidden="true">↗</span></a></li>
+      <li><a class="link-arrow" href="mailto:i.yush.004@gmail.com">i.yush.004@gmail.com</a></li>
+    </ul>
   </div>
 </section>
 
@@ -94,23 +109,23 @@
   <div class="wrap ab-cols">
     <div>
       <p class="label">Why</p>
-      <h3>One question, asked properly</h3>
-      <p>Football talk is full of “big-game players”, home specialists and can't-miss signings. This project asks one question — what actually belongs to the player? — and follows it through five studies on every player-match in Europe's top five leagues since 2015/16.</p>
+      <h2 class="h3">One question, asked properly</h2>
+      <p>Football talk is full of “big-game players”, home specialists and can't-miss signings. This project asks one question — what actually belongs to the player? — and follows it through five studies on every player-match in Europe's top five leagues from 2015/16 to 2024/25.</p>
     </div>
     <div>
       <p class="label">How it's built</p>
-      <h3>Research first, interface second</h3>
-      <p>The research runs as a separate pipeline. This site only reads its precomputed, validated outputs; the similarity search and transfer calculator are browser ports of the study models, tested against the originals. It's a static site with no framework and no build step.</p>
+      <h2 class="h3">Research first, interface second</h2>
+      <p>The research runs as a separate Python pipeline. This site only reads its validated outputs: the Similarity Explorer and Transfer Calculator show results precomputed by the studies' own engines, and every frozen number is checked against the research at build time. It's a static site with no framework. <a href="https://github.com/Spyyy004/iyush.dev/tree/main/football" rel="noopener" target="_blank">How it's built on GitHub ↗</a></p>
     </div>
     <div>
       <p class="label">Kept current</p>
-      <h3>Rebuilt every Monday</h3>
-      <p>Every Monday the pipeline adds the weekend's matches, re-tests the home-advantage and opposition findings on seasons the studies never saw, refreshes the similarity profiles and rebuilds the data behind this site. The frozen results never change.</p>
+      <h2 class="h3">Re-tested every Monday</h2>
+      <p>Every Monday the pipeline adds the weekend's matches and re-tests the home-advantage and opposition findings on seasons the studies never saw. The frozen results never change.</p>
     </div>
   </div>
   <div class="wrap cta-row">
-    <a class="btn" href="/football/research">Explore the research →</a>
-    <a class="link-arrow" href="/football/methodology">Read the methodology →</a>
+    <a class="btn" href="/football/research">Explore the research <span class="arr" aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/football/methodology">Read the methodology <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </section>
 </main>

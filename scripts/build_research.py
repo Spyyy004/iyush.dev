@@ -12,6 +12,7 @@ missing a framework section (M2 §4).
 """
 import html
 import json
+import math
 import re
 import subprocess
 import sys
@@ -66,12 +67,13 @@ def signed(x, d=1):
 
 
 # ============================================================ charts (ResearchChart family)
-def figure(spec, plot, label):
-    """ChartContainer: what you're looking at → plot → in words → source."""
+def figure(spec, plot, label, after=""):
+    """ChartContainer: what you're looking at → plot → in words → source. `after` holds real, accessible content (e.g. a
+    data table) that must not sit inside the role=img plot."""
     return (f'<figure class="chart fig" data-reveal>\n'
             f'  <figcaption><p class="chart__title">{esc(spec["title"])}</p>'
             + (f'<p class="chart__sub">{md(spec["sub"])}</p>' if spec.get("sub") else "") + '</figcaption>\n'
-            f'  <div class="chart__plot" role="img" aria-label="{esc(label)}">{plot}</div>\n'
+            f'  <div class="chart__plot" role="img" aria-label="{esc(label)}">{plot}</div>\n{after}'
             f'  <p class="chart__summary">{md(spec["words"])}</p>\n'
             f'  <p class="source">{esc(spec["source"])}</p>\n'
             f'</figure>')
@@ -200,29 +202,33 @@ def ch_s2_hist():
     h = R["s2_hist"]
     edges, raw, shr = h["edges"], h["raw"], h["shrunk"]
     bars = lambda c: "".join(f'<i class="grow-y" style="height:{v / max(c) * 100:.1f}%"></i>' for v in c)
+    # edges are log(home ÷ away) units; label the axis in true % changes
     i20 = edges.index(0.2)
     core = shr[i20] + shr[i20 + 1]
+    band = f"{signed((math.exp(edges[i20]) - 1) * 100, 0)}% and {signed((math.exp(edges[i20 + 2]) - 1) * 100, 0)}%"
     lo, hi = edges[0], edges[-1]
-    tk = '<div class="ticks">' + "".join(f'<span style="left:{pct(v, lo, hi)}">{t}</span>' for t, v in
-                                          (("−200%", lo), ("−100%", -1), ("0", 0), ("+100%", 1), ("+200%", hi))) + "</div>"
+    tk = '<div class="ticks">' + "".join(f'<span style="left:{pct(math.log(r), lo, hi)}">{t}</span>' for t, r in
+                                          (("−75%", 0.25), ("−50%", 0.5), ("0", 1), ("+100%", 2), ("+300%", 4))) + "</div>"
     plot = ('<div class="hist">'
-            f'<div class="hist__row"><p class="label"><span>As measured</span><span>spread ±{h["raw_sd"] * 100:.0f} pts</span></p><div class="hist__bars">{bars(raw)}</div></div>'
-            f'<div class="hist__row hist__row--hot"><p class="label"><span>After removing noise</span><span>spread ±{h["shrunk_sd"] * 100:.0f} pts</span></p><div class="hist__bars">{bars(shr)}</div>{tk}</div>'
+            f'<div class="hist__row"><p class="label"><span>As measured</span><span>spread (SD, log scale) {h["raw_sd"]:.2f}</span></p><div class="hist__bars">{bars(raw)}</div></div>'
+            f'<div class="hist__row hist__row--hot"><p class="label"><span>After removing noise</span><span>spread (SD, log scale) {h["shrunk_sd"]:.2f}</span></p><div class="hist__bars">{bars(shr)}</div>{tk}</div>'
             "</div>")
-    spec = {"title": "Each player's personal home edge", "sub": f"{h['n']:,} players in this export (the reliability test reports 4,665), xG home vs away. Each row is scaled to its own peak; outer bars collect everything beyond ±200%.",
-            "words": f"Measured naively, players' home edges look wildly different. Once match-to-match noise is removed, {core:,} of {h['n']:,} land between +20% and +30%.",
+    spec = {"title": "Each player's personal home edge", "sub": f"{h['n']:,} players in this export (the reliability test reports 4,665), xG home vs away. Log scale; each row is scaled to its own peak; outer bars collect everything below −86% or above +639%.",
+            "words": f"Measured naively, players' home edges look wildly different. Once match-to-match noise is removed, {core:,} of {h['n']:,} land between {band}.",
             "source": "Study 02 · empirical-Bayes shrinkage"}
     return figure(spec, plot, f"Histogram of {h['n']} players' home edges: wide when raw, a narrow spike after shrinkage.")
 
 
 def ch_s2_clubs():
+    # s2_clubs raw / shrunk are log differences (home ÷ away vs league average); show them as % changes: exp(x) − 1
     top = R["s2_clubs"][:6]
-    rows = [{"label": c["club"], "v": c["shrunk"] * 100, "b": c["raw"] * 100, "kind": "pair",
-             "txt": f'{signed(c["raw"] * 100, 0)} → {signed(c["shrunk"] * 100, 1)}%'} for c in top]
+    pc = lambda x: (math.exp(x) - 1) * 100
+    rows = [{"label": c["club"], "v": pc(c["shrunk"]), "b": pc(c["raw"]), "kind": "pair",
+             "txt": f'{signed(pc(c["raw"]), 0)} → {signed(pc(c["shrunk"]), 1)}%'} for c in top]
     spec = {"title": "The six “strongest home clubs”, before and after removing noise", "sub": "Club xG home edge relative to its league's average.",
-            "words": f"Raw, these clubs look {top[-1]['raw'] * 100:.0f}–{top[0]['raw'] * 100:.0f} points better at home than their league. After shrinkage, each is within about 1%.",
+            "words": f"Raw, these clubs look {pc(top[-1]['raw']):.0f}–{pc(top[0]['raw']):.0f}% better at home than their league. After shrinkage, each is within about 1%.",
             "source": f"Study 02 · {len(R['s2_clubs'])} clubs, empirical-Bayes shrinkage"}
-    return figure(spec, hbar(rows, -5, 35, [0, 10, 20, 30], lambda v: signed(v, 0) + "%" if v else "0") + PAIR_LEGEND("After removing noise", "As measured"),
+    return figure(spec, hbar(rows, -5, 40, [0, 10, 20, 30, 40], lambda v: signed(v, 0) + "%" if v else "0") + PAIR_LEGEND("After removing noise", "As measured"),
                   "; ".join(f"{r['label']}: {r['txt']}" for r in rows))
 
 
@@ -344,8 +350,8 @@ def ch_s5_leagues():
                        f'<td>{o[k]["vs_stay"] * 100:.0f}% ({o[k]["vs_lo"] * 100:.0f}–{o[k]["vs_hi"] * 100:.0f}) · n {o[k]["n"]}</td></tr>' for k in LEAGUE)
              + "</tbody></table></div></details>")
     return figure(spec, hbar(rows, 70, 130, [70, 100, 130], lambda v: f"{v:.0f}%", ref=100)
-                  + PAIR_LEGEND("Moving into", "Moving out of") + table,
-                  "; ".join(f"{r['label']}: into {r['v']:.0f}%, out of {r['b']:.0f}%" for r in rows))
+                  + PAIR_LEGEND("Moving into", "Moving out of"),
+                  "; ".join(f"{r['label']}: into {r['v']:.0f}%, out of {r['b']:.0f}%" for r in rows), after=table)
 
 
 def ch_s5_groups():
@@ -387,7 +393,7 @@ def ch_s5_similarity():
     ev = {r["model"]: r for r in R["s5"]["sim_eval"]}
     rows = [("“He'll do what he did”", "naive", False), ("Similar players only", "Model B: comparables only", False),
             ("Own history", "Model A: own history", True), ("Own history + similar players", "A + comparable output", False)]
-    rows = [{"label": l, "v": ev[k]["MAE"], "hot": h, "txt": f'{ev[k]["MAE"]:.3f}'} for l, k, h in rows]
+    rows = [{"label": l, "v": ev[k]["MAE"], "hot": h, "txt": f'{ev[k]["MAE"]:.4f}'} for l, k, h in rows]   # 4 dp: own history vs + similarity differ by 0.0004
     a, nv = ev["Model A: own history"]["MAE"], ev["naive"]["MAE"]
     spec = {"title": f"Prediction error on {ev['naive']['n']} league moves", "sub": "Mean absolute error, xG + xA per 90, first season after the move. Lower is better.",
             "words": f"Similar players alone barely beat the naive guess. The player's own history cuts the error by {round((1 - a / nv) * 100)}%; adding similarity on top moves it by less than 0.001.",
@@ -639,7 +645,7 @@ def index_page():
     <h3 class="tl-q"><a class="spine__a" href="/football/research/{s["slug"]}">{esc(s["spine_question"])}</a></h3>
     <p class="tl-a">{esc(s["spine_answer"])}</p>
     <p class="tl-d">{md(s["summary"])}</p>
-    <a class="link-arrow" href="/football/research/{s["slug"]}" aria-label="Read study 0{s["id"]}, {esc(s["short"])}">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/football/research/{s["slug"]}">Read the study<span class="sr-only">: 0{s["id"]}, {esc(s["short"])}</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li>""")
     lessons = "".join(f'<li><p class="lesson__h">{md(h)}</p><p>{md(b)}</p></li>' for h, b in ix["lessons"])

@@ -5,6 +5,7 @@
 
 Generated pages get the header from fb_chrome directly; this covers the rest. Fails if a page has no header block.
 """
+import json
 import re
 import sys
 from pathlib import Path
@@ -20,5 +21,9 @@ for f, path in PAGES.items():
     new, n = re.subn(r'<a class="skip" href="#main">Skip to content</a>\s*(?:<!--.*?-->\s*)?<header class="fhead">.*?</header>', lambda m: fb_chrome.header(path), s, count=1, flags=re.S)
     if n != 1:
         sys.exit(f"sync_chrome: no header block in football/{f}")
+    if path != "/football":   # BreadcrumbList JSON-LD, same as generated pages (M9 §15)
+        crumb = f'<script type="application/ld+json" id="ld-crumbs">{json.dumps(fb_chrome.breadcrumbs(path), ensure_ascii=False)}</script>'
+        new = re.sub(r'<script type="application/ld\+json" id="ld-crumbs">.*?</script>\n?', "", new, flags=re.S)
+        new = new.replace("</head>", crumb + "\n</head>", 1)
     p.write_text(new)
     print(f"football/{f}: header synced")

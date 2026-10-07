@@ -41,7 +41,7 @@
       "flow": ["Player", "Team", "Season", "Venue", "Opponent", "League environment"], "flow_to": "Context-adjusted output",
       "blocks": [
         {"h": "Compare each player with himself (Studies 1–3)",
-         "why": "Comparing different players mixes ability, team quality and luck. Comparing one player with himself — same club, same season, home against away or strong against weak opponents — makes those cancel out.",
+         "why": "Comparing different players mixes ability, team quality and luck. Comparing one player with himself — same club, same season, home against away or strong against weak opponents — holds those fixed.",
          "technical": "{ppml|PPML} on per-minute output with {fixed-effects|player × team × season fixed effects} (Study 1's weather models use player × season), plus calendar and kickoff-hour terms (league × season × month, league × kickoff hour); standard errors clustered by match.",
          "controls": "Who the player is, his club and season, the calendar, kickoff time — and, depending on the study, venue and opponent strength.",
          "not": "It is observational: effects are associations within matched comparisons. Game state (trailing against strong teams) and squad rotation are part of what is measured, not removed."},
@@ -200,7 +200,7 @@
       "corrections": [
         ["2026-10-05", "Study 1 · 2 · 3", "Understat's win / draw / loss “forecast” was at first described as a pre-match probability. It is post-match (r = 0.96 with the match's xG difference) and was never used in any model."],
         ["2026-10-05", "Study 2", "The “stable part” magnitudes (e.g. ±7.7% for xG) are upper bounds, not estimates: the cross-season covariance is biased upward even with no true persistence. Conclusions unchanged; Study 3 reports the excess over shuffled data instead."],
-        ["2026-10-06", "Study 5", "The promoted-club effect is real: with a better imputation of promoted clubs' strength the term stays at +0.078 (CI +0.024 to +0.133) — players joining a promoted club genuinely produce more than the club's rating predicts."],
+        ["2026-10-06", "Study 5", "The promoted-club effect is real: with a better imputation of promoted clubs' strength the term stays at +0.078 (CI +0.024 to +0.133) — players joining a promoted club produced more than the club's rating predicted."],
         ["2026-10-06", "Study 5", "Centre-forwards' “clearest drop” after a move (raw 92%) was mostly regression from their high pre-season level: against comparable stayers it is 96% (CI 91–102%), and role has no clear effect."]
       ],
       "checks": [["study1_environmental_conditions", "correlates 0.96 with the same match's xG difference"],

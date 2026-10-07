@@ -110,7 +110,7 @@ import re  # noqa: E402
 body = re.sub(r"\{([a-z0-9-]+)\|([^}]+)\}", r'<button type="button" class="term" data-term="\1">\2</button>', body)
 
 updated = datetime.fromisoformat(META["tracker_generated_utc"]).strftime("%b %Y")
-doc = (fb_chrome.head(PATH, "Similarity Explorer · Who plays like him? · Home Turf & Hard Opponents", DESC, "Who plays like him?",
+doc = (fb_chrome.head(PATH, "Who Plays Like Him? — Football Player Similarity", DESC, "Who plays like him?",
                       "similarity-tool.png", ld, "website")
        + "\n<body>\n" + fb_chrome.header(PATH) + "\n\n" + body + "\n\n" + fb_chrome.footer(updated) + "\n</body>\n</html>\n")
 (FB / "tools/similarity.html").write_text(doc)

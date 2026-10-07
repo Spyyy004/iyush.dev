@@ -104,7 +104,7 @@ body = f"""<main id="main">
     <div class="d-5">
       <h2 class="h2-sm" id="ctx-h">What usually happens when players move?</h2>
       <p class="body" style="margin-top:16px">Output drops after any strong season, move or no move — {{regression-to-the-mean|regression to the mean}}. So Study 5 compares movers with {{stayers|comparable players who stayed}}: same club, role, output and age. Against them, the average move cost about 3%: movers kept <b>{ov["vs_stay"] * 100:.0f}%</b> (95% {{interval|confidence interval}} {ov["vs_lo"] * 100:.0f}–{ov["vs_hi"] * 100:.0f}%).</p>
-      <p class="body">One {{league-ladder|ladder of league difficulty}} sets the direction: hardest to enter is the Premier League, easiest the Bundesliga and Ligue 1.</p>
+      <p class="body">One {{league-ladder|ladder of league difficulty}} accounts for the direction: hardest to enter is the Premier League, easiest the Bundesliga and Ligue 1.</p>
     </div>
     <div class="d-6 d-end">
       <div class="tscroll"><table class="tr-table"><caption class="sr-only">Output kept vs comparable stayers, by league</caption>
@@ -185,7 +185,7 @@ body = f"""<main id="main">
 
 body = re.sub(r"\{([a-z0-9-]+)\|([^}]+)\}", r'<button type="button" class="term" data-term="\1">\2</button>', body)
 updated = datetime.fromisoformat(META["tracker_generated_utc"]).strftime("%b %Y")
-doc = (fb_chrome.head(PATH, "Transfer Calculator · Will his game travel? · Home Turf & Hard Opponents", DESC, "Will his game travel?",
+doc = (fb_chrome.head(PATH, "Will His Game Travel? — Football Transfer Prediction", DESC, "Will his game travel?",
                       "transfer-calculator.png", ld, "website")
        + "\n<body>\n" + fb_chrome.header(PATH) + "\n\n" + body + "\n\n" + fb_chrome.footer(updated) + "\n</body>\n</html>\n")
 (FB / "tools/transfer.html").write_text(doc)

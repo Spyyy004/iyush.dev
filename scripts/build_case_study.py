@@ -64,8 +64,9 @@ briefs = {}
 for r in B:
     briefs.setdefault(r["brief"], []).append(r)
 for k, rows in briefs.items():
-    for i, r in enumerate(rows, 1):
-        r["rank"] = i
+    key = "pred" if k == "centre-forward" else "similarity"   # how the research ranks each brief; ties share a rank (137 = joint)
+    for r in rows:
+        r["rank"] = 1 + sum(o[key] > r[key] for o in rows)
 by_name = {r["player"]: r for r in B}
 for p in SIGNED:
     if p not in by_name:
@@ -92,6 +93,7 @@ need(M8, rf"Judged on ≥ {JUDGE_MIN} minutes: {cm['inside']} of {cm['judged']} 
 Z, U = by_name["Joshua Zirkzee"], by_name["Manuel Ugarte"]
 need(M8, rf"predicted at United {f2(Z['pred'])} \(80% interval {f2(Z['q10'])}–{f2(Z['q90'])}\); rank {Z['rank']} of {cf['candidates']}", "Zirkzee's forecast and rank")
 need(M8, rf"Actual 2024/25 at Manchester United: {f2(Z['actual_xgxa90'])}", "Zirkzee's actual output")
+need(M8, rf"Manuel Ugarte\*\* .*?rank {U['rank']} of {len(briefs['central midfielder'])}", "Ugarte's rank")
 need(M8, rf"Predicted {f2(U['pred'])} \(interval {f2(U['q10'])}–{f2(U['q90'])}\), actual {f2(U['actual_xgxa90'])}", "Ugarte's forecast and outcome")
 n_fit = int(need(M8, r"Model A fitted on (\d+) moves whose first destination season ended by June 2024", "the June-2024 fit sample").group(1))
 mid_bias = need(F5, r"under-predicted by (0\.\d+)", "the known midfield bias").group(1)
@@ -141,7 +143,7 @@ def joined_table(k):
         f'<span class="cs-ring" style="left:{x(r["pred_actual_club"])}"></span><span class="cs-dot{" cs-dot--out" if r["result"] == "outside" else ""}" style="left:{x(r["actual_xgxa90"])}"></span></span></td>'
         f'<td>{result_pill(r["result"])}</td></tr>' for r in rows)
     return (f'<div class="tscroll"><table class="ltable cs-joined"><caption class="sr-only">{BRIEF[k]} who joined Premier League clubs: predicted xG + xA per 90 with 80% range, actual 2024/25, and result</caption>'
-            f'<thead><tr><th scope="col">Player</th><th scope="col">Predicted<small>80% range</small></th><th scope="col">Actual<small>2024/25</small></th>'
+            f'<thead><tr><th scope="col">Player</th><th scope="col">Predicted<small><button type="button" class="term" data-term="range-80">80% range</button></small></th><th scope="col">Actual<small>2024/25</small></th>'
             f'<th scope="col"><span class="sr-only">Chart</span><span aria-hidden="true">0 — {ax:.1f}</span></th><th scope="col">Result</th></tr></thead><tbody>{body}</tbody></table></div>')
 
 
@@ -165,7 +167,7 @@ def lens(r, extra):
     return f"""<dl class="cs-lens">
   <div><dt>Output expectation<small>How much attacking output might survive?</small></dt><dd>{f2(r["pred"])} xG + xA per 90 at United, from {f2(r["pre"])} in 2023/24{f" (keeps {keep * 100:.0f}%)" if keep else ""}; {p75}.</dd></div>
   <div><dt>Uncertainty<small>How wide is the prediction range?</small></dt><dd>80% range {f2(r["q10"])}–{f2(r["q90"])} (width {r["q90"] - r["q10"]:.2f}) · evidence: {esc(r["evidence"])} of qualifying history.</dd></div>
-  <div><dt>Context<small>How difficult is the destination?</small></dt><dd>Into the Premier League, players keep {epl_in["vs_stay"] * 100:.0f}% of their output on average ({epl_in["vs_lo"] * 100:.0f}–{epl_in["vs_hi"] * 100:.0f}%); United's club strength is from 2023/24.</dd></div>
+  <div><dt>Context<small>How difficult is the destination?</small></dt><dd>United's club strength from 2023/24 entered the forecast. For orientation only (not a model input, and measured on all 428 moves, including seasons after 2024): players moving into the Premier League keep {epl_in["vs_stay"] * 100:.0f}% of their output on average ({epl_in["vs_lo"] * 100:.0f}–{epl_in["vs_hi"] * 100:.0f}%).</dd></div>
   <div><dt>Limitations<small>What is missing?</small></dt><dd>{extra}</dd></div>
 </dl>"""
 
@@ -235,7 +237,7 @@ body = f"""<main id="main" class="cs">
   <div>
     <p class="lv-kicker">Case study · Manchester United · 2024</p>
     <h1>What would the model have told Manchester United?</h1>
-    <p class="lede">A leakage-free retrospective of the club's 2024 recruitment, using only information that was available on 1 June 2024.</p>
+    <p class="lede">A <button type="button" class="term" data-term="leakage">leakage-free</button> retrospective of the club's 2024 recruitment, using only information that was available on 1 June 2024.</p>
     <div class="cta-row"><button type="button" class="share" id="share">Share this case study</button></div>
   </div>
   <div class="cs-asof"><p class="label">As-of date</p><p class="cs-asof__d"><time datetime="{AS_OF}">01 Jun 2024</time></p><p class="small">Manchester United are about to enter the summer transfer window. What would this research have said about the players they could consider?</p></div>
@@ -282,7 +284,7 @@ body = f"""<main id="main" class="cs">
 <section class="lv-sec cs-lesson" aria-labelledby="ls-h"><div class="wrap">
   <p class="lv-kicker">The biggest lesson</p>
   <h2 id="ls-h">A recruitment model can be useful without being a complete player model.</h2>
-  <p class="lede">The case study shows both sides of the system. It can make remarkably accurate attacking-output predictions for some transfers, while missing important dimensions of players whose value isn't primarily captured by attacking statistics.</p>
+  <p class="lede">The case study shows both sides of the system. Its attacking-output predictions landed inside the 80% range for {cf['inside'] + cm['inside']} of the {cf['judged'] + cm['judged']} judged moves, while missing important dimensions of players whose value isn't primarily captured by attacking statistics.</p>
 </div></section>
 
 <section class="lv-sec" aria-labelledby="rc-h"><div class="wrap lv-grid">
@@ -305,7 +307,7 @@ body = f"""<main id="main" class="cs">
     <p class="body">No. The case study is an application of the locked Study 5 model (Model A: context + three-season level), refitted only on moves available by June 2024. Predictions were generated using information available before the transfer window and compared with post-transfer output afterwards. No forecast on this page was changed after the outcome was known.</p></details>
   <div class="cs-perf">
     <div><p class="label">Locked test · overall model, not this case study</p>
-      <dl class="cs-nums cs-nums--sm"><div><dt>Unseen moves</dt><dd>{ev["n"]}</dd></div><div><dt>MAE</dt><dd>{ev["MAE"]:.3f}</dd></div><div><dt>R²</dt><dd>{ev["R²"]:.2f}</dd></div><div><dt>AUC · keeps ≥ 75%</dt><dd>{auc75:.2f}</dd></div></dl>
+      <dl class="cs-nums cs-nums--sm"><div><dt>Unseen moves</dt><dd>{ev["n"]}</dd></div><div><dt><button type="button" class="term" data-term="mae">MAE</button></dt><dd>{ev["MAE"]:.3f}</dd></div><div><dt><button type="button" class="term" data-term="r-squared">R²</button></dt><dd>{ev["R²"]:.2f}</dd></div><div><dt><button type="button" class="term" data-term="auc">AUC</button> · keeps ≥ 75%</dt><dd>{auc75:.2f}</dd></div></dl>
       <p class="small muted">The model fixed before the test, scored once on moves in 2023/24–2025/26. Its 80% ranges covered {cov * 100:.0f}% of outcomes. These are the model's overall numbers; the Manchester United results above are a separate, much smaller retrospective.</p></div>
   </div>
 </div></section>
@@ -397,7 +399,8 @@ document.addEventListener("DOMContentLoaded", function () {{
   }}
   FB.load("case-study").then(function (d) {{
     B = d.board;
-    var seen = {{}}; B.forEach(function (r) {{ seen[r.brief] = (seen[r.brief] || 0) + 1; r.rank = seen[r.brief]; }});   // the research's own order
+    // the research's ranking: strikers by predicted output, midfielders by similarity; ties share a rank
+    B.forEach(function (r) {{ var k = r.brief === "centre-forward" ? "pred" : "similarity"; r.rank = 1 + B.filter(function (o) {{ return o.brief === r.brief && o[k] > r[k]; }}).length; }});
     renderHead(); render();
     thead.addEventListener("click", function (e) {{
       var b = e.target.closest("button[data-k]"); if (!b) return;

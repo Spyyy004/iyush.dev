@@ -89,7 +89,7 @@
       return { label: r[1], sub: r[2] + " · " + r[4], tag: FB.LEAGUE_NAME[r[3]], value: r[0] };
     }), function (it) {
       sel.key = it.value; syncForm();
-      FB.track("tr_pick", { player: player(sel.key).name });
+      FB.track("transfer_started", { player: player(sel.key).name });
       if (window.matchMedia("(max-width: 639px)").matches) setStep(2);
     }, { emptyHint: "forwards and midfielders with at least " + IX.min_minutes + " minutes in " + IX.pre_season });
     $("t-player").placeholder = "Search for a player…";
@@ -131,7 +131,7 @@
       ["1", "2", "3"].forEach(function (n) { var li = out.querySelector('li[data-s="' + n + '"]'); if (li) li.classList.add("done"); });
       var pr = d.pred[String(c.i)];
       if (!pr) { stateBox("empty", "No prediction for this move", "<p>The model has no prediction for " + esc(pl.name) + " → " + esc(c.name) + ". Try another club or league.</p>"); return; }
-      FB.track("tr_run", { player: pl.name, to: c.league, club: c.name, ms: Math.round(performance.now() - t0) });
+      FB.track("transfer_completed", { player: pl.name, to: c.league, club: c.name, ms: Math.round(performance.now() - t0) });
       render(pl, c, d, pr);
     }).catch(function () {
       stateBox("error", "We couldn't load this prediction", "<p>Check your connection and try again.</p>", '<button type="button" class="state__retry" id="t-retry">Try again →</button>');
@@ -179,7 +179,7 @@
       '<div class="tr-bar"><span class="tr-bl">Pre-transfer · ' + IX.pre_season + '</span><span class="tr-tr"><span class="tr-fill tr-fill--pre" style="width:' + x(pre) + '"></span></span><span class="tr-bv">' + f2(pre) + "</span></div>" +
       '<div class="tr-bar"><span class="tr-bl">Post-transfer expected</span><span class="tr-tr"><span class="tr-band" style="left:' + x(q10) + ";width:calc(" + x(q90) + " - " + x(q10) + ')"></span><span class="tr-fill" style="width:' + x(exp) + '"></span></span><span class="tr-bv">' + f2(exp) + "</span></div>" +
       '<div class="tr-axis"><span>0</span><span>' + f2(top / 2) + "</span><span>" + f2(top) + "</span></div></div>" +
-      '<p class="chart__summary">The model expects ' + esc(pl.name) + " to produce " + dir + " last season (" + pct(ret) + "), most likely between " + f2(q10) + " and " + f2(q90) + " xG + xA per 90.</p></section>" +
+      '<p class="chart__summary">The model expects ' + esc(pl.name) + " to produce " + dir + " last season (" + pct(ret) + "), with an 80% range of " + f2(q10) + " to " + f2(q90) + " xG + xA per 90.</p></section>" +
 
       '<div class="tr-two">' +
       '<section class="tr-card" aria-labelledby="t-p75"><p class="label" id="t-p75">Probability of retaining at least 75% of pre-transfer attacking output</p>' +
@@ -196,6 +196,7 @@
 
       '<aside class="sx-disc"><p class="label">Not a verdict on the player</p><p>This estimates attacking output only — xG + xA per 90. It cannot see defending, completed passes, carries, possession or fit, and it does not predict overall quality or career success.</p></aside>';
     FB.share($("t-share"));
+    FB.scrollRegions();
     $("t-h").focus({ preventScroll: true });
   }
 

@@ -9,6 +9,9 @@
 <meta name="author" content="Ayush Pawar" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="iyush.dev" />
 <meta property="og:title" content="One question. Five investigations." />
@@ -60,6 +63,7 @@
   ]
 }
 </script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://iyush.dev/football/research"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -84,7 +88,7 @@
         <li><a href="/football/methodology">Methodology</a></li>
         <li><a href="/football/about">About</a></li>
       </ul>
-      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
     </nav>
   </div>
 </header>
@@ -114,8 +118,8 @@
     <p class="tl-kicker"><b>01 / Environment</b> <span>2015/16 — 2024/25</span> <span class="pill pill--pending">Weather freeze pending</span></p>
     <h3 class="tl-q"><a class="spine__a" href="/football/research/environment">Does weather change performance?</a></h3>
     <p class="tl-a">Mostly no. Crowds do.</p>
-    <p class="tl-d">Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds clearly do: empty stadiums roughly halved home advantage, and it came back with the fans.</p>
-    <a class="link-arrow" href="/football/research/environment" aria-label="Read study 01, Environment">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <p class="tl-d">Weather barely changes how much players produce: with all five leagues, rain and humidity effects sit within about ±2%, and wind is small (about −1% per +10 km/h). Crowds appear to: empty stadiums roughly halved home advantage, and it came back with the fans.</p>
+    <a class="link-arrow" href="/football/research/environment">Read the study<span class="sr-only">: 01, Environment</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li><li class="tl-item">
   <span class="tl-no" aria-hidden="true">02</span>
@@ -124,7 +128,7 @@
     <h3 class="tl-q"><a class="spine__a" href="/football/research/home-advantage">How much does playing at home matter?</a></h3>
     <p class="tl-a">A lot — and the same for everyone.</p>
     <p class="tl-d">Everyone does better at home by about the same amount: +27% xG per minute for the same player, in the same team and season. Not one of 4,665 players has a reliable personal home edge.</p>
-    <a class="link-arrow" href="/football/research/home-advantage" aria-label="Read study 02, Home advantage">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/football/research/home-advantage">Read the study<span class="sr-only">: 02, Home advantage</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li><li class="tl-item">
   <span class="tl-no" aria-hidden="true">03</span>
@@ -133,7 +137,7 @@
     <h3 class="tl-q"><a class="spine__a" href="/football/research/opposition">What happens when the opponent gets stronger?</a></h3>
     <p class="tl-a">Everyone drops — by about the same amount.</p>
     <p class="tl-d">Player attacking output falls substantially as opponent strength increases — but we found no reliable evidence that some individuals consistently resist that effect.</p>
-    <a class="link-arrow" href="/football/research/opposition" aria-label="Read study 03, Opposition">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/football/research/opposition">Read the study<span class="sr-only">: 03, Opposition</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li><li class="tl-item">
   <span class="tl-no" aria-hidden="true">04</span>
@@ -142,7 +146,7 @@
     <h3 class="tl-q"><a class="spine__a" href="/football/research/similarity">Can we find players who actually play alike?</a></h3>
     <p class="tl-a">Yes — within limits.</p>
     <p class="tl-d">Context-adjusted profiles find sensible matches across leagues — Bruno → Serie A: Samardžić, Dybala, Chukwueze — but nobody matches his chance creation. Similarity describes a player; it is not a forecast.</p>
-    <a class="link-arrow" href="/football/research/similarity" aria-label="Read study 04, Similarity">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <a class="link-arrow" href="/football/research/similarity">Read the study<span class="sr-only">: 04, Similarity</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li><li class="tl-item tl-item--last">
   <span class="tl-no" aria-hidden="true">05</span>
@@ -150,8 +154,8 @@
     <p class="tl-kicker"><b>05 / Transferability</b> <span>Moves 2016/17 — 2025/26</span> <span class="pill pill--final">Complete</span></p>
     <h3 class="tl-q"><a class="spine__a" href="/football/research/transferability">Can we predict what happens when the player moves?</a></h3>
     <p class="tl-a">Partly — from his own history, not from who he resembles.</p>
-    <p class="tl-d">Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder decides the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.</p>
-    <a class="link-arrow" href="/football/research/transferability" aria-label="Read study 05, Transferability">Read the study <span class="arr" aria-hidden="true">→</span></a>
+    <p class="tl-d">Most output survives a move on average (97% vs comparable stayers), but one league-difficulty ladder accounts for the direction. A model of the player's own history, age and clubs beats “he'll do what he did” on unseen seasons; similarity adds nothing to it.</p>
+    <a class="link-arrow" href="/football/research/transferability">Read the study<span class="sr-only">: 05, Transferability</span> <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </li>
     </ol>
@@ -161,7 +165,7 @@
 <section class="section" aria-labelledby="fit-h">
   <div class="wrap grid">
     <div class="d-4"><p class="eyebrow">Synthesis</p><h2 id="fit-h" class="h2-sm">How the studies fit together</h2></div>
-    <div class="d-7 d-end"><p class="body">Study 1 asked whether the environment moves performance — weather barely, crowds clearly. Study 2 took the crowd effect to the individual: home advantage is real, large and shared by everyone. Study 3 did the same for opposition: large, shared, with no individual “big-game” trait.</p><p class="body">Together they gave clean, context-adjusted player numbers. Study 4 used those numbers to find similar players across leagues, and found the limit: similarity describes, it does not forecast. Study 5 tested forecasting directly on real transfers and built a validated, leakage-free model of how much output survives a move — in which similarity had to earn its place and did not.</p></div>
+    <div class="d-7 d-end"><p class="body">Study 1 asked whether the environment moves performance — weather barely, crowds much more (home advantage roughly halved without fans). Study 2 took the crowd effect to the individual: home advantage is real, large and shared by everyone. Study 3 did the same for opposition: large, shared, with no individual “big-game” trait.</p><p class="body">Together they gave clean, context-adjusted player numbers. Study 4 used those numbers to find similar players across leagues, and found the limit: similarity describes, it does not forecast. Study 5 tested forecasting directly on real transfers and built a validated, leakage-free model of how much output survives a move — in which similarity had to earn its place and did not.</p></div>
   </div>
 </section>
 

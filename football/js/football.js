@@ -152,7 +152,7 @@
         var b = e.target.closest("button[data-set]");
         if (!b) return;
         setMode(b.getAttribute("data-set"));
-        FB.track("mode_change", { mode: b.getAttribute("data-set") });
+        
       });
     });
     setMode(FB.mode());
@@ -187,7 +187,7 @@
   }
 
   /* ---------- glossary popover / bottom sheet (M0 §18) ---------- */
-  var pop, scrim, lastTerm;
+  var pop, scrim, lastTerm, openedAt = 0;
   var GSTUDY = { 1: ["environment", "Environment"], 2: ["home-advantage", "Home advantage"], 3: ["opposition", "Opposition"], 4: ["similarity", "Similarity"], 5: ["transferability", "Transferability"] };
   var GTOOL = { similarity: ["/football/tools/similarity", "Similarity Explorer"], transfer: ["/football/tools/transfer", "Transfer Calculator"],
     live: ["/football/live", "Live tracker"], "case": ["/football/case-studies/manchester-united-2024", "Man Utd 2024"] };
@@ -197,7 +197,7 @@
     pop.hidden = true; scrim.hidden = true;
     if (lastTerm) { lastTerm.setAttribute("aria-expanded", "false"); lastTerm.focus({ preventScroll: true }); }
   }
-  function openPop(btn) {
+  function openPop(btn, keyboard) {
     var key = btn.getAttribute("data-term"), g = glossary()[key];
     if (!g) return;
     if (!pop) {
@@ -209,7 +209,7 @@
     }
     // M1 §26: plain definition first, the technical one underneath (progressive disclosure)
     pop.setAttribute("aria-label", g.full || g.term);
-    var used = (g.used || []).map(function (n) { var s = GSTUDY[n]; return '<a href="/football/research/' + s[0] + '" title="Study ' + n + " · " + s[1] + '" aria-label="Study ' + n + " · " + s[1] + '">0' + n + "</a>"; })
+    var used = (g.used || []).map(function (n) { var s = GSTUDY[n]; return '<a href="/football/research/' + s[0] + '" title="Study ' + n + " · " + s[1] + '">0' + n + '<span class="sr-only"> · Study ' + n + " " + s[1] + "</span></a>"; })
       .concat((g.tools || []).map(function (t) { var s = GTOOL[t]; return '<a href="' + s[0] + '">' + s[1] + "</a>"; }));
     pop.innerHTML = '<p class="gpop__term">' + FB.esc(g.term) + "</p>" +
       (g.full && g.full !== g.term ? '<p class="gpop__full">' + FB.esc(g.full) + "</p>" : "") +
@@ -219,7 +219,12 @@
       '<a class="link-arrow" href="/football/glossary#' + key + '">Read full definition <span class="arr" aria-hidden="true">→</span></a>' +
       '<button type="button" class="gpop__close" aria-label="Close definition">×</button>';
     pop.querySelector(".gpop__close").addEventListener("click", closePop);
-    pop.hidden = false;
+    pop.addEventListener("keydown", function (e) {   // Tab past either end closes and returns focus to the term
+      if (e.key !== "Tab") return;
+      var f = FB.$$("a, button", pop), first = f[0], last = f[f.length - 1];
+      if ((!e.shiftKey && document.activeElement === last) || (e.shiftKey && (document.activeElement === first || document.activeElement === pop))) { e.preventDefault(); closePop(); }
+    });
+    pop.hidden = false; openedAt = Date.now();
     var mobile = window.matchMedia("(max-width: 640px)").matches;
     scrim.hidden = !mobile;
     if (!mobile) {
@@ -235,12 +240,13 @@
     btn.setAttribute("aria-controls", "gpop");
     FB.track("glossary_open", { term: key });
     if (mobile) pop.querySelector(".gpop__close").focus({ preventScroll: true });
+    else if (keyboard) { pop.setAttribute("tabindex", "-1"); pop.focus({ preventScroll: true }); }
   }
   function initGlossary() {
     FB.$$(".term[data-term]").forEach(function (b) { if (b.tagName === "BUTTON") b.type = "button"; b.setAttribute("aria-haspopup", "dialog"); b.setAttribute("aria-expanded", "false"); });
     document.addEventListener("click", function (e) {
       var t = e.target.closest(".term[data-term]");
-      if (t) { e.preventDefault(); if (lastTerm === t && pop && !pop.hidden) closePop(); else openPop(t); return; }
+      if (t) { e.preventDefault(); if (lastTerm === t && pop && !pop.hidden) closePop(); else openPop(t, e.detail === 0); return; }
       if (pop && !pop.hidden && !e.target.closest(".gpop")) closePop();
     });
     var hoverTimer;
@@ -255,17 +261,50 @@
       if (e.target.closest(".term[data-term]")) clearTimeout(hoverTimer);
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePop(); });
-    window.addEventListener("scroll", function () { if (pop && !pop.hidden && !window.matchMedia("(max-width: 640px)").matches) closePop(); }, { passive: true });
+    document.addEventListener("focusin", function (e) {   // Tab out of an open popover closes it (without stealing focus back)
+      if (!pop || pop.hidden || pop.contains(e.target) || e.target === lastTerm) return;
+      pop.hidden = true; scrim.hidden = true; if (lastTerm) lastTerm.setAttribute("aria-expanded", "false");
+    });
+    // close on scroll — but not from the scroll that focusing / opening itself causes
+    window.addEventListener("scroll", function () { if (pop && !pop.hidden && Date.now() - openedAt > 400 && !window.matchMedia("(max-width: 640px)").matches) closePop(); }, { passive: true });
   }
   // Inline term markup for JS-rendered text.
   FB.term = function (key, label) { return '<button type="button" class="term" data-term="' + key + '" aria-haspopup="dialog" aria-expanded="false">' + FB.esc(label) + "</button>"; };
 
-  /* ---------- ShareButton: serialised URL state (M0 §21) ---------- */
-  FB.share = function (btn, getTitle) {
-    if (!btn) return;
+  /* ---------- ShareButton (M0 §21, M9 §5): copy link · X · LinkedIn · native share where available ----------
+     kind = what is being shared (similarity / transfer / case_study / research) — the URL already carries the state. */
+  FB.share = function (btn, getTitle, kind) {
+    if (!btn || btn.getAttribute("data-share-ready")) return;
+    btn.setAttribute("data-share-ready", "1");
+    kind = kind || (location.pathname.indexOf("/similarity") >= 0 ? "similarity" : location.pathname.indexOf("/transfer") >= 0 ? "transfer"
+      : location.pathname.indexOf("/case-studies/") >= 0 ? "case_study" : "page");
+    var title = function () { return (getTitle && getTitle()) || document.title; };
+    var sent = function (channel) {
+      FB.track("share_click", { channel: channel, kind: kind, path: location.pathname });
+      if (kind === "similarity" || kind === "transfer") FB.track(kind + "_shared", { channel: channel });
+    };
+    var bar = document.createElement("span");
+    bar.className = "sharebar"; bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "Share");
+    btn.parentNode.insertBefore(bar, btn); bar.appendChild(btn);
+    if (!btn.textContent.trim() || /^share/i.test(btn.textContent.trim())) btn.textContent = "Copy link";
+    var mk = function (label, channel, href) {
+      var a = document.createElement("a");
+      a.className = "share share--" + channel; a.textContent = label; a.target = "_blank"; a.rel = "noopener";
+      a.addEventListener("click", function () { a.href = href(); sent(channel); });
+      a.href = href(); bar.appendChild(a); return a;
+    };
+    var enc = encodeURIComponent;
+    mk("X", "x", function () { return "https://twitter.com/intent/tweet?text=" + enc(title()) + "&url=" + enc(location.href); }).setAttribute("aria-label", "Share on X (opens in a new tab)");
+    mk("LinkedIn", "linkedin", function () { return "https://www.linkedin.com/sharing/share-offsite/?url=" + enc(location.href); }).setAttribute("aria-label", "Share on LinkedIn (opens in a new tab)");
+    if (navigator.share) {
+      var n = document.createElement("button");
+      n.type = "button"; n.className = "share share--native"; n.textContent = "Share…";
+      n.addEventListener("click", function () { navigator.share({ title: title(), url: location.href }).then(function () { sent("native"); }, function () { /* dismissed */ }); });
+      bar.appendChild(n);
+    }
     btn.addEventListener("click", function () {
-      var url = location.href, title = (getTitle && getTitle()) || document.title;
-      FB.track("share", { path: location.pathname });
+      var url = location.href;
+      sent("copy");
       var done = function () {
         btn.setAttribute("data-state", "copied");
         var old = btn.getAttribute("data-label") || btn.textContent;
@@ -524,6 +563,38 @@
     var cur = FB.$(".snav [aria-current]"), ol = cur && cur.closest("ol");
     if (ol && ol.scrollWidth > ol.clientWidth) ol.scrollLeft = Math.max(0, cur.offsetLeft - 16);
   }
-  function boot() { initNav(); initMode(); initGlossary(); initReveal(); initStudyNav(); }
+  /* ---------- analytics: decision points (M9 §12). page_view is sent by gtag config. ---------- */
+  function initEvents() {
+    var p = location.pathname.replace(/\.html$/, "").replace(/\/$/, "");
+    var study = p.match(/^\/football\/research\/([a-z-]+)$/);
+    if (study) {
+      FB.track("study_open", { study: study[1] });
+      var end = FB.$(".ffoot");   // reaching the footer = read to the end of the study
+      if (end && "IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (es) {
+          if (es.some(function (e) { return e.isIntersecting; })) { FB.track("study_complete", { study: study[1] }); io.disconnect(); }
+        });
+        io.observe(end);
+      }
+    }
+    if (/^\/football\/case-studies\//.test(p)) FB.track("case_study_open", { case: p.split("/").pop() });
+    if (p === "/football/methodology") FB.track("methodology_open", {});
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest("a[href]"); if (!a) return;
+      var h = a.getAttribute("href");
+      if (/github\.com/.test(h)) FB.track("github_click", { from: p });
+      else if (/linkedin\.com\/in\//.test(h)) FB.track("linkedin_click", { from: p });
+    });
+  }
+  function initScrollRegions() {
+    FB.$$(".tscroll").forEach(function (el) {
+      if (el.scrollWidth <= el.clientWidth + 1 || el.hasAttribute("tabindex")) return;
+      var cap = el.querySelector("caption");
+      el.setAttribute("tabindex", "0"); el.setAttribute("role", "region");
+      el.setAttribute("aria-label", (cap && cap.textContent.trim()) || "Scrollable table");
+    });
+  }
+  FB.scrollRegions = initScrollRegions;
+  function boot() { initNav(); initMode(); initGlossary(); initReveal(); initStudyNav(); initEvents(); initScrollRegions(); window.addEventListener("resize", initScrollRegions); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

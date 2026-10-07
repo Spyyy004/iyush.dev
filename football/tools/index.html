@@ -50,6 +50,10 @@
   .card h2 { font-size: clamp(26px, 3vw, 34px); }
   .card .q { font-style: italic; color: var(--ink); font-size: 20px; margin: 0; }
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json" id="ld-crumbs">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://iyush.dev/football/tools"}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,7 +71,7 @@
         <li><a href="/football/methodology">Methodology</a></li>
         <li><a href="/football/about">About</a></li>
       </ul>
-      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
     </nav>
   </div>
 </header>
@@ -105,7 +109,7 @@
       <h2>Transfer calculator</h2>
       <p class="q">Will his game travel?</p>
       <dl>
-        <div><dt>What it does</dt><dd>Predicts a forward or midfielder's first-season xG + xA per 90 at a chosen club in another league, with an 80% range and the chance he keeps at least 75% of his output — and shows which inputs drive the number.</dd></div>
+        <div><dt>What it does</dt><dd>Predicts a forward or midfielder's first-season <button type="button" class="term" data-term="xg">xG</button> + <button type="button" class="term" data-term="xa">xA</button> <button type="button" class="term" data-term="per90">per 90</button> at a chosen club in another league, with an <button type="button" class="term" data-term="range-80">80% range</button> and the chance he keeps at least 75% of his output — and shows which inputs drive the number.</dd></div>
         <div><dt>What it can't do</dt><dd>Price, fit, injuries or defensive work. Individual forecasts are uncertain (a typical 80% range is ±0.2), and low-output central midfielders moving into the Premier League are under-predicted.</dd></div>
         <div><dt>Data</dt><dd class="fresh" data-fresh="tr">Model fitted on 428 real summer moves · tested once on 142 unseen moves</dd></div>
       </dl>
@@ -121,7 +125,7 @@
       <h2 id="cs-h">What would the model have told Manchester United in June 2024?</h2>
     </div>
     <div>
-      <p class="lede" style="margin-top:0">Standing at 1 June 2024 with only what was known then, every striker and central midfielder in the other four leagues was ranked. Zirkzee: predicted 0.46, actual 0.47 — the right number, but 48th of 106 strikers.</p>
+      <p class="lede" style="margin-top:0">Standing at 1 June 2024 with only what was known then, every striker and central midfielder in the other four leagues was ranked. Zirkzee: predicted 0.46, actual 0.47 — close in one season, but 48th of 106 strikers.</p>
       <div class="cta-row" style="margin-top:20px"><a class="link-arrow" href="/football/case-studies/manchester-united-2024">Read the case study →</a></div>
     </div>
   </div>

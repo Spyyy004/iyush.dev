@@ -9,6 +9,9 @@
 <meta name="author" content="Ayush Pawar" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="iyush.dev" />
 <meta property="og:title" content="Football, translated" />
@@ -357,6 +360,7 @@
   ]
 }
 </script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "Glossary", "item": "https://iyush.dev/football/glossary"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -381,7 +385,7 @@
         <li><a href="/football/methodology">Methodology</a></li>
         <li><a href="/football/about">About</a></li>
       </ul>
-      <p class="fnav__extra"><a href="/">iyush.dev</a></p>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
     </nav>
   </div>
 </header>
@@ -540,7 +544,7 @@
     <div><dt>Simple</dt><dd>Compare a player with himself: same club, same season, home games versus away games.</dd></div>
     <div><dt>Technical</dt><dd>Home ÷ away ratio of per-minute output for the same player, team and season, from a PPML model with fixed effects.</dd></div>
     <div><dt>Why we use it</dt><dd>It separates what belongs to the venue (and the crowd) from what belongs to the player.</dd></div>
-    <div><dt>In the research</dt><dd>+27% xG per minute at home; behind closed doors that fell to about +8–14% (Study 2).</dd></div>
+    <div><dt>In the research</dt><dd>+27% xG per minute at home; behind closed doors that fell to +12% (Study 2).</dd></div>
     <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/environment">Study 01 · Environment</a></li><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/live">Live tracker</a></li><li><a href="/football/methodology#context">Methodology · Context adjustment</a></li></ul></dd></div>
   </dl>
   <a class="gentry__link" href="#home-advantage" aria-label="Link to Home advantage">#</a>
@@ -660,7 +664,7 @@
     <div><dt>Simple</dt><dd>If MAE is 0.10, predictions are off by about 0.10 xG + xA per 90 on average.</dd></div>
     <div><dt>Technical</dt><dd>Mean |actual − predicted| in xG + xA per 90 on the test moves.</dd></div>
     <div><dt>Why we use it</dt><dd>It&#x27;s the headline measure for comparing transfer models.</dd></div>
-    <div><dt>In the research</dt><dd>Adding similarity changed the error by 0.000 (Study 5).</dd></div>
+    <div><dt>In the research</dt><dd>Adding the most similar players&#x27; output changed the error by −0.000 (95% CI −0.002 to +0.001) — nothing detectable (Study 5).</dd></div>
     <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/tools/transfer">Transfer Calculator</a></li><li><a href="/football/case-studies/manchester-united-2024">Manchester United 2024</a></li><li><a href="/football/methodology#validation">Methodology · Validation</a></li></ul></dd></div>
   </dl>
   <a class="gentry__link" href="#mae" aria-label="Link to MAE">#</a>
@@ -744,7 +748,7 @@
     <div><dt>Simple</dt><dd>The player who looked brilliant at home last season was partly lucky. Next season the luck evens out and he looks more ordinary.</dd></div>
     <div><dt>Technical</dt><dd>When a measurement is part signal, part noise, the most extreme observations are disproportionately noise, so they shrink toward the average on re-measurement.</dd></div>
     <div><dt>Why we use it</dt><dd>It explains why so many &#x27;special&#x27; players disappear when you check them again.</dd></div>
-    <div><dt>In the research</dt><dd>The 2015–19 &#x27;top 10 home players&#x27; were exactly average in 2022–25; correlation between periods 0.018 (Study 2).</dd></div>
+    <div><dt>In the research</dt><dd>The 2015–19 &#x27;top 10 home players&#x27; went from +955% to +43% in 2022–25 — close to the all-player average of +33%; correlation between periods 0.018 (Study 2).</dd></div>
     <div><dt>Used in</dt><dd><ul class="gentry__used"><li><a href="/football/research/home-advantage">Study 02 · Home advantage</a></li><li><a href="/football/research/opposition">Study 03 · Opposition</a></li><li><a href="/football/research/transferability">Study 05 · Transferability</a></li><li><a href="/football/methodology#models">Methodology · Statistical models</a></li></ul></dd></div>
   </dl>
   <a class="gentry__link" href="#regression-to-the-mean" aria-label="Link to Regression to the mean">#</a>
@@ -1020,7 +1024,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("gcount").textContent = n === total ? total + " terms" : n + " of " + total + " terms";
     document.getElementById("gempty").hidden = n > 0;
   }
-  var t; q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { filter(); if (q.value.trim().length > 2) FB.track("glossary_search", { q: q.value.trim().slice(0, 40) }); }, 120); });
+  var t; q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { filter(); }, 120); });
   document.getElementById("gcats").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-c]"); if (!b) return;
     cat = b.getAttribute("data-c");
@@ -1035,7 +1039,6 @@ document.addEventListener("DOMContentLoaded", function () {
     go(!!e);
     if (!e && document.fonts && document.fonts.ready) document.fonts.ready.then(function () { go(false); });
     el.classList.add("hl"); setTimeout(function () { el.classList.remove("hl"); }, 2400);
-    FB.track("glossary_view", { term: id });
   }
   window.addEventListener("hashchange", goHash);
   goHash(null);
