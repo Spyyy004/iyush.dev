@@ -26,6 +26,7 @@ kept and flagged; if there is none, the page renders the frozen baseline with "L
 import hashlib
 import html
 import json
+import unicodedata
 import math
 import os
 import re
@@ -564,8 +565,12 @@ def forecasts_html():
     judged = [r for r in rows if r["min"] >= 450 and r["status"].endswith("range")]
     inside = sum(r["status"] == "inside 80% range" for r in judged)
     f2 = lambda v: "—" if v is None else f"{v:.2f}"
+    def key(r):   # search text: player, clubs, leagues — accents stripped so "odegaard" finds "Ødegaard"
+        t = " ".join([r["player"], r["from"], r["to"], LEAGUE.get(r.get("ol"), ""), LEAGUE.get(r.get("dl"), "")])
+        t = unicodedata.normalize("NFKD", t.replace("ø", "o").replace("Ø", "O").replace("ß", "ss"))
+        return esc("".join(c for c in t if not unicodedata.combining(c)).lower())
     body = "".join(
-        f'<tr><th scope="row">{esc(r["player"])}<small>{esc(r["from"])} → {esc(r["to"])}</small></th><td>{f2(r["pre"])}</td>'
+        f'<tr data-q="{key(r)}"><th scope="row">{esc(r["player"])}<small>{esc(r["from"])} → {esc(r["to"])}</small></th><td>{f2(r["pre"])}</td>'
         f'<td>{f2(r["pred"])} <small class="muted">{f2(r["q10"])}–{f2(r["q90"])}</small></td><td>{r["min"]:,}</td>'
         f'<td>{f2(r["act"])}</td><td class="wrapok">{esc(r["status"])}</td></tr>' for r in rows)
     progress = (f"{len(judged)} have passed 450 minutes in their new league; {inside} of them are inside their 80% range."
@@ -574,8 +579,17 @@ def forecasts_html():
   <p class="lv-kicker">Claim 05 · Transfers · pre-registered</p>
   <h2 id="tf-h" class="h2-sm">Summer 2026 transfers, forecast from last season's data</h2>
   <p class="body" style="max-width:46em">On {esc(L["registered"])} the frozen Study 05 model forecast every forward and midfielder who moved between the five leagues this summer: <strong>{len(rows)} moves</strong>. The forecasts use only data up to the end of 2025/26, never the 2026/27 matches already played when they were registered. They are locked, and each weekly run checks they have not changed. Through {esc(L["through"])}, {progress} They are scored after the season, on players with 900+ minutes; until then this is progress, not a result.</p>
-  <details class="data"><summary>All {len(rows)} forecasts (xG + xA per 90)</summary><div class="tscroll"><table class="ltable"><caption class="sr-only">Summer 2026 cross-league moves: 2025/26 output, forecast with 80% range, minutes and output so far in 2026/27</caption>
-    <thead><tr><th scope="col">Player</th><th scope="col">2025/26</th><th scope="col">Forecast · 80% range</th><th scope="col">Minutes</th><th scope="col">So far</th><th scope="col">Status</th></tr></thead><tbody>{body}</tbody></table></div></details>
+  <div class="lv-tf">
+    <div class="lv-tf__bar">
+      <p class="lv-tf__t">All {len(rows)} forecasts <span class="muted">· xG + xA per 90 · most minutes first</span></p>
+      <div class="lv-tf__search" hidden><label for="tf-q" class="sr-only">Search transfers by player, club or league</label>
+        <input id="tf-q" type="search" placeholder="Search player, club or league" autocomplete="off" spellcheck="false" />
+        <span class="lv-tf__n" id="tf-n" aria-live="polite">{len(rows)} of {len(rows)}</span></div>
+    </div>
+    <div class="tscroll lv-tf__scroll" tabindex="0" role="region" aria-label="Summer 2026 transfer forecasts table"><table class="ltable" id="tf-table"><caption class="sr-only">Summer 2026 cross-league moves: 2025/26 output, forecast with 80% range, minutes and output so far in 2026/27</caption>
+    <thead><tr><th scope="col">Player</th><th scope="col">2025/26</th><th scope="col">Forecast · 80% range</th><th scope="col">Minutes</th><th scope="col">So far</th><th scope="col">Status</th></tr></thead><tbody>{body}</tbody></table>
+    <p class="lv-tf__none" id="tf-none" hidden>No summer 2026 move matches that search. Only forwards and midfielders who moved between two of the five leagues are tracked.</p></div>
+  </div>
   <p class="source">Study 05 · Model A refitted on 428 past moves · forecasts registered {esc(L["registered"])} · live tracker</p>
 </div></section>"""
 
@@ -732,6 +746,17 @@ def render(snap):
       document.documentElement.classList.add("lv-is-stale");
       document.querySelectorAll("[data-stale-pill]").forEach(function (p) {{ p.hidden = false; }});
     }}
+  }}
+  var tq = document.getElementById("tf-q");
+  if (tq) {{
+    var rows = document.querySelectorAll("#tf-table tbody tr"), n = document.getElementById("tf-n"), none = document.getElementById("tf-none");
+    var norm = function (t) {{ return t.toLowerCase().replace(/ø/g, "o").replace(/ß/g, "ss").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").trim(); }};
+    tq.closest(".lv-tf__search").hidden = false;
+    tq.addEventListener("input", function () {{
+      var q = norm(tq.value), shown = 0;
+      rows.forEach(function (r) {{ var ok = !q || r.getAttribute("data-q").indexOf(q) !== -1; r.hidden = !ok; if (ok) shown++; }});
+      n.textContent = shown + " of " + rows.length; none.hidden = shown > 0;
+    }});
   }}
   var sel = document.getElementById("lv-season");
   if (!sel) return;

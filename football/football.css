@@ -1621,3 +1621,22 @@ html.fx .fig.in .track .ci { opacity: .7; }
 @media (max-width: 1023px) { br.hide-m { display: none; } }
 .fgroup .pill, .status-box .pill { white-space: normal; }
 .lv-legend > span:last-child { flex-wrap: wrap; }
+
+/* Live · Claim 05 transfer forecasts: open table with search (sticky header, capped height, fade hints more rows) */
+.lv-tf { margin-top: var(--s-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.lv-tf__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3) var(--s-5); padding: var(--s-4); border-bottom: 1px solid var(--line); }
+.lv-tf__t { margin: 0; font-family: var(--mono); font-size: 12px; color: var(--ink); }
+.lv-tf__search { display: flex; align-items: center; gap: var(--s-3); flex: 1 1 280px; max-width: 420px; }
+.lv-tf__search input { flex: 1; min-width: 0; min-height: 44px; padding: 0 var(--s-3); font: 400 15px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line-input); border-radius: var(--radius); }
+.lv-tf__search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.lv-tf__n { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.lv-tf__scroll { max-height: 560px; overflow: auto; -webkit-mask-image: linear-gradient(#000 calc(100% - 32px), transparent); mask-image: linear-gradient(#000 calc(100% - 32px), transparent); padding-bottom: 24px; }
+.lv-tf__scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lv-tf__scroll thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.lv-tf__scroll table { margin: 0; }
+.lv-tf__none { margin: 0; padding: var(--s-5) var(--s-4); color: var(--ink-2); font-size: var(--fs-small); }
+.lv-tf .ltable td { font-size: 13.5px; }
+.lv-tf .ltable td.wrapok { font-size: 12px; color: var(--ink-2); }
+.lv-tf .ltable th:first-child, .lv-tf .ltable td:first-child { padding-left: var(--s-4); }
+.lv-tf .ltable th:last-child, .lv-tf .ltable td:last-child { padding-right: var(--s-4); }
+.lv-tf .ltable tbody th small { display: block; }
