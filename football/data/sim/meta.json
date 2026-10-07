@@ -1,6 +1,8 @@
 {
- "season": "2025/26",
- "built_utc": "2026-10-06T11:36:49Z",
+ "season": "2026/27 so far",
+ "latest": true,
+ "through": "2026-09-20",
+ "built_utc": "2026-10-07T09:14:45Z",
  "engine": "src/study4/similarity.py Engine, windows w3, w2, recent2500, w1 × cosine, Euclidean",
  "metrics": [
   "xA",
@@ -62,5 +64,5 @@
   "group_diff": 0.75,
   "robust_score": 90
  },
- "players": 1914
+ "players": 1227
 }

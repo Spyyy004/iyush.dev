@@ -8,11 +8,13 @@ export async function lookup(reqUrl) {
   const slug = (q.get("player") || "").toLowerCase();
   const league = BY_SLUG[q.get("league")] || "Serie_A";
   const n = [1, 2, 3].includes(+q.get("seasons")) ? +q.get("seasons") : 3;
-  const players = await (await fetch(origin + "/football/data/sim/players.json")).json();
+  const as = q.get("as") === "2025" ? "2025" : null;   // the page's season switch: 2025/26, or the latest matches
+  const dir = `${origin}/football/data/${as ? "sim-" + as : "sim"}`;
+  const players = await (await fetch(dir + "/players.json")).json();
   const me = players.find((r) => r[5] === slug);
-  if (!me) return { found: false, league, n };
-  const out = { found: true, league, n, name: me[1], team: me[2], from: me[3], slug };
-  const res = await fetch(`${origin}/football/data/sim/r/${me[0]}.json`);
+  if (!me) return { found: false, league, n, as };
+  const out = { found: true, league, n, as, name: me[1], team: me[2], from: me[3], slug };
+  const res = await fetch(`${dir}/r/${me[0]}.json`);
   if (res.ok) {
     const rows = ((await res.json()).res[league] || {})["w" + n] || [];
     if (rows.length) {

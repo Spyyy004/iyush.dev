@@ -106,7 +106,7 @@ def main():
             sys.exit("predictions differ from the research fixture: " + fx_note)
 
     # ---- slugs: reuse the Similarity Explorer's where the same player-league exists, so the tools link ----
-    sim = SITE / "football/data/sim/players.json"
+    sim = SITE / "football/data/sim-2025/players.json"  # same season as the calculator's inputs
     sim_slug = {r[0]: r[5] for r in json.load(open(sim))} if sim.exists() else {}
     used, slugs = set(), []
     for _, r in P.iterrows():

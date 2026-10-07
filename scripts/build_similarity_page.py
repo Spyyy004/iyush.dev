@@ -36,6 +36,8 @@ body = f"""<main id="main">
   <h1 id="sx-title">Who plays like him?</h1>
   <p class="lede">Find players with similar adjusted attacking profiles across European leagues.</p>
   <p class="sx-note">Similarity is based on nine attacking dimensions adjusted for opponent, venue and league, normalized within role.</p>
+  <div class="field" style="margin-top:20px;max-width:30rem"><span class="label" id="q-asof-l">Profiles as of</span>
+    <div class="seg sx-seg" id="q-asof" role="group" aria-labelledby="q-asof-l"><button type="button" data-as="" aria-pressed="true">Latest matches<small>refreshed weekly</small></button><button type="button" data-as="2025" aria-pressed="false">2025/26<small>complete season</small></button></div></div>
 </section>
 
 <section class="wrap" aria-label="Find similar players">
@@ -87,7 +89,7 @@ body = f"""<main id="main">
         <p><b>Ranking.</b> {{cosine-similarity|Cosine similarity}} and Euclidean distance under four profile windows (one, two and three seasons, and the latest 2,500 minutes) — eight checks. A match is <b>robust</b> when it is in the top 10 and closer than 90% of the pool under at least two-thirds of them. Results list robust matches first, then by the median similarity score in your chosen window.</p>
         <p><b>Profile similarity</b> = closer to the player than that share of the destination pool (0–100). It is a rank, not a probability and not a rating.</p>
         <p><b>Match language</b> uses the Study 4 case study's thresholds: a metric gap of ≤ {SIM["rules"]["similar"]} SD is a strong match, ≤ {SIM["rules"]["moderate"]} SD moderate, larger a divergence; a group is “closest” at a mean gap ≤ {SIM["rules"]["group_close"]} SD and “higher/lower” beyond {SIM["rules"]["group_diff"]} SD.</p>
-        <p><b>Precomputed.</b> Every player × league × window was run through the research engine ({SIM["engine"]}); this page only looks results up. Profiles as of {SIM["season"]}; pools need at least {SIM["min_minutes"]} minutes. Validated by {{self-retrieval|self-retrieval}}: three-season profiles find the same player in the top 9% of a destination pool after a real league move.</p>
+        <p><b>Precomputed.</b> Every player × league × window was run through the research engine ({SIM["engine"]}); this page only looks results up. Two sets of profiles: as of the latest matches (the current season so far, rebuilt every week) and as of the complete 2025/26 season. Windows end at that point, so early in a season the one-season window has few players; pools need at least {SIM["min_minutes"]} minutes. Validated by {{self-retrieval|self-retrieval}}: three-season profiles find the same player in the top 9% of a destination pool after a real league move.</p>
       </div></details></div>
       <p style="margin-top:20px"><a class="link-arrow" href="/football/research/similarity">Read Study 04 <span class="arr" aria-hidden="true">→</span></a></p>
     </div>
@@ -97,7 +99,7 @@ body = f"""<main id="main">
         <div><p class="label">The model sees</p><ul><li>Attacking output</li><li>Chance creation</li><li>Shooting profile</li><li>Involvement</li><li>Profile shape</li></ul></div>
         <div><p class="label">The model does not see</p><ul class="sx-not"><li>Defensive actions</li><li>Completed passes</li><li>Carries</li><li>Possession</li><li>Injuries</li><li>Transfer fees</li><li>Contracts</li></ul></div>
       </div>
-      <p class="prov"><span class="label">Source</span>Understat player-match data · Study 4 similarity engine · profiles {SIM["season"]}<br><span class="label">Players</span>{SIM["players"]:,} with ≥ {SIM["min_minutes"]} minutes in at least one window</p>
+      <p class="prov"><span class="label">Source</span>Understat player-match data · Study 4 similarity engine · profiles as of the latest matches (weekly) or 2025/26<br><span class="label">Players</span>those with ≥ {SIM["min_minutes"]} minutes in at least one window</p>
     </div>
   </div>
 </section>

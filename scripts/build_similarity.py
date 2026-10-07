@@ -14,7 +14,12 @@ The browser only looks results up.
 Ranking (per player × destination league × profile window) follows Engine.find's own sort: profiles that are robust
 across all eight checks first, then the median similarity score under the chosen window's two algorithms.
 
-Writes football/data/sim/: meta.json, players.json (search index), z/<league>_<window>.json (profiles shown in
+Two datasets (the page's season switch, ?as=2025 for the second):
+    python scripts/build_similarity.py                 -> football/data/sim/       profiles as of the latest matches
+                                                          (current season in progress; rebuilt every weekly run)
+    python scripts/build_similarity.py --season 2025   -> football/data/sim-2025/  profiles as of 2025/26 (complete)
+
+Writes <out>/: meta.json, players.json (search index), z/<league>_<window>.json (profiles shown in
 comparisons) and r/<key>.json (one small file per player with every league × window result).
 """
 import json
@@ -33,16 +38,18 @@ os.chdir(RESEARCH)
 
 import numpy as np  # noqa: E402
 from src.study4 import bruno as B  # noqa: E402  (case-study GROUPS + engine settings)
+from src import config  # noqa: E402
 from src.study4 import similarity as S  # noqa: E402
 
-SEASON = "2025"            # profiles as of 2025/26: the last complete season, as in the frozen Study 4 case study
-SEASON_LABEL = "2025/26"
+LATEST = "--season" not in sys.argv
+SEASON = config.CURRENT_SEASON if LATEST else sys.argv[sys.argv.index("--season") + 1]
+SEASON_LABEL = config.season_label(SEASON)
 ENGINE_WINDOWS = ("w3", "w2", "recent2500", "w1")   # bruno.py main(): all four windows x cosine / Euclidean = 8 checks
 UI_WINDOWS = {"w1": 1, "w2": 2, "w3": 3}            # M3 §5: 1, 2 or 3 seasons
 MIN_MINUTES = 900                                    # Engine pool threshold; also required of the query profile
 K = 10
 LEAGUES = ["EPL", "La_Liga", "Serie_A", "Bundesliga", "Ligue_1"]
-OUT = SITE / "football/data/sim"
+OUT = SITE / "football/data" / ("sim" if LATEST else f"sim-{SEASON}")
 
 
 def slugify(s):
@@ -52,6 +59,14 @@ def slugify(s):
 
 def r2(x):
     return None if x is None or (isinstance(x, float) and np.isnan(x)) else round(float(x), 2)
+
+
+def through():
+    """Date of the latest match in the profiles' season (the 'as of' date shown on the page)."""
+    import pandas as pd
+    tm = pd.concat([pd.read_parquet(p, columns=["season", "kickoff_utc"]) for p in
+                    (config.ROOT / "data/processed/ALL_2015_2024/team_match.parquet", config.LIVE_DIR / "team_match.parquet")])
+    return str(tm.loc[tm["season"] == SEASON, "kickoff_utc"].max().date())
 
 
 def main():
@@ -133,7 +148,8 @@ def main():
     (OUT / "players.json").write_text(json.dumps(players, separators=(",", ":"), ensure_ascii=False))
 
     meta = {
-        "season": SEASON_LABEL, "built_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "season": SEASON_LABEL + (" so far" if LATEST else ""), "latest": LATEST, "through": through(),
+        "built_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "engine": "src/study4/similarity.py Engine, windows " + ", ".join(ENGINE_WINDOWS) + " × cosine, Euclidean",
         "metrics": S.NAMES, "groups": {g: [S.NAMES.index(m) for m in ms] for g, ms in B.GROUPS.items()},
         "roles": roles, "leagues": LEAGUES, "windows": UI_WINDOWS, "min_minutes": MIN_MINUTES, "k": K,

@@ -1,10 +1,12 @@
 /* Similarity Explorer (M3). Looks up precomputed Study 4 results — nothing is calculated here.
-   Data: /football/data/sim/ (scripts/build_similarity.py runs the research engine for every query).
+   Data: /football/data/sim/ (profiles as of the latest matches, rebuilt weekly) or /football/data/sim-2025/ (?as=2025);
+   scripts/build_similarity.py runs the research engine for every query.
    The only arithmetic in this file is presentation: per-metric gaps between two published z-scores, labelled with the
    Study 4 case study's own thresholds (meta.rules). */
 (function () {
   "use strict";
-  var FB = window.FB, BASE = "/football/data/sim/";
+  var AS = new URLSearchParams(location.search).get("as") === "2025" ? "2025" : "";   // season switch: "" = latest
+  var FB = window.FB, BASE = "/football/data/" + (AS ? "sim-" + AS : "sim") + "/";
   var WIN = { 1: "w1", 2: "w2", 3: "w3" };
   var GROUP_LABEL = { "chance creation": "Chance creation", "involvement": "Involvement", "shooting volume": "Shooting volume", "shot profile": "Shot profile" };
   var META, PLAYERS, BY_KEY = {}, BY_SLUG = {}, cacheR = {}, cacheZ = {};
@@ -57,6 +59,7 @@
     if (pl) q.set("player", pl.slug);
     q.set("league", FB.LEAGUE_SLUG[st.league]);
     q.set("seasons", st.seasons);
+    if (AS) q.set("as", AS);
     if (st.compare) q.set("compare", st.compare);
     return location.pathname + "?" + q.toString();
   }
@@ -175,7 +178,7 @@
     return '<div class="sx-head"><div><p class="label">Similarity result</p><h2 class="sx-h" id="sx-h" tabindex="-1">' + esc(pl.name) + "</h2>" +
       '<p class="sx-meta">' + esc(pl.team) + " · " + FB.LEAGUE_NAME[pl.league] + ' · Role: ' + esc(pl.role) +
       ' <button type="button" class="term" data-term="role">model-assigned</button></p>' +
-      '<p class="sx-q"><b>→ ' + FB.LEAGUE_NAME[sel.league] + "</b> · " + sel.seasons + "-season profile · " + META.season + " season</p></div>" +
+      '<p class="sx-q"><b>→ ' + FB.LEAGUE_NAME[sel.league] + "</b> · " + sel.seasons + "-season profile · as of " + META.season + "</p></div>" +
       '<button type="button" class="share" id="sx-share">Copy link</button></div>' + (extra || "");
   }
 
@@ -323,12 +326,27 @@
       '<p><b>Want to estimate that?</b> <a class="link-arrow" href="/football/tools/transfer?player=' + pl.slug + "&amp;from=" + FB.LEAGUE_SLUG[pl.league] + "&amp;to=" + FB.LEAGUE_SLUG[sel.league] + '">Try the Transfer Calculator <span class="arr" aria-hidden="true">→</span></a></p></aside>';
   }
 
+  /* ---------------- season switch: reloads with the other dataset, keeping player / league / window ---------------- */
+  function initAsOf() {
+    FB.$$("#q-asof button").forEach(function (b) {
+      var v = b.getAttribute("data-as");
+      b.setAttribute("aria-pressed", v === AS ? "true" : "false");
+      b.addEventListener("click", function () {
+        if (v === AS) return;
+        var q = new URLSearchParams(location.search);
+        if (v) q.set("as", v); else q.delete("as");
+        q.delete("compare");
+        location.href = location.pathname + (q.toString() ? "?" + q.toString() : "");
+      });
+    });
+  }
+
   /* ---------------- boot ---------------- */
   function fromURL() {
     var st = readURL();
     sel.league = st.league; sel.seasons = st.seasons; sel.compare = st.compare;
     if (st.key) { sel.key = st.key; run(false); }
-    else if (st.slug) { stateBox("empty", "Player not found", "<p>No player matches “" + esc(st.slug) + "” in the " + META.season + " profiles. Search for a player above.</p>"); syncForm(); }
+    else if (st.slug) { stateBox("empty", "Player not found", "<p>No player matches “" + esc(st.slug) + "” in the profiles as of " + META.season + ". Search for a player above" + (AS ? ", or switch to the latest matches" : ", or switch to 2025/26") + ".</p>"); syncForm(); }
     else syncForm();
   }
   document.addEventListener("DOMContentLoaded", function () {
@@ -337,7 +355,9 @@
     Promise.all([getJSON("meta.json"), getJSON("players.json")]).then(function (d) {
       META = d[0]; PLAYERS = d[1];
       PLAYERS.forEach(function (r) { BY_KEY[r[0]] = r; BY_SLUG[r[5]] = r[0]; });
-      $("q-count").textContent = PLAYERS.length.toLocaleString("en-GB") + " players · profiles as of " + META.season;
+      $("q-count").textContent = PLAYERS.length.toLocaleString("en-GB") + " players · profiles as of " + META.season +
+        (META.through ? " (through " + new Date(META.through + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) + ")" : "");
+      initAsOf();
       initForm();
       fromURL();
       window.addEventListener("popstate", fromURL);

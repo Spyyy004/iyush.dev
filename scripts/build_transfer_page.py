@@ -154,7 +154,7 @@ body = f"""<main id="main">
       <h2 class="h2-sm">What this doesn't tell you</h2>
       <div class="sx-knows" style="grid-template-columns:1fr"><div><p class="label">The model does not predict</p><ul class="sx-not">
         <li>Injuries</li><li>Adaptation outside attacking output</li><li>Defensive contribution</li><li>Possession or carrying contribution</li><li>Transfer fee</li><li>Contract</li><li>Team tactics</li><li>Fixture congestion</li><li>Cup competition</li><li>Overall player value</li></ul></div></div>
-      <p class="prov"><span class="label">Scope</span>Forwards and midfielders with ≥ {IX["min_minutes"]} minutes in {IX["pre_season"]} · defenders and goalkeepers excluded<br><span class="label">Data</span>Understat · football-data.co.uk odds (club strength) · Transfermarkt-derived dates of birth</p>
+      <p class="prov"><span class="label">Scope</span>Forwards and midfielders with ≥ {IX["min_minutes"]} minutes in {IX["pre_season"]} · defenders and goalkeepers excluded<br><span class="label">Season</span>Inputs stay on {IX["pre_season"]}, the last complete season, until the current one ends: the model was trained and tested on full seasons, so part-season numbers would be used outside what it was validated on<br><span class="label">Data</span>Understat · football-data.co.uk odds (club strength) · Transfermarkt-derived dates of birth</p>
     </div>
   </div>
 </section>

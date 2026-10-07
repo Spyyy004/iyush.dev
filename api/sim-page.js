@@ -12,8 +12,8 @@ export default async function handler(req) {
   try {
     const s = await lookup(req.url);
     if (s.found) {
-      const share = `${u.origin}/football/tools/similarity?player=${s.slug}&league=${LEAGUE_SLUG[s.league]}&seasons=${s.n}`;
-      const img = `${u.origin}/api/og/similarity?player=${s.slug}&league=${LEAGUE_SLUG[s.league]}&seasons=${s.n}`;
+      const share = `${u.origin}/football/tools/similarity?player=${s.slug}&league=${LEAGUE_SLUG[s.league]}&seasons=${s.n}${s.as ? "&as=" + s.as : ""}`;
+      const img = `${u.origin}/api/og/similarity?player=${s.slug}&league=${LEAGUE_SLUG[s.league]}&seasons=${s.n}${s.as ? "&as=" + s.as : ""}`;
       const title = `Who plays like ${s.name}? · ${LEAGUE_NAME[s.league]}`;
       const desc = (s.top ? `Closest adjusted attacking profile in ${LEAGUE_NAME[s.league]}: ${s.top}. ` : "") +
         `${s.n}-season profile, Study 4 similarity model. Describes playing style — not a forecast.`;
