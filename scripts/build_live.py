@@ -47,7 +47,7 @@ LEAGUE = {"EPL": "Premier League", "La_Liga": "La Liga", "Serie_A": "Serie A", "
 METRIC = {"xg": "xG", "xa": "xA", "shots": "Shots", "key_passes": "Key passes", "goals": "Goals"}
 FROZEN_PERIOD = "2015/16 — 2024/25"
 SCHEMA = 2
-STALE_DAYS = 8          # the pipeline runs every Monday; older than 8 days means at least one run was missed
+STALE_DAYS = 8          # the pipeline runs every Tuesday (10:00 IST); older than 8 days means at least one run was missed
 EARLY_SHARE = 1 / 3     # an in-progress season with under a third of fixtures played is labelled "early season"
 NEAR_ZERO_R = 0.1       # |r| below this is described as "near zero" (Claim 03)
 T_CORR = '<button type="button" class="term" data-term="correlation">r</button>'
@@ -554,6 +554,32 @@ def player_claims(snap):
 </div></section>"""
 
 
+def forecasts_html():
+    """Study 05 live: summer-2026 transfer forecasts registered before the season's output was known (research pipeline,
+    src/live/study5_forecasts.py). Progress is descriptive; scoring happens after the season."""
+    L = R.get("s5live")
+    if not L:
+        return ""
+    rows = sorted(L["rows"], key=lambda r: -r["min"])
+    judged = [r for r in rows if r["min"] >= 450 and r["status"].endswith("range")]
+    inside = sum(r["status"] == "inside 80% range" for r in judged)
+    f2 = lambda v: "—" if v is None else f"{v:.2f}"
+    body = "".join(
+        f'<tr><th scope="row">{esc(r["player"])}<small>{esc(r["from"])} → {esc(r["to"])}</small></th><td>{f2(r["pre"])}</td>'
+        f'<td>{f2(r["pred"])} <small class="muted">{f2(r["q10"])}–{f2(r["q90"])}</small></td><td>{r["min"]:,}</td>'
+        f'<td>{f2(r["act"])}</td><td class="wrapok">{esc(r["status"])}</td></tr>' for r in rows)
+    progress = (f"{len(judged)} have passed 450 minutes in their new league; {inside} of them are inside their 80% range."
+                if judged else "None has passed 450 minutes in the new league yet.")
+    return f"""<section class="lv-sec" aria-labelledby="tf-h"><div class="wrap">
+  <p class="lv-kicker">Claim 05 · Transfers · pre-registered</p>
+  <h2 id="tf-h" class="h2-sm">Summer 2026 transfers, forecast from last season's data</h2>
+  <p class="body" style="max-width:46em">On {esc(L["registered"])} the frozen Study 05 model forecast every forward and midfielder who moved between the five leagues this summer: <strong>{len(rows)} moves</strong>. The forecasts use only data up to the end of 2025/26, never the 2026/27 matches already played when they were registered. They are locked, and each weekly run checks they have not changed. Through {esc(L["through"])}, {progress} They are scored after the season, on players with 900+ minutes; until then this is progress, not a result.</p>
+  <details class="data"><summary>All {len(rows)} forecasts (xG + xA per 90)</summary><div class="tscroll"><table class="ltable"><caption class="sr-only">Summer 2026 cross-league moves: 2025/26 output, forecast with 80% range, minutes and output so far in 2026/27</caption>
+    <thead><tr><th scope="col">Player</th><th scope="col">2025/26</th><th scope="col">Forecast · 80% range</th><th scope="col">Minutes</th><th scope="col">So far</th><th scope="col">Status</th></tr></thead><tbody>{body}</tbody></table></div></details>
+  <p class="source">Study 05 · Model A refitted on 428 past moves · forecasts registered {esc(L["registered"])} · live tracker</p>
+</div></section>"""
+
+
 def selector_html(snap):
     seasons = snap["seasons"]
     if not seasons:
@@ -664,6 +690,7 @@ def render(snap):
 {claim_block(1, "home", "Home advantage", "Players produce more attacking output at home.", H, snap, -5, 40)}
 {claim_block(2, "opp", "Opposition", "Players produce less attacking output against stronger opponents.", O, snap, -25, 5)}
 {player_claims(snap)}
+{forecasts_html()}
 {changed_html(snap)}
 
 <section class="lv-sec lv-immutable" aria-labelledby="imm-h"><div class="wrap lv-grid">
@@ -686,7 +713,7 @@ def render(snap):
     <ol class="lv-log">{log_html}</ol>
     <p class="source">Events recorded by the pipeline (weekly run logs, snapshot timestamp) and dated entries in the findings files</p></div>
   <div><p class="lv-kicker">Data provenance</p>
-    <dl class="lv-dl lv-prov"><div><dt>Live data</dt><dd>Updated weekly (Monday pipeline → validation → snapshot → this page)</dd></div><div><dt>Frozen baseline</dt><dd>{FROZEN_PERIOD}</dd></div>
+    <dl class="lv-dl lv-prov"><div><dt>Live data</dt><dd>Updated weekly (Tuesday pipeline → validation → snapshot → this page)</dd></div><div><dt>Frozen baseline</dt><dd>{FROZEN_PERIOD}</dd></div>
       <div><dt>Current seasons</dt><dd>{" · ".join(s["label"] for s in seasons) or "2025/26+"}</dd></div>{odds}
       <div><dt>Sources</dt><dd>{esc(snap["sources"])}</dd></div></dl>
     <p><a class="link-arrow" href="/football/methodology">How the research works <span class="arr" aria-hidden="true">→</span></a></p></div>

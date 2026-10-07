@@ -32,6 +32,7 @@ research["tracker"] = d.get("tracker")
 research["s4"] = {k: s4[k] for k in ("season", "season_label", "through", "metrics", "roles", "bruno", "creators",
                                      "role_codes", "retrieval", "validation")}
 research["s5"] = {k: v for k, v in s5.items() if k not in ("params", "players", "clubs", "board", "moves")}
+research["s5live"] = d.get("s5live")  # pre-registered summer-2026 transfer forecasts + weekly progress
 dump("research.json", research)
 
 # Similarity tool (M3): precomputed by scripts/build_similarity.py with the Study 4 engine — not exported here.
