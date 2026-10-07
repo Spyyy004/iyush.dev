@@ -1,0 +1,30 @@
+{
+  "slug": "club-brugge",
+  "club": "Club Brugge",
+  "date": "2026-10-07",
+  "date_label": "October 2026",
+  "recipient": "Jan Van Haaren",
+  "recipient_role": "Director of Football Intelligence, Club Brugge",
+  "title": "How much of a player's game travels?",
+  "subtitle": "A public-data test of cross-league recruitment",
+  "pull": ["Similarity finds candidates.", "Player history predicts performance."],
+  "why": [
+    "Club Brugge describes its mission as becoming a 100% evidence-based organisation, and its football data science team is free to build “new metrics, models, and long-term projects”, including “models of how football and the transfer market are evolving”.",
+    "The recruitment challenge, in Jan Van Haaren's words, is to get players “on your radar as soon as possible”. Data shrinks the pool to something scouts can watch. That makes the question here not only who is good, but what a player's numbers will become in a new environment."
+  ],
+  "why_source": "Quotes: Jan Van Haaren, interview with Total Football Analysis, 18 February 2026.",
+  "limits_club": [
+    {"t": "Belgium is not in the data.", "d": "The ladder covers the top five leagues only. Club Brugge buys from leagues outside it and sells into it, so the club's own rung, and the rungs of most of its scouting markets, are exactly what this model cannot place."},
+    {"t": "The model starts at 900 minutes.", "d": "Club Brugge wants to decide whether a player is worth looking into “even when players haven't had many minutes”. The forecast needs a conventional sample before it says anything, so it does not solve that problem."}
+  ],
+  "video_quote": "Data tells us which video to look at, video provides context for the numbers.",
+  "next": {
+    "q": "Can we estimate how a player's output will transfer before he has a conventional sample of minutes, and from leagues outside the top five?",
+    "steps": [
+      "Extend the difficulty ladder to the leagues Club Brugge actually scouts and sells into, Belgium included, using players who moved between them and the top five.",
+      "Replace the 900-minute gate with partial pooling: shrink low-minute players toward their role and league, and report the wider interval honestly instead of hiding the player.",
+      "Test it the same way as here: fit on earlier windows, lock the later ones, and publish the misses."
+    ]
+  },
+  "outreach": "Hi Jan,\n\nI've been following your work on football intelligence at Club Brugge, particularly the idea of an evidence-based club where data tells you which video to watch.\n\nI've been building a football research project on ten seasons of Europe's top five leagues. One part became a question I thought might be relevant to how Club Brugge recruits:\n\nHow much of a player's game actually travels when he changes league?\n\nI tested league difficulty, club strength, age and the player's own history on transfers the model had never seen, and then tested whether cross-league player similarity improved the forecast.\n\nIt didn't, which was probably the most interesting result.\n\nI wrote it up as a short memo, including what it can't do for a club like Brugge (Belgium isn't in the data, and it needs 900 minutes):\n\n{link}\n\nI'd be very interested in your view on the question, and especially on what a public-data model like this misses inside a real club.\n\nBest,\nAyush"
+}

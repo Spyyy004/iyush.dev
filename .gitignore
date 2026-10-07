@@ -5,3 +5,6 @@
 node_modules/
 __pycache__/
 *.pyc
+
+# Outreach drafts (message to recipients, sent PDFs) — local only, repo is public
+docs/outreach/

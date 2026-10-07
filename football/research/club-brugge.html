@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>How much of a player&#x27;s game travels? · Research memo · Ayush Pawar</title>
+<meta name="description" content="A public-data test of cross-league recruitment. A research memo on cross-league transfers from ten seasons of top-five-league event data, prepared for Club Brugge." />
+<link rel="canonical" href="https://iyush.dev/football/research/club-brugge" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="How much of a player&#x27;s game travels?" />
+<meta property="og:description" content="A public-data test of cross-league recruitment. A research memo on cross-league transfers from ten seasons of top-five-league event data, prepared for Club Brugge." />
+<meta property="og:url" content="https://iyush.dev/football/research/club-brugge" />
+<meta property="og:image" content="https://iyush.dev/football/og/transferability.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How much of a player&#x27;s game travels?" />
+<meta name="twitter:description" content="A public-data test of cross-league recruitment. A research memo on cross-league transfers from ten seasons of top-five-league event data, prepared for Club Brugge." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/transferability.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Report",
+  "name": "How much of a player's game travels?",
+  "alternativeHeadline": "A public-data test of cross-league recruitment",
+  "author": {
+    "@type": "Person",
+    "name": "Ayush Pawar",
+    "url": "https://iyush.dev"
+  },
+  "datePublished": "2026-10-07",
+  "url": "https://iyush.dev/football/research/club-brugge"
+}
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://iyush.dev/football/research"}, {"@type": "ListItem", "position": 3, "name": "club-brugge", "item": "https://iyush.dev/football/research/club-brugge"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<link rel="stylesheet" href="/football/memo.css" />
+<script>document.documentElement.classList.add("js")</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+</head>
+<body class="memo-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research" aria-current="true">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="memo">
+<article class="wrap memo__doc">
+
+<header class="mcover">
+  <p class="mk">Football research · Memo</p>
+  <h1>How much of a player&#x27;s game travels?</h1>
+  <p class="mcover__sub">A public-data test of cross-league recruitment</p>
+  <dl class="mcover__meta">
+    <div><dt>Prepared for</dt><dd>Jan Van Haaren<small>Director of Football Intelligence, Club Brugge</small></dd></div>
+    <div><dt>By</dt><dd>Ayush Pawar<small>October 2026 · interactive version: iyush.dev/football/research/club-brugge</small></dd></div>
+  </dl>
+  <blockquote class="mpull"><p>Similarity finds candidates.<br>Player history predicts performance.</p></blockquote>
+  <p class="mcover__note">Independent research from public event data, written for Club Brugge because I think the question is relevant to its work. It was not commissioned by the club and uses none of its data.</p>
+</header>
+
+<section class="msec" aria-labelledby="s1"><p class="mnum">01</p><div>
+  <h2 id="s1">The recruitment problem</h2>
+  <p>A forward produces 0.65 xG + xA per 90 in league A. What should a recruitment department expect from him in league B?</p>
+  <p>A player's numbers don't belong entirely to the player. League difficulty, the strength of the club around him, his age and the shape of his recent seasons all leave a mark. There are three obvious ways to make the forecast:</p>
+  <ol class="mthree"><li><b>Trust his previous output.</b></li><li><b>Adjust for the destination:</b> the league and the club.</li><li><b>Find similar players</b> and look at what they did.</li></ol>
+  <p>I tested all three on transfers the model had never seen.</p>
+  <div class="mwhy"><p class="mk">Why Club Brugge</p><p>Club Brugge describes its mission as becoming a 100% evidence-based organisation, and its football data science team is free to build “new metrics, models, and long-term projects”, including “models of how football and the transfer market are evolving”.</p><p>The recruitment challenge, in Jan Van Haaren&#x27;s words, is to get players “on your radar as soon as possible”. Data shrinks the pool to something scouts can watch. That makes the question here not only who is good, but what a player&#x27;s numbers will become in a new environment.</p><p class="msrc">Quotes: Jan Van Haaren, interview with Total Football Analysis, 18 February 2026.</p></div>
+</div></section>
+
+<section class="msec" aria-labelledby="s2"><p class="mnum">02</p><div>
+  <h2 id="s2">The data</h2>
+  <ul class="mstats">
+    <li><b>10</b><span>seasons, 2015/16–2024/25</span></li><li><b>5</b><span>leagues: EPL, La Liga, Serie A, Bundesliga, Ligue 1</span></li>
+    <li><b>18,011</b><span>matches</span></li><li><b>8,348</b><span>players</span></li><li><b>525,328</b><span>player-matches</span></li>
+    <li><b>2,917</b><span>cross-league moves, inferred from club spells</span></li><li><b>428</b><span>in the primary transfer sample</span></li>
+  </ul>
+  <p>The primary sample is every summer move between two of the five leagues by a forward or midfielder with at least 900 minutes before and after it, with destination seasons from 2016/17 to 2025/26. <b>Retention</b> is output after the move against what comparable players who stayed at their club produced the next season: same role, same pre-move output, same age. That strips out regression to the mean and normal ageing.</p>
+  <p class="mnote">This is public, match-level event data: shots, xG and xA from Understat, plus club and league context. It has no defensive actions, possession, passes, carries, tracking, physical data, injuries, contracts or fees. Every forecast below is about attacking output only.</p>
+</div></section>
+
+<section class="msec" aria-labelledby="s3"><p class="mnum">03</p><div>
+  <h2 id="s3">A move doesn't automatically destroy a player's output</h2>
+  <p>Across all 428 moves, players kept <b>97%</b> of their xG + xA per 90 against comparable stayers (95% CI 93%–101%). There is no universal &ldquo;league-change penalty&rdquo;. The direction is what matters:</p>
+  <figure class="mfig">
+  <figcaption><p class="mfig__t">Output kept after a move, by destination league</p>
+  <p class="mfig__s">xG + xA per 90 after the move vs comparable players who stayed · bar from 100% · line = 95% CI · 428 summer moves</p></figcaption>
+  <div class="mc" role="list" aria-label="Output kept by destination league"><div class="mc-row" role="listitem"><span class="mc-k">Premier League<small>137 moves</small></span><span class="mc-t"><span class="mc-bar mc-bar--neg" style="left:26.93%;width:23.07%"></span><span class="mc-ci" style="left:19.51%;width:14.47%"></span></span><b class="mc-v">82%<small>76%–87%</small></b></div><div class="mc-row" role="listitem"><span class="mc-k">Serie A<small>97 moves</small></span><span class="mc-t"><span class="mc-bar mc-bar--mid" style="left:44.42%;width:5.58%"></span><span class="mc-ci" style="left:36.34%;width:17.36%"></span></span><b class="mc-v">96%<small>89%–103%</small></b></div><div class="mc-row" role="listitem"><span class="mc-k">La Liga<small>86 moves</small></span><span class="mc-t"><span class="mc-bar mc-bar--mid" style="left:49.75%;width:0.25%"></span><span class="mc-ci" style="left:40.13%;width:20.01%"></span></span><b class="mc-v">100%<small>92%–108%</small></b></div><div class="mc-row" role="listitem"><span class="mc-k">Ligue 1<small>61 moves</small></span><span class="mc-t"><span class="mc-bar mc-bar--pos" style="left:50.00%;width:22.71%"></span><span class="mc-ci" style="left:60.12%;width:26.50%"></span></span><b class="mc-v">118%<small>108%–129%</small></b></div><div class="mc-row" role="listitem"><span class="mc-k">Bundesliga<small>47 moves</small></span><span class="mc-t"><span class="mc-bar mc-bar--pos" style="left:50.00%;width:23.98%"></span><span class="mc-ci" style="left:59.30%;width:28.59%"></span></span><b class="mc-v">119%<small>107%–130%</small></b></div>
+  <div class="mc-ax" aria-hidden="true"><span></span><span class="mc-ticks"><i style="left:0.00%">60%</i><i style="left:25.00%">80%</i><i style="left:50.00%">100%</i><i style="left:75.00%">120%</i><i style="left:100.00%">140%</i><b class="mc-100" style="left:50.00%"></b></span><span></span></div></div>
+</figure>
+  <p>One ladder of league difficulty explains all 20 directions: Premier League hardest, Serie A and La Liga in the middle, the Bundesliga and Ligue 1 easiest. Pair-specific effects add nothing (F-test p = 0.91). Moving into the Premier League keeps 82%; the same player moving the other way would be expected to gain.</p>
+</div></section>
+
+<section class="msec" aria-labelledby="s4"><p class="mnum">04</p><div>
+  <h2 id="s4">The league isn't everything</h2>
+  <p>Within that ladder, three things about the player and the destination club matter about as much as the league itself.</p>
+  <div class="mcards">
+    <div class="mcard"><p class="mk">Destination club</p><p class="mcard__n">79% <i>→</i> 106%</p><p>Weakest third of destination clubs vs strongest third. A step up in club strength keeps 114%; a step down, 81%.</p></div>
+    <div class="mcard"><p class="mk">Age</p><p class="mcard__n">−2%</p><p>Retention per extra year of age, beyond normal ageing (95% CI −3.2% to −0.8%).</p></div>
+    <div class="mcard"><p class="mk">A recent jump</p><p class="mcard__n">−9%</p><p>Per standard deviation of last-season improvement. Players arriving off a spike come down further.</p></div>
+  </div>
+  <p class="mbig">The destination isn't a league. It's a league, a club and a player's trajectory.</p>
+</div></section>
+
+<section class="msec" aria-labelledby="s5"><p class="mnum">05</p><div>
+  <h2 id="s5">The obvious next idea: find players like him</h2>
+  <p>If output changes in a new environment, perhaps we should look at players who play like the one we're buying. That was Study 4: a cross-league similarity engine on nine context-adjusted metrics, z-scored within role, compared by cosine similarity.</p>
+  <p>It finds sensible candidates. Searching Serie A for Bruno Fernandes returns Samardžić, Dybala and Chukwueze as the matches that survive every specification. It also shows the limit of similarity: Bruno's chance creation sits <b>3.6 standard deviations</b> above his role average; the best in Serie A's pool is <b>1.9</b>. The matches share his shape, not his level.</p>
+  <p class="mbig">Similarity can find candidates. Does it help predict them?</p>
+</div></section>
+
+<section class="msec msec--hero" aria-labelledby="s6"><p class="mnum">06</p><div>
+  <h2 id="s6">The experiment</h2>
+  <p>Two tests, both leak-free: every feature is frozen at the summer of the move and each model only sees earlier moves.</p>
+  <h3>Test 1 · How much does context and history buy?</h3>
+  <p>Four models, specified on 286 earlier moves and then scored once on 142 transfers from 2023/24–2025/26 that had been locked away.</p>
+  <figure class="mfig">
+  <figcaption><p class="mfig__t">Forecast error on the locked test</p>
+  <p class="mfig__s">Mean absolute error, xG + xA per 90 after the move · lower is better · 142 unseen transfers, 2023/24–2025/26 · each model fixed before the test was opened</p></figcaption>
+  <div class="mm" role="list" aria-label="Mean absolute error by model"><div class="mm-row" role="listitem"><span class="mm-k">He&#x27;ll do what he did before<small>post = pre</small></span><span class="mm-t"><span class="mm-bar" style="width:92.25%"></span></span><b class="mm-v">0.129<small>R² 0.58</small></b></div><div class="mm-row" role="listitem"><span class="mm-k">Pull toward the role average<small>shrinkage by role</small></span><span class="mm-t"><span class="mm-bar" style="width:83.48%"></span></span><b class="mm-v">0.117<small>R² 0.65</small></b></div><div class="mm-row" role="listitem"><span class="mm-k">Context<small>+ age, minutes, both clubs&#x27; strength, both leagues</small></span><span class="mm-t"><span class="mm-bar" style="width:72.52%"></span></span><b class="mm-v">0.102<small>R² 0.74</small></b></div><div class="mm-row mm-row--hero" role="listitem"><span class="mm-k">Context + the player&#x27;s 3-season history<small>Model A</small></span><span class="mm-t"><span class="mm-bar" style="width:68.62%"></span></span><b class="mm-v">0.096<small>R² 0.76</small></b></div></div>
+</figure>
+  <p>Context and the player's own three-season history cut the error by a quarter against &ldquo;he'll do what he did before&rdquo; (0.129 → 0.096; difference −0.033, 95% CI −0.049 to −0.018). It also ranks well: AUC 0.80 for keeping at least 75% of output.</p>
+  <h3>Test 2 · Does similarity add anything?</h3>
+  <p>The same history model, plus Study 4's similarity features: what the most similar players produce in the destination league, how good the match is, how distinctive the player is, and how similar past movers fared.</p>
+  <figure class="mfig">
+  <figcaption><p class="mfig__t">What Study 4 similarity adds to the player's own history</p>
+  <p class="mfig__s">Change in forecast error vs the history model (MAE 0.110) · right of 0 = worse · line = 95% CI · 157 leak-free rolling forecasts, 2019/20–2022/23</p></figcaption>
+  <div class="ms" role="list" aria-label="Change in forecast error when adding similarity"><div class="ms-row" role="listitem"><span class="ms-k">+ the comparables&#x27; output in the new league</span><span class="ms-t"><span class="ms-ci" style="left:15.81%;width:6.71%"></span><span class="ms-dot" style="left:19.12%"></span></span><b class="ms-v">-0.000<small>-0.002 to +0.001</small></b></div><div class="ms-row" role="listitem"><span class="ms-k">+ match quality and profile distinctiveness</span><span class="ms-t"><span class="ms-ci" style="left:13.95%;width:11.88%"></span><span class="ms-dot" style="left:19.75%"></span></span><b class="ms-v">-0.000<small>-0.003 to +0.003</small></b></div><div class="ms-row ms-row--worse" role="listitem"><span class="ms-k">+ how similar past movers kept their output</span><span class="ms-t"><span class="ms-ci" style="left:20.46%;width:8.53%"></span><span class="ms-dot" style="left:24.71%"></span></span><b class="ms-v">+0.002<small>+0.000 to +0.004</small></b></div><div class="ms-row" role="listitem"><span class="ms-k">+ all of it</span><span class="ms-t"><span class="ms-ci" style="left:15.10%;width:15.64%"></span><span class="ms-dot" style="left:22.83%"></span></span><b class="ms-v">+0.001<small>-0.002 to +0.005</small></b></div><div class="ms-row ms-row--worse" role="listitem"><span class="ms-k">Comparables instead of the player&#x27;s history</span><span class="ms-t"><span class="ms-ci" style="left:28.12%;width:60.00%"></span><span class="ms-dot" style="left:58.11%"></span></span><b class="ms-v">+0.019<small>+0.004 to +0.034</small></b></div>
+  <div class="ms-ax" aria-hidden="true"><span></span><span class="mc-ticks"><i style="left:0.00%">-0.01</i><i style="left:20.00%">0</i><i style="left:40.00%">+0.01</i><i style="left:60.00%">+0.02</i><i style="left:80.00%">+0.03</i><i style="left:100.00%">+0.04</i><b class="mc-100" style="left:20.00%"></b></span><span></span></div></div>
+</figure>
+  <p class="mbig mbig--red">Adding the comparables changes the error by 0.000.</p>
+  <p>The comparables' output is almost a restatement of the player's own level (r = 0.89), and carries nothing the history model doesn't already know. Using comparables <i>instead of</i> the player's history is worse, and no better than assuming nothing changes.</p>
+</div></section>
+
+<section class="msec mconc" aria-labelledby="s7"><p class="mnum">07</p><div>
+  <h2 id="s7" class="sr-only">Conclusion</h2>
+  <p class="mconc__l">Similarity finds candidates.</p>
+  <p class="mconc__l mconc__l--r">Player history predicts performance.</p>
+  <p>I built the similarity engine expecting it to improve transfer forecasts, then tested whether it did. It didn't. Its job is discovery: shortlisting, and covering roles whose value the data can't see. The forecast should come from the player's own history in context.</p>
+</div></section>
+
+<section class="msec" aria-labelledby="s8"><p class="mnum">08</p><div>
+  <h2 id="s8">What this model cannot answer for Club Brugge</h2>
+  <dl class="mlimits"><div><dt>Belgium is not in the data.</dt><dd>The ladder covers the top five leagues only. Club Brugge buys from leagues outside it and sells into it, so the club&#x27;s own rung, and the rungs of most of its scouting markets, are exactly what this model cannot place.</dd></div><div><dt>The model starts at 900 minutes.</dt><dd>Club Brugge wants to decide whether a player is worth looking into “even when players haven&#x27;t had many minutes”. The forecast needs a conventional sample before it says anything, so it does not solve that problem.</dd></div>
+    <div><dt>Retention is conditional on playing.</dt><dd>27% of league movers don't reach 900 minutes in the new league (stayers: 20%). The model says what a player produces if he plays, not whether he will.</dd></div>
+    <div><dt>It sees attacking output only.</dt><dd>No defensive actions, possession, passes, carries, pressing or physical data. Goalkeepers and defenders are out of scope.</dd></div>
+    <div><dt>Individual forecasts are wide.</dt><dd>A typical 80% interval is about ±0.2 xG + xA per 90. It covers 87% of outcomes on the locked test, so it's honest but conservative. This is a filter, not a decision.</dd></div>
+  </dl>
+</div></section>
+
+<section class="msec" aria-labelledby="s9"><p class="mnum">09</p><div>
+  <h2 id="s9">If I had club data</h2>
+  <p>The structure of the test (a forecast fixed before the outcome, scored on locked seasons, compared against naive baselines) carries over. What would change is what goes into it.</p>
+  <ol class="mlayers">
+    <li><b>Event data</b><span>Replace xG + xA with an action-value target, so build-up, progression and defending count, not just the last two actions of a chance.</span></li>
+    <li><b>Tactical context</b><span>Possession share, team style, role and zones occupied, pressing context, how much chance creation the team gives the player.</span></li>
+    <li><b>Tracking</b><span>Does off-ball behaviour travel: runs, spacing, pressing intensity? It may travel better than output does.</span></li>
+    <li><b>Physical</b><span>Sprints, high-speed running, accelerations, availability, against the demands of the destination league.</span></li>
+    <li><b>Video</b><span>&ldquo;Data tells us which video to look at, video provides context for the numbers.&rdquo; The model should point the scout at the clips where it is least sure, and the scout's verdict should be logged so the model can be evaluated against it.</span></li>
+  </ol>
+</div></section>
+
+<section class="msec" aria-labelledby="s10"><p class="mnum">10</p><div>
+  <h2 id="s10">Where it fits in a recruitment workflow</h2>
+  <p>I build software products for a living, so I think about this as a sequence of decisions, each with a question the data can or cannot answer.</p>
+  <ol class="mflow">
+    <li><b>Profile</b><span>How good is he once context is adjusted for?</span></li>
+    <li><b>Similarity</b><span>Who plays like him? Discovery, not forecasting.</span></li>
+    <li><b>Transferability</b><span>What should we expect at our club, in our league?</span></li>
+    <li><b>Uncertainty</b><span>How wide is the range? How much history is it built on?</span></li>
+    <li><b>Blind spots</b><span>What can't this data see for this role?</span></li>
+    <li><b>Video</b><span>Which clips would settle the uncertainty?</span></li>
+    <li class="mflow__end"><b>Decision</b><span>Does he deserve a deeper look?</span></li>
+  </ol>
+</div></section>
+
+<section class="msec" aria-labelledby="s11"><p class="mnum">11</p><div>
+  <h2 id="s11">What I got wrong</h2>
+  <dl class="mwrong">
+    <div><dt>Similarity</dt><dd>I expected comparable players to improve transfer forecasts. They didn't, and comparables alone were worse than the player's own history.</dd></div>
+    <div><dt>Ugarte</dt><dd>For Manchester United in 2024 the model predicted 0.02 xG + xA per 90 (80% range 0.01–0.05); he produced 0.14. Two causes, both named before the outcome: a fixed Premier League penalty over-punishes low-output midfielders (about 0.06 too low on the locked test), and ball-winning, which is why he was bought, is invisible to this data.</dd></div>
+    <div><dt>Low-minute players</dt><dd>The model needs 900 minutes. It doesn't address one of the most interesting recruitment problems: judging a player before a conventional sample exists.</dd></div>
+  </dl>
+</div></section>
+
+<section class="msec mnext" aria-labelledby="s12"><p class="mnum">12</p><div>
+  <h2 id="s12">The next question</h2>
+  <p class="mbig">Can we estimate how a player&#x27;s output will transfer before he has a conventional sample of minutes, and from leagues outside the top five?</p>
+  <ol class="mnext__l"><li>Extend the difficulty ladder to the leagues Club Brugge actually scouts and sells into, Belgium included, using players who moved between them and the top five.</li><li>Replace the 900-minute gate with partial pooling: shrink low-minute players toward their role and league, and report the wider interval honestly instead of hiding the player.</li><li>Test it the same way as here: fit on earlier windows, lock the later ones, and publish the misses.</li></ol>
+</div></section>
+
+<footer class="mfoot">
+  <p class="mprint"><b>Full studies, tools and this memo online:</b> iyush.dev/football/research/club-brugge</p>
+  <p class="mscreen"><b>Full research:</b> <a href="/football/research/transferability">Study 05 · Transferability</a> · <a href="/football/research/similarity">Study 04 · Similarity</a> · <a href="/football/case-studies/manchester-united-2024">Manchester United 2024 case study</a> · <a href="/football/methodology">Methodology</a> · <a href="/football/tools/transfer">Transfer Calculator</a></p>
+  <p>Data: Understat event data for the top five European leagues; ages from the CC0 Transfermarkt-derived dataset (dcaribou/transfermarkt-datasets). Transfers are inferred from consecutive club spells, not recorded. Observational data: effects are associations within matched comparisons.</p>
+  <p>Ayush Pawar · i.yush.004@gmail.com · iyush.dev/football</p>
+</footer>
+
+</article>
+</main>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: October 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
