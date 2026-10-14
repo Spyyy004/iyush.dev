@@ -38,6 +38,19 @@ FLAG_TEXT = {
 }
 
 
+CRESTS = set()   # club ids with a crest in football/crests/ (set by build_gallery.py from crests.json)
+CREST_NOTE = "Club crests are trademarks of their clubs; images via ESPN."
+
+
+def crest(club_id, name, size, cls=""):
+    """A club's crest beside its name (decorative: the name is always next to it), or an initials disc."""
+    if club_id and club_id in CRESTS:
+        return (f'<img class="crest {cls}" src="/football/crests/{club_id.replace(":", "-")}.png" width="{size}" '
+                f'height="{size}" alt="" loading="lazy" decoding="async" />')
+    initials = "".join(w[0] for w in (name or "?").replace(".", " ").split()[:2]).upper()
+    return f'<span class="crest crest--none {cls}" style="width:{size}px;height:{size}px" aria-hidden="true">{esc(initials)}</span>'
+
+
 def match_id(key):
     """Canonical match_key -> URL id: 'La_Liga-2026-us:30844' -> 'la-liga-2026-us-30844'."""
     return key.lower().replace("_", "-").replace(":", "-")
@@ -296,7 +309,8 @@ def stats_html(r):
         rows += (f'<tr><th scope="row">Penalty shootout<small>not counted as goals</small></th>'
                  f'<td class="num">{sc["shootout"][0]}</td><td class="num">{sc["shootout"][1]}</td></tr>')
     return (f'<div class="gm-tw"><table class="gm-stats"><thead><tr><th scope="col"><span class="sr-only">Statistic'
-            f'</span></th><th scope="col">{esc(r["home"])}</th><th scope="col">{esc(r["away"])}</th></tr></thead>'
+            f'</span></th><th scope="col">{crest(r.get("home_club_id"), r["home"], 20, "crest--th")}{esc(r["home"])}</th>'
+            f'<th scope="col">{crest(r.get("away_club_id"), r["away"], 20, "crest--th")}{esc(r["away"])}</th></tr></thead>'
             f'<tbody>{rows}</tbody></table></div>')
 
 
@@ -321,7 +335,9 @@ def timeline_html(r):
         for g in (x for x in goals if x["period"] == p):
             h, a = h + (g["side"] == "h"), a + (g["side"] == "a")
             kind = kinds.get(g.get("type"), "Goal")
-            who = f"credited to {esc(names[g['side']])}" if kind == "Own goal" else esc(names[g["side"]])
+            cid = r.get("home_club_id") if g["side"] == "h" else r.get("away_club_id")
+            badge = crest(cid, names[g["side"]], 18, "crest--tl")
+            who = f"credited to {badge}{esc(names[g['side']])}" if kind == "Own goal" else badge + esc(names[g["side"]])
             tag = ""
             if late and (late["period"], late["minute"]) == (g["period"], g["minute"]):
                 tag = ' <span class="gx-tag">Late Drama</span>'
@@ -436,9 +452,9 @@ def render_match(r, rules):
 <header class="gm-head">
   <p class="eyebrow">{esc(r['competition_name'])} <b>·</b> {esc(r['season_label'])} <b>·</b> <time datetime="{esc(r['date'])}">{date}</time></p>
   <h1 id="gm-title" class="gm-score">
-    <span class="gm-score__team{' is-win' if hw else ''}">{esc(r['home'])}</span>
+    <span class="gm-score__team{' is-win' if hw else ''}">{crest(r.get('home_club_id'), r['home'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['home'])}</span></span>
     <span class="gm-score__n num"><span class="sr-only">{sc['home']} to {sc['away']}</span><span aria-hidden="true">{sc['home']}–{sc['away']}</span></span>
-    <span class="gm-score__team gm-score__team--a{' is-win' if aw else ''}">{esc(r['away'])}</span>
+    <span class="gm-score__team gm-score__team--a{' is-win' if aw else ''}">{crest(r.get('away_club_id'), r['away'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['away'])}</span></span>
   </h1>
   {notes}
   <div class="gm-rate">{stars_html(r['stars'])}<span class="gm-rate__n num" aria-hidden="true">{r['stars']:.1f}</span><span class="gm-rate__t">Match Entertainment Rating</span></div>
@@ -479,7 +495,7 @@ def render_match(r, rules):
     <li>{status}</li>
     <li>The stars are a data-driven entertainment heuristic built from goals, shots on target, how close the score stayed and match events. They are not a judgement of football quality.</li>
     <li>xG is shown for context only and is not part of the rating.</li>
-    <li>Data: {esc(r['attribution'])}.</li>
+    <li>Data: {esc(r['attribution'])}. {CREST_NOTE}</li>
   </ul>
   {details_html(r)}
 </section>
@@ -509,7 +525,7 @@ def render_unrated(r):
 <header class="gm-head">
   <p class="eyebrow">{esc(r['competition_name'])} <b>·</b> {esc(r['season_label'])} <b>·</b> <time datetime="{esc(r['date'])}">{date}</time></p>
   <h1 id="gm-title" class="gm-score gm-score--unrated">
-    <span class="gm-score__team">{esc(r['home'])}</span><span class="gm-score__v">v</span><span class="gm-score__team gm-score__team--a">{esc(r['away'])}</span>
+    <span class="gm-score__team">{crest(r.get('home_club_id'), r['home'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['home'])}</span></span><span class="gm-score__v">v</span><span class="gm-score__team gm-score__team--a">{crest(r.get('away_club_id'), r['away'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['away'])}</span></span>
   </h1>
   <p class="gm-unrated-badge">Not rated</p>
   {back_link(r)}

@@ -15,6 +15,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gallery_pages  # noqa: E402
 
+_crests = Path(__file__).resolve().parent.parent / "football" / "data" / "gallery" / "crests.json"
+gallery_pages.CRESTS = set(json.loads(_crests.read_text())) if _crests.exists() else set()
+
 ROOT = Path(__file__).resolve().parent.parent
 argv = sys.argv[1:]
 EXTRA = None

@@ -19,6 +19,14 @@
   var cache = {}, INDEX = null, DATA = null;
   var st = { season: null, sort: "rating", comp: "", label: "", club: "", from: "", to: "", shown: PAGE };
 
+  var CREST_SET = {};
+  function crest(cid, name, size, cls) {   // decorative: the club name is always beside it
+    if (cid && CREST_SET[cid]) {
+      return '<img class="crest ' + (cls || "") + '" src="/football/crests/' + esc(cid.replace(":", "-")) + '.png" width="' + size + '" height="' + size + '" alt="" loading="lazy" decoding="async" />';
+    }
+    var ini = String(name || "?").replace(/\./g, " ").split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    return '<span class="crest crest--none ' + (cls || "") + '" style="width:' + size + "px;height:" + size + 'px" aria-hidden="true">' + esc(ini) + "</span>";
+  }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -77,8 +85,8 @@
     if (m.fl) bits.push("2nd leg · agg " + (m.fl[0] + m.hg) + "–" + (m.fl[1] + m.ag));
     return bits.length ? '<p class="gx-card__note">' + esc(bits.join(" · ")) + "</p>" : "";
   }
-  function teamRow(name, goals, win) {
-    return '<div class="gx-team' + (win ? " is-win" : "") + '"><span class="gx-team__n">' + esc(name || "Unknown team") +
+  function teamRow(name, goals, win, cid, big) {
+    return '<div class="gx-team' + (win ? " is-win" : "") + '">' + crest(cid, name, big ? 28 : 20, "gx-crest") + '<span class="gx-team__n">' + esc(name || "Unknown team") +
       '</span><span class="gx-team__g num">' + (goals == null ? "–" : goals) + "</span></div>";
   }
   function card(m, rank, big) {
@@ -96,7 +104,7 @@
       '<header class="gx-card__top"><span class="gx-comp" data-c="' + esc(m.c) + '">' + esc(c.name) + "</span>" +
       (rank ? '<span class="gx-rank num" aria-label="Rank ' + rank + '">#' + rank + "</span>" : "") +
       '<time class="gx-date" datetime="' + esc(m.d) + '">' + fmtDate(m.d) + "</time></header>" +
-      '<div class="gx-score">' + teamRow(m.h, m.hg, homeWin) + teamRow(m.a, m.ag, awayWin) + "</div>" + scoreNote(m) +
+      '<div class="gx-score">' + teamRow(m.h, m.hg, homeWin, m.hc, big) + teamRow(m.a, m.ag, awayWin, m.ac, big) + "</div>" + scoreNote(m) +
       '<div class="gx-card__rate">' + starsHTML(m.st) + "</div>" + partial +
       (labels ? '<ul class="gx-tags" aria-label="Match types">' + labels + "</ul>" : "") +
       "</article></a></li>";
@@ -145,7 +153,7 @@
     if (st.from || st.to) chips.push(["dates", "Played " + (st.from ? "from " + fmtDate(st.from) : "") + (st.from && st.to ? " " : "") + (st.to ? "to " + fmtDate(st.to) : "")]);
     $("gx-chips").innerHTML = chips.map(function (c) {
       return '<li><button type="button" class="gx-chip" data-clear="' + c[0] + '" aria-label="Remove filter: ' + esc(c[1]) + '">' +
-        esc(c[1]) + ' <span aria-hidden="true">×</span></button></li>';
+        (c[0] === "club" ? crest(st.club, DATA.meta.clubs[st.club], 18, "crest--chip") : "") + esc(c[1]) + ' <span aria-hidden="true">×</span></button></li>';
     }).join("");
     $("gx-active").hidden = !chips.length;
   }
@@ -247,6 +255,7 @@
     return loadSeason(season).then(function (d) {
       if (st.season !== season) return;   // a newer season request won
       DATA = d;
+      CREST_SET = {}; (d.meta.crests || []).forEach(function (c) { CREST_SET[c] = 1; });
       if (!keepFilters) { st.from = ""; st.to = ""; }
       validate();
       renderControls(); setControls(true); renderMeta(); renderFeatured(); renderUnrated(); st.shown = PAGE; render();

@@ -20,6 +20,14 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
+  var CREST_SET = {};
+  function crest(cid, name, size, cls) {   // decorative: the club name is always beside it
+    if (cid && CREST_SET[cid]) {
+      return '<img class="crest ' + (cls || "") + '" src="/football/crests/' + esc(cid.replace(":", "-")) + '.png" width="' + size + '" height="' + size + '" alt="" loading="lazy" decoding="async" />';
+    }
+    var ini = String(name || "?").replace(/\./g, " ").split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    return '<span class="crest crest--none ' + (cls || "") + '" style="width:' + size + "px;height:" + size + 'px" aria-hidden="true">' + esc(ini) + "</span>";
+  }
   function fmtDate(d) { return d ? +d.slice(8, 10) + " " + MONTHS[+d.slice(5, 7) - 1] + " " + d.slice(0, 4) : "Date unknown"; }
   function pct(num, den) { return den ? Math.round(100 * num / den) + "%" : "–"; }
   function getJSON(url) {
@@ -43,7 +51,7 @@
     return "/football/gallery" + (s ? "?" + s : "");
   }
   function clubLink(id, name) {
-    return '<a class="gi-club" href="' + esc(galleryHref({ club: id })) + '">' + esc(name) + "</a>";
+    return '<a class="gi-club" href="' + esc(galleryHref({ club: id })) + '">' + crest(id, name, 22, "gi-crest") + "<span>" + esc(name) + "</span></a>";
   }
   function stateBox(kind, title, body, action) {
     var out = $("gi-results");
@@ -107,7 +115,7 @@
     var labels = m.lb.length ? '<span class="gi-row__lb">' + m.lb.map(function (l) { return '<span class="gx-tag">' + esc(l) + "</span>"; }).join("") + "</span>" : "";
     return '<li class="gi-row"><a class="gi-row__link" href="/football/gallery/match/' + esc(m.u) + '">' +
       '<span class="gi-row__rank num" aria-label="Rank ' + rank + '">' + rank + "</span>" +
-      '<span class="gi-row__main"><span class="gi-row__teams">' + esc(m.h) + ' <span class="num gi-row__sc">' + esc(sc) + "</span> " + esc(m.a) + "</span>" +
+      '<span class="gi-row__main"><span class="gi-row__teams">' + crest(m.hc, m.h, 20, "gi-crest") + esc(m.h) + ' <span class="num gi-row__sc">' + esc(sc) + "</span> " + esc(m.a) + crest(m.ac, m.a, 20, "gi-crest gi-crest--after") + "</span>" +
       '<span class="gi-row__meta">' + esc(COMP[m.c]) + " · " + fmtDate(m.d) + "</span>" + labels + partial + "</span>" +
       '<span class="gi-row__side">' + stars(m.st) + value + "</span></a></li>";
   }
@@ -222,7 +230,7 @@
     var intro = '<aside class="gi-explain"><p><b>What these numbers mean.</b> They describe the matches a club played in, not the club’s quality or style: a high average means its matches were rated as entertaining, whoever made them so. ' +
       "Every figure is out of the club’s rated matches in this season and selection (unrated matches are not counted), and the sample size is shown beside it. " +
       "A club is ranked on average match score from " + DATA.meta.thresholds.average + " rated matches and on label rates from " + DATA.meta.thresholds.label_rate +
-      ". Clubs outside the top five leagues appear only through their European matches, so across all competitions they are listed but not ranked.</p></aside>";
+      ". Clubs outside the top five leagues appear only through their European matches, so across all competitions they are listed but not ranked. Club crests are trademarks of their clubs; images via ESPN.</p></aside>";
     var boards = Object.keys(sc.leaderboards).map(function (k) { return boardHTML(k, sc.leaderboards[k]); }).join("");
     out.removeAttribute("aria-busy");
     out.innerHTML = intro + '<div class="gi-boards">' + boards + "</div>" + clubTable(sc.clubs);
@@ -241,6 +249,7 @@
     return load(season).then(function (d) {
       if (st.season !== season) return;
       DATA = d;
+      CREST_SET = {}; (d.meta.crests || []).forEach(function (c) { CREST_SET[c] = 1; });
       if (st.comp && !DATA.scopes[st.comp]) st.comp = "";
       setControls(true); render();
     }).catch(function () {

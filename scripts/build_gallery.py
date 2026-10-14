@@ -33,7 +33,9 @@ OUT = FB / "data" / "gallery"
 PATH = "/football/gallery"
 SEASONS = ["2026", "2025"]          # newest first; 2026 = 2026/27 is the default
 DEFAULT = "2026"
-METHOD, CALIBRATION = "mer-1.0.0", "cal-2025-v1"   # the frozen M1 versions this page was built for
+METHOD, CALIBRATION = "mer-1.0.0", "cal-2025-v1"
+CRESTS_FILE = FB / "data" / "gallery" / "crests.json"   # written by scripts/fetch_club_crests.py
+gallery_pages.CRESTS = set(json.loads(CRESTS_FILE.read_text())) if CRESTS_FILE.exists() else set()   # the frozen M1 versions this page was built for
 COMP_ORDER = ["EPL", "La_Liga", "Serie_A", "Bundesliga", "Ligue_1", "UCL", "UEL", "UECL"]
 COMP_SHORT = {"EPL": "PL", "La_Liga": "LL", "Serie_A": "SA", "Bundesliga": "BL", "Ligue_1": "L1",
               "UCL": "UCL", "UEL": "UEL", "UECL": "UECL"}
@@ -93,6 +95,7 @@ def export_season(season):
         "uefa_source": meta["sources"]["uefa"],
         # canonical club id -> club name (M4 club view); one name per id is checked in the research build
         "clubs": dict(sorted({m[f"{sd}_club_id"]: m[f"{sd}_club"] for m in rated for sd in ("home", "away")}.items())),
+        "crests": sorted(gallery_pages.CRESTS & {m[f"{sd}_club_id"] for m in rated + unrated for sd in ("home", "away")}),
     }
     doc = {"meta": out_meta, "matches": rows, "unrated": un}
     # guard: the export says exactly what the source says
@@ -139,6 +142,7 @@ def export_insights(season, rated):
     for sc in ins["scopes"].values():
         for c in sc["clubs"]:
             c["best"]["u"] = gallery_pages.match_id(c["best"]["k"])
+    m = dict(m, crests=sorted(gallery_pages.CRESTS))
     rank = {"meta": m, "scopes": {k: {kk: v[kk] for kk in ("competition", "rated", "partial", "unrated", "lists")}
                                   for k, v in ins["scopes"].items()}}
     club = {"meta": m, "scopes": {k: {kk: v[kk] for kk in ("competition", "rated", "partial", "unrated", "clubs",
@@ -325,7 +329,7 @@ body = f"""<main id="main" class="gx">
     <p>Each completed match gets 1 to 5 stars from what happened in it: goals and shots on target, how long the score stayed close, and late goals, comebacks, equalisers, red cards and penalties. It measures entertainment, not football quality, and it is the same formula for every competition. xG is not part of the rating.</p>
     <p>A <span class="gx-partial-inline">partial</span> rating means an input was missing for that match and the rating uses what was available. Matches that were postponed, or where the sources disagree on the result, are listed without a rating.</p>
     <p class="gx-meta-line" id="gx-meta-line">Rating method {METHOD} · calibration {CALIBRATION} (2025/26, frozen).</p>
-    <p class="gx-meta-line">Data: Understat and football-data.co.uk (domestic leagues), ESPN (Champions, Europa and Conference Leagues; qualifying rounds not included).</p>
+    <p class="gx-meta-line">Data: Understat and football-data.co.uk (domestic leagues), ESPN (Champions, Europa and Conference Leagues; qualifying rounds not included). {gallery_pages.CREST_NOTE}</p>
   </div>
   <details class="gx-unrated" id="gx-unrated" hidden><summary id="gx-unrated-sum"></summary><ul id="gx-unrated-list"></ul></details>
 </section>

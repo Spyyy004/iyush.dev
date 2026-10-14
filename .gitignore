@@ -8,3 +8,4 @@ __pycache__/
 
 # Outreach drafts (message to recipients, sent PDFs) — local only, repo is public
 docs/outreach/
+scripts/.crest_cache/
