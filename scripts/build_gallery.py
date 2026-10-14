@@ -189,6 +189,31 @@ index = {"default": DEFAULT, "method_version": METHOD, "calibration_version": CA
                       "last_date": m["last_date"], "archive": m["season"] != DEFAULT} for m in metas]}
 (OUT / "index.json").write_text(json.dumps(index, separators=(",", ":")))
 
+# ---------------------------------------------------------------- freshness (M5)
+STATUS = json.loads((SRC / "status.json").read_text()) if (SRC / "status.json").exists() else None
+if STATUS:
+    (OUT / "status.json").write_text(json.dumps(STATUS, separators=(",", ":")))
+
+
+def _day(iso):
+    return datetime.fromisoformat(iso[:10]).strftime("%-d %b %Y") if iso else None
+
+
+DATA_DATE = _day(STATUS["updated_utc"]) if STATUS else _day(max(m["generated_utc"] for m in metas))
+
+
+def fresh_line():
+    """Server-rendered freshness line; football/js/gallery-status.js adds a stale warning when one is due."""
+    if not STATUS:
+        return '<p class="gx-fresh" id="gx-fresh" hidden></p>'
+    cur_ = STATUS["seasons"].get(STATUS["current_season"], {})
+    through = _day(cur_.get("through"))
+    return (f'<p class="gx-fresh" id="gx-fresh" data-updated="{esc(STATUS["updated_utc"])}" '
+            f'data-next="{esc(STATUS.get("next_fixture_date") or "")}" data-through="{esc(cur_.get("through") or "")}">'
+            f'Updated {esc(_day(STATUS["updated_utc"]))}' + (f' · results through {esc(through)}' if through else "")
+            + ' · refreshed daily</p>')
+
+
 # ---------------------------------------------------------------- page shells
 def subnav(active):
     """Matches · Rankings · Clubs inside the gallery. Links keep the season (and competition) via gallery-subnav JS."""
@@ -226,6 +251,7 @@ def insights_page(kind):
 <section class="gx-hero wrap" aria-labelledby="gi-title">
   <div class="gx-hero__text">
     <p class="eyebrow">Match Gallery <b>·</b> <span id="gi-context">Loading…</span></p>
+    {fresh_line()}
     <h1 id="gi-title">{h1}</h1>
     <p class="lede">{lede}</p>
   </div>
@@ -239,9 +265,10 @@ def insights_page(kind):
 </div>
 <noscript><div class="wrap"><div class="state state--empty"><p class="state__t">JavaScript needed</p><p>This page builds its tables in your browser. Turn on JavaScript to see them.</p></div></div></noscript>
 </main>
-<script src="/football/js/gallery-insights.js" defer></script>"""
+<script src="/football/js/gallery-insights.js" defer></script>
+<script src="/football/js/gallery-status.js" defer></script>"""
     doc = (fb_chrome.head(path, title, desc, h1, "gallery.png", ld, og_type="website", crumb_name=h1.capitalize())
-           + "\n<body>\n" + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(datetime.now().strftime("%-d %b %Y"))
+           + "\n<body>\n" + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(DATA_DATE)
            + "\n</body>\n</html>\n")
     write_if_changed(FB / "gallery" / f"{kind}.html", doc)
     print(f"football/gallery/{kind}.html")
@@ -265,6 +292,7 @@ body = f"""<main id="main" class="gx">
 <section class="gx-hero wrap" aria-labelledby="gx-title">
   <div class="gx-hero__text">
     <p class="eyebrow">Match Gallery <b>·</b> <span id="gx-eyebrow-season">{esc(cur["season_label"])}</span></p>
+    {fresh_line()}
     <h1 id="gx-title">Football Match Gallery</h1>
     <p class="lede">Every match tells a story. Find the ones worth watching.</p>
   </div>
@@ -334,9 +362,10 @@ body = f"""<main id="main" class="gx">
   <details class="gx-unrated" id="gx-unrated" hidden><summary id="gx-unrated-sum"></summary><ul id="gx-unrated-list"></ul></details>
 </section>
 </main>
-<script src="/football/js/gallery.js" defer></script>"""
+<script src="/football/js/gallery.js" defer></script>
+<script src="/football/js/gallery-status.js" defer></script>"""
 
-updated = datetime.now().strftime("%-d %b %Y")
+updated = DATA_DATE
 doc = (fb_chrome.head(PATH, "Football Match Gallery — The Season's Most Entertaining Matches", DESC,
                       "Football Match Gallery", "gallery.png", LD, og_type="website")
        + "\n<body>\n" + fb_chrome.header(PATH) + "\n\n" + body + "\n\n" + fb_chrome.footer(updated) + "\n</body>\n</html>\n")
