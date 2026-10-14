@@ -29,6 +29,10 @@
         }
       ],
       "destination": "/api/transfer-page"
+    },
+    {
+      "source": "/football/gallery/match/:id",
+      "destination": "/football/gallery/match-not-found"
     }
   ]
 }

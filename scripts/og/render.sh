@@ -20,6 +20,7 @@ card transferability "Study 05 · Transferability" "Will his game travel?" "Simi
 card tools "Tools" "Interact with the models" "Player similarity across leagues and a validated transfer calculator."
 card similarity-tool "Tool · Player similarity" "Who plays like Bruno?" "Context-adjusted profiles, compared within a role, in any league."
 card transfer-calculator "Tool · Transfer calculator" "Will his game travel?" "Expected output, retention and an 80% range for any forward or midfielder."
+card gallery "Match Gallery · 2026/27" "Which matches were worth watching?" "Every match in eight competitions, rated 1–5 stars for entertainment."
 card live "Live tracker" "Does the research still hold?" "Re-tested every week on seasons the studies never saw."
 # Case study (M7 §24): its own template, values read from the locked board export.
 CASE_Q=$(python3 -I -c 'import json,urllib.parse as u;B={r["player"]:r for r in json.load(open("football/data/case-study.json"))["board"]}

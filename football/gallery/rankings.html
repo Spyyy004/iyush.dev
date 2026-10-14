@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Season Rankings — Football Match Gallery</title>
+<meta name="description" content="The best, highest-scoring, closest, most dramatic and most one-sided matches of the season across Europe’s top five leagues and the Champions, Europa and Conference Leagues." />
+<link rel="canonical" href="https://iyush.dev/football/gallery/rankings" />
+<meta name="author" content="Ayush Pawar" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b0b0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="iyush.dev" />
+<meta property="og:title" content="Season rankings" />
+<meta property="og:description" content="The best, highest-scoring, closest, most dramatic and most one-sided matches of the season across Europe’s top five leagues and the Champions, Europa and Conference Leagues." />
+<meta property="og:url" content="https://iyush.dev/football/gallery/rankings" />
+<meta property="og:image" content="https://iyush.dev/football/og/gallery.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Season rankings" />
+<meta name="twitter:description" content="The best, highest-scoring, closest, most dramatic and most one-sided matches of the season across Europe’s top five leagues and the Champions, Europa and Conference Leagues." />
+<meta name="twitter:image" content="https://iyush.dev/football/og/gallery.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Season rankings",
+  "url": "https://iyush.dev/football/gallery/rankings",
+  "description": "The best, highest-scoring, closest, most dramatic and most one-sided matches of the season across Europe’s top five leagues and the Champions, Europa and Conference Leagues.",
+  "isPartOf": {
+    "@id": "https://iyush.dev/football#site"
+  }
+}
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Football", "item": "https://iyush.dev/football"}, {"@type": "ListItem", "position": 2, "name": "Match Gallery", "item": "https://iyush.dev/football/gallery"}, {"@type": "ListItem", "position": 3, "name": "Season rankings", "item": "https://iyush.dev/football/gallery/rankings"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/football/football.css" />
+<script>document.documentElement.classList.add("js")</script>
+<script src="/football/js/glossary.js" defer></script>
+<script src="/football/js/football.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="fhead">
+  <div class="wrap">
+    <a class="brand" href="/football">Football<span class="brand__by">/ Ayush Pawar</span></a>
+    <button class="navbtn" type="button" aria-expanded="false" aria-controls="fnav"><span class="navbtn__t">Menu</span><span class="navbtn__icon" aria-hidden="true"></span></button>
+    <nav class="fnav" id="fnav" aria-label="Football">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/gallery" aria-current="true">Gallery</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/about">About</a></li>
+      </ul>
+      <p class="fnav__extra"><a href="/" aria-label="Back to iyush.dev">← iyush.dev</a></p>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="gx gi" data-insights="rankings">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li><a href="/football/gallery">Match Gallery</a></li><li aria-current="page">Season rankings</li></ol></nav>
+<nav class="gx-subnav wrap" aria-label="Match Gallery"><ul><li><a href="/football/gallery" data-subnav="matches">Matches</a></li><li><a href="/football/gallery/rankings" data-subnav="rankings" aria-current="page">Rankings</a></li><li><a href="/football/gallery/clubs" data-subnav="clubs">Clubs</a></li></ul></nav>
+<section class="gx-hero wrap" aria-labelledby="gi-title">
+  <div class="gx-hero__text">
+    <p class="eyebrow">Match Gallery <b>·</b> <span id="gi-context">Loading…</span></p>
+    <h1 id="gi-title">Season rankings</h1>
+    <p class="lede">The season’s matches, ranked by their stored ratings and match facts.</p>
+  </div>
+</section>
+<section class="wrap gi-top">
+  <form class="gi-controls" id="gi-controls" aria-label="Season and competition" novalidate>
+    <div class="field"><label class="label" for="gi-season">Season</label><select class="input" id="gi-season" name="season"></select></div>
+    <div class="field"><label class="label" for="gi-comp">Competition</label><select class="input" id="gi-comp" name="comp"><option value="">All competitions</option></select></div>
+  </form>
+  <p class="gi-coverage" id="gi-coverage" aria-live="polite"></p>
+</section>
+<div class="wrap" id="gi-results" aria-busy="true">
+  <div class="state gx-loading" role="status"><p class="state__t">Loading</p><p>Fetching the season’s rankings…</p></div>
+</div>
+<noscript><div class="wrap"><div class="state state--empty"><p class="state__t">JavaScript needed</p><p>This page builds its tables in your browser. Turn on JavaScript to see them.</p></div></div></noscript>
+</main>
+<script src="/football/js/gallery-insights.js" defer></script>
+
+<footer class="ffoot">
+  <div class="wrap grid">
+    <div class="d-6">
+      <p class="ffoot__name">Home Turf &amp; Hard Opponents</p>
+      <p class="ffoot__by">Football research by Ayush Pawar</p>
+    </div>
+    <nav class="t-4 d-3" aria-label="Football sections">
+      <ul>
+        <li><a href="/football/research">Research</a></li>
+        <li><a href="/football/tools">Tools</a></li>
+        <li><a href="/football/live">Live</a></li>
+        <li><a href="/football/methodology">Methodology</a></li>
+        <li><a href="/football/glossary">Glossary</a></li>
+      </ul>
+    </nav>
+    <div class="t-4 d-3">
+      <ul>
+        <li><a href="/">iyush.dev</a></li>
+        <li><a href="https://github.com/Spyyy004" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/ayush-pawar004" rel="me noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="ffoot__note">Data: Understat, football-data.co.uk and others — see <a href="/football/methodology">methodology</a>. Observational data; effects are associations within matched comparisons.</p>
+    <div class="ffoot__meta">
+      <p>Data updated: 14 Oct 2026</p>
+      <p>Frozen dataset: 2015/16 — 2024/25</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

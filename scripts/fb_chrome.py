@@ -8,7 +8,7 @@ import json
 SITE = "https://iyush.dev"
 FONTS = ("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1"
          "&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap")
-NAV = [("/football/research", "Research"), ("/football/tools", "Tools"), ("/football/live", "Live"),
+NAV = [("/football/research", "Research"), ("/football/tools", "Tools"), ("/football/gallery", "Gallery"), ("/football/live", "Live"),
        ("/football/glossary", "Glossary"), ("/football/methodology", "Methodology"), ("/football/about", "About")]
 esc = html.escape
 
@@ -16,25 +16,26 @@ esc = html.escape
 CRUMB = {"football": "Football", "research": "Research", "tools": "Tools", "live": "Live", "glossary": "Glossary", "methodology": "Methodology",
          "about": "About", "case-studies": "Case studies", "environment": "Study 01 · Environment", "home-advantage": "Study 02 · Home advantage",
          "opposition": "Study 03 · Opposition", "similarity": "Similarity", "transferability": "Study 05 · Transferability", "transfer": "Transfer Calculator",
-         "manchester-united-2024": "Manchester United 2024"}
+         "manchester-united-2024": "Manchester United 2024", "gallery": "Match Gallery", "rankings": "Season rankings", "clubs": "Club insights"}
 
 
-def breadcrumbs(path):
-    """BreadcrumbList JSON-LD mirroring the visible breadcrumb trail (M9 §15)."""
+def breadcrumbs(path, last_name=None):
+    """BreadcrumbList JSON-LD mirroring the visible breadcrumb trail (M9 §15). last_name names the final item
+    (e.g. a match page, whose path segment is an id)."""
     parts = [p for p in path.strip("/").split("/") if p]
     items, acc = [], ""
-    for p in parts:
+    for i, p in enumerate(parts):
         acc += "/" + p
-        if p == "case-studies":   # no index page for this segment
+        if p in ("case-studies", "match"):   # no index page for these segments
             continue
-        name = CRUMB.get(p, p)
+        name = last_name if (last_name and i == len(parts) - 1) else CRUMB.get(p, p)
         if p == "similarity":
             name = "Study 04 · Similarity" if "research" in parts else "Similarity Explorer"
         items.append({"@type": "ListItem", "position": len(items) + 1, "name": name, "item": SITE + acc})
     return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
 
 
-def head(path, title, description, og_title, og_image, ld, og_type="article"):
+def head(path, title, description, og_title, og_image, ld, og_type="article", crumb_name=None, index=True):
     url = SITE + path
     img = f"{SITE}/football/og/{og_image}"
     t, d, ot = esc(title), esc(description), esc(og_title)
@@ -47,7 +48,7 @@ def head(path, title, description, og_title, og_image, ld, og_type="article"):
 <meta name="description" content="{d}" />
 <link rel="canonical" href="{url}" />
 <meta name="author" content="Ayush Pawar" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="robots" content="{'index, follow, max-image-preview:large' if index else 'noindex, follow'}" />
 <meta name="theme-color" content="#0b0b0b" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -67,7 +68,7 @@ def head(path, title, description, og_title, og_image, ld, og_type="article"):
 <script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}
 </script>
-<script type="application/ld+json">{json.dumps(breadcrumbs(path), ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(breadcrumbs(path, crumb_name), ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="{FONTS}" rel="stylesheet" />

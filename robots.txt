@@ -27,3 +27,4 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://iyush.dev/sitemap.xml
+Sitemap: https://iyush.dev/sitemap-gallery.xml
