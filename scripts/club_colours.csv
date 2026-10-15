@@ -1,0 +1,193 @@
+club_id,name,primary,secondary,source,checked,espn_primary,espn_alternate,crest
+espn:1010,OFI Crete,#ffffff,#000000,espn-mono,,#ffffff,#000000,
+espn:10414,FK Qarabag,#242454,#ffffff,crest,,#000000,#ffffff,#242454
+espn:11429,Samsunspor,#c60000,#000000,espn-alt,,#000000,#c60000,#fc243c
+espn:11505,Jagiellonia Bialystok,#ffed00,#d81921,espn,,#ffed00,#d81921,#cc2424
+espn:11551,Lausanne Sports,#000099,#c60000,espn,,#000099,#c60000,#24246c
+espn:11706,Viktoria Plzen,#0000dd,#cc0c0c,espn,,#0000dd,#000000,#cc0c0c
+espn:13018,Ludogorets Razgrad,#008000,#ffffff,espn,,#008000,#ffffff,#0c6c3c
+espn:13083,Hapoel Be'er,#fd0000,,espn,,#fd0000,#c60000,#cc0c24
+espn:139,Ajax Amsterdam,#df1b27,#4d6286,espn,,#df1b27,#4d6286,#cc0c24
+espn:140,AZ Alkmaar,#ef2f24,#ffffff,espn,,#ef2f24,#ffffff,#cc2424
+espn:142,Feyenoord Rotterdam,#ef2f24,#000000,espn,,#ef2f24,#000000,#e40c24
+espn:147,NEC Nijmegen,#ef2f24,#84aee7,espn,,#ef2f24,#84aee7,#fc0c0c
+espn:148,PSV Eindhoven,#ef2f24,#ccb46c,espn,,#ef2f24,#000000,#ccb46c
+espn:153,FC Utrecht,#f31522,#1a316b,espn,,#f31522,#1a316b,#e40c24
+espn:17856,Lincoln Red Imps,#c60000,#e48484,espn,,#c60000,#ffffff,#e48484
+espn:1895,Besiktas,#000000,#ffffff,manual,,#ffffff,#1a1a1a,#e42424
+espn:19243,Drita Gjilan,#c60000,#000000,espn-alt,,#000000,#c60000,#cccce4
+espn:1929,Benfica,#ca281d,#cc9c0c,espn,,#ca281d,#1a1a1a,#cc9c0c
+espn:20024,Ararat-Armenia,#c60000,#000000,espn-alt,,#000000,#c60000,
+espn:20297,Shelbourne,#c60000,#000000,espn-alt,,#000000,#c60000,#e40c0c
+espn:20712,FC Noah,#000000,#ffffff,espn-mono,,#000000,#ffffff,
+espn:21005,Raków Czestochowa,#ee2e24,#164ba0,espn,,#ee2e24,#164ba0,#fc0c0c
+espn:21615,Torreense,#950025,#293d87,espn,,#950025,#293d87,#0c3c6c
+espn:21922,Sabah FK,#ff1493,#000000,espn-alt,,#000000,#ff1493,#e4549c
+espn:22281,Pafos,#82c0fe,#003399,espn,,#82c0fe,#003399,#0c3c6c
+espn:2250,Sporting CP,#008127,#ffffff,espn,,#008127,#ffffff,#0c846c
+espn:2290,Red Star Belgrade,#ff0000,#0000dd,espn,,#ff0000,#0000dd,#cc0c0c
+espn:2528,Kairat Almaty,#fcee33,#81c0ff,espn,,#fcee33,#81c0ff,#fce43c
+espn:256,Celtic,#009921,#f9e900,espn,,#009921,#f9e900,#cce4cc
+espn:2564,Shamrock Rovers,#288a00,#6cb484,espn,,#288a00,#000000,#6cb484
+espn:257,Rangers,#0046ff,#243c84,espn,,#0046ff,#ffffff,#243c84
+espn:263,Aberdeen,#c8142f,#f9e900,espn,,#c8142f,#f9e900,#e40c0c
+espn:2720,Malmö FF,#5699eb,#052a87,espn,,#5699eb,#052a87,#0c84cc
+espn:2722,Young Boys,#ffdd00,#ffffff,espn,,#ffdd00,#ffffff,#fccc24
+espn:2790,RB Salzburg,#d82c3a,#052a87,espn,,#d82c3a,#052a87,#e4243c
+espn:2980,Bodo/Glimt,#fcee33,#ffffff,espn,,#fcee33,#ffffff,#fce40c
+espn:2988,Rijeka,#42befd,#fccc24,espn,,#42befd,#000000,#fccc24
+espn:2990,Lech Poznan,#004b92,#ffffff,espn,,#004b92,#ffffff,#3c3c84
+espn:2994,Braga,#de1f26,#2b6a36,espn,,#de1f26,#2b6a36,#cc2424
+espn:3362,NK Celje,#000099,#ff6600,espn,,#000099,#ff6600,#242454
+espn:3706,Go Ahead Eagles,#f80017,#8f0058,espn,,#f80017,#8f0058,#fce40c
+espn:3746,SK Sturm Graz,#ffffff,#000000,espn-mono,,#ffffff,#000000,
+espn:4039,AEK Larnaca,#fde100,#008741,espn,,#fde100,#008741,#fcfc0c
+espn:432,Galatasaray,#aa0031,#fc9c0c,espn,,#aa0031,#ffffff,#fc9c0c
+espn:433,Sparta Prague,#791b29,#ccb454,espn,,#791b29,#ffffff,#ccb454
+espn:435,Olympiacos,#d01729,#0202fb,espn,,#d01729,#0202fb,#fc2424
+espn:436,Fenerbahce,#ffff00,#ffffff,espn,,#ffff00,#ffffff,#fce40c
+espn:437,FC Porto,#0000dd,#ffa000,espn,,#0000dd,#ffa000,#0c84cc
+espn:440,Dynamo Kyiv,#0000bf,#fcfc0c,espn-alt,,#ffffff,#0000bf,#fcfc0c
+espn:441,Anderlecht,#695196,#fafafc,espn,,#695196,#fafafc,#3c3c9c
+espn:4411,LASK Linz,#000000,#ffffff,manual,,#ffffff,#000000,#e40c24
+espn:443,Panathinaikos,#2b6a36,#ffffff,espn,,#2b6a36,#ffffff,#248454
+espn:484,FCSB,#0000dd,#dc1f26,espn,,#0000dd,#dc1f26,#0c2454
+espn:490,Levski Sofia,#6182cf,#fcfcfc,espn,,#6182cf,#fcfcfc,#0c54b4
+espn:493,Shakhtar Donetsk,#ff5900,#1a1a1a,espn,,#ff5900,#1a1a1a,#fc6c24
+espn:494,Slavia Prague,#dc1f26,#81c0ff,espn,,#dc1f26,#81c0ff,#e40c24
+espn:510,Viking FK,#000080,#e43c3c,espn,,#000080,#ffffff,#e43c3c
+espn:519,Rapid Vienna,#2b6a36,#dc1f26,espn,,#2b6a36,#dc1f26,#0c6c84
+espn:521,Slovan Bratislava,#81c0ff,#e42424,espn,,#81c0ff,#1a1a1a,#e42424
+espn:5239,Zrinjski Mostar,#24549c,#000000,crest,,#000000,#000000,#24549c
+espn:524,Maccabi Tel-Aviv,#ffff00,#0c3c84,espn,,#ffff00,#020202,#0c3c84
+espn:555,Legia Warsaw,#2b6a36,#ffffff,espn,,#2b6a36,#ffffff,#0c9c54
+espn:570,Club Brugge,#0081ff,#ffffff,espn,,#0081ff,#ffffff,#0c84cc
+espn:572,FC Midtjylland,#ff0900,#000000,espn-alt,,#000000,#ff0900,#cc2454
+espn:5807,Union St.-Gilloise,#fcee33,#243c9c,espn,,#fcee33,#ffffff,#243c9c
+espn:597,Dinamo Zagreb,#0000bb,#ccff00,espn,,#0000bb,#ccff00,#0c54b4
+espn:605,PAOK,#000000,#ffffff,manual,,#000000,#ffffff,#b49c6c
+espn:609,Sigma Olomouc,#0c5484,#000000,crest,,#000000,#000000,#0c5484
+espn:617,Omonia Nicosia,#025719,#ffffff,espn,,#025719,#ffffff,#0c6c3c
+espn:620,SK Brann,#ff0000,#32cd32,espn,,#ff0000,#32cd32,#fc8484
+espn:622,Ferencvaros,#239b56,#000000,espn,,#239b56,#000000,#e4e4cc
+espn:7834,BK Häcken,#f7ee09,#000000,espn-alt,,#000000,#f7ee09,#fcfc0c
+espn:7858,Hamrun Spartans,#c60000,#000000,espn,,#c60000,#000000,#b42424
+espn:8089,CSU Craiova,#c60000,#84cce4,espn-alt,,#000000,#c60000,#84cce4
+espn:8151,KF Shkëndija,#e91514,#000000,espn,,#e91514,#000000,#fc0c0c
+espn:8169,KuPS Kuopio,#fce40c,#000000,crest,,#000000,#000000,#fce40c
+espn:8250,Breidablik,#0c6c54,#000000,crest,,#000000,#000000,#0c6c54
+espn:887,AEK Athens,#ffff00,#000000,espn,,#ffff00,#000000,#fccc0c
+espn:909,F.C. København,#3c6c9c,#1a1a1a,crest,,#ffffff,#1a1a1a,#3c6c9c
+espn:938,Racing Genk,#0000ff,#0c6cb4,espn,,#0000ff,#cccccc,#0c6cb4
+espn:987,Lillestrom,#e8e337,#ff0000,espn,,#e8e337,#ff0000,#fccc0c
+espn:989,FC Basel,#c8142f,#0c549c,espn,,#c8142f,#ffffff,#0c549c
+us:101,Genoa,#08305d,#ffffff,espn,,#08305d,#ffffff,#0c2454
+us:104,Sassuolo,#0fa653,#adaeb0,espn,,#0fa653,#adaeb0,#0cb454
+us:105,Napoli,#0677d2,#ffffff,espn,,#0677d2,#ffffff,#0c5484
+us:106,Inter,#00239c,#ffffff,espn,,#00239c,#ffffff,#0c249c
+us:107,Atalanta,#1157bf,#ffffff,espn,,#1157bf,#ffffff,#0c6cb4
+us:110,Fiorentina,#4c1d84,#ffffff,espn,,#4c1d84,#ffffff,#fce4b4
+us:111,AC Milan,#e4002b,#ffffff,espn,,#e4002b,#ffffff,#cc0c24
+us:112,Frosinone,#facf08,#24549c,espn,,#facf08,#ffffff,#24549c
+us:113,Torino,#9f0000,#ffffff,espn,,#9f0000,#ffffff,#842424
+us:116,Cagliari,#282846,#ffffff,espn,,#282846,#ffffff,#0c243c
+us:117,Bayern Munich,#dc052d,#1a1a1a,espn,,#dc052d,#1a1a1a,#e40c24
+us:118,Hamburger SV,#1a26af,#1a1a1a,espn,,#1a26af,#1a1a1a,#0c549c
+us:119,Bayer Leverkusen,#da0308,#f9fbfc,espn,,#da0308,#f9fbfc,#fc0c0c
+us:120,Hoffenheim,#003399,,espn,,#003399,#000055,#0c54b4
+us:121,Augsburg,#03915c,#b4243c,espn-alt,,#ffffff,#03915c,#b4243c
+us:123,Werder Bremen,#03915c,#ffffff,espn,,#03915c,#ffffff,#0c9c54
+us:124,Schalke 04,#0000dd,#ffffff,espn,,#0000dd,#ffffff,#0c549c
+us:125,Mainz 05,#da0308,#000055,espn,,#da0308,#000055,#e42424
+us:129,Borussia Dortmund,#ffee00,#272726,espn,,#ffee00,#272726,#fce40c
+us:130,Borussia M.Gladbach,#03915c,#ffffff,espn-alt,,#ffffff,#03915c,
+us:131,Wolfsburg,#81f733,#3c9c3c,espn,,#81f733,#1a1a1a,#3c9c3c
+us:132,Eintracht Frankfurt,#cc2424,#272726,crest,,#ffffff,#272726,#cc2424
+us:133,VfB Stuttgart,#da0308,#ffffff,espn-alt,,#ffffff,#da0308,#cc0c24
+us:134,FC Cologne,#da0308,#ffffff,espn-alt,,#ffffff,#da0308,#e42424
+us:135,Freiburg,#da0308,#ffffff,espn,,#da0308,#ffffff,
+us:136,RasenBallsport Leipzig,#740c14,#e42454,espn-alt,,#ffffff,#740c14,#e42454
+us:137,Malaga,#2a7fc2,#ffffff,manual,,#b9e8f0,#d19ca4,#24549c
+us:138,Sevilla,#d81022,#ffffff,espn-alt,,#ffffff,#d81022,#e42424
+us:139,Deportivo La Coruna,#3366cc,#000000,espn,,#3366cc,#000000,#e4e4cc
+us:140,Real Sociedad,#3366cc,#000000,espn,,#3366cc,#000000,#242484
+us:141,Espanyol,#3366cc,#c8142f,espn,,#3366cc,#c8142f,#e42424
+us:142,Getafe,#0000ff,#7f1734,espn,,#0000ff,#7f1734,#cc2424
+us:143,Atletico Madrid,#ca3624,#24246c,espn,,#ca3624,#000000,#24246c
+us:145,Rayo Vallecano,#cd0000,#e4b40c,espn-alt,,#ffffff,#cd0000,#e4b40c
+us:146,Valencia,#ff6f00,#fce43c,espn-alt,,#ffffff,#ff6f00,#fce43c
+us:147,Athletic Club,#c8142f,#000000,espn,,#c8142f,#000000,#e40c24
+us:148,Barcelona,#004d98,#a50044,manual,,#990000,#fce38a,#e4b40c
+us:150,Real Madrid,#ffffff,#00529f,manual,,#ffffff,#1b4d3e,#0c549c
+us:151,Levante,#c8142f,#00529f,manual,,#c8142f,#000000,#24240c
+us:152,Celta Vigo,#6cace4,#004996,espn,,#6cace4,#004996,#cc0c24
+us:153,Real Betis,#288a00,,espn,,#288a00,#0a422d,#0c9c54
+us:154,Villarreal,#ffff00,#6cace4,espn,,#ffff00,#6cace4,#0c5484
+us:157,Osasuna,#cd0000,#0c2454,espn,,#cd0000,#ffffff,#0c2454
+us:158,Alaves,#0000ff,#0c3c9c,espn,,#0000ff,#ffc0cb,#0c3c9c
+us:160,Lille,#c2051b,#24246c,espn,,#c2051b,#e2d3d7,#24246c
+us:161,Paris Saint Germain,#011f68,#ffffff,espn,,#011f68,#ffffff,#0c549c
+us:163,Rennes,#ef2f24,#ffffff,espn,,#ef2f24,#ffffff,#e43c24
+us:164,Marseille,#2faee0,#ffffff,manual,,#ffffff,#011f68,#0c54b4
+us:167,Angers,#000000,#ffffff,manual,,#1a1a1a,#ffffff,#e4b484
+us:168,Nantes,#ffff00,#011f68,espn,,#ffff00,#011f68,#fce40c
+us:170,Nice,#ef2f24,#e2d3d7,espn,,#ef2f24,#e2d3d7,#b4843c
+us:171,Monaco,#e91514,#004c37,espn,,#e91514,#004c37,#cc2424
+us:172,Troyes,#0000bf,#fafafc,espn,,#0000bf,#fafafc,#0c6cb4
+us:174,Toulouse,#560080,#ffff00,espn,,#560080,#ffff00,#3c2454
+us:178,Lyon,#1d3d8f,#da291c,manual,,#ffffff,#1a1a1a,#0c3c84
+us:179,Lorient,#f46100,#1a1a1a,espn,,#f46100,#1a1a1a,#fc6c24
+us:180,Metz,#8c3140,#e6c168,espn,,#8c3140,#e6c168,#6c0c0c
+us:205,Paderborn,#0000dd,#0c6cb4,espn,,#0000dd,#ffffff,#0c6cb4
+us:207,Elche,#288a00,#4b2b67,espn,,#288a00,#4b2b67,#e4243c
+us:210,Lens,#e91514,#004c37,espn,,#e91514,#004c37,#fcfc0c
+us:220,Brighton,#0606fa,#005f60,espn,,#0606fa,#005f60,#0c54b4
+us:223,Girona,#c60000,#004996,espn,,#c60000,#004996,#cc243c
+us:225,Strasbourg,#0000bf,#0cb4e4,espn,,#0000bf,#ffffff,#0cb4e4
+us:228,Fulham,#ffffff,#000000,manual,,#ffffff,#cc0000,#e43c3c
+us:229,Wolverhampton Wanderers,#fdb913,#32a8dd,espn,,#fdb913,#32a8dd,#fcb40c
+us:230,Parma Calcio 1913,#ffdd30,#19161d,espn-alt,,#19161d,#ffdd30,#fccc0c
+us:239,Mallorca,#c8142f,#ccff00,espn,,#c8142f,#ccff00,#b40c24
+us:240,Union Berlin,#da0308,#fc6c24,espn,,#da0308,#d4d4d4,#fc6c24
+us:241,Brest,#ef2f24,#ffffff,espn,,#ef2f24,#ffffff,#e42424
+us:243,Lecce,#fced0b,#08305d,espn,,#fced0b,#08305d,#242454
+us:244,Brentford,#f42727,#0f1c3f,espn,,#f42727,#0f1c3f,#e40c0c
+us:245,Leeds,#ffcd00,#9c840c,espn-alt,,#ffffff,#ffcd00,#9c840c
+us:249,Nottingham Forest,#c8102e,#1b3624,espn,,#c8102e,#1b3624,
+us:265,Venezia,#000000,#f37021,manual,,#000000,#ffffff,#9c8454
+us:271,Monza,#c8142f,#ffffff,espn,,#c8142f,#ffffff,#e40c24
+us:272,Cremonese,#ff0000,#cc9c54,espn,,#ff0000,#ffffff,#cc9c54
+us:275,Auxerre,#3c84cc,#1a1a1a,crest,,#ffffff,#1a1a1a,#3c84cc
+us:280,FC Heidenheim,#da0308,#003399,espn,,#da0308,#003399,#e40c24
+us:282,Le Havre,#011f68,#ededed,espn,,#011f68,#ededed,#243c54
+us:285,Ipswich,#0000fa,#0c6cb4,espn,,#0000fa,#f5f2dc,#0c6cb4
+us:286,Como,#4169e1,#0c3c6c,espn,,#4169e1,#ffffff,#0c3c6c
+us:288,St. Pauli,#442e23,#e42424,espn,,#442e23,#ffffff,#e42424
+us:289,Real Oviedo,#e23627,#ffd200,espn,,#e23627,#ffd200,#fccc0c
+us:290,Paris FC,#000000,,espn-mono,,#000000,#000000,#0c0c24
+us:291,Pisa,#0c6cb4,#1a1a1a,crest,,#1a1a1a,#1a1a1a,#0c6cb4
+us:293,Racing Santander,#3b6c1a,#ffffff,espn-alt,,#ffffff,#3b6c1a,#549c54
+us:294,Coventry,#87cced,#b4840c,espn,,#87cced,#ffffff,#b4840c
+us:295,Le Mans,#d62b11,,espn,,#d62b11,#d62b11,#b40c24
+us:296,Elversberg,#000000,#ffffff,espn-mono,,#000000,#ffffff,#b4b484
+us:71,Aston Villa,#660e36,#9cb4e4,espn,,#660e36,#000000,#9cb4e4
+us:72,Everton,#0606fa,#ffffff,espn,,#0606fa,#ffffff,#0c0c9c
+us:73,Bournemouth,#f42727,#b57edc,espn,,#f42727,#b57edc,#cc0c24
+us:77,Sunderland,#eb172b,#ffb6c1,espn,,#eb172b,#ffb6c1,#e43c3c
+us:78,Crystal Palace,#0202fb,#6c84b4,espn,,#0202fb,#000000,#6c84b4
+us:80,Chelsea,#144992,#ffffff,espn,,#144992,#ffffff,#0c549c
+us:81,West Ham,#7c2c3b,#f1e7e0,espn,,#7c2c3b,#f1e7e0,#84243c
+us:82,Tottenham,#ffffff,#0b1426,espn-mono,,#ffffff,#0b1426,
+us:83,Arsenal,#e20520,#003399,espn,,#e20520,#003399,#cc243c
+us:86,Newcastle United,#000000,#ffffff,manual,,#000000,#0b1b3d,#0cb4e4
+us:87,Liverpool,#d11317,#ffffff,espn,,#d11317,#ffffff,
+us:88,Manchester City,#99c5ea,#245484,espn,,#99c5ea,#000000,#245484
+us:89,Manchester United,#da020e,#4169e1,espn,,#da020e,#4169e1,#e42424
+us:91,Hull,#f28800,#ffffff,espn,,#f28800,#ffffff,#fc9c3c
+us:92,Burnley,#6c1d45,#00ffff,espn,,#6c1d45,#00ffff,#540c3c
+us:94,Verona,#00239c,#fccc0c,espn,,#00239c,#ffffff,#fccc0c
+us:95,Roma,#990a2c,#f5f3e5,espn,,#990a2c,#f5f3e5,#9c0c24
+us:96,Lazio,#74bde7,#e4cc9c,espn,,#74bde7,#ffffff,#e4cc9c
+us:97,Bologna,#04043d,#9c243c,espn,,#04043d,#ffffff,#9c243c
+us:98,Juventus,#000000,#ffffff,manual,,#000000,#e8a2b0,
+us:99,Udinese,#000000,#ffffff,manual,,#19161d,#0f1c3f,#545424

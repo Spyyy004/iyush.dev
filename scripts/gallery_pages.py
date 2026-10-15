@@ -6,6 +6,7 @@ the research build reconciles with the stored score), labels with their triggers
 No rating logic lives here. The only arithmetic is presentational: running score along the stored goal list, and
 aggregate = first leg + this leg for two-legged ties.
 """
+import colorsys
 import html
 
 import fb_chrome
@@ -49,6 +50,183 @@ def crest(club_id, name, size, cls=""):
                 f'height="{size}" alt="" loading="lazy" decoding="async" />')
     initials = "".join(w[0] for w in (name or "?").replace(".", " ").split()[:2]).upper()
     return f'<span class="crest crest--none {cls}" style="width:{size}px;height:{size}px" aria-hidden="true">{esc(initials)}</span>'
+
+
+# ---------------------------------------------------------------- poster paint (display only, never a rating input)
+# Club colours come from scripts/club_colours.csv (reviewed). A poster field keeps the club's hue but sits in a
+# mid-tone band, so crests read on it; text on a poster always sits on its own dark chip, never on the field.
+PAINT = {}       # club id -> [field, line, field2, line2] (set by build_gallery.py)
+MONO_LIGHT, MONO_DARK, NEUTRAL = "#d9d2c6", "#2c2724", "#4a423b"
+CLASH = 100      # RGB distance below which two fields read as the same colour
+
+
+def load_paint(path):
+    """Read the reviewed club colours (scripts/club_colours.csv) into PAINT. Used by the build and its checks."""
+    import csv
+    global PAINT
+    if path.exists():
+        with path.open() as f:
+            PAINT = {r["club_id"]: club_paint(r["primary"], r["secondary"]) for r in csv.DictReader(f) if r["primary"]}
+    return PAINT
+
+
+def _rgb(c):
+    return [int(c[i:i + 2], 16) for i in (1, 3, 5)]
+
+
+def _hls(c):
+    return colorsys.rgb_to_hls(*(v / 255 for v in _rgb(c)))
+
+
+def _from_hls(h, l, s):
+    return "#%02x%02x%02x" % tuple(round(v * 255) for v in colorsys.hls_to_rgb(h, l, s))
+
+
+def field_colour(c):
+    if not c:
+        return None
+    h, l, s = _hls(c)
+    if s < 0.18:                                    # black-and-white kits become warm greys
+        return MONO_LIGHT if l >= 0.5 else MONO_DARK
+    return _from_hls(h, min(max(l, 0.26), 0.42), min(s, 0.62))
+
+
+def line_colour(f):
+    """The club's colour for the goal timeline, light enough to read on the poster's dark strip."""
+    if f is None:
+        return None
+    if f == MONO_DARK:
+        return "#8f857a"
+    h, l, s = _hls(f)
+    return f if f == MONO_LIGHT else _from_hls(h, max(l, 0.56), s)
+
+
+def club_paint(primary, secondary):
+    f1, f2 = field_colour(primary), field_colour(secondary)
+    if f2 and _dist(f1, f2) < CLASH:
+        f2 = None
+    return [f1, line_colour(f1), f2, line_colour(f2)]
+
+
+def _dist(a, b):
+    return sum((x - y) ** 2 for x, y in zip(_rgb(a), _rgb(b))) ** 0.5
+
+
+def pair_paint(home_id, away_id):
+    """(home field, home line, away field, away line). When the clubs' colours clash, the away side switches to its
+    second colour, or to a neutral grey (mirrored in football/js/gallery.js)."""
+    h = PAINT.get(home_id) or [NEUTRAL, line_colour(NEUTRAL), None, None]
+    a = PAINT.get(away_id) or [NEUTRAL, line_colour(NEUTRAL), None, None]
+    fa, la = a[0], a[1]
+    if _dist(h[0], fa) < CLASH:
+        if a[2] and _dist(h[0], a[2]) >= CLASH:
+            fa, la = a[2], a[3]
+        else:
+            fa = MONO_DARK if (h[0] == MONO_LIGHT or _hls(h[0])[1] > 0.6) else MONO_LIGHT
+            la = line_colour(fa)
+    return h[0], h[1], fa, la
+
+
+def worm_svg(goals, aet, hline, aline, height=64, dots=True):
+    """Who led, minute by minute: bars above the line while the home side leads, below while the away side leads.
+    Drawn from the stored goal list only (presentational)."""
+    gs = sorted(goals, key=lambda g: (g["period"], g["minute"]))
+    xp = lambda g: min(g["minute"], 46) if g["period"] == 1 else max(g["minute"], 46) if g["period"] == 2 else g["minute"]
+    W, mid = 400, height / 2
+    end = 122 if aet else max([96] + [xp(g) + 3 for g in gs])
+    X = lambda v: round(v / end * W, 1)
+    diff, peak = 0, 1
+    for g in gs:
+        diff += 1 if g["side"] == "h" else -1
+        peak = max(peak, abs(diff))
+    unit = (mid - 3) / max(2, peak)
+    out, x0, diff = [], 0, 0
+
+    def seg(x1):
+        if diff > 0:
+            out.append(f'<rect x="{X(x0)}" y="{round(mid - diff * unit, 1)}" width="{round(X(x1) - X(x0), 1)}" height="{round(diff * unit, 1)}" fill="{hline}"/>')
+        elif diff < 0:
+            out.append(f'<rect x="{X(x0)}" y="{mid}" width="{round(X(x1) - X(x0), 1)}" height="{round(-diff * unit, 1)}" fill="{aline}"/>')
+    for g in gs:
+        seg(xp(g))
+        diff += 1 if g["side"] == "h" else -1
+        x0 = xp(g)
+    seg(end)
+    ticks = "".join(f'<line x1="{X(t)}" x2="{X(t)}" y1="2" y2="{height - 2}" class="wm-tick"/>' for t in ([45, 90] + ([105, 120] if aet else [])))
+    dot = "".join(f'<line x1="{X(xp(g))}" x2="{X(xp(g))}" y1="{mid - 7}" y2="{mid + 7}" class="wm-goal"/>' for g in gs) if dots else ""
+    return (f'<svg class="wm" viewBox="0 0 {W} {height}" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
+            f'{ticks}<line x1="0" x2="{W}" y1="{mid}" y2="{mid}" class="wm-zero"/>{"".join(out)}{dot}</svg>')
+
+
+# ---------------------------------------------------------------- headline (fixed templates over stored goal events)
+WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
+
+
+def _w(n):
+    return WORDS[n] if n < len(WORDS) else str(n)
+
+
+def story(home, away, hg, ag, goals, aet=False, shootout=None):
+    """(headline, dek) for a match, filled from the score and the goal list by fixed templates. No free text and no
+    claims beyond the stored events. Mirrored for the gallery hero via the season export (meta.feature)."""
+    gs = sorted(goals, key=lambda g: (g["period"], g["minute"]))
+    n = len(gs)
+    stoppage = sum((g["period"] == 1 and g["minute"] > 45) or (g["period"] == 2 and g["minute"] > 90) for g in gs)
+    name = {"h": home, "a": away}
+    if shootout:
+        win = home if shootout[0] > shootout[1] else away
+        head = (f"Goalless after 120 minutes, and {win} won on penalties." if n == 0
+                else f"{_w(n).capitalize()} goals, extra time, and {win} won on penalties.")
+    elif n == 0:
+        head = "A goalless draw."
+    else:
+        margin = abs(hg - ag)
+        winner = None if margin == 0 else ("h" if hg > ag else "a")
+        lead = f"{_w(n).capitalize()} goal{'s' if n != 1 else ''}" + (" in 120 minutes" if aet else "")
+        if stoppage >= 2:
+            lead += (", both in stoppage time" if stoppage == n == 2 else f", all {_w(n)} in stoppage time" if stoppage == n
+                     else f", {_w(stoppage)} in stoppage time")
+        if winner is None:
+            head = f"{lead}, and nobody won."
+        elif margin >= 3:
+            head = f"{name[winner]} won by {_w(margin)} goals."
+        elif min(hg, ag) == 0 and n == 2:
+            head = f"{lead}, both for {name[winner]}." if stoppage < 2 else f"{lead}, and {name[winner]} won it."
+        else:
+            # the decisive goal: the winner's goal after which they led for the rest of the match
+            h = a = 0
+            decisive = None
+            for g in gs:
+                was_ahead = (h > a) if winner == "h" else (a > h)
+                h, a = h + (g["side"] == "h"), a + (g["side"] == "a")
+                if g["side"] == winner and not was_ahead:
+                    decisive = g
+            late = decisive and (decisive["period"] >= 3 or (decisive["period"] == 2 and decisive["minute"] >= 85))
+            if n == 1:
+                head = f"One goal settled it, at {minute_label(decisive['period'], decisive['minute'])}."
+            elif late:
+                head = f"{lead}, and {name[winner]} won it at {minute_label(decisive['period'], decisive['minute'])}."
+            else:
+                head = f"{lead}, and {name[winner]} won it."
+    # dek: the biggest lead that did not survive, then how it ended
+    dek = []
+    h = a = 0
+    best = None
+    for g in gs:
+        h, a = h + (g["side"] == "h"), a + (g["side"] == "a")
+        side = "h" if h > a else "a" if a > h else None
+        if side and abs(h - a) >= 2 and (best is None or abs(h - a) > best[0]):
+            best = (abs(h - a), side, max(h, a), min(h, a), g)
+    final = "h" if hg > ag else "a" if ag > hg else None
+    if shootout:
+        final = None
+    if best and best[1] != final and not shootout:
+        g = best[4]
+        dek.append(f"{name[best[1]]} were {best[2]}–{best[3]} up after {minute_label(g['period'], g['minute'])}.")
+    if n and hg == ag and not shootout and n >= 2:
+        g = gs[-1]
+        dek.append(f"{name[g['side']]} equalised at {minute_label(g['period'], g['minute'])}.")
+    return head, " ".join(dek)
 
 
 def match_id(key):
@@ -417,7 +595,7 @@ def back_link(r):
 # ---------------------------------------------------------------- pages
 def _page(path, title, desc, og_title, ld, body, crumb, footer_date, index=True):
     return (fb_chrome.head(path, title, desc, og_title, "gallery.png", ld, og_type="article", crumb_name=crumb, index=index)
-            + "\n<body>\n" + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(footer_date)
+            + '\n<body class="gx-page">\n' + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(footer_date)
             + "\n</body>\n</html>\n")
 
 
@@ -443,24 +621,34 @@ def render_match(r, rules):
     so = sc["shootout"]
     hw = so[0] > so[1] if so else sc["home"] > sc["away"]
     aw = so[1] > so[0] if so else sc["away"] > sc["home"]
+    fh, lh, fa, la = pair_paint(r.get("home_club_id"), r.get("away_club_id"))
+    head, dek = story(r["home"], r["away"], sc["home"], sc["away"], r["stats"]["goals"], sc["aet"], sc["shootout"])
+    mins = " · ".join(minute_label(g["period"], g["minute"]) for g in sorted(r["stats"]["goals"], key=lambda g: (g["period"], g["minute"])))
     status = (f"<b>Partial rating.</b> Missing: " + "; ".join(f"{a.lower()} (affects {b.lower()})" for a, b in miss)
               + ". The rating uses what was available, so it is less certain than a complete one."
               if partial else "<b>Complete rating.</b> Every rating input was available for this match.")
     body = f"""<main id="main" class="gx gm">
 {_crumbs(r['season'], name)}
 <article class="wrap" aria-labelledby="gm-title">
-<header class="gm-head">
+<header class="gm-head gm-head--poster">
   <p class="eyebrow">{esc(r['competition_name'])} <b>·</b> {esc(r['season_label'])} <b>·</b> <time datetime="{esc(r['date'])}">{date}</time></p>
-  <h1 id="gm-title" class="gm-score">
-    <span class="gm-score__team{' is-win' if hw else ''}">{crest(r.get('home_club_id'), r['home'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['home'])}</span></span>
-    <span class="gm-score__n num"><span class="sr-only">{sc['home']} to {sc['away']}</span><span aria-hidden="true">{sc['home']}–{sc['away']}</span></span>
-    <span class="gm-score__team gm-score__team--a{' is-win' if aw else ''}">{crest(r.get('away_club_id'), r['away'], 72, 'gm-crest')}<span class="gm-score__name">{esc(r['away'])}</span></span>
-  </h1>
-  {notes}
-  <div class="gm-rate">{stars_html(r['stars'])}<span class="gm-rate__n num" aria-hidden="true">{r['stars']:.1f}</span><span class="gm-rate__t">Match Entertainment Rating</span></div>
-  {badge}
-  {f'<ul class="gx-tags gm-tags" aria-label="Match types">{labels}</ul>' if labels else ''}
-  {back_link(r)}
+  <div class="gm-poster" style="--fh:{fh};--fa:{fa}">
+    <h1 id="gm-title" class="gm-score">
+      <span class="gm-score__team{' is-win' if hw else ''}">{crest(r.get('home_club_id'), r['home'], 128, 'gm-crest').replace(' loading="lazy"', '')}<span class="gm-score__name">{esc(r['home'])}</span></span>
+      <span class="gm-score__n num"><span class="sr-only">{sc['home']} to {sc['away']}</span><span aria-hidden="true">{sc['home']}–{sc['away']}</span></span>
+      <span class="gm-score__team gm-score__team--a{' is-win' if aw else ''}">{crest(r.get('away_club_id'), r['away'], 128, 'gm-crest').replace(' loading="lazy"', '')}<span class="gm-score__name">{esc(r['away'])}</span></span>
+    </h1>
+    {notes}
+    <div class="gm-poster__strip"><p class="gm-poster__cap"><span>Who led, minute by minute</span><span class="num">{esc(mins) or 'No goals'}</span></p>{worm_svg(r['stats']['goals'], sc['aet'], lh, la)}</div>
+  </div>
+  <div class="gm-verdict">
+    <p class="gm-story">{esc(head)}</p>
+    {f'<p class="gm-dek">{esc(dek)}</p>' if dek else ''}
+    <div class="gm-rate">{stars_html(r['stars'])}<span class="gm-rate__n num" aria-hidden="true">{r['stars']:.1f}</span><span class="gm-rate__t">Match Entertainment Rating · score {r['match_score']:.1f} of 100</span></div>
+    {badge}
+    {f'<ul class="gx-tags gm-tags" aria-label="Match types">{labels}</ul>' if labels else ''}
+    {back_link(r)}
+  </div>
 </header>
 
 <section class="gm-sec gm-why" aria-labelledby="gm-why-h">

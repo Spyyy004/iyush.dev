@@ -28,6 +28,19 @@
     var ini = String(name || "?").replace(/\./g, " ").split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
     return '<span class="crest crest--none ' + (cls || "") + '" style="width:' + size + "px;height:" + size + 'px" aria-hidden="true">' + esc(ini) + "</span>";
   }
+  // poster paint for the row thumbnails (mirrors gallery.js / gallery_pages.pair_paint; display only)
+  var MONO_LIGHT = "#d9d2c6", MONO_DARK = "#2c2724", NEUTRAL = "#4a423b";
+  function rgb(c) { return [1, 3, 5].map(function (i) { return parseInt(c.slice(i, i + 2), 16); }); }
+  function dist(a, b) { var x = rgb(a), y = rgb(b); return Math.sqrt(Math.pow(x[0] - y[0], 2) + Math.pow(x[1] - y[1], 2) + Math.pow(x[2] - y[2], 2)); }
+  function pair(hc, ac) {
+    var P = (DATA && DATA.meta.paint) || {};
+    var h = P[hc] || [NEUTRAL], a = P[ac] || [NEUTRAL], fa = a[0];
+    if (dist(h[0], fa) < 100) {
+      if (a[2] && dist(h[0], a[2]) >= 100) fa = a[2];
+      else { var x = rgb(h[0]); fa = (h[0] === MONO_LIGHT || (Math.max.apply(null, x) + Math.min.apply(null, x)) / 510 > 0.6) ? MONO_DARK : MONO_LIGHT; }
+    }
+    return [h[0], fa];
+  }
   function fmtDate(d) { return d ? +d.slice(8, 10) + " " + MONTHS[+d.slice(5, 7) - 1] + " " + d.slice(0, 4) : "Date unknown"; }
   function pct(num, den) { return den ? Math.round(100 * num / den) + "%" : "–"; }
   function getJSON(url) {
@@ -115,7 +128,8 @@
     var labels = m.lb.length ? '<span class="gi-row__lb">' + m.lb.map(function (l) { return '<span class="gx-tag">' + esc(l) + "</span>"; }).join("") + "</span>" : "";
     return '<li class="gi-row"><a class="gi-row__link" href="/football/gallery/match/' + esc(m.u) + '">' +
       '<span class="gi-row__rank num" aria-label="Rank ' + rank + '">' + rank + "</span>" +
-      '<span class="gi-row__main"><span class="gi-row__teams">' + crest(m.hc, m.h, 20, "gi-crest") + esc(m.h) + ' <span class="num gi-row__sc">' + esc(sc) + "</span> " + esc(m.a) + crest(m.ac, m.a, 20, "gi-crest gi-crest--after") + "</span>" +
+      (function () { var p = pair(m.hc, m.ac); return '<span class="gi-thumb gx-art" style="--fh:' + p[0] + ";--fa:" + p[1] + '" aria-hidden="true">' + crest(m.hc, m.h, 24, "") + crest(m.ac, m.a, 24, "") + "</span>"; })() +
+      '<span class="gi-row__main"><span class="gi-row__teams">' + esc(m.h) + ' <span class="num gi-row__sc">' + esc(sc) + "</span> " + esc(m.a) + "</span>" +
       '<span class="gi-row__meta">' + esc(COMP[m.c]) + " · " + fmtDate(m.d) + "</span>" + labels + partial + "</span>" +
       '<span class="gi-row__side">' + stars(m.st) + value + "</span></a></li>";
   }

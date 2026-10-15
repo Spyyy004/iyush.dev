@@ -48,7 +48,7 @@
 <script src="/football/js/glossary.js" defer></script>
 <script src="/football/js/football.js" defer></script>
 </head>
-<body>
+<body class="gx-page">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="fhead">
@@ -70,57 +70,70 @@
   </div>
 </header>
 
-<main id="main" class="gx">
+<main id="main" class="gx gx2">
 <nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li aria-current="page">Match Gallery</li></ol></nav>
-<nav class="gx-subnav wrap" aria-label="Match Gallery"><ul><li><a href="/football/gallery" data-subnav="matches" aria-current="page">Matches</a></li><li><a href="/football/gallery/rankings" data-subnav="rankings">Rankings</a></li><li><a href="/football/gallery/clubs" data-subnav="clubs">Clubs</a></li></ul></nav>
-
-<section class="gx-hero wrap" aria-labelledby="gx-title">
-  <div class="gx-hero__text">
-    <p class="eyebrow">Match Gallery <b>·</b> <span id="gx-eyebrow-season">2026/27</span></p>
-    <p class="gx-fresh" id="gx-fresh" data-updated="2026-10-14T19:10:04+00:00" data-next="2026-10-14" data-through="2026-10-14">Updated 14 Oct 2026 · results through 14 Oct 2026 · refreshed daily</p>
-    <h1 id="gx-title">Football Match Gallery</h1>
-    <p class="lede">Every match tells a story. Find the ones worth watching.</p>
-  </div>
+<div class="gx-bar wrap">
+  <nav class="gx-subnav" aria-label="Match Gallery"><ul><li><a href="/football/gallery" data-subnav="matches" aria-current="page">Matches</a></li><li><a href="/football/gallery/rankings" data-subnav="rankings">Rankings</a></li><li><a href="/football/gallery/clubs" data-subnav="clubs">Clubs</a></li></ul></nav>
   <div class="gx-season field">
     <label class="label" for="gx-season">Season</label>
     <select class="input" id="gx-season" name="season"><option value="2026" selected>2026/27</option><option value="2025">2025/26 · archive</option></select>
   </div>
-</section>
-
-<section class="gx-featured wrap" aria-labelledby="gx-feat-h">
-  <div class="gx-sechead">
-    <h2 id="gx-feat-h" class="gx-h2">Top of the season</h2>
-    <p class="gx-sub" id="gx-feat-sub">The highest-rated matches so far.</p>
+</div>
+<header class="gx-head wrap">
+  <h1 id="gx-title">Football Match Gallery</h1>
+  <div class="gx-head__side">
+    <p class="lede">Every match tells a story. Find the ones worth watching.</p>
+    <p class="gx-fresh" id="gx-fresh" data-updated="2026-10-14T19:10:04+00:00" data-next="2026-10-14" data-through="2026-10-14">Updated 14 Oct 2026 · results through 14 Oct 2026 · refreshed daily</p>
   </div>
-  <ol class="gx-feat" id="gx-feat" aria-live="polite"></ol>
+</header>
+
+<section class="gx-hero2 wrap" id="gx-hero" aria-labelledby="gx-hero-h" data-k="La_Liga-2026-us:30844">
+  <div class="gx-hero2__text">
+    <p class="gx-kicker"><span class="gx-pill">Match of the season so far</span><span>La Liga · Mon 12 Oct 2026</span></p>
+    <h2 class="gx-hero2__h" id="gx-hero-h">Six goals, three in stoppage time, and nobody won.</h2>
+    <p class="gx-hero2__dek">Sevilla were 2–0 up after 54′. Levante equalised at 90+10′.</p>
+    <div class="gx-verdict"><span class="gx-verdict__n num" aria-hidden="true">5.0</span><div><span class="gx-stars" role="img" aria-label="5.0 out of 5 stars"><span class="gx-stars__on" style="width:100%"></span></span><p class="gx-verdict__t">Match score 97.8 out of 100 · No. 1 of 343 rated matches</p></div></div>
+    <ul class="gx-labels" aria-label="Match types"><li class="gx-tag">Thriller</li><li class="gx-tag">Late Drama</li><li class="gx-tag">Comeback</li><li class="gx-tag">Goal Fest</li></ul>
+    <div class="gx-cta"><a class="gx-btn gx-btn--solid" href="/football/gallery/match/la-liga-2026-us-30844">Why it rated 5.0★ <span aria-hidden="true">→</span></a><a class="gx-btn" href="#gx-all">Browse all 343 matches</a></div>
+  </div>
+  <a class="gx-poster" href="/football/gallery/match/la-liga-2026-us-30844" style="--fh:#ae293d;--fa:#d9d2c6" aria-label="Levante 3–3 Sevilla: open the match page">
+    <span class="gx-poster__top"><span class="gx-dchip">La Liga</span><span class="gx-dchip">12 Oct 2026</span></span>
+    <span class="gx-poster__match"><span class="gx-poster__side"><img class="crest gx-poster__crest" src="/football/crests/us-151.png" width="128" height="128" alt="" decoding="async" /><span class="gx-poster__name">Levante</span></span><span class="gx-poster__score num">3<span aria-hidden="true">–</span>3</span><span class="gx-poster__side"><img class="crest gx-poster__crest" src="/football/crests/us-138.png" width="128" height="128" alt="" decoding="async" /><span class="gx-poster__name">Sevilla</span></span></span>
+    
+    <span class="gx-poster__strip"><span class="gx-poster__cap"><span>Who led, minute by minute</span><span class="num">13′ · 54′ · 57′ · 90+2′ · 90+5′ · 90+10′</span></span><svg class="wm" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line x1="174.8" x2="174.8" y1="2" y2="62" class="wm-tick"/><line x1="349.5" x2="349.5" y1="2" y2="62" class="wm-tick"/><line x1="0" x2="400" y1="32.0" y2="32.0" class="wm-zero"/><rect x="50.5" y="32.0" width="159.2" height="14.5" fill="#d9d2c6"/><rect x="209.7" y="32.0" width="11.7" height="29.0" fill="#d9d2c6"/><rect x="221.4" y="32.0" width="135.9" height="14.5" fill="#d9d2c6"/><rect x="368.9" y="32.0" width="19.4" height="14.5" fill="#d9d2c6"/><line x1="50.5" x2="50.5" y1="25.0" y2="39.0" class="wm-goal"/><line x1="209.7" x2="209.7" y1="25.0" y2="39.0" class="wm-goal"/><line x1="221.4" x2="221.4" y1="25.0" y2="39.0" class="wm-goal"/><line x1="357.3" x2="357.3" y1="25.0" y2="39.0" class="wm-goal"/><line x1="368.9" x2="368.9" y1="25.0" y2="39.0" class="wm-goal"/><line x1="388.3" x2="388.3" y1="25.0" y2="39.0" class="wm-goal"/></svg></span>
+  </a>
 </section>
 
-<section class="gx-browse wrap" aria-labelledby="gx-all-h">
+<div class="gx-shelves" id="gx-shelves" aria-busy="true"></div>
+
+<section class="gx-leaders wrap" id="gx-leaders" aria-labelledby="gx-leaders-h" hidden></section>
+
+<section class="gx-browse wrap" id="gx-all" aria-labelledby="gx-all-h">
   <div class="gx-sechead">
-    <h2 id="gx-all-h" class="gx-h2">All matches</h2>
+    <h2 id="gx-all-h" class="gx-h2">Every match</h2>
+    <p class="gx-count" id="gx-count" role="status" aria-live="polite"></p>
   </div>
   <form class="gx-controls" id="gx-controls" aria-label="Sort and filter matches" novalidate>
-    <div class="field gx-f-sort">
-      <span class="label" id="gx-sort-l">Sort</span>
-      <div class="seg" role="group" aria-labelledby="gx-sort-l">
+    <div class="gx-comps" id="gx-comps" role="group" aria-label="Competition"></div>
+    <div class="gx-controls__row">
+      <div class="seg gx-sort" role="group" aria-label="Sort">
         <button type="button" data-sort="rating" aria-pressed="true">Highest rated</button>
         <button type="button" data-sort="recent" aria-pressed="false">Most recent</button>
       </div>
-    </div>
-    <div class="field">
-      <label class="label" for="gx-comp">Competition</label>
-      <select class="input" id="gx-comp" name="comp"><option value="">All competitions</option></select>
-    </div>
-    <div class="field">
-      <label class="label" for="gx-label">Match type</label>
-      <select class="input" id="gx-label" name="label"><option value="">All match types</option></select>
-    </div>
-    <div class="field gx-f-dates">
-      <span class="label" id="gx-dates-l">Played between</span>
-      <div class="gx-dates" role="group" aria-labelledby="gx-dates-l">
-        <input class="input" type="date" id="gx-from" name="from" aria-label="From date" />
-        <span aria-hidden="true">–</span>
-        <input class="input" type="date" id="gx-to" name="to" aria-label="To date" />
+      <button type="button" class="gx-adv-toggle" id="gx-adv-toggle" aria-expanded="false" aria-controls="gx-adv">More filters</button>
+      <div class="gx-adv" id="gx-adv">
+        <div class="field">
+          <label class="label" for="gx-label">Match type</label>
+          <select class="input" id="gx-label" name="label"><option value="">All match types</option></select>
+        </div>
+        <div class="field gx-f-dates">
+          <span class="label" id="gx-dates-l">Played between</span>
+          <div class="gx-dates" role="group" aria-labelledby="gx-dates-l">
+            <input class="input" type="date" id="gx-from" name="from" aria-label="From date" />
+            <span aria-hidden="true">–</span>
+            <input class="input" type="date" id="gx-to" name="to" aria-label="To date" />
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -128,7 +141,6 @@
     <ul class="gx-chips" id="gx-chips" aria-label="Active filters"></ul>
     <button type="button" class="gx-clear" id="gx-clear">Clear all</button>
   </div>
-  <p class="gx-count" id="gx-count" role="status" aria-live="polite"></p>
   <div id="gx-results" aria-busy="true">
     <div class="state gx-loading" role="status"><p class="state__t">Loading matches</p><p>Fetching the season's ratings…</p></div>
   </div>
@@ -141,6 +153,7 @@
   <div class="gx-about__body">
     <p>Each completed match gets 1 to 5 stars from what happened in it: goals and shots on target, how long the score stayed close, and late goals, comebacks, equalisers, red cards and penalties. It measures entertainment, not football quality, and it is the same formula for every competition. xG is not part of the rating.</p>
     <p>A <span class="gx-partial-inline">partial</span> rating means an input was missing for that match and the rating uses what was available. Matches that were postponed, or where the sources disagree on the result, are listed without a rating.</p>
+    <p>Headlines such as “Six goals, three in stoppage time, and nobody won.” are written automatically from the recorded goals by fixed templates. Poster colours are the clubs’ colours and the bar along each poster shows who led, minute by minute. Neither affects a rating.</p>
     <p class="gx-meta-line" id="gx-meta-line">Rating method mer-1.0.0 · calibration cal-2025-v1 (2025/26, frozen).</p>
     <p class="gx-meta-line">Data: Understat and football-data.co.uk (domestic leagues), ESPN (Champions, Europa and Conference Leagues; qualifying rounds not included). Club crests are trademarks of their clubs; images via ESPN.</p>
   </div>

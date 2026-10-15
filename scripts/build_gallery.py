@@ -36,6 +36,8 @@ DEFAULT = "2026"
 METHOD, CALIBRATION = "mer-1.0.0", "cal-2025-v1"
 CRESTS_FILE = FB / "data" / "gallery" / "crests.json"   # written by scripts/fetch_club_crests.py
 gallery_pages.CRESTS = set(json.loads(CRESTS_FILE.read_text())) if CRESTS_FILE.exists() else set()   # the frozen M1 versions this page was built for
+COLOURS_FILE = Path(__file__).resolve().parent / "club_colours.csv"   # reviewed; scripts/build_club_colours.py proposes rows
+gallery_pages.load_paint(COLOURS_FILE)
 COMP_ORDER = ["EPL", "La_Liga", "Serie_A", "Bundesliga", "Ligue_1", "UCL", "UEL", "UECL"]
 COMP_SHORT = {"EPL": "PL", "La_Liga": "LL", "Serie_A": "SA", "Bundesliga": "BL", "Ligue_1": "L1",
               "UCL": "UCL", "UEL": "UEL", "UECL": "UECL"}
@@ -79,6 +81,8 @@ def export_season(season):
             "aet": sc["aet"] or None, "so": sc["shootout"], "fl": sc["first_leg"],
             "st": m["stars"], "sc": m["match_score"], "lb": labels,
             "p": m["quality"]["missing_inputs"] if m["quality"]["partial"] else None,
+            # goal list for the poster timeline (display only): side, minute, period
+            "g": " ".join(f'{g["side"]}{g["minute"]}.{g["period"]}' for g in sorted(m["stats"]["goals"], key=lambda g: (g["period"], g["minute"]))),
         })
     un = [{"k": m["match_key"], "u": gallery_pages.match_id(m["match_key"]), "c": m["competition"], "d": m["date"], "h": m["home"], "a": m["away"],
            "why": m["eligibility"].split(":", 1)[1]} for m in unrated]
@@ -97,6 +101,21 @@ def export_season(season):
         "clubs": dict(sorted({m[f"{sd}_club_id"]: m[f"{sd}_club"] for m in rated for sd in ("home", "away")}.items())),
         "crests": sorted(gallery_pages.CRESTS & {m[f"{sd}_club_id"] for m in rated + unrated for sd in ("home", "away")}),
     }
+    # the hero: the top complete rating (same order as the page: score, then newest, then id), with its headline
+    feat = sorted((r for r in rows if r["p"] is None), key=lambda r: (-r["sc"], tuple(-ord(ch) for ch in r["d"]), r["k"]))
+    if feat:
+        f = next(m for m in rated if m["match_key"] == feat[0]["k"])
+        head, dek = gallery_pages.story(f["home"], f["away"], f["score"]["home"], f["score"]["away"], f["stats"]["goals"],
+                                        f["score"]["aet"], f["score"]["shootout"])
+        out_meta["feature"] = {"k": f["match_key"], "head": head, "dek": dek}
+    club_ids = {m[f"{sd}_club_id"] for m in rated + unrated for sd in ("home", "away")}
+    out_meta["paint"] = {c: gallery_pages.PAINT[c] for c in sorted(club_ids) if c in gallery_pages.PAINT}
+    missing_paint = sorted(club_ids - set(gallery_pages.PAINT))
+    if missing_paint:
+        print(f"note: {len(missing_paint)} club(s) have no reviewed colour yet and get a neutral poster: {missing_paint[:5]}")
+    ins = json.loads((SRC / f"insights_{season}.json").read_text())["scopes"]["all"]["leaderboards"]["entertaining"]
+    out_meta["leaders"] = {"threshold": ins["threshold"], "n_qualifying": ins["n_qualifying"],
+                           "rows": [{k: r[k] for k in ("rank", "club_id", "name", "n", "value", "tied")} for r in ins["rows"][:5]]}
     doc = {"meta": out_meta, "matches": rows, "unrated": un}
     # guard: the export says exactly what the source says
     by_key = {m["match_key"]: m for m in rated}
@@ -142,7 +161,7 @@ def export_insights(season, rated):
     for sc in ins["scopes"].values():
         for c in sc["clubs"]:
             c["best"]["u"] = gallery_pages.match_id(c["best"]["k"])
-    m = dict(m, crests=sorted(gallery_pages.CRESTS))
+    m = dict(m, crests=sorted(gallery_pages.CRESTS), paint=gallery_pages.PAINT)
     rank = {"meta": m, "scopes": {k: {kk: v[kk] for kk in ("competition", "rated", "partial", "unrated", "lists")}
                                   for k, v in ins["scopes"].items()}}
     club = {"meta": m, "scopes": {k: {kk: v[kk] for kk in ("competition", "rated", "partial", "unrated", "clubs",
@@ -268,7 +287,7 @@ def insights_page(kind):
 <script src="/football/js/gallery-insights.js" defer></script>
 <script src="/football/js/gallery-status.js" defer></script>"""
     doc = (fb_chrome.head(path, title, desc, h1, "gallery.png", ld, og_type="website", crumb_name=h1.capitalize())
-           + "\n<body>\n" + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(DATA_DATE)
+           + '\n<body class="gx-page">\n' + fb_chrome.header(path) + "\n\n" + body + "\n\n" + fb_chrome.footer(DATA_DATE)
            + "\n</body>\n</html>\n")
     write_if_changed(FB / "gallery" / f"{kind}.html", doc)
     print(f"football/gallery/{kind}.html")
@@ -284,58 +303,106 @@ LD = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Foot
       "author": {"@id": "https://iyush.dev/#person"}}
 season_opts = "".join(f'<option value="{m["season"]}"{" selected" if m["season"] == DEFAULT else ""}>'
                       f'{esc(m["season_label"])}{" · archive" if m["season"] != DEFAULT else ""}</option>' for m in metas)
+WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+MONTHS3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-body = f"""<main id="main" class="gx">
-<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li aria-current="page">Match Gallery</li></ol></nav>
-{subnav("matches")}
 
-<section class="gx-hero wrap" aria-labelledby="gx-title">
-  <div class="gx-hero__text">
-    <p class="eyebrow">Match Gallery <b>·</b> <span id="gx-eyebrow-season">{esc(cur["season_label"])}</span></p>
-    {fresh_line()}
-    <h1 id="gx-title">Football Match Gallery</h1>
-    <p class="lede">Every match tells a story. Find the ones worth watching.</p>
+def _short_date(d, weekday=False):
+    dt = datetime.fromisoformat(d)
+    return (f"{WEEKDAYS[dt.weekday()]} " if weekday else "") + f"{dt.day} {MONTHS3[dt.month - 1]} {dt.year}"
+
+
+def stars_html(st):
+    return (f'<span class="gx-stars" role="img" aria-label="{st:.1f} out of 5 stars">'
+            f'<span class="gx-stars__on" style="width:{st / 5 * 100:g}%"></span></span>')
+
+
+def hero_html(meta, rated):
+    """The match of the season, server-rendered for the default season (football/js/gallery.js renders the same
+    markup when the season changes). Headline and dek come from meta.feature (fixed templates over goal events)."""
+    f = meta.get("feature")
+    if not f:
+        return '<section class="gx-hero2 wrap" id="gx-hero" hidden></section>'
+    r = next(m for m in rated if m["match_key"] == f["k"])
+    sc, mid = r["score"], gallery_pages.match_id(r["match_key"])
+    fh, lh, fa, la = gallery_pages.pair_paint(r["home_club_id"], r["away_club_id"])
+    so = sc["shootout"]
+    hw, aw = (so[0] > so[1], so[1] > so[0]) if so else (sc["home"] > sc["away"], sc["away"] > sc["home"])
+    notes = gallery_pages.score_notes(r)
+    mins = " · ".join(gallery_pages.minute_label(g["period"], g["minute"]) for g in sorted(r["stats"]["goals"], key=lambda g: (g["period"], g["minute"])))
+    labels = sorted((x["label"] for x in r["labels"]), key=LABEL_ORDER.index)
+    kicker = "Match of the season so far" if meta["season"] == DEFAULT else "Match of the season"
+    rank_txt = f"No. 1 of {meta['rated']} rated matches"
+    side = lambda cid, name, win: (f'<span class="gx-poster__side{" is-win" if win else ""}">{gallery_pages.crest(cid, name, 128, "gx-poster__crest")}'
+                                   f'<span class="gx-poster__name">{esc(name)}</span></span>')
+    return f"""<section class="gx-hero2 wrap" id="gx-hero" aria-labelledby="gx-hero-h" data-k="{esc(r['match_key'])}">
+  <div class="gx-hero2__text">
+    <p class="gx-kicker"><span class="gx-pill">{kicker}</span><span>{esc(r['competition_name'])} · {_short_date(r['date'], True)}</span></p>
+    <h2 class="gx-hero2__h" id="gx-hero-h">{esc(f['head'])}</h2>
+    {f'<p class="gx-hero2__dek">{esc(f["dek"])}</p>' if f['dek'] else ''}
+    <div class="gx-verdict"><span class="gx-verdict__n num" aria-hidden="true">{r['stars']:.1f}</span><div>{stars_html(r['stars'])}<p class="gx-verdict__t">Match score {r['match_score']:.1f} out of 100 · {rank_txt}</p></div></div>
+    {('<ul class="gx-labels" aria-label="Match types">' + ''.join(f'<li class="gx-tag">{esc(x)}</li>' for x in labels) + '</ul>') if labels else ''}
+    <div class="gx-cta"><a class="gx-btn gx-btn--solid" href="/football/gallery/match/{mid}">Why it rated {r['stars']:.1f}★ <span aria-hidden="true">→</span></a><a class="gx-btn" href="#gx-all">Browse all {meta['rated']} matches</a></div>
   </div>
+  <a class="gx-poster" href="/football/gallery/match/{mid}" style="--fh:{fh};--fa:{fa}" aria-label="{esc(r['home'])} {sc['home']}–{sc['away']} {esc(r['away'])}: open the match page">
+    <span class="gx-poster__top"><span class="gx-dchip">{esc(r['competition_name'])}</span><span class="gx-dchip">{_short_date(r['date'])}</span></span>
+    <span class="gx-poster__match">{side(r['home_club_id'], r['home'], hw)}<span class="gx-poster__score num">{sc['home']}<span aria-hidden="true">–</span>{sc['away']}</span>{side(r['away_club_id'], r['away'], aw)}</span>
+    {''.join(f'<span class="gx-poster__note">{esc(n)}</span>' for n in notes)}
+    <span class="gx-poster__strip"><span class="gx-poster__cap"><span>Who led, minute by minute</span><span class="num">{esc(mins) or 'No goals'}</span></span>{gallery_pages.worm_svg(r['stats']['goals'], sc['aet'], lh, la)}</span>
+  </a>
+</section>""".replace(' loading="lazy"', '')   # the hero poster is the first screen: load its crests at once
+
+
+cur_rated = next(e[1] for e in exports if e[0]["season"] == DEFAULT)
+body = f"""<main id="main" class="gx gx2">
+<nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/football">Home</a></li><li aria-current="page">Match Gallery</li></ol></nav>
+<div class="gx-bar wrap">
+  {subnav("matches").replace(' wrap"', '"')}
   <div class="gx-season field">
     <label class="label" for="gx-season">Season</label>
     <select class="input" id="gx-season" name="season">{season_opts}</select>
   </div>
-</section>
-
-<section class="gx-featured wrap" aria-labelledby="gx-feat-h">
-  <div class="gx-sechead">
-    <h2 id="gx-feat-h" class="gx-h2">Top of the season</h2>
-    <p class="gx-sub" id="gx-feat-sub">The highest-rated matches so far.</p>
+</div>
+<header class="gx-head wrap">
+  <h1 id="gx-title">Football Match Gallery</h1>
+  <div class="gx-head__side">
+    <p class="lede">Every match tells a story. Find the ones worth watching.</p>
+    {fresh_line()}
   </div>
-  <ol class="gx-feat" id="gx-feat" aria-live="polite"></ol>
-</section>
+</header>
 
-<section class="gx-browse wrap" aria-labelledby="gx-all-h">
+{hero_html(cur, cur_rated)}
+
+<div class="gx-shelves" id="gx-shelves" aria-busy="true"></div>
+
+<section class="gx-leaders wrap" id="gx-leaders" aria-labelledby="gx-leaders-h" hidden></section>
+
+<section class="gx-browse wrap" id="gx-all" aria-labelledby="gx-all-h">
   <div class="gx-sechead">
-    <h2 id="gx-all-h" class="gx-h2">All matches</h2>
+    <h2 id="gx-all-h" class="gx-h2">Every match</h2>
+    <p class="gx-count" id="gx-count" role="status" aria-live="polite"></p>
   </div>
   <form class="gx-controls" id="gx-controls" aria-label="Sort and filter matches" novalidate>
-    <div class="field gx-f-sort">
-      <span class="label" id="gx-sort-l">Sort</span>
-      <div class="seg" role="group" aria-labelledby="gx-sort-l">
+    <div class="gx-comps" id="gx-comps" role="group" aria-label="Competition"></div>
+    <div class="gx-controls__row">
+      <div class="seg gx-sort" role="group" aria-label="Sort">
         <button type="button" data-sort="rating" aria-pressed="true">Highest rated</button>
         <button type="button" data-sort="recent" aria-pressed="false">Most recent</button>
       </div>
-    </div>
-    <div class="field">
-      <label class="label" for="gx-comp">Competition</label>
-      <select class="input" id="gx-comp" name="comp"><option value="">All competitions</option></select>
-    </div>
-    <div class="field">
-      <label class="label" for="gx-label">Match type</label>
-      <select class="input" id="gx-label" name="label"><option value="">All match types</option></select>
-    </div>
-    <div class="field gx-f-dates">
-      <span class="label" id="gx-dates-l">Played between</span>
-      <div class="gx-dates" role="group" aria-labelledby="gx-dates-l">
-        <input class="input" type="date" id="gx-from" name="from" aria-label="From date" />
-        <span aria-hidden="true">–</span>
-        <input class="input" type="date" id="gx-to" name="to" aria-label="To date" />
+      <button type="button" class="gx-adv-toggle" id="gx-adv-toggle" aria-expanded="false" aria-controls="gx-adv">More filters</button>
+      <div class="gx-adv" id="gx-adv">
+        <div class="field">
+          <label class="label" for="gx-label">Match type</label>
+          <select class="input" id="gx-label" name="label"><option value="">All match types</option></select>
+        </div>
+        <div class="field gx-f-dates">
+          <span class="label" id="gx-dates-l">Played between</span>
+          <div class="gx-dates" role="group" aria-labelledby="gx-dates-l">
+            <input class="input" type="date" id="gx-from" name="from" aria-label="From date" />
+            <span aria-hidden="true">–</span>
+            <input class="input" type="date" id="gx-to" name="to" aria-label="To date" />
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -343,7 +410,6 @@ body = f"""<main id="main" class="gx">
     <ul class="gx-chips" id="gx-chips" aria-label="Active filters"></ul>
     <button type="button" class="gx-clear" id="gx-clear">Clear all</button>
   </div>
-  <p class="gx-count" id="gx-count" role="status" aria-live="polite"></p>
   <div id="gx-results" aria-busy="true">
     <div class="state gx-loading" role="status"><p class="state__t">Loading matches</p><p>Fetching the season's ratings…</p></div>
   </div>
@@ -356,6 +422,7 @@ body = f"""<main id="main" class="gx">
   <div class="gx-about__body">
     <p>Each completed match gets 1 to 5 stars from what happened in it: goals and shots on target, how long the score stayed close, and late goals, comebacks, equalisers, red cards and penalties. It measures entertainment, not football quality, and it is the same formula for every competition. xG is not part of the rating.</p>
     <p>A <span class="gx-partial-inline">partial</span> rating means an input was missing for that match and the rating uses what was available. Matches that were postponed, or where the sources disagree on the result, are listed without a rating.</p>
+    <p>Headlines such as “Six goals, three in stoppage time, and nobody won.” are written automatically from the recorded goals by fixed templates. Poster colours are the clubs’ colours and the bar along each poster shows who led, minute by minute. Neither affects a rating.</p>
     <p class="gx-meta-line" id="gx-meta-line">Rating method {METHOD} · calibration {CALIBRATION} (2025/26, frozen).</p>
     <p class="gx-meta-line">Data: Understat and football-data.co.uk (domestic leagues), ESPN (Champions, Europa and Conference Leagues; qualifying rounds not included). {gallery_pages.CREST_NOTE}</p>
   </div>
@@ -368,6 +435,6 @@ body = f"""<main id="main" class="gx">
 updated = DATA_DATE
 doc = (fb_chrome.head(PATH, "Football Match Gallery — The Season's Most Entertaining Matches", DESC,
                       "Football Match Gallery", "gallery.png", LD, og_type="website")
-       + "\n<body>\n" + fb_chrome.header(PATH) + "\n\n" + body + "\n\n" + fb_chrome.footer(updated) + "\n</body>\n</html>\n")
+       + '\n<body class="gx-page">\n' + fb_chrome.header(PATH) + "\n\n" + body + "\n\n" + fb_chrome.footer(updated) + "\n</body>\n</html>\n")
 write_if_changed(FB / "gallery" / "index.html", doc)
 print("football/gallery/index.html")

@@ -17,6 +17,7 @@ import gallery_pages  # noqa: E402
 
 _crests = Path(__file__).resolve().parent.parent / "football" / "data" / "gallery" / "crests.json"
 gallery_pages.CRESTS = set(json.loads(_crests.read_text())) if _crests.exists() else set()
+gallery_pages.load_paint(Path(__file__).resolve().parent / "club_colours.csv")   # posters are part of the page
 
 ROOT = Path(__file__).resolve().parent.parent
 argv = sys.argv[1:]
@@ -118,6 +119,32 @@ if EXTRA:
     rules = json.loads((SRC / f"ratings_{r['season']}.json").read_text())["meta"]["label_rules"]
     check_rated(r, gallery_pages.render_match(r, rules)[1], "extra record")
     n += 1
+# headline templates (fixed wording over stored goal events): known cases, plus the hero matches the season export
+G = lambda side, minute, period: {"side": side, "minute": minute, "period": period}
+STORIES = [
+    (("Levante", "Sevilla", 3, 3, [G("a", 13, 1), G("a", 54, 2), G("h", 57, 2), G("h", 92, 2), G("a", 95, 2), G("h", 100, 2)]),
+     ("Six goals, three in stoppage time, and nobody won.", "Sevilla were 2–0 up after 54′. Levante equalised at 90+10′.")),
+    (("A", "B", 0, 0, []), ("A goalless draw.", "")),
+    (("A", "B", 1, 0, [G("h", 89, 2)]), ("One goal settled it, at 89′.", "")),
+    (("A", "B", 5, 1, [G("h", 10, 1), G("h", 20, 1), G("a", 30, 1), G("h", 50, 2), G("h", 60, 2), G("h", 70, 2)]), ("A won by four goals.", "")),
+    (("A", "B", 2, 0, [G("h", 10, 1), G("h", 20, 1)]), ("Two goals, both for A.", "")),
+    (("A", "B", 2, 3, [G("h", 5, 1), G("h", 20, 1), G("a", 60, 2), G("a", 75, 2), G("a", 93, 2)]),
+     ("Five goals, and B won it at 90+3′.", "A were 2–0 up after 20′.")),
+]
+for args, want in STORIES:
+    need(gallery_pages.story(*args) == want, "story", f"{args[:4]} -> {gallery_pages.story(*args)}, expected {want}")
+for season in ("2026", "2025"):
+    meta = json.loads((ROOT / "football" / "data" / "gallery" / f"{season}.json").read_text())["meta"]
+    src = {m["match_key"]: m for m in json.loads((SRC / f"ratings_{season}.json").read_text())["matches"]}
+    f = meta.get("feature")
+    if f:
+        r = src[f["k"]]
+        need((f["head"], f["dek"]) == gallery_pages.story(r["home"], r["away"], r["score"]["home"], r["score"]["away"],
+                                                         r["stats"]["goals"], r["score"]["aet"], r["score"]["shootout"]),
+             f"{season} hero", "headline does not match its record")
+        need(not r["quality"]["partial"], f"{season} hero", "a partial rating is featured")
+        need(r["match_score"] == max(m["match_score"] for m in src.values() if not m["quality"]["partial"]), f"{season} hero",
+             "the hero is not the top complete rating")
 if problems:
     print("\n".join(problems[:40]))
     sys.exit(f"check_gallery_pages: {len(problems)} problems in {n} pages")
