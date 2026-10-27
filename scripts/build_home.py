@@ -209,9 +209,11 @@ if __name__ == "__main__":
             sys.exit(f"marker gen:{name} missing in {page}")
         s = pat.sub(lambda m: m.group(1) + "\n" + fn() + "\n" + m.group(3), s)
     page.write_text(s)
-    # footer "Data updated" on every /football page
+    # footer "Data updated" on every /football page (gallery pages carry their own refresh date)
     d = footer_date()
     for f in FB.rglob("*.html"):
+        if (FB / "gallery") in f.parents:
+            continue
         t = f.read_text()
         t2 = re.sub(r"<p>Data updated: [^<]*</p>", f"<p>Data updated: {d}</p>", t)
         if t2 != t:
